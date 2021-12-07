@@ -1,5 +1,9 @@
 package com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP
 
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.service.autofill.UserData
 import android.text.TextUtils
@@ -16,6 +20,7 @@ import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +29,7 @@ import kotlinx.coroutines.withContext
 class SignUP : Fragment() {
 
     lateinit var binding: FragmentSignUpBinding
+    private lateinit var imageUrl : Uri
 
 
    // val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -52,17 +58,76 @@ class SignUP : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-      //  val fireBaseAuth =FirebaseAuthentication()
-
-        //fireBaseAuth.registerUser("basil@hotmail.com","123456")
-
-
         binding.btnSignUpXml.setOnClickListener {
 
             SignUpFirebaseAuth()
         }
 
+        binding.userImageXml.setOnClickListener {
+
+            selectImage()
+        }
+
     }
+
+
+
+
+    private fun selectImage(){
+
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(intent,100)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+
+            imageUrl = data?.data!!
+
+            binding.userImageXml.setImageURI(imageUrl)
+
+            //*******************************************************
+
+        }
+
+    }
+
+    fun upLoadImage(uId:String){
+
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("Uploading File ...")
+        progressDialog.setCancelable(false)
+
+        progressDialog.show()
+
+        //-----------UID------------------------
+
+        val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${uId}")
+
+        storageReference.putFile(imageUrl)
+            .addOnSuccessListener {
+                //   userImage.setImageURI(null)
+                Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+
+                if (progressDialog.isShowing)progressDialog.dismiss()
+
+
+
+            }.addOnFailureListener{
+                if (progressDialog.isShowing)progressDialog.dismiss()
+                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
+
+
 
     private fun SignUpFirebaseAuth() {
         when {
@@ -165,6 +230,8 @@ class SignUP : Fragment() {
             userRef.document("$userId").set(user).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
+                        upLoadImage("${userId}")
+
 
 
                         Toast.makeText(context, "is Successful fire store", Toast.LENGTH_LONG).show()
