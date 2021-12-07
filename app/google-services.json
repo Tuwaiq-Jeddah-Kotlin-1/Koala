@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236549969450",
+    "project_id": "final-project-kotlin-bootcamp",
+    "storage_bucket": "final-project-kotlin-bootcamp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236549969450:android:1a505c8673b29af3111553",
+        "android_client_info": {
+          "package_name": "com.albasil.finalprojectkotlinbootcamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236549969450-icna89tje1slu09ue6cipp47sqed0i64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfF02mffigQLVpwLzVjWqswjZi5JrK7a0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236549969450-icna89tje1slu09ue6cipp47sqed0i64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

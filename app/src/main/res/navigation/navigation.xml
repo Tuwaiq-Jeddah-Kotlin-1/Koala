@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/sign_in">
+    <fragment
+        android:id="@+id/sign_in"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP.Sign_in"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_sign_in_to_signUP"
+            app:destination="@id/signUP" />
+        <action
+            android:id="@+id/action_sign_in_to_setting"
+            app:destination="@id/setting" />
+        <action
+            android:id="@+id/action_sign_in_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUP"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP.SignUP"
+        android:label="fragment_sign_u_p"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUP_to_setting"
+            app:destination="@id/setting" />
+    </fragment>
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.Setting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.albasil.finalprojectkotlinbootcamp.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
