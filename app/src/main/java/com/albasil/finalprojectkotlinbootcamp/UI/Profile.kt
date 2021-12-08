@@ -1,4 +1,4 @@
-package com.albasil.finalprojectkotlinbootcamp
+package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.app.Activity
 import android.app.ProgressDialog
@@ -14,9 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File

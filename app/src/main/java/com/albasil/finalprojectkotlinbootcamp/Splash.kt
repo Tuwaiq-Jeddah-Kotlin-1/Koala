@@ -10,21 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP.Sign_in
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-/*
-class Splash : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-
-        supportActionBar?.hide()
-        Handler().postDelayed({
-            val i = Intent(this, Controller::class.java)
-            startActivity(i)
-            finish()
-        }, 1000)
-    }
-    }*/
-
 class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

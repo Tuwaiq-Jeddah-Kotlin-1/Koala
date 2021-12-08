@@ -51,7 +51,7 @@ class Sign_in : Fragment() {
         isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
 
         if (isRemembered) {
-            findNavController().navigate(R.id.action_sign_in_to_profile)
+            findNavController().navigate(R.id.action_sign_in_to_addArticle)
         }
 
 
@@ -80,8 +80,7 @@ class Sign_in : Fragment() {
 
         binding.newAccountXml.setOnClickListener {
 
-            findNavController().navigate(R.id.action_sign_in_to_signUP)
-
+            findNavController().navigate(R.id.profile)
 
         }
 

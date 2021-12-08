@@ -18,6 +18,12 @@
         <action
             android:id="@+id/action_sign_in_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_sign_in_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_sign_in_to_addArticle"
+            app:destination="@id/addArticle" />
     </fragment>
     <fragment
         android:id="@+id/signUP"
@@ -27,6 +33,9 @@
         <action
             android:id="@+id/action_signUP_to_setting"
             app:destination="@id/setting" />
+        <action
+            android:id="@+id/action_signUP_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -35,11 +44,20 @@
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.albasil.finalprojectkotlinbootcamp.Profile"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profile_to_sign_in"
             app:destination="@id/sign_in" />
     </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/addArticle"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.AddArticle"
+        android:label="AddArticle" />
 </navigation>

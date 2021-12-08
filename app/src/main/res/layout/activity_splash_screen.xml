@@ -7,9 +7,9 @@
     tools:context=".Controller">
 
     <ScrollView
-        android:layout_above="@+id/bottom_nav_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav_view">
 
         <fragment
             android:id="@+id/container_fragment"
@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:defaultNavHost="true"
+
             app:navGraph="@navigation/navigation" />
 
     </ScrollView>
@@ -27,6 +28,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="selected"
-        app:menu="@menu/mymenu" />
+        app:menu="@menu/bottom_bar" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/bottom_nav_view"
+
+        android:src="@drawable/ic_add_24" />
 
 </RelativeLayout>

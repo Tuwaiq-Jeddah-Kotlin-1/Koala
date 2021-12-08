@@ -9,17 +9,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-/*
-class MainActivity : AppCompatActivity() {
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.fragment_sign_in)
-    }
-}
-*/
-
-
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +26,15 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.sign_in -> {
                     bottomNavView.visibility = View.GONE
+                    //bottomNavView.visibility = View.VISIBLE
                 }
                 R.id.signUP -> {
                     bottomNavView.visibility = View.GONE
                 }
+              /*  R.id.addArticle ->{
+                    bottomNavView.visibility = View.GONE
+
+                }*/
                 else -> {
                     bottomNavView.visibility = View.VISIBLE
                 }
