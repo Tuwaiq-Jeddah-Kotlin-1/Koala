@@ -51,7 +51,7 @@ class Sign_in : Fragment() {
         isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
 
         if (isRemembered) {
-            findNavController().navigate(R.id.action_sign_in_to_addArticle)
+            findNavController().navigate(R.id.action_sign_in_to_homePage)
         }
 
 
