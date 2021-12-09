@@ -52,26 +52,7 @@ class Profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //tvProfileShow
-        binding.tvProfileShow.setOnClickListener {
 
-
-            preferences =
-                this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
-            val emailPref = preferences.getString("EMAIL", "")
-           // userEmail.text = emailPref
-            val passwordPref = preferences.getString("PASSWORD", "")
-
-
-
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.clear()
-                editor.apply()
-                findNavController().navigate(R.id.action_profile_to_sign_in)
-
-
-
-        }
 
 
 

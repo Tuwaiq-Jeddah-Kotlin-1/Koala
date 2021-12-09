@@ -80,7 +80,7 @@ class Sign_in : Fragment() {
 
         binding.newAccountXml.setOnClickListener {
 
-            findNavController().navigate(R.id.profile)
+            findNavController().navigate(R.id.action_sign_in_to_signUP)
 
         }
 

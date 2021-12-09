@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_sign_in_to_addArticle"
             app:destination="@id/addArticle" />
+        <action
+            android:id="@+id/action_sign_in_to_apiFragment"
+            app:destination="@id/apiFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUP"
@@ -41,16 +44,16 @@
         android:id="@+id/setting"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.Setting"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_setting_to_sign_in"
+            app:destination="@id/sign_in" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profile_to_sign_in"
-            app:destination="@id/sign_in" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/homePage"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.HomePage"
@@ -60,4 +63,9 @@
         android:id="@+id/addArticle"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.AddArticle"
         android:label="AddArticle" />
+    <fragment
+        android:id="@+id/apiFragment"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.ApiFragment"
+        android:label="fragment_api"
+        tools:layout="@layout/fragment_api" />
 </navigation>

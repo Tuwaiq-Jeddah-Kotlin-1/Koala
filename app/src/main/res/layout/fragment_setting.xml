@@ -305,7 +305,7 @@
                 tools:ignore="MissingConstraints">
 
                 <Button
-                    android:id="@+id/buttonLogOut"
+                    android:id="@+id/buttonLogOut_xml"
                     android:layout_width="match_parent"
 
                     android:layout_height="match_parent"

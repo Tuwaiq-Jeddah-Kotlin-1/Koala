@@ -178,7 +178,7 @@ class SignUP : Fragment() {
                         "${binding.etUserNameXml.text.toString()}",
                         "${binding.etPhoneXml.text.toString()}")
 
-                    findNavController().navigate(R.id.action_signUP_to_setting)
+                    findNavController().navigate(R.id.action_signUP_to_homePage)
 
 
 

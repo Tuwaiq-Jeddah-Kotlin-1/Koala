@@ -3,7 +3,7 @@
 
 
     <item android:title="Home"
-        android:id="@+id/homeFragment"
+        android:id="@+id/homePage"
         android:icon="@drawable/ic_home"/>
 
     <item android:title="API"
@@ -11,12 +11,15 @@
         android:icon="@drawable/ic_api"/>
 
 
+    <item android:title="Add Article"
+        android:id="@+id/addArticle"
+        android:icon="@drawable/ic_add_24"/>
 
     <item android:title="profile"
-        android:id="@+id/profileFragment"
+        android:id="@+id/profile"
         android:icon="@drawable/ic_person"/>
 
     <item android:title="Settings"
-        android:id="@+id/settingsFragment"
+        android:id="@+id/setting"
         android:icon="@drawable/ic_table_rows"/>
 </menu>
