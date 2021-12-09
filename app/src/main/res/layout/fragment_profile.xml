@@ -61,16 +61,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Follow" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_arrow_down" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:backgroundTint="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15sp"
+                android:backgroundTint="@android:color/darker_gray"
                 android:elevation="30dp"
+                android:visibility="visible"
                 app:cardCornerRadius="16sp">
 
                 <LinearLayout
@@ -240,7 +247,7 @@
                             app:layout_constraintStart_toEndOf="@+id/tvEditExperienceShow"
                             app:layout_constraintTop_toTopOf="@+id/tvEditExperienceShow"
                             app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/ic_person" />
+                            app:srcCompat="@drawable/ic_arrow_down" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout

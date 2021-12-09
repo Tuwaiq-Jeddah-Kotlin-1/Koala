@@ -34,17 +34,13 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         val article :Article = articleList[position]
 
         holder.titleArticle.text = article.title
-        holder.date.text = article.date//imageItem_xml
-     //  holder.imageArticle.setImageBitmap()
-        // holder.imageArticle =
+        holder.date.text = article.date
 
 
 
-
-        val imageName = "2CdMi1CrYWhyOdCFNkXB06tViA63Kotlin2021-12-08-21-50-98"
-
+        //-------------------------------------------------------------------------
         val storageRef= FirebaseStorage.getInstance().reference
-            .child("/imagesArticle/$imageName")
+            .child("/imagesArticle/${article.articleImage.toString()}")
 
         val localFile = File.createTempFile("tempImage","jpg")
 
@@ -64,6 +60,8 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
         }
+
+        //------------------------------------------------------------------------------------
 
     }
 
