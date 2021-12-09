@@ -3,6 +3,7 @@ package com.albasil.finalprojectkotlinbootcamp.data
 data class Article(
 
 
+    var userName :String ="",
     var title :String = "",
     var category: String = "",
     var date :String = "",

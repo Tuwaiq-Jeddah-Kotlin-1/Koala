@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.google.firebase.firestore.*
 
 
@@ -18,6 +19,7 @@ class HomePage : Fragment() {
 
     private lateinit var recyclerView :RecyclerView
     private lateinit var articleList :ArrayList<Article>
+    private lateinit var userList :ArrayList<Users>
     private lateinit var articleAdapter :ArticleAdapter
     private lateinit var fireStore :FirebaseFirestore
 
@@ -40,12 +42,14 @@ class HomePage : Fragment() {
 
 
         articleList = arrayListOf()
+        userList = arrayListOf()
 
         articleAdapter = ArticleAdapter(articleList)
 
         recyclerView.adapter = articleAdapter
 
         EventChangeListener()
+       // EventChangeUserName()
 
 
     }
@@ -85,7 +89,7 @@ class HomePage : Fragment() {
 
     }
 
-    /*
+
     private fun EventChangeUserName(){
 
         fireStore = FirebaseFirestore.getInstance()
@@ -101,7 +105,7 @@ class HomePage : Fragment() {
                     for (dc : DocumentChange in value?.documentChanges!!){
 
                         if (dc.type == DocumentChange.Type.ADDED){
-                            articleList.add(dc.document.toObject(Article::class.java))
+                            userList.add(dc.document.toObject(Users::class.java))
                         }
                     }
 
@@ -119,7 +123,6 @@ class HomePage : Fragment() {
 
 
     }
-*/
 
 
 

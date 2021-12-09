@@ -22,6 +22,7 @@ import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentAddArticleBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -39,6 +40,9 @@ class AddArticle : Fragment() {
     val userId = FirebaseAuth.getInstance().currentUser?.uid
 
 
+     var userNameGlobl:String?=null
+
+
     var categorySelected:String?=null
 
     // Date  object
@@ -51,6 +55,8 @@ class AddArticle : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        getUserName()
 
         binding = FragmentAddArticleBinding.inflate(inflater, container, false)
 
@@ -87,6 +93,7 @@ class AddArticle : Fragment() {
 
         binding.btnAddArticleXml.setOnClickListener {
 
+            Toast.makeText(context,"Name USER IS ${userNameGlobl.toString()}",Toast.LENGTH_SHORT).show()
             checkFields()
 
 
@@ -151,6 +158,7 @@ class AddArticle : Fragment() {
 
 
         val article =Article()
+       article.userName =userNameGlobl.toString()
         article.category = category.toString()
         article.userId = userId.toString()
         article.date = formatted.toString()
@@ -207,6 +215,40 @@ class AddArticle : Fragment() {
             }
         }
     }
+
+
+    fun getUserName() = CoroutineScope(Dispatchers.IO).launch {
+
+        val uId = FirebaseAuth.getInstance().currentUser!!.uid
+        try {
+            //coroutine
+            val db = FirebaseFirestore.getInstance()
+            db.collection("Users").document("$uId")
+                .get().addOnCompleteListener {
+                    it
+                    if (it.getResult()?.exists()!!) {
+                        //+++++++++++++++++++++++++++++++++++++++++
+                        var userName = it.getResult()!!.getString("userNamae")
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                        userNameGlobl = userName.toString()
+                        Log.e("error \n", "name $userName   email $userName  //// $userName")
+                    } else {
+                        Log.e("error \n", "errooooooorr")
+                    }
+
+                }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
+                Log.e("FUNCTION createUserFirestore", "${e.message}")
+            }
+        }
+
+
+    }
+
 
 
 

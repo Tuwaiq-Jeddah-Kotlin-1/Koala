@@ -14,8 +14,14 @@ import coil.load
 
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
@@ -32,10 +38,19 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
 
-        val article :Article = articleList[position]
+       /* val user :Users = userList[position]
 
+        holder.userName.text = user.userNamae*/
+
+
+        val article :Article = articleList[position]
         holder.titleArticle.text = article.title
         holder.date.text = article.date
+
+        holder.userName.text = article.userName
+
+
+
 
 
         //-------------------------------------------------------------------------
@@ -43,16 +58,10 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
             .child("/imagesArticle/${article.articleImage.toString()}")
 
         val localFile = File.createTempFile("tempImage","jpg")
-
         storageRef.getFile(localFile).addOnSuccessListener {
-
-
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
             holder.imageArticle.load(bitmap)
-
-            Log.d("Tag ","https://firebasestorage.googleapis.com/v0/b/final-project-kotlin-bootcamp.appspot.com/o/imagesArticle%2F${article.articleImage.toString()}?alt=media&token=17a7fbb0-29df-4220-973a-5acb5040a0a5")
-        //    holder.imageArticle.setImageBitmap(bitmap)
 
 
         }.addOnFailureListener{
@@ -75,12 +84,15 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
    public class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView) {
 
        val titleArticle :TextView =itemView.findViewById(R.id.tvTitle_xml)
+       val userName :TextView =itemView.findViewById(R.id.tvUserName_xml)
        val date :TextView =itemView.findViewById(R.id.tvDateItem_xml)
        val imageArticle :ImageView =itemView.findViewById(R.id.imageItem_xml)
 
 
 
     }
+
+
 
 }
 
