@@ -58,7 +58,11 @@
         android:id="@+id/homePage"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.HomePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_articleInformation"
+            app:destination="@id/articleInformation" />
+    </fragment>
     <fragment
         android:id="@+id/addArticle"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.AddArticle"
@@ -68,4 +72,14 @@
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.ApiFragment"
         android:label="fragment_api"
         tools:layout="@layout/fragment_api" />
+    <fragment
+        android:id="@+id/articleInformation"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation"
+        android:label="fragment_article_information"
+        tools:layout="@layout/fragment_article_information" />
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.UserProfile"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

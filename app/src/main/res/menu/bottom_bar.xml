@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_home"/>
 
     <item android:title="API"
-        android:id="@+id/apiFragment"
+        android:id="@+id/userProfile"
         android:icon="@drawable/ic_api"/>
 
 

@@ -11,18 +11,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation
+
+
 
 class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
 
@@ -43,11 +40,44 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.userName.text = user.userNamae*/
 
 
-        val article :Article = articleList[position]
+        val article= articleList[position]
         holder.titleArticle.text = article.title
         holder.date.text = article.date
 
         holder.userName.text = article.userName
+
+
+        holder.itemView.setOnClickListener { view->
+
+            val activity:AppCompatActivity = view.context as AppCompatActivity
+            val bundle = Bundle()
+
+            val fragment = ArticleInformation.newInstance()
+            fragment.arguments = bundle
+            bundle.putParcelable("taskKey",article)
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.container_fragment,fragment)
+                //.addToBackStack("Test")
+                .commit()
+        }
+
+
+
+       /* holder.titleArticle.setOnClickListener { view->
+
+            //findNavController().navigate(R.id.action_sign_in_to_signUP)
+
+
+            val activity:AppCompatActivity = view.context as AppCompatActivity
+            val bundle = Bundle()
+
+            val fragment = ArticleInformation.newInstance()
+            fragment.arguments = bundle
+            bundle.putParcelable("taskKey",article)
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.container_fragment,fragment)
+                .addToBackStack("Test").commit()
+        }*/
 
 
 
@@ -81,7 +111,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
 
-   public class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView) {
+   public class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
 
        val titleArticle :TextView =itemView.findViewById(R.id.tvTitle_xml)
        val userName :TextView =itemView.findViewById(R.id.tvUserName_xml)
@@ -90,7 +120,29 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
 
-    }
+
+
+       init {
+           itemView.setOnClickListener(this)
+       }
+      override fun onClick(v: View?) {
+
+          imageArticle.setOnClickListener {
+
+
+
+          }
+
+          Toast.makeText(itemView.context,"Name ${userName.text.toString()}",Toast.LENGTH_SHORT).show()
+           Toast.makeText(itemView.context,"Title ${titleArticle.text.toString()}",Toast.LENGTH_SHORT).show()
+
+
+       }
+
+
+
+
+   }
 
 
 
