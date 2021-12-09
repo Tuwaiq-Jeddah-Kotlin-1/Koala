@@ -20,5 +20,5 @@ data class Users(
     var userPhone: String = "",
     var creationAccount: String = "${formatted.toString()}",
     var followers :Int =0,
-    var following :Int =0
+    var following :Int =0,
 )

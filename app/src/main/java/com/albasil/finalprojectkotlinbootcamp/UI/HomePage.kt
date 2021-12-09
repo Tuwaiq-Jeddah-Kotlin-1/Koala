@@ -58,7 +58,6 @@ class HomePage : Fragment() {
             .addSnapshotListener(object :EventListener<QuerySnapshot>{
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
-
                     if (error != null){
                         Log.e("Firestore",error.message.toString())
                         return
@@ -86,6 +85,41 @@ class HomePage : Fragment() {
 
     }
 
+    /*
+    private fun EventChangeUserName(){
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Users")
+            .addSnapshotListener(object :EventListener<QuerySnapshot>{
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null){
+                        Log.e("Firestore",error.message.toString())
+                        return
+                    }
+
+                    for (dc : DocumentChange in value?.documentChanges!!){
+
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            articleList.add(dc.document.toObject(Article::class.java))
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })
+
+
+
+
+
+
+
+    }
+*/
 
 
 

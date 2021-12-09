@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.date.text = article.date
 
 
-
         //-------------------------------------------------------------------------
         val storageRef= FirebaseStorage.getInstance().reference
             .child("/imagesArticle/${article.articleImage.toString()}")
@@ -49,15 +49,13 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            holder.imageArticle.load("${article.articleImage.toString()}")//.setImageBitmap(bitmap)//.setImageBitmap(bitmap)
+            holder.imageArticle.load(bitmap)
 
-            holder.imageArticle.setImageBitmap(bitmap)
+            Log.d("Tag ","https://firebasestorage.googleapis.com/v0/b/final-project-kotlin-bootcamp.appspot.com/o/imagesArticle%2F${article.articleImage.toString()}?alt=media&token=17a7fbb0-29df-4220-973a-5acb5040a0a5")
+        //    holder.imageArticle.setImageBitmap(bitmap)
 
 
         }.addOnFailureListener{
-            /*if (progressDialog.isShowing)
-                progressDialog.dismiss()*/
-
 
         }
 

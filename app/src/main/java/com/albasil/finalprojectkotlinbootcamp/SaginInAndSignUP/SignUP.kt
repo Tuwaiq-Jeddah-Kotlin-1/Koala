@@ -156,6 +156,18 @@ class SignUP : Fragment() {
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     //class Firebase
     fun registerUser(email:String , password:String) {
 

@@ -8,12 +8,14 @@ import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +39,7 @@ class Profile : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        getUserPhoto()
+       //getUserPhoto()
 
 
 
@@ -50,10 +52,8 @@ class Profile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
+        //---------------------------------------------------
+        getUserPhoto()
 
 
 
@@ -108,7 +108,6 @@ class Profile : Fragment() {
 
         progressDialog.show()
 
-
         val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${uId}")
 
         storageReference.putFile(imageUrl)
@@ -117,6 +116,7 @@ class Profile : Fragment() {
                 Toast.makeText(context,"uploading image", Toast.LENGTH_SHORT).show()
 
                 if (progressDialog.isShowing)progressDialog.dismiss()
+
                 getUserPhoto()
 
 
@@ -137,6 +137,7 @@ class Profile : Fragment() {
         val storageRef= FirebaseStorage.getInstance().reference
             .child("imagesUsers/$imageName")
 
+
         val localFile = File.createTempFile("tempImage","jpg")
 
         storageRef.getFile(localFile).addOnSuccessListener {
@@ -144,7 +145,7 @@ class Profile : Fragment() {
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            binding.userImageXml.setImageBitmap(bitmap)
+            binding.userImageXml.load(bitmap)
 
 
         }.addOnFailureListener{
