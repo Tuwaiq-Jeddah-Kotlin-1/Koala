@@ -90,7 +90,7 @@
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" >
         <argument
-            android:name="userNAME"
+            android:name="userID"
             app:argType="string" />
     </fragment>
 </navigation>

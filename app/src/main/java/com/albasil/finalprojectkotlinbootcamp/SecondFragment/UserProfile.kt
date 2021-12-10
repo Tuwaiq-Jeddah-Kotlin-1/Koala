@@ -1,5 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,36 +9,52 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
+import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class UserProfile : Fragment() {
 
-    private val args by navArgs<UserProfileArgs>()
+    lateinit var binding: FragmentUserProfileBinding
 
+    private val args by navArgs<UserProfileArgs>()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+         binding = FragmentUserProfileBinding.inflate(inflater,container,false)
 
-        getUserInfo(args.userNAME.toString())
-        val view =inflater.inflate(R.layout.fragment_user_profile, container, false)
+//        val view =inflater.inflate(R.layout.fragment_user_profile, container, false)
 
-        view.userName_xml.text ="${args.userNAME.toString()}"
 
-        return view
+        return binding.root
+
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        getUserPhoto(args.userID.toUri())
+
+        getUserInfo(args.userID.toString())
+
+
+    }
 
 
     fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
@@ -49,24 +67,27 @@ class UserProfile : Fragment() {
                 .get().addOnCompleteListener {
                     it
 
-                    if (it.getResult()?.exists()!!) {
+                    if (it.result?.exists()!!) {
 
                         //+++++++++++++++++++++++++++++++++++++++++
-                        var name = it.getResult()!!.getString("userNamae")
-                        var userEmail = it.getResult()!!.getString("userEmail")
+                        var name = it.result!!.getString("userNamae")
+                        var userEmail = it.result!!.getString("userEmail")
+                        var userFollowing = it.result!!.get("following")
+                        var userFollowers = it.result!!.get("followers")
+                        var userPhone = it.result!!.getString("userPhone")
 
                         Log.e("user Info","userName ${name.toString()} \n ${userEmail.toString()}")
 
-                        Toast.makeText(context,"userName ${name.toString()} \n ${userEmail.toString()}",Toast.LENGTH_SHORT).show()
 
+                        binding.userNameXml.text ="${name.toString()}"
+                        binding.userInfoXml.text ="${userEmail.toString()}"
+                        binding.userFollowersXml.text ="${userFollowers?.toString()}"
+                        binding.userFollowingXml.text ="${userFollowing?.toString()}"
 
-                        //++++++++++++++++++++++++++++++++++++++++++++++++++++
-                     /*   tvEmail.setText(eamil)
-                        tvName.setText(name)
-                        tvBirthDay.setText(birthDay)
-                        tvPhone.setText(phoneNumber)
-                        tvCity.setText(city)
-                        tvExperience.setText(experience)*/
+                        binding.userCallXml.setOnClickListener {
+                            Toast.makeText(context,"call : ${userPhone.toString()}",Toast.LENGTH_SHORT).show()
+
+                        }
 
 
 
@@ -88,6 +109,33 @@ class UserProfile : Fragment() {
         }
 
 
+    }
+
+
+    fun getUserPhoto(userPhoto:Uri){
+
+
+        val storageRef= FirebaseStorage.getInstance().reference
+            .child("imagesUsers/$userPhoto")
+
+
+        val localFile = File.createTempFile("tempImage","jpg")
+
+        storageRef.getFile(localFile).addOnSuccessListener {
+
+
+            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+
+            binding.userImageProfileXml.load(bitmap)
+
+
+        }.addOnFailureListener{
+            /*if (progressDialog.isShowing)
+                progressDialog.dismiss()*/
+
+            Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
+
+        }
     }
 
 

@@ -27,11 +27,13 @@ import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePage
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
+import com.google.firebase.auth.FirebaseAuth
 import retrofit2.http.Url
 
 private lateinit var imagePath : String
 
 class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
+    val currentUserUid =FirebaseAuth.getInstance().currentUser?.uid
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -58,9 +60,21 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
         holder.userName.setOnClickListener {
 
-            Log.e("uid", "${holder.userName.text.toString()}  \n" + "uid   ${holder.userId.toString()}")
-            val userInformation = HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
-            findNavController(holder.itemView.findFragment()).navigate(userInformation)
+            if (currentUserUid.toString()==holder.userId.toString()){
+
+               // Log.e("uid", "${holder.userName.text.toString()}  \n" + "uid   ${holder.userId.toString()}")
+             //   val userInformation = HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
+                findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
+
+
+            }else{
+
+                Log.e("uid", "${holder.userName.text.toString()}  \n" + "uid   ${holder.toString()}")
+                val userInformation = HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
+                findNavController(holder.itemView.findFragment()).navigate(userInformation)
+
+            }
+
 
         }
 
