@@ -144,20 +144,31 @@
                         android:text="Info....." />
 
                     <TextView
+
                         android:layout_marginTop="15dp"
                         android:gravity="center"
 
                         android:drawableEnd="@drawable/ic_arrow_down"
-                        android:id="@+id/textView4"
+                        android:id="@+id/userInforCall_xml"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:text="Call" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutCallUser_xml"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imageView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_chat_24" />
 
                         <ImageView
                             android:id="@+id/userEmail_xml"
@@ -168,10 +179,10 @@
 
                         <ImageView
                             android:id="@+id/userCall_xml"
-                            android:layout_weight="1"
-
                             android:layout_width="wrap_content"
+
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:src="@drawable/ic_phone" />
                     </LinearLayout>
 

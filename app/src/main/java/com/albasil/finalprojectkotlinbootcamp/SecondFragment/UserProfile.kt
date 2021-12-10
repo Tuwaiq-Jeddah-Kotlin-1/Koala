@@ -1,8 +1,11 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +57,17 @@ class UserProfile : Fragment() {
         getUserInfo(args.userID.toString())
 
 
+        binding.userInforCallXml.setOnClickListener {
+
+            expandedCallUser()
+
+        }
+
+
+
+
+
+
     }
 
 
@@ -85,9 +99,19 @@ class UserProfile : Fragment() {
                         binding.userFollowingXml.text ="${userFollowing?.toString()}"
 
                         binding.userCallXml.setOnClickListener {
-                            Toast.makeText(context,"call : ${userPhone.toString()}",Toast.LENGTH_SHORT).show()
+
+                            callUser("${userPhone.toString()}")
 
                         }
+
+                        binding.userEmailXml.setOnClickListener {
+
+
+                            userEmail(userEmail.toString())
+
+
+                        }
+
 
 
 
@@ -139,6 +163,41 @@ class UserProfile : Fragment() {
     }
 
 
+
+    fun callUser(userNumber:String){
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:${userNumber.toString()}")
+        startActivity(intent)
+
+    }
+
+    fun userEmail(userEmail:String){
+
+
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:") // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, "${userEmail.toString()}")
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Feedback")
+
+        if (activity?.let { it -> intent.resolveActivity(it.packageManager) } != null) {
+            startActivity(intent)
+        }
+
+
+    }
+
+
+    fun expandedCallUser(){
+        if (binding.linearLayoutCallUserXml.visibility == View.GONE){
+            TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
+            binding.linearLayoutCallUserXml.visibility = View.VISIBLE
+
+        }else{
+            TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
+            binding.linearLayoutCallUserXml.visibility = View.GONE
+        }
+
+    }
 
 
 }
