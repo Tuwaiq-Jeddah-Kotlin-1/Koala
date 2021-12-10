@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
@@ -49,10 +51,14 @@ class HomePage : Fragment() {
         recyclerView.adapter = articleAdapter
 
         EventChangeListener()
-       // EventChangeUserName()
+
+       // findNavController().navigate(R.id.action_homePage_to_articleInformation)
+
 
 
     }
+
+
 
 
     private fun EventChangeListener(){
@@ -71,6 +77,7 @@ class HomePage : Fragment() {
 
                         if (dc.type == DocumentChange.Type.ADDED){
                             articleList.add(dc.document.toObject(Article::class.java))
+
                         }
                     }
 
@@ -89,40 +96,6 @@ class HomePage : Fragment() {
 
     }
 
-
-    private fun EventChangeUserName(){
-
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Users")
-            .addSnapshotListener(object :EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
-                        return
-                    }
-
-                    for (dc : DocumentChange in value?.documentChanges!!){
-
-                        if (dc.type == DocumentChange.Type.ADDED){
-                            userList.add(dc.document.toObject(Users::class.java))
-                        }
-                    }
-
-                    articleAdapter.notifyDataSetChanged()
-
-
-                }
-
-            })
-
-
-
-
-
-
-
-    }
 
 
 

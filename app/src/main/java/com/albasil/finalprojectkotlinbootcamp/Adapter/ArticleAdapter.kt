@@ -1,6 +1,8 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +18,17 @@ import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import android.os.Bundle
+import android.text.Layout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.findFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation
+import com.albasil.finalprojectkotlinbootcamp.UI.HomePage
+import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
+import retrofit2.http.Url
 
-
+private lateinit var imagePath : String
 
 class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
 
@@ -34,52 +43,13 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-
-       /* val user :Users = userList[position]
-
-        holder.userName.text = user.userNamae*/
-
-
         val article= articleList[position]
         holder.titleArticle.text = article.title
         holder.date.text = article.date
-
         holder.userName.text = article.userName
-
-
-        holder.itemView.setOnClickListener { view->
-
-            val activity:AppCompatActivity = view.context as AppCompatActivity
-            val bundle = Bundle()
-
-            val fragment = ArticleInformation.newInstance()
-            fragment.arguments = bundle
-            bundle.putParcelable("taskKey",article)
-            activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.container_fragment,fragment)
-                //.addToBackStack("Test")
-                .commit()
-        }
-
-
-
-       /* holder.titleArticle.setOnClickListener { view->
-
-            //findNavController().navigate(R.id.action_sign_in_to_signUP)
-
-
-            val activity:AppCompatActivity = view.context as AppCompatActivity
-            val bundle = Bundle()
-
-            val fragment = ArticleInformation.newInstance()
-            fragment.arguments = bundle
-            bundle.putParcelable("taskKey",article)
-            activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.container_fragment,fragment)
-                .addToBackStack("Test").commit()
-        }*/
-
-
+        holder.articleCategory = article.category
+        holder.articleDescription = article.description
+        holder.image=article.articleImage
 
 
 
@@ -90,14 +60,8 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         val localFile = File.createTempFile("tempImage","jpg")
         storageRef.getFile(localFile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-
             holder.imageArticle.load(bitmap)
-
-
-        }.addOnFailureListener{
-
-        }
-
+        }.addOnFailureListener{}
         //------------------------------------------------------------------------------------
 
     }
@@ -111,40 +75,45 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
 
-   public class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
+    class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
 
        val titleArticle :TextView =itemView.findViewById(R.id.tvTitle_xml)
        val userName :TextView =itemView.findViewById(R.id.tvUserName_xml)
        val date :TextView =itemView.findViewById(R.id.tvDateItem_xml)
        val imageArticle :ImageView =itemView.findViewById(R.id.imageItem_xml)
 
+         lateinit var articleCategory :String
+         lateinit var articleDescription :String
+         lateinit var image :String
 
-
-
-
+         //description
        init {
            itemView.setOnClickListener(this)
        }
       override fun onClick(v: View?) {
+          //val article_data =Article("${userName.text.toString()}","${titleArticle.text.toString()}","a","aa","aa","aa","aa",0)
 
-          imageArticle.setOnClickListener {
+          val article_data =Article()
+
+          article_data.title = titleArticle.text.toString()
+          article_data.userName = userName.text.toString()
+          article_data.date = date.text.toString()
+          article_data.category = articleCategory.toString()
+          article_data.description = articleDescription.toString()
+          article_data.articleImage = image.toString()
 
 
+          val itemData = HomePageDirections.actionHomePageToArticleInformation(article_data)
+          findNavController(itemView.findFragment()).navigate(itemData)
+//          findNavController(itemView.findFragment()).navigate(R.id.action_homePage_to_articleInformation)
 
-          }
-
-          Toast.makeText(itemView.context,"Name ${userName.text.toString()}",Toast.LENGTH_SHORT).show()
-           Toast.makeText(itemView.context,"Title ${titleArticle.text.toString()}",Toast.LENGTH_SHORT).show()
 
 
        }
-
-
-
 
    }
 
 
 
-}
 
+}

@@ -76,7 +76,11 @@
         android:id="@+id/articleInformation"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation"
         android:label="fragment_article_information"
-        tools:layout="@layout/fragment_article_information" />
+        tools:layout="@layout/fragment_article_information" >
+        <argument
+            android:name="articleData"
+            app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
+    </fragment>
     <fragment
         android:id="@+id/userProfile"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.UserProfile"
