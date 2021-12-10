@@ -38,6 +38,8 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="20sp"
+                    android:padding="5dp"
                     android:id="@+id/tvUserName_xml"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

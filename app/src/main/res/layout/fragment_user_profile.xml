@@ -107,6 +107,7 @@
                 android:padding="15dp">
 
                 <TextView
+                    android:id="@+id/userName_xml"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="User Information" />

@@ -2,6 +2,7 @@ package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,8 +51,18 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.articleCategory = article.category
         holder.articleDescription = article.description
         holder.image=article.articleImage
+        holder.userId = article.userId
 
 
+
+
+        holder.userName.setOnClickListener {
+
+            Log.e("uid", "${holder.userName.text.toString()}  \n" + "uid   ${holder.userId.toString()}")
+            val userInformation = HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
+            findNavController(holder.itemView.findFragment()).navigate(userInformation)
+
+        }
 
         //-------------------------------------------------------------------------
         val storageRef= FirebaseStorage.getInstance().reference
@@ -85,11 +96,14 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
          lateinit var articleCategory :String
          lateinit var articleDescription :String
          lateinit var image :String
+         lateinit var userId :String
 
          //description
        init {
            itemView.setOnClickListener(this)
        }
+
+
       override fun onClick(v: View?) {
           //val article_data =Article("${userName.text.toString()}","${titleArticle.text.toString()}","a","aa","aa","aa","aa",0)
 

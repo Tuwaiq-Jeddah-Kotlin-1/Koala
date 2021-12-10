@@ -1,60 +1,96 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_user_profile.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UserProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val args by navArgs<UserProfileArgs>()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+
+        getUserInfo(args.userNAME.toString())
+        val view =inflater.inflate(R.layout.fragment_user_profile, container, false)
+
+        view.userName_xml.text ="${args.userNAME.toString()}"
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+
+
+    fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
+
+        try {
+            //coroutine
+            val db = FirebaseFirestore.getInstance()
+            db.collection("Users")
+                .document("$userID")
+                .get().addOnCompleteListener {
+                    it
+
+                    if (it.getResult()?.exists()!!) {
+
+                        //+++++++++++++++++++++++++++++++++++++++++
+                        var name = it.getResult()!!.getString("userNamae")
+                        var userEmail = it.getResult()!!.getString("userEmail")
+
+                        Log.e("user Info","userName ${name.toString()} \n ${userEmail.toString()}")
+
+                        Toast.makeText(context,"userName ${name.toString()} \n ${userEmail.toString()}",Toast.LENGTH_SHORT).show()
+
+
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++++
+                     /*   tvEmail.setText(eamil)
+                        tvName.setText(name)
+                        tvBirthDay.setText(birthDay)
+                        tvPhone.setText(phoneNumber)
+                        tvCity.setText(city)
+                        tvExperience.setText(experience)*/
+
+
+
+
+
+                       // Log.e("error \n", "name $name   email $userEmail  //// $eamil")
+                    } else {
+                        Log.e("error \n", "errooooooorr")
+                    }
+
+
                 }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
+                Log.e("FUNCTION createUserFirestore", "${e.message}")
             }
+        }
+
+
     }
+
+
+
+
 }

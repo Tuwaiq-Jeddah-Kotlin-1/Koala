@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_homePage_to_articleInformation"
             app:destination="@id/articleInformation" />
+        <action
+            android:id="@+id/action_homePage_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
     <fragment
         android:id="@+id/addArticle"
@@ -85,5 +88,9 @@
         android:id="@+id/userProfile"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.UserProfile"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <argument
+            android:name="userNAME"
+            app:argType="string" />
+    </fragment>
 </navigation>
