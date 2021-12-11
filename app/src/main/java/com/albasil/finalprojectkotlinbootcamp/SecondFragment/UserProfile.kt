@@ -150,7 +150,7 @@ class UserProfile : Fragment() {
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            binding.userImageProfileXml.load(bitmap)
+            binding.userImageXml.load(bitmap)
 
 
         }.addOnFailureListener{

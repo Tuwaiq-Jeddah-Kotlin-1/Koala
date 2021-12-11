@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -33,9 +34,19 @@ class ArticleInformation : Fragment() {
        view.articleDateInfo_xml.text = " ${args.articleData.date.toString()}"
         view.articleCategoryInfo_xml.text = " ${args.articleData.category.toString()}"
         view.articleDescraptionInfo_xml.text = " ${args.articleData.description.toString()}"
-//articleCategoryInfo_xml
 
-        //view.articlePhotoInfo_xml.setImageBitmap("${}")
+
+
+        view.shearArticle_xml.setOnClickListener {
+            Toast.makeText(context,"${view.titleArticleInfo_xml.text}\n" +
+                    "${view.articleDescraptionInfo_xml.text}",Toast.LENGTH_SHORT).show()
+
+        }
+
+        view.favoriteArticle_xml.setOnClickListener {
+            view.favoriteArticle_xml.setBackgroundColor(Color.RED)
+        }
+
 
         Log.d("image",args.articleData.articleImage.toString().toUri().toString())
 

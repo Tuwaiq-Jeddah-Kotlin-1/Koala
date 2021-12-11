@@ -153,7 +153,8 @@ class SignUP : Fragment() {
 
 
 
-               registerUser("${binding.etEmailXml.text.toString()}","${binding.etPasswordXml.text.toString()}")
+               registerUser("${binding.etEmailXml.text.toString()}",
+                   "${binding.etPasswordXml.text.toString()}")
 
 
             }
@@ -243,8 +244,6 @@ class SignUP : Fragment() {
             val userRef = Firebase.firestore.collection("Users")
             //-----------UID------------------------
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-
 
             userRef.document("$userId").set(user).addOnCompleteListener { it
                 when {

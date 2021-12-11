@@ -28,7 +28,7 @@
                     android:padding="15dp">
 
                     <ImageView
-                        android:id="@+id/userImageProfile_xml"
+                        android:id="@+id/userImage_xml"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
