@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="#CBFFFA"
         app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
         tools:context=".UI.Setting">
 
@@ -77,7 +77,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvChangePassword"
+                        android:id="@+id/tvChangePassword_xml"
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                         android:background="?android:attr/listDivider" />
 
                     <Switch
-                        android:id="@+id/switch1"
+                        android:id="@+id/switchDarkMode"
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginTop="84dp"
-                android:backgroundTint="#9BB844"
+                android:backgroundTint="#C4D3FF"
                 android:orientation="vertical"
                 app:cardCornerRadius="35sp"
                 app:cardElevation="35sp"
@@ -244,8 +244,9 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:text="signout"
+                    android:backgroundTint="#FF0000"
 
-                    android:textColor="#FF0000"
+                    android:textColor="#FFFFFF"
                     android:textSize="35sp" />
 
             </LinearLayout>
