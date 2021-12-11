@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
@@ -148,7 +149,12 @@ class SignUP : Fragment() {
 
             }else -> {
 
-                registerUser("${binding.etEmailXml.text.toString()}","${binding.etPasswordXml.text.toString()}")
+
+
+
+
+               registerUser("${binding.etEmailXml.text.toString()}","${binding.etPasswordXml.text.toString()}")
+
 
             }
         }
@@ -189,6 +195,7 @@ class SignUP : Fragment() {
                     insertUser("${email.toString()}",
                         "${binding.etUserNameXml.text.toString()}",
                         "${binding.etPhoneXml.text.toString()}")
+
 
                     findNavController().navigate(R.id.action_signUP_to_homePage)
 

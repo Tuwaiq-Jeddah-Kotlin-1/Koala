@@ -46,8 +46,7 @@ class Sign_in : Fragment() {
 
 
         rememberMe = view.findViewById(R.id.cbRemember)
-        sharedPreferences =
-            this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
+        sharedPreferences = this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
         isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
 
         if (isRemembered) {
@@ -56,14 +55,11 @@ class Sign_in : Fragment() {
 
 
         binding.btnSignInXml.setOnClickListener {
-            Toast.makeText(context," clicked", Toast.LENGTH_SHORT).show()
 
             when {
                 TextUtils.isEmpty(binding.etSignInEmailXml.text.toString().trim { it <= ' ' }) -> {
                     //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
-
-                    Toast.makeText(
-                        context, "toastMessageEmail", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "toastMessageEmail", Toast.LENGTH_LONG).show()
                 }
                 TextUtils.isEmpty(binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }) -> {
                     //  val toastMessagePassword: String = this.getResources().getString(R.string.please_enter_password)
@@ -72,7 +68,31 @@ class Sign_in : Fragment() {
                 }
                 else -> {
 
-                    logInAuthentication()
+                    val firebaseLogIn =FirebaseAuthentication()
+
+                    firebaseLogIn.logInAuthentication("${binding.etSignInEmailXml.text.toString()}",
+                        "${binding.etSignInPasswordXml.text.toString()}"
+                        ,view,rememberMe.isChecked)
+
+
+
+
+                    //fun
+                    //----------------------------------------------------------
+                    val emailPreference: String = binding.etSignInEmailXml.text.toString()
+                    val passwordPreference: String = binding.etSignInPasswordXml.text.toString()
+                    val checked: Boolean = rememberMe.isChecked
+
+                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                    editor.putString("EMAIL", emailPreference)
+                    editor.putString("PASSWORD", passwordPreference)
+                    editor.putBoolean("CHECKBOX", checked)
+                    editor.apply()
+
+                    //------------------------------------------------------------
+
+
+                    // logInAuthentication()
 
                 }}
 
@@ -90,21 +110,16 @@ class Sign_in : Fragment() {
 
     }
 
-
+/*
     private fun logInAuthentication() {
 
                 val email: String = binding.etSignInEmailXml.text.toString().trim { it <= ' ' }
                 val password: String = binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }
 
-                // create an instance and create a register with email and password
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
-
                         if (task.isSuccessful) {
-
                             findNavController().navigate(R.id.action_sign_in_to_profile)
-
-
                             // val toastMessageWelcome: String = this@Login.getResources().getString(R.string.welcome)
                            // Toast.makeText(context, "$"toastMessageWelcome" ${email.toString()}", Toast.LENGTH_SHORT).show()
 
@@ -120,10 +135,7 @@ class Sign_in : Fragment() {
 
                             Toast.makeText(context, "toastMessageInfoSaved", Toast.LENGTH_LONG).show()
 
-
                            Toast.makeText(context, "${email.toString()}  ${password.toString()} ", Toast.LENGTH_LONG).show()
-
-
 
                         } else {
                             Toast.makeText(context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
@@ -131,7 +143,14 @@ class Sign_in : Fragment() {
                         }
                     }
             }
-        }
+
+
+
+    */
+
+}
+
+
 
 
 

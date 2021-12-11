@@ -12,7 +12,7 @@ class AppRepo(context: Context) {
     suspend fun insertUserToDB(users: Users){
         //appDB.taskDao.insert(addTask)
 
-        firebase.registerUser("F","F")
+        //firebase.registerUser("F","F")
 
     }
 }

@@ -3,13 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_margin="10dp"
         tools:context=".UI.HomePage">
 
@@ -17,6 +15,7 @@
             android:textSize="20sp"
             android:layout_margin="10dp"
             android:id="@+id/sortItem_xml"
+            android:drawableEnd="@drawable/ic_arrow_down"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="sort"
@@ -25,16 +24,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
+        <TextView
+            android:id="@+id/typeCategory_xml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:text="Type Category"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/sortItem_xml"
+            tools:ignore="MissingConstraints" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewArticle_xml"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sortItem_xml" />
+            android:layout_height="match_parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

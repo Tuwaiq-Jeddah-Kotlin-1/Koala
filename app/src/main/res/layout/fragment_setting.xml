@@ -76,60 +76,43 @@
                     tools:ignore="MissingConstraints">
 
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvChangePassword"
+
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
 
-                        <TextView
-                            android:textColor="@color/black"
+                        android:layout_margin="10dp"
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:text="change_password"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
 
-                            android:id="@+id/tvChangePassword"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="change_password"
-                            android:textSize="25sp" />
-
-
-                        <ImageView
-
-                            android:id="@+id/imageView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_down"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <View
+                        android:id="@+id/divider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <TextView
                         android:id="@+id/changeLanguag_id"
-
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
 
                         android:layout_height="wrap_content"
+
                         android:layout_margin="10dp"
+                        android:drawableEnd="@drawable/ic_arrow_down"
                         android:text="change_language"
 
                         android:textColor="@color/black"
                         android:textSize="25sp" />
-                    <ImageView
 
-                        android:id="@+id/imageView5"
+                    <View
+                        android:id="@+id/divider2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_arrow_down"
-                        android:layout_weight="1" />
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
-
-                </LinearLayout>
                     <Switch
                         android:id="@+id/switch1"
 
@@ -207,83 +190,33 @@
                     tools:ignore="MissingConstraints">
 
 
-
-
-
-
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/aboutUs_id"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:padding="10dp"
-                        android:layout_height="wrap_content">
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:text="AboutUs"
+                        android:textColor="#000000"
+                        android:textSize="25sp" />
 
-
-                        <TextView
-                            android:id="@+id/aboutUs_id"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="AboutUs"
-                            android:textColor="#000000"
-                            android:textSize="25sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-
-                            android:id="@+id/imageView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:src="@drawable/ic_arrow_down"
-                            app:layout_constraintBottom_toBottomOf="@+id/aboutUs_id"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.906"
-                            app:layout_constraintStart_toEndOf="@+id/aboutUs_id"
-                            app:layout_constraintTop_toTopOf="@+id/aboutUs_id"
-                            app:layout_constraintVertical_bias="0.4" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <View
+                        android:id="@+id/divider3"
                         android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/helpAndSupport_id"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:padding="10dp"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:id="@+id/helpAndSupport_id"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:textSize="25sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:textColor="@color/black"
-                            android:layout_margin="10dp"
-                            android:text="help and support"
-                            tools:ignore="DuplicateIds" />
-
-                        <ImageView
-
-                            android:id="@+id/imageView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:src="@drawable/ic_arrow_down"
-                            app:layout_constraintBottom_toBottomOf="@+id/helpAndSupport_id"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.797"
-                            app:layout_constraintStart_toEndOf="@+id/helpAndSupport_id"
-                            app:layout_constraintTop_toTopOf="@+id/helpAndSupport_id"
-                            app:layout_constraintVertical_bias="1.0" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:text="help and support"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        tools:ignore="DuplicateIds" />
 
 
                 </LinearLayout>

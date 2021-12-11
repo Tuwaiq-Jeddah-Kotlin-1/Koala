@@ -52,19 +52,14 @@ class HomePage : Fragment() {
 
         EventChangeListener()
 
-       // findNavController().navigate(R.id.action_homePage_to_articleInformation)
-
 
 
     }
 
-
-
-
     private fun EventChangeListener(){
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles")
+        fireStore.collection("Articles").orderBy("category")
             .addSnapshotListener(object :EventListener<QuerySnapshot>{
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
