@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
@@ -41,6 +42,9 @@ class ArticleInformation : Fragment() {
             Toast.makeText(context,"${view.titleArticleInfo_xml.text}\n" +
                     "${view.articleDescraptionInfo_xml.text}",Toast.LENGTH_SHORT).show()
 
+            shareArticle("${view.titleArticleInfo_xml.text}",
+                "${view.articleDescraptionInfo_xml.text}")
+
         }
 
         view.favoriteArticle_xml.setOnClickListener {
@@ -50,12 +54,27 @@ class ArticleInformation : Fragment() {
 
         Log.d("image",args.articleData.articleImage.toString().toUri().toString())
 
-        getUserPhoto(args.articleData.articleImage.toString())
+      //  getUserPhoto2(args.articleData.articleImage.toString())
         return view
     }
 
 
-    fun getUserPhoto(imagePath:String){
+
+
+
+    fun shareArticle(titleArticle:String,subjectArticle:String){
+
+        val shareArticle = Intent(Intent.ACTION_SEND)
+        shareArticle.type = "text/plain"
+        shareArticle.putExtra(Intent.EXTRA_TEXT,subjectArticle.toString())
+        shareArticle.putExtra(Intent.EXTRA_TITLE,titleArticle.toString())
+        shareArticle.putExtra(Intent.EXTRA_SUBJECT,subjectArticle)
+
+        startActivity(shareArticle)
+    }
+
+
+    fun getUserPhoto2(imagePath:String){
 
 
         val imageName = "${imagePath.toString()}"
@@ -94,6 +113,16 @@ class ArticleInformation : Fragment() {
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
             //viewimageArticle.load(bitmap)
         }
+    }
+
+
+
+
+
+
+    fun addFavorite(){
+
+
     }
 
 }

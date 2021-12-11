@@ -21,6 +21,7 @@ import java.io.File
 import android.os.Bundle
 import android.text.Layout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
@@ -106,6 +107,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
        val userName :TextView =itemView.findViewById(R.id.tvUserName_xml)
        val date :TextView =itemView.findViewById(R.id.tvDateItem_xml)
        val imageArticle :ImageView =itemView.findViewById(R.id.imageItem_xml)
+     //   val iconShare:ImageView=itemView.findViewById(R.id.ic_share_xml)
 
          lateinit var articleCategory :String
          lateinit var articleDescription :String
@@ -139,7 +141,22 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
        }
 
+
    }
+
+
+
+    /*fun shareArticle2(titleArticle:String,subjectArticle:String,itemView: View){
+
+        val shareArticle = Intent(Intent.ACTION_SEND)
+        shareArticle.type = "text/plain"
+        shareArticle.putExtra(Intent.EXTRA_TEXT,subjectArticle.toString())
+        shareArticle.putExtra(Intent.EXTRA_TITLE,titleArticle.toString())
+        shareArticle.putExtra(Intent.EXTRA_SUBJECT,subjectArticle)
+
+        startActivity(shareArticle)
+    }*/
+
 
 
 
