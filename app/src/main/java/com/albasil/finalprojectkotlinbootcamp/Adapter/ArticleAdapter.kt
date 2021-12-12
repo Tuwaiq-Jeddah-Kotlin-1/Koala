@@ -39,6 +39,8 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
+
+
         val itemView =LayoutInflater.from(parent.context).inflate(R.layout.item_article,parent,false)
 
         return MyViewHolder(itemView)

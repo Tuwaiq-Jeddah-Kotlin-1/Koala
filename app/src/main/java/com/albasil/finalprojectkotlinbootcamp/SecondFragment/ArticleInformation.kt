@@ -54,7 +54,7 @@ class ArticleInformation : Fragment() {
 
         Log.d("image",args.articleData.articleImage.toString().toUri().toString())
 
-      //  getUserPhoto2(args.articleData.articleImage.toString())
+        getUserPhoto2(args.articleData.articleImage.toString())
         return view
     }
 

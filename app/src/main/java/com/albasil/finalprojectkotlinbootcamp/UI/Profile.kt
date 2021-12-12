@@ -16,13 +16,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
+import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -39,6 +45,14 @@ class Profile : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
     private lateinit var imageUrl : Uri
+
+
+    private lateinit var recyclerView : RecyclerView
+    private lateinit var articleList :ArrayList<Article>
+    private lateinit var userList :ArrayList<Users>
+    private lateinit var articleAdapter : ArticleUserProfileAdapter
+    private lateinit var fireStore :FirebaseFirestore
+
 
     private lateinit var preferences: SharedPreferences
 
@@ -72,6 +86,26 @@ class Profile : Fragment() {
         //---------------------------------------------------
         getUserPhoto()
 
+
+        //---------------------------------------------------------
+
+        val uid=FirebaseAuth.getInstance().uid
+
+        recyclerView = view.findViewById(R.id.userProfileRecyclerView_xml)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+
+
+        articleList = arrayListOf()
+        userList = arrayListOf()
+
+        articleAdapter = ArticleUserProfileAdapter(articleList)
+
+        recyclerView.adapter = articleAdapter
+
+        EventChangeListener("${uid}")
+
+        //---------------------------------------------------------
 
 
 
@@ -155,6 +189,43 @@ class Profile : Fragment() {
 
 
     }
+
+
+    private fun EventChangeListener(uId:String){
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").whereEqualTo("userId","${uId}")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null){
+                        Log.e("Firestore",error.message.toString())
+                        return
+                    }
+
+                    for (dc : DocumentChange in value?.documentChanges!!){
+
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            articleList.add(dc.document.toObject(Article::class.java))
+
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })
+
+
+
+
+
+
+
+    }
+
 
 
 

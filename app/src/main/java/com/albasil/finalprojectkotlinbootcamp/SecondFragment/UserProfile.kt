@@ -14,12 +14,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -31,6 +36,14 @@ import java.io.File
 class UserProfile : Fragment() {
 
     lateinit var binding: FragmentUserProfileBinding
+    private lateinit var recyclerView : RecyclerView
+    private lateinit var articleList :ArrayList<Article>
+    private lateinit var userList :ArrayList<Users>
+    private lateinit var articleAdapter : ArticleUserProfileAdapter
+
+
+    private lateinit var fireStore :FirebaseFirestore
+
 
     private val args by navArgs<UserProfileArgs>()
 
@@ -40,8 +53,6 @@ class UserProfile : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
          binding = FragmentUserProfileBinding.inflate(inflater,container,false)
-
-//        val view =inflater.inflate(R.layout.fragment_user_profile, container, false)
 
 
         return binding.root
@@ -64,9 +75,60 @@ class UserProfile : Fragment() {
         }
 
 
+        val uid=FirebaseAuth.getInstance().uid
+
+
+        recyclerView = view.findViewById(R.id.userRecyclerView_xml)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+
+
+        articleList = arrayListOf()
+        userList = arrayListOf()
+
+        articleAdapter = ArticleUserProfileAdapter(articleList)
+
+        recyclerView.adapter = articleAdapter
+
+        EventChangeListener("${args.userID.toUri()}")
+
+        //---------------------------------------------------------
 
 
 
+
+
+
+    }
+
+
+
+    private fun EventChangeListener(uId:String){
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").whereEqualTo("userId","${uId}")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null){
+                        Log.e("Firestore",error.message.toString())
+                        return
+                    }
+
+                    for (dc : DocumentChange in value?.documentChanges!!){
+
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            articleList.add(dc.document.toObject(Article::class.java))
+
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })
 
     }
 
@@ -188,6 +250,7 @@ class UserProfile : Fragment() {
 
 
     fun expandedCallUser(){
+
         if (binding.linearLayoutCallUserXml.visibility == View.GONE){
             TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
             binding.linearLayoutCallUserXml.visibility = View.VISIBLE

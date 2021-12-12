@@ -12,7 +12,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <LinearLayout
@@ -35,10 +35,10 @@
                         android:src="@drawable/ic_person" />
 
                     <LinearLayout
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -57,12 +57,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:gravity="center"
-
-
                         android:layout_width="wrap_content"
+
+
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -81,12 +81,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:gravity="center"
-
-
                         android:layout_width="wrap_content"
+
+
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -117,11 +117,11 @@
 
                 <LinearLayout
 
-                    android:padding="5dp"
-                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/uId_xml"
@@ -136,23 +136,23 @@
                         android:text="user Name" />
 
                     <TextView
-                        android:lines="3"
-                        android:background="#96B2F8"
                         android:id="@+id/userInfo_xml"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="#96B2F8"
+                        android:lines="3"
                         android:text="Info....." />
 
                     <TextView
 
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-
-                        android:drawableEnd="@drawable/ic_arrow_down"
                         android:id="@+id/userInforCall_xml"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:gravity="center"
                         android:text="Call" />
 
                     <LinearLayout
@@ -190,6 +190,8 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/userRecyclerView_xml"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="15dp"
