@@ -9,6 +9,13 @@
 
     </string-array>
 
+    <string-array name="sortArticle">
+        <item>date</item>
+        <item>title</item>
+        <item>userName</item>
+
+    </string-array>
+
     <string name="app_name">Final Project (Kotlin Bootcamp)</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.transition.AutoTransition
@@ -93,7 +94,8 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
     }
 
-        private fun deleteArticle(articleID:String,view: View) {
+        @SuppressLint("NotifyDataSetChanged")
+        private fun deleteArticle(articleID:String, view: View) {
             AlertDialog.Builder(view.context)
                 .setTitle("Delete Aricle")
                 .setIcon(R.drawable.common_google_signin_btn_icon_dark)
@@ -111,6 +113,7 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
                     deleteArticle
+                    notifyDataSetChanged()
 
 
 
