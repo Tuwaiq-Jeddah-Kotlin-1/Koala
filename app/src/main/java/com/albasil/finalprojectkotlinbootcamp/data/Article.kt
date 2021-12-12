@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Article(
 
 
+    var articleID:String="",
     var userName :String ="",
     var title :String = "",
     var category: String = "",

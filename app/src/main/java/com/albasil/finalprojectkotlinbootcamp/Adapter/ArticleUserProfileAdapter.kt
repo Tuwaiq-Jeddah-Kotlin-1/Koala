@@ -48,7 +48,13 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
         holder.date.text = article.date
         holder.articleCategory.text = article.category
         holder.userID = article.userId.toString()
+        holder.articleID = article.articleID.toString()
 
+
+
+        holder.deleteArticle.setOnClickListener {
+            deleteArticle("${holder.articleID}",holder.itemView)
+        }
 
 
         if (currentUserUid == holder.userID.toString()) {
@@ -66,7 +72,38 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
     }
 
-    override fun getItemCount(): Int {
+        private fun deleteArticle(articleID:String,view: View) {
+            AlertDialog.Builder(view.context)
+                .setTitle("Delete Aricle")
+                .setIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setMessage("Are sure to delete this article ?!!!")
+                .setPositiveButton("yes") { dialog, _ ->
+
+
+                    //-------------------------------
+
+                    /*** delete fun */
+
+
+                    val deleteArticle=Firebase.firestore.collection("Articles")
+                        .document("${articleID.toString()}").delete()
+
+
+                    deleteArticle
+
+
+
+                    //----------------------------
+
+
+                    dialog.dismiss()
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }.create().show()        }
+
+
+        override fun getItemCount(): Int {
 
         return articleList.size
 
@@ -100,7 +137,7 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
 
-        private fun deleteArticle() {
+         fun deleteArticle() {
             AlertDialog.Builder(itemView.context)
                 .setTitle("Delete Aricle")
                 .setIcon(R.drawable.common_google_signin_btn_icon_dark)
@@ -114,10 +151,11 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
                     val deleteArticle=Firebase.firestore.collection("Articles")
-                        .document("1DVexs5RhquJcVi4WXNU").delete()
+                        .document("${articleID.toString()}").delete()
 
 
                     deleteArticle
+
 
 
                     //----------------------------

@@ -120,6 +120,7 @@ class AddArticle : Fragment() {
         when {
             TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
 
+
                 Toast.makeText(
                     context, "etTitleArticleXml", Toast.LENGTH_LONG).show()
             }
@@ -166,6 +167,8 @@ class AddArticle : Fragment() {
         article.title = title.toString()
         article.articleImage = articlePhoto.toString()
 
+        article.articleID=articlePhoto.toString()
+
 
         addArticleToFirestore(article)
 
@@ -180,7 +183,7 @@ class AddArticle : Fragment() {
             //-----------UID------------------------
             val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-            articleRef.add(article).addOnCompleteListener { it
+            articleRef.document(article.articleID).set(article).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
 

@@ -59,7 +59,8 @@ class HomePage : Fragment() {
     private fun EventChangeListener(){
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").orderBy("category")
+        fireStore.collection("Articles")
+            .whereEqualTo("category","C1")
             .addSnapshotListener(object :EventListener<QuerySnapshot>{
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
