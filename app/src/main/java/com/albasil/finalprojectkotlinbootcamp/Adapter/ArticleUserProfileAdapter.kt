@@ -15,6 +15,8 @@ import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
+import com.albasil.finalprojectkotlinbootcamp.UI.ProfileDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -34,8 +36,7 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
 
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_article_user_profile,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_article_user_profile,parent,false)
 
         return UserViewHolder(itemView)
 
@@ -54,6 +55,26 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
         holder.deleteArticle.setOnClickListener {
             deleteArticle("${holder.articleID}",holder.itemView)
+        }
+
+        holder.editArticle.setOnClickListener {
+
+
+            val article_data =Article()
+
+            article_data.title = holder.titleArticle.text.toString()
+            article_data.date = holder.date.text.toString()
+            article_data.category = article.category.toString()
+            article_data.description = article.description.toString()
+            article.articleImage =article.articleImage.toString()
+
+           article_data.articleID = article.articleID.toString()
+
+            val itemData = ProfileDirections.actionProfileToEditArticle(article_data)
+
+            findNavController(holder.itemView.findFragment()).navigate(itemData)
+
+
         }
 
 
@@ -137,51 +158,8 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
 
-         fun deleteArticle() {
-            AlertDialog.Builder(itemView.context)
-                .setTitle("Delete Aricle")
-                .setIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setMessage("Are sure to delete this article ?!!!")
-                .setPositiveButton("yes") { dialog, _ ->
-
-
-                    //-------------------------------
-
-                    /*** delete fun */
-
-
-                    val deleteArticle=Firebase.firestore.collection("Articles")
-                        .document("${articleID.toString()}").delete()
-
-
-                    deleteArticle
-
-
-
-                    //----------------------------
-
-
-                    dialog.dismiss()
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }.create().show()
-        }
-
-
-
         override fun onClick(v: View?) {
 
-            deleteArticle.setOnClickListener {
-                deleteArticle()
-                Toast.makeText(itemView.context,"Delete Article",Toast.LENGTH_SHORT).show()
-            }
-
-
-            editArticle.setOnClickListener {
-                findNavController(itemView.findFragment()).navigate(R.id.apiFragment)
-
-            }
 
 
             Toast.makeText(itemView.context,"${titleArticle.text.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()

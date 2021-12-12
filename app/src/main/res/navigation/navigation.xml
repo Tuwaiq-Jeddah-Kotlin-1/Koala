@@ -53,7 +53,11 @@
         android:id="@+id/profile"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_editArticle"
+            app:destination="@id/editArticle" />
+    </fragment>
     <fragment
         android:id="@+id/homePage"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.HomePage"
@@ -92,5 +96,13 @@
         <argument
             android:name="userID"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editArticle"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.EditArticle"
+        android:label="EditArticle" >
+        <argument
+            android:name="editArticle"
+            app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
     </fragment>
 </navigation>

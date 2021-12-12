@@ -39,6 +39,7 @@ class ArticleInformation : Fragment() {
 
 
         view.shearArticle_xml.setOnClickListener {
+
             Toast.makeText(context,"${view.titleArticleInfo_xml.text}\n" +
                     "${view.articleDescraptionInfo_xml.text}",Toast.LENGTH_SHORT).show()
 
