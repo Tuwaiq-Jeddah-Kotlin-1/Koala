@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:layout_margin="10dp"
         tools:context=".UI.HomePage">
-
+<!--
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sortItem_xml"
             android:textSize="20sp"
@@ -40,7 +40,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
+-->
 
 
 

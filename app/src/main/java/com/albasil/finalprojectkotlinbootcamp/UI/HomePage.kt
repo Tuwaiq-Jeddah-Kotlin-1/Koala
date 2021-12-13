@@ -30,6 +30,7 @@ class HomePage : Fragment() {
 
     private lateinit var recyclerView :RecyclerView
     private lateinit var articleList :ArrayList<Article>
+    private lateinit var newArticleList :ArrayList<Article>
     private lateinit var userList :ArrayList<Users>
     private lateinit var articleAdapter :ArticleAdapter
     private lateinit var fireStore :FirebaseFirestore
@@ -60,25 +61,13 @@ class HomePage : Fragment() {
 
 
         articleList = arrayListOf()
+        newArticleList= arrayListOf()
         userList = arrayListOf()
         articleAdapter = ArticleAdapter(articleList)
        recyclerView.adapter = articleAdapter
 
 
-
-
-
-
-
-       Log.e("categorySelected",categorySelected.toString())
-
-        //loadArticle(categorySelected.toString())
-
-        getAllArticles()
-
-
-        Log.e("categorySelected22222222222222222222",categorySelected.toString())
-
+        loadArticle()
 
 
        typeCategory()
@@ -106,8 +95,8 @@ class HomePage : Fragment() {
 
             recyclerView.swapAdapter(articleAdapter,false)
 
-            typeCategory()
-            //typeCategory()
+
+            articleCategory()
 
         }
 
@@ -189,6 +178,90 @@ class HomePage : Fragment() {
 
     }
 
+
+
+
+    private fun getAllArticles(){
+        articleList.sortedByDescending {
+            it.category
+        }
+
+
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").addSnapshotListener(object :EventListener<QuerySnapshot>{
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null){
+                        Log.e("Firestore",error.message.toString())
+                        return
+                    }
+
+                    for (dc : DocumentChange in value?.documentChanges!!){
+
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            articleList.add(dc.document.toObject(Article::class.java))
+
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })
+
+
+
+
+
+
+
+    }
+
+
+    private fun articleCategory(){
+
+        fireStore = FirebaseFirestore.getInstance()
+
+        fireStore.collection("Articles").whereEqualTo("category","C1".toString()).addSnapshotListener(object :EventListener<QuerySnapshot>{
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+
+                    if (error != null){
+                        Log.e("Firestore",error.message.toString())
+                        return
+                    }
+
+                    for (dc : DocumentChange in value?.documentChanges!!){
+
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            articleList.add(dc.document.toObject(Article::class.java))
+
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })
+
+
+
+
+
+
+
+    }
+
+
+
+
+    /*
+
+
     fun sort(){
         //---------------------------------------------------------------------
         lateinit var categorySelected:String
@@ -224,120 +297,7 @@ class HomePage : Fragment() {
 
     }
 
-
-
-
-    private fun getAllArticles(){
-
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").addSnapshotListener(object :EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
-                        return
-                    }
-
-                    for (dc : DocumentChange in value?.documentChanges!!){
-
-                        if (dc.type == DocumentChange.Type.ADDED){
-                            articleList.add(dc.document.toObject(Article::class.java))
-
-                        }
-                    }
-
-                    articleAdapter.notifyDataSetChanged()
-
-
-                }
-
-            })
-
-
-
-
-
-
-
-    }
-
-
-    private fun articleCategory(categorySelected:String){
-
-        fireStore = FirebaseFirestore.getInstance()
-
-        fireStore.collection("Articles").whereEqualTo("category",categorySelected.toString()).addSnapshotListener(object :EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
-                        return
-                    }
-
-                    for (dc : DocumentChange in value?.documentChanges!!){
-
-                        if (dc.type == DocumentChange.Type.ADDED){
-                            articleList.add(dc.document.toObject(Article::class.java))
-
-                        }
-                    }
-
-                    articleAdapter.notifyDataSetChanged()
-
-
-                }
-
-            })
-
-
-
-
-
-
-
-    }
-
-
-    private fun categoryArticle(typeCategory:String){
-
-
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("category",typeCategory.toString())
-            .addSnapshotListener(object :EventListener<QuerySnapshot>{
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
-                        return
-                    }
-
-                    for (dc : DocumentChange in value?.documentChanges!!){
-
-                        if (dc.type == DocumentChange.Type.ADDED){
-                            articleList.add(dc.document.toObject(Article::class.java))
-
-                        }
-                    }
-
-
-                    articleAdapter.notifyDataSetChanged()
-
-
-                }
-
-            })
-
-
-
-
-
-
-
-    }
-
-
-
+     */
 
 
 }

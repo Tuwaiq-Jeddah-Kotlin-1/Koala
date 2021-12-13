@@ -20,6 +20,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:id="@+id/userName_xml"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="user Name" />
+
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -129,19 +138,25 @@
                         android:layout_height="match_parent"
                         android:text="User Information" />
 
-                    <TextView
-                        android:id="@+id/userName_xml"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="user Name" />
 
-                    <TextView
-                        android:id="@+id/userInfo_xml"
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_weight="1"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#96B2F8"
-                        android:lines="3"
-                        android:text="Info....." />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/userInfo_xml"
+                            android:layout_weight="1"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="more Information"
+                            android:lines="3"/>
+
+                    </LinearLayout>
 
                     <TextView
 

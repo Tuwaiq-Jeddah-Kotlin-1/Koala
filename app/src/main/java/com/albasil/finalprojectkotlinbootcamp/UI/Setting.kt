@@ -58,16 +58,7 @@ class Setting : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
-
-
-
-        val isChecked2 =true
-
-
-
-        binding.switchDarkMode.setOnCheckedChangeListener { buttonView, isChecked ->
-            isChecked==isChecked2
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
 
@@ -76,7 +67,7 @@ class Setting : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
             }
         }
-            //SHEARD PRERENCE
+
 
 
 
