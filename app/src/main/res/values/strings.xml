@@ -2,6 +2,7 @@
 
 
     <string-array name="Category">
+        <item>All</item>
         <item>A1</item>
         <item>B1</item>
         <item>C1</item>
