@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.protobuf.Empty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,12 +36,13 @@ import java.time.format.DateTimeFormatter
 
 class AddArticle : Fragment() {
 
+    private  var imageUrl : Uri?=null
+
     lateinit var binding: FragmentAddArticleBinding
-    private lateinit var imageUrl : Uri
     val userId = FirebaseAuth.getInstance().currentUser?.uid
 
 
-     var userNameGlobl:String?=null
+    var userNameGlobl:String?=null
 
 
     var categorySelected:String?=null
@@ -86,7 +88,6 @@ class AddArticle : Fragment() {
             ) {
 
                 categorySelected = "${category[position]}"
-//                Toast.makeText(context,"you selected :  ${category[position]}",Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -111,11 +112,11 @@ class AddArticle : Fragment() {
 
     }
 
-     fun checkFields(){
-         // Date  object
-         val current = LocalDateTime.now()
-         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
-         val formatted2 = current.format(formatter)
+    fun checkFields(){
+        // Date  object
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
+        val formatted2 = current.format(formatter)
 
         when {
             TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
@@ -135,11 +136,18 @@ class AddArticle : Fragment() {
 
                 }else{
 
+                    if(binding.articlerPhotoXml==null){
 
-                    articleData("${categorySelected.toString()}"
-                        ,"${binding.etTitleArticleXml.text.toString()}"
-                        ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                        ,"${userId}${binding.etTitleArticleXml.text.toString()}${formatted2}")
+                        Toast.makeText(context,"binding.articlerPhotoXml==null",Toast.LENGTH_LONG).show()
+
+                    }else{
+                        articleData("${categorySelected.toString()}"
+                            ,"${binding.etTitleArticleXml.text.toString()}"
+                            ,"${binding.etDescraptaionArticleXml.text.toString()}"
+                            ,"${userId}${binding.etTitleArticleXml.text.toString()}${formatted2}")
+
+                    }
+
 
                 }
 
@@ -152,14 +160,14 @@ class AddArticle : Fragment() {
 
 
     //fireStore
-     fun articleData(category:String,title: String,description:String, articlePhoto: String){
+    fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
 
         val article =Article()
-       article.userName =userNameGlobl.toString()
+        article.userName =userNameGlobl.toString()
         article.category = category.toString()
         article.userId = userId.toString()
         article.date = formatted.toString()
@@ -169,9 +177,7 @@ class AddArticle : Fragment() {
 
         article.articleID=articlePhoto.toString()
 
-
         addArticleToFirestore(article)
-
     }
 
 
@@ -180,8 +186,6 @@ class AddArticle : Fragment() {
 
         try {
             val articleRef = Firebase.firestore.collection("Articles")
-            //-----------UID------------------------
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
 
             articleRef.document(article.articleID).set(article).addOnCompleteListener { it
                 when {
@@ -189,12 +193,7 @@ class AddArticle : Fragment() {
 
                         upLoadImage("${article.articleImage.toString()}")
 
-
-
-                        Toast.makeText(context, "is Successful fire store", Toast.LENGTH_LONG).show()
-
-
-
+                        Toast.makeText(context,"Done to Add Article",Toast.LENGTH_LONG).show()
                     }
                     else -> {
 
@@ -270,42 +269,41 @@ class AddArticle : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+
         if (requestCode == 100 && resultCode == Activity.RESULT_OK){
 
             imageUrl = data?.data!!
 
             binding.articlerPhotoXml.setImageURI(imageUrl)
 
-            //*******************************************************
-
         }
+
+
 
     }
 
     fun upLoadImage(uIdCategory:String){
 
-        val progressDialog = ProgressDialog(context)
-        progressDialog.setMessage("Uploading File ...")
-        progressDialog.setCancelable(false)
+        /*    val progressDialog = ProgressDialog(context)
+            progressDialog.setMessage("Uploading File ...")
+            progressDialog.setCancelable(false)
 
-        progressDialog.show()
+            progressDialog.show()*/
 
 
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
 
-        storageReference.putFile(imageUrl)
-            .addOnSuccessListener {
-                //   userImage.setImageURI(null)
-                Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+        imageUrl?.let {
+            storageReference.putFile(it)
+                .addOnSuccessListener {
+                    Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+                    // if (progressDialog.isShowing)progressDialog.dismiss()
 
-                if (progressDialog.isShowing)progressDialog.dismiss()
-
-
-
-            }.addOnFailureListener{
-                if (progressDialog.isShowing)progressDialog.dismiss()
-                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-            }
+                }.addOnFailureListener{
+                    // if (progressDialog.isShowing)progressDialog.dismiss()
+                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
 
