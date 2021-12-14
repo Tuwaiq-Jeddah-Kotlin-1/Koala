@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -137,10 +138,14 @@ class Profile : Fragment() {
 
             upDateUserInfoBottomSheet()
         }
+        binding.addInfoXml.setOnClickListener{
+        }
 
 
 
     }
+
+
 
     fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
 

@@ -250,11 +250,7 @@ class SignUP : Fragment() {
                     it.isSuccessful -> {
                         upLoadImage("${userId}")
 
-
-
                         Toast.makeText(context, "is Successful fire store", Toast.LENGTH_LONG).show()
-
-
 
                     }
                     else -> {

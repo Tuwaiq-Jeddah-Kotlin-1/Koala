@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
@@ -131,42 +132,7 @@ class HomePage : Fragment() {
                 categorySelected = "${category[position]}"
                 Toast.makeText(context,"you selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
 
-
-
-                /*if (categorySelected.toString()==categorySelected2.toString()){
-                    Toast.makeText(context,"  categorySelected==categorySelected${categorySelected==categorySelected} :  ${category[position]}", Toast.LENGTH_SHORT).show()
-
-                }else{
-
-
-
-
-                    if(categorySelected == "All") {
-
-
-                        articleAdapter = ArticleAdapter(articleList)
-
-                        recyclerView.swapAdapter(articleAdapter,false)
-
-
-                        //GET all DATA
-                        getAllArticles()
-
-                    }else{
-                        articleAdapter = ArticleAdapter(articleList)
-                        recyclerView.swapAdapter(articleAdapter,false)
-
-
-                        Toast.makeText(context,"Workinnnnnnnnnnnng :  ${category[position]}", Toast.LENGTH_SHORT).show()
-                        //typeCategory()
-
-                        //categoryArticle("C1")
-                        articleCategory("C1")
-
-
-                    }
-                }*/
-
+                showChangeLanguage(categorySelected.toString())
 
                 categorySelected2=categorySelected.toString()
 
@@ -178,7 +144,22 @@ class HomePage : Fragment() {
 
     }
 
+    private fun showChangeLanguage(type:String){
 
+
+        val mBuilder =AlertDialog.Builder(this.requireContext())
+
+        mBuilder.setTitle("Choose Language")
+
+        mBuilder.setMessage("${type.toString()}")
+
+
+        val mDialog =mBuilder.create()
+
+        mDialog.show()
+
+
+    }
 
 
     private fun getAllArticles(){
@@ -239,61 +220,13 @@ class HomePage : Fragment() {
 
                     articleAdapter.notifyDataSetChanged()
 
-
                 }
-
             })
 
 
-
-
-
-
-
     }
 
 
-
-
-    /*
-
-
-    fun sort(){
-        //---------------------------------------------------------------------
-        lateinit var categorySelected:String
-
-
-        val category = resources.getStringArray(R.array.sortArticle)
-
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
-
-        binding.spinnerSortItemXml.setAdapter(arrayAdapter)
-        binding.spinnerSortItemXml.onItemClickListener = object : AdapterView.OnItemSelectedListener,
-            AdapterView.OnItemClickListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-
-                categorySelected = "${category[position]}"
-
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long
-            ) {
-
-                categorySelected = "${category[position]}"
-                Toast.makeText(context,"you selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
-
-        //----------------------------------------------------------------------
-
-
-    }
-
-     */
 
 
 }
