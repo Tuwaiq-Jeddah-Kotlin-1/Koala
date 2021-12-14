@@ -20,37 +20,16 @@ class Splash : AppCompatActivity() {
 
     private lateinit var settings : SharedPreferences
 
-    private lateinit var selectedLanguage:String
 
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val test = intent.getStringExtra("currentLang")
-
-         selectedLanguage = test.toString()
-
-
-        sharedPreferences = this.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
-        var editor1: SharedPreferences.Editor = sharedPreferences.edit()
-        editor1.putString("Language", selectedLanguage)
-
-        editor1.apply()
-        editor1.toString()
-        Toast.makeText(this," selectedLanguage is  ${ selectedLanguage.toString()}",Toast.LENGTH_LONG).show()
-
-
-
 
 
         val sharedPreferencesSettings= this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("Settings","")
-
-
-        Toast.makeText(this," language is  ${ language.toString()}",Toast.LENGTH_LONG).show()
 
         if (language.toString()=="ar"){
 
@@ -89,13 +68,6 @@ class Splash : AppCompatActivity() {
 
         //---------------------------------------------------------------
         this?.resources?.updateConfiguration(config, this.resources.displayMetrics)
-
-
-        settings = this.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
-        settings.edit()
-        settings.getString("My_lang","ar".toString())
-        settings.apply{}
 
     }
 

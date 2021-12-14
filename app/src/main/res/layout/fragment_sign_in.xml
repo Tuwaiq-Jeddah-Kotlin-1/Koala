@@ -7,6 +7,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:background="#81AFCA"
         tools:context=".Controller">
 
 
@@ -16,6 +18,8 @@
 
 
             <androidx.cardview.widget.CardView
+                android:backgroundTint="#557E93"
+
                 android:id="@+id/cardView_xml"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,8 +49,9 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
                         android:hint="Email"
+                        android:layout_marginBottom="5dp"
+
 
                         app:endIconMode="clear_text"
                         app:helperTextTextColor="#FF0000"
@@ -56,9 +61,10 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etSignInEmail_xml"
+                            android:textColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp" />
+                            android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -68,10 +74,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_margin="20dp"
                         android:hint="Password"
                         app:endIconMode="password_toggle"
                         app:helperTextTextColor="#FF0000"
+                        android:layout_marginBottom="15dp"
+
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etSignInEmailLayout">
@@ -79,20 +86,32 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etSignInPassword_xml"
                             android:layout_width="match_parent"
+
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
 
-                            android:textSize="20sp" />
+                            android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
                     <Button
-                        android:id="@+id/btnSignIn_xml"
-                        android:layout_width="200dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="30dp"
-                        android:text="@string/login"
+
+                        android:layout_marginLeft="15dp"
+
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/round_border"
+
+
+                        android:drawableEnd="@drawable/ic_login_24"
+
                         android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:id="@+id/btnSignIn_xml"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/login"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.44"
@@ -110,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Forgot Password"
-                android:textColor="#5EABE8"
-                android:textSize="25sp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.149"
@@ -120,12 +139,13 @@
 
             <CheckBox
                 android:id="@+id/cbRemember"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Remember Me"
-                android:textColor="#2196F3"
-                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.115"
@@ -144,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/koala_logo" />
+                app:srcCompat="@drawable/koala_logos" />
 
 
             <TextView
@@ -154,8 +174,8 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginBottom="60dp"
                 android:text="New Account SignUp"
-                android:textColor="#000000"
-                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 android:layout_margin="10dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -164,13 +184,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/ForgotPassword_xml" />
 
             <TextView
-                android:id="@+id/Vision"
+                android:id="@+id/Version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:layout_margin="20sp"
 
-                android:text="Vision 1.0.0"
+                android:text="Version 1.0.0"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"

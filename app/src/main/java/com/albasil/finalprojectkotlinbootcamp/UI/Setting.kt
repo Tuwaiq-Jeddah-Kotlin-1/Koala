@@ -44,7 +44,6 @@ class Setting : Fragment() {
     lateinit var binding: FragmentSettingBinding
 
     private lateinit var preferences: SharedPreferences
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var settings :SharedPreferences
 
 
@@ -66,7 +65,7 @@ class Setting : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        loadLocate()
+        //loadLocate()
 
 
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
@@ -156,7 +155,6 @@ class Setting : Fragment() {
                 setLocaleKoala("ar")
 
             }else if (which==1){
-               /// setLocate("en")
                 setLocaleKoala("en")
 
             }
@@ -186,8 +184,6 @@ class Setting : Fragment() {
         context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
 
 
-        ///////////////////////////////////
-
         settings = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
         val editor: SharedPreferences.Editor = settings.edit()
@@ -197,9 +193,7 @@ class Setting : Fragment() {
        // Toast.makeText(context,"Settings ${locale.toString()}",Toast.LENGTH_LONG).show()
 
         val refresh = Intent(context, Splash::class.java)
-
-        //هنا ارسل متغير الى المين اكتفتي
-        refresh.putExtra("currentLang", localeName)
+    //    refresh.putExtra("currentLang", localeName)
         startActivity(refresh)
     }
 

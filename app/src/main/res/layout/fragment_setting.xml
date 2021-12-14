@@ -254,7 +254,7 @@
                     android:background="@drawable/round_border"
 
 
-                    android:drawableEnd="@drawable/ic_baseline_power_settings_new_24"
+                    android:drawableEnd="@drawable/ic_ogout_24"
                     android:text="Sign Out"
 
                     android:textColor="#FF6F00"
