@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -72,6 +73,11 @@ class UserProfile : Fragment() {
 
             expandedCallUser()
 
+        }//linearLayOutUserInfo_xml
+        binding.showUserInfoXml.setOnClickListener {
+
+            expandedUserInfo()
+
         }
 
 
@@ -79,7 +85,7 @@ class UserProfile : Fragment() {
 
 
         recyclerView = view.findViewById(R.id.userRecyclerView_xml)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
 
 
@@ -258,6 +264,20 @@ class UserProfile : Fragment() {
         }else{
             TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
             binding.linearLayoutCallUserXml.visibility = View.GONE
+        }
+
+    }
+
+
+    fun expandedUserInfo(){
+
+        if (binding.linearLayOutUserInfoXml.visibility == View.GONE){
+            TransitionManager.beginDelayedTransition(binding.linearLayOutUserInfoXml, AutoTransition())
+            binding.linearLayOutUserInfoXml.visibility = View.VISIBLE
+
+        }else{
+            TransitionManager.beginDelayedTransition(binding.linearLayOutUserInfoXml, AutoTransition())
+            binding.linearLayOutUserInfoXml.visibility = View.GONE
         }
 
     }

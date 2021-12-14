@@ -92,7 +92,7 @@ class Profile : Fragment() {
         val uid=FirebaseAuth.getInstance().uid
 
         recyclerView = view.findViewById(R.id.userProfileRecyclerView_xml)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
 
 

@@ -14,15 +14,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
-private lateinit var settings : SharedPreferences
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-
-       // setLocate("ar")
-
-       // loadLocate()
 
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
@@ -54,36 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setLocate(Lang:String){
-        val locale = Locale("ar")
 
-        Locale.setDefault(locale)
-
-        val config = Configuration()
-
-        config.locale = locale
-
-        //---------------------------------------------------------------
-        this?.resources?.updateConfiguration(config, this.resources.displayMetrics)
-
-
-        settings = this.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
-        settings.edit()
-        settings.getString("My_lang","ar".toString())
-        settings.apply{}
-
-    }
-
-    private fun loadLocate(){
-
-
-        val sharedPreferences= this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("My_lang","")
-
-        setLocate(language.toString())
-
-    }
 
 
 }

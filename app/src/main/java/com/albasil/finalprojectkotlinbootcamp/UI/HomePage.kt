@@ -184,7 +184,8 @@ class HomePage : Fragment() {
     private fun getAllArticles(){
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").addSnapshotListener(object :EventListener<QuerySnapshot>{
+        fireStore.collection("Articles").orderBy("date")
+            .addSnapshotListener(object :EventListener<QuerySnapshot>{
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
                     if (error != null){

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.UiModeManager.MODE_NIGHT_YES
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -16,19 +15,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.create
-import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.MainActivity
 import com.albasil.finalprojectkotlinbootcamp.R
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSettingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.AuthCredential
@@ -38,7 +31,14 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.help_and_support.view.*
 import java.util.*
+
+
+import com.albasil.finalprojectkotlinbootcamp.Splash
 import kotlin.system.exitProcess
+
+@Suppress("DEPRECATION")
+
+
 
 class Setting : Fragment() {
     lateinit var binding: FragmentSettingBinding
@@ -65,7 +65,7 @@ class Setting : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setLocate("ar")
+
         loadLocate()
 
 
@@ -135,7 +135,6 @@ class Setting : Fragment() {
 
             }
 
-            //     binding.switchDarkMode.
 
 
         }
@@ -149,17 +148,16 @@ class Setting : Fragment() {
 
         mBuilder.setTitle("Choose Language")
 
-
         mBuilder.setSingleChoiceItems(listItmes,-1){
                  dialog, which ->
-
             if (which ==0){
 
-                setLocate("ar")
+                //setLocate("ar")
+                setLocaleKoala("ar")
 
             }else if (which==1){
-                setLocate("en")
-
+               /// setLocate("en")
+                setLocaleKoala("en")
 
             }
 
@@ -174,8 +172,57 @@ class Setting : Fragment() {
 
     }
 
+    private fun setLocaleKoala(localeName: String) {
+
+        val locale =Locale(localeName.toString())
+
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+        config.locale = locale
+
+        //---------------------------------------------------------------
+        context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
+
+
+        ///////////////////////////////////
+
+        settings = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
+        val editor: SharedPreferences.Editor = settings.edit()
+        editor.putString("Settings", "${locale.toString()}")
+        editor.apply()
+
+       // Toast.makeText(context,"Settings ${locale.toString()}",Toast.LENGTH_LONG).show()
+
+        val refresh = Intent(context, Splash::class.java)
+
+        //هنا ارسل متغير الى المين اكتفتي
+        refresh.putExtra("currentLang", localeName)
+        startActivity(refresh)
+    }
+
+
+
+
+
+
+    private fun loadLocate(){
+
+
+        val sharedPreferences= this.requireActivity().getSharedPreferences("Settings",Activity.MODE_PRIVATE)
+        val language = sharedPreferences.getString("My_lang","")
+
+      //  setLocate(language.toString())
+
+    }
+
+
+
+
     private fun setLocate(Lang:String){
-        val locale =Locale("ar")
+        val locale =Locale("${Lang.toString()}")
 
         Locale.setDefault(locale)
 
@@ -195,77 +242,26 @@ class Setting : Fragment() {
 
     }
 
-    private fun loadLocate(){
 
-
-        val sharedPreferences= this.requireActivity().getSharedPreferences("Settings",Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("My_lang","")
-
-        setLocate(language.toString())
-
+    /*
+    override fun onResume() {
+        super.onResume()
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { v, keyCode, event ->
+            if (event.action === KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                activity?.finish()
+                exitProcess(0) // Add your code here
+                true
+            } else false
+        }
     }
-
-
-
-
-
-
-        //----------------------------------------------------------------------
-        private fun changeLanguage() {
-
-            spinner()
-        }
-
-        fun spinner() {
-
-
-            val view: View = layoutInflater.inflate(R.layout.change_language, null)
-
-            val builder = BottomSheetDialog(requireView()?.context as Context)
-            builder.setTitle("Change Language")
-
-            builder.setContentView(view)
-
-            lateinit var spinner: Spinner
-
-            builder.show()
-
-            spinner = view.findViewById(R.id.spinner)
-            val list = ArrayList<String>()
-            list.add("Select Language")
-            list.add("English")
-            list.add("Español")
-            list.add("Français")
-            list.add("Hindi")
-            list.add("Arabic")
-
-/*
-        val adapter = ArrayAdapter(requireContext(),spinner.dropDownHorizontalOffset, list)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                when (position) {
-                    0 -> {
-                    }
-                    1 -> setLocale("en")
-                    2 -> setLocale("es")
-                    3 -> setLocale("fr")
-                    4 -> setLocale("hi")
-                    5 -> setLocale("ar")
-                }
-            }
-
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-
-    */
-
-        }
-
-        private fun setLocale(localeName: String) {
+*/
+    private fun setLocale(localeName: String) {
             lateinit var locale: Locale
             var currentLanguage = "en"
             var currentLang: String? = null
@@ -288,23 +284,6 @@ class Setting : Fragment() {
                 Toast.makeText(
                     this.context, "Language, , already, , selected)!", Toast.LENGTH_SHORT
                 ).show();
-            }
-        }
-
-        override fun onResume() {
-            super.onResume()
-            requireView().isFocusableInTouchMode = true
-            requireView().requestFocus()
-            requireView().setOnKeyListener { v, keyCode, event ->
-                if (event.action === KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    val intent = Intent(Intent.ACTION_MAIN)
-                    intent.addCategory(Intent.CATEGORY_HOME)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    activity?.finish()
-                    exitProcess(0) // Add your code here
-                    true
-                } else false
             }
         }
 
@@ -377,8 +356,8 @@ class Setting : Fragment() {
 
 
                                     //احط متغير
-                                    user?.updatePassword("${newPassword.toString()}")
-                                        ?.addOnCompleteListener { task ->
+                                    user.updatePassword("${newPassword.toString()}")
+                                        .addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
                                                 Toast.makeText(
                                                     context, "isSuccessful , Update password",
@@ -497,8 +476,9 @@ class Setting : Fragment() {
 
         }
 
-        //--------------------------------------------------------------------------
+
 
 
 
     }
+
