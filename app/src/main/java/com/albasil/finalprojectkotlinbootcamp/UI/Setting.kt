@@ -1,10 +1,13 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.UiModeManager.MODE_NIGHT_YES
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +20,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.create
 import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.MainActivity
@@ -39,6 +44,9 @@ class Setting : Fragment() {
     lateinit var binding: FragmentSettingBinding
 
     private lateinit var preferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var settings :SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +64,9 @@ class Setting : Fragment() {
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setLocate("ar")
+        loadLocate()
 
 
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
@@ -98,6 +109,9 @@ class Setting : Fragment() {
 
             binding.tvChangePasswordXml.setOnClickListener {
                 dialogChangePassword()
+
+                //showChangeLanguage()
+
             }
 
 
@@ -115,7 +129,9 @@ class Setting : Fragment() {
 
             binding.changeLanguagId.setOnClickListener {
 
-                changeLanguage()
+                //changeLanguage()
+
+                showChangeLanguage()
 
             }
 
@@ -123,6 +139,72 @@ class Setting : Fragment() {
 
 
         }
+
+    private fun showChangeLanguage(){
+
+        val listItmes = arrayOf("عربي","English")
+
+
+        val mBuilder =AlertDialog.Builder(this.requireContext())
+
+        mBuilder.setTitle("Choose Language")
+
+
+        mBuilder.setSingleChoiceItems(listItmes,-1){
+                 dialog, which ->
+
+            if (which ==0){
+
+                setLocate("ar")
+
+            }else if (which==1){
+                setLocate("en")
+
+
+            }
+
+            dialog.dismiss()
+
+
+        }
+        val mDialog =mBuilder.create()
+
+        mDialog.show()
+
+
+    }
+
+    private fun setLocate(Lang:String){
+        val locale =Locale("ar")
+
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+        config.locale = locale
+
+        //---------------------------------------------------------------
+        context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
+
+
+        settings = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
+        settings.edit()
+        settings.getString("My_lang","ar".toString())
+        settings.apply{}
+
+    }
+
+    private fun loadLocate(){
+
+
+        val sharedPreferences= this.requireActivity().getSharedPreferences("Settings",Activity.MODE_PRIVATE)
+        val language = sharedPreferences.getString("My_lang","")
+
+        setLocate(language.toString())
+
+    }
+
 
 
 

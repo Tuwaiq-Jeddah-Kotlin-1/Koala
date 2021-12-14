@@ -182,11 +182,6 @@ class HomePage : Fragment() {
 
 
     private fun getAllArticles(){
-        articleList.sortedByDescending {
-            it.category
-        }
-
-
 
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").addSnapshotListener(object :EventListener<QuerySnapshot>{
