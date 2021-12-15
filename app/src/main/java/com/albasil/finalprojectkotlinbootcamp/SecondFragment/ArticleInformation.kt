@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
@@ -25,8 +26,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import kotlin.properties.Delegates
+
 class ArticleInformation : Fragment() {
     val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+     private var likesCounter : Int=0
+
 
     private val args by navArgs<ArticleInformationArgs>()
 
@@ -42,6 +48,10 @@ class ArticleInformation : Fragment() {
         view.articleDateInfo_xml.text = " ${args.articleData.date.toString()}"
         view.articleCategoryInfo_xml.text = " ${args.articleData.category.toString()}"
         view.articleDescraptionInfo_xml.text = " ${args.articleData.description.toString()}"
+
+
+
+        likesCounter=args.articleData.like.toInt()
 
         getArtciclePhoto(args.articleData.articleImage.toString())
 
@@ -101,7 +111,13 @@ class ArticleInformation : Fragment() {
                 if (it.result?.exists()!!){
 
                   deleteFavoiret(articleID.toString())
+                    Toast.makeText(context,"likesCounter ${likesCounter}",Toast.LENGTH_LONG).show()
+
+                    likesCounter = likesCounter-1
+
+                    Toast.makeText(context,"likesCounter--  ${likesCounter}",Toast.LENGTH_LONG).show()
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
+                    upDateArticleLike(articleID, likesCounter)
 
 
                 }else{
@@ -112,6 +128,16 @@ class ArticleInformation : Fragment() {
                         "${view?.articleDescraptionInfo_xml?.text}",
                         "${args.articleData.articleImage.toString()}"
                         ,view?.articleDateInfo_xml?.text.toString())
+
+
+                    Toast.makeText(context,"likesCounter ${likesCounter}",Toast.LENGTH_LONG).show()
+
+                    likesCounter = likesCounter+1
+
+                    Toast.makeText(context,"likesCounter++  ${likesCounter}",Toast.LENGTH_LONG).show()
+                    upDateArticleLike(articleID,likesCounter!!.toInt())
+
+
 
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
 
@@ -131,6 +157,36 @@ class ArticleInformation : Fragment() {
             .document("${articleID.toString()}").delete()
 
         Toast.makeText(context,"delete article ",Toast.LENGTH_LONG).show()
+
+    }
+
+
+    fun numberLikes(){
+
+    }
+
+    private fun upDateArticleLike(articleID: String,upDateLike:Int,){
+
+        val upDateLike= hashMapOf(
+            "like" to upDateLike.toInt(),
+        )
+        val userRef = Firebase.firestore.collection("Articles")
+        userRef.document("$articleID").set(upDateLike, SetOptions.merge()).addOnCompleteListener { it
+            when {
+                it.isSuccessful -> {
+                   // getUserInfo("${uId}")
+
+                    Toast.makeText(context,"UpDate lIEK ",Toast.LENGTH_SHORT).show()
+
+                }
+                else -> {
+
+                    Toast.makeText(context," no UpDate lIEK ",Toast.LENGTH_SHORT).show()
+
+
+                }
+            }
+        }
 
     }
 

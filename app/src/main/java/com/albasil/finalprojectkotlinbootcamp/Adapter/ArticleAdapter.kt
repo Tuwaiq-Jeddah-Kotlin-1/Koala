@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -25,8 +26,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-
-
         val itemView =LayoutInflater.from(parent.context).inflate(R.layout.item_article,parent,false)
 
         return MyViewHolder(itemView)
@@ -37,29 +36,29 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
         val article= articleList[position]
         holder.titleArticle.text = article.title
-        holder.category.text = article.category
+        holder.articleDate = article.date
         holder.userName.text = article.userName
         holder.articleCategory = article.category
         holder.articleDescription = article.description
         holder.image=article.articleImage
         holder.userId = article.userId
+        holder.numberLikes.text =article.like.toString()
+
 
 
 
 
         holder.userName.setOnClickListener {
 
+
+
             if (currentUserUid.toString()==holder.userId.toString()){
                 findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
 
             }else{
-                Log.e("uid", "${holder.userName.text.toString()}  \n" + "uid   ${holder.toString()}")
                 val userInformation = HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
                 findNavController(holder.itemView.findFragment()).navigate(userInformation)
-
             }
-
-
         }
 
         //-------------------------------------------------------------------------
@@ -86,13 +85,15 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
     class MyViewHolder(itemView :View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
 
+
        val titleArticle :TextView =itemView.findViewById(R.id.tvTitle_xml)
        val userName :TextView =itemView.findViewById(R.id.tvUserName_xml)
-       val category :TextView =itemView.findViewById(R.id.tvDateItem_xml)
+       val category :TextView =itemView.findViewById(R.id.tvCategoryItem_xml)
        val imageArticle :ImageView =itemView.findViewById(R.id.imageItem_xml)
-     //   val iconShare:ImageView=itemView.findViewById(R.id.ic_share_xml)
+        val numberLikes :TextView=itemView.findViewById(R.id.numberLike_xml)
 
          lateinit var articleCategory :String
+         lateinit var articleDate :String
          lateinit var articleDescription :String
          lateinit var image :String
          lateinit var userId :String
@@ -104,21 +105,20 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
       override fun onClick(v: View?) {
-          //val article_data =Article("${userName.text.toString()}","${titleArticle.text.toString()}","a","aa","aa","aa","aa",0)
 
           val article_data =Article()
 
           article_data.title = titleArticle.text.toString()
           article_data.userName = userName.text.toString()
-          article_data.date = category.text.toString()
+          article_data.date = articleDate.toString()
           article_data.category = articleCategory.toString()
           article_data.description = articleDescription.toString()
           article_data.articleImage = image.toString()
+          article_data.like = numberLikes.text.toString().toInt()
 
 
           val itemData = HomePageDirections.actionHomePageToArticleInformation(article_data)
           findNavController(itemView.findFragment()).navigate(itemData)
-//          findNavController(itemView.findFragment()).navigate(R.id.action_homePage_to_articleInformation)
 
 
 

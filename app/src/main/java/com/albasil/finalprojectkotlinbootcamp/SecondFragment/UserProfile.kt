@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
+import androidx.core.view.size
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,8 @@ import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_home_page.*
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +42,6 @@ class UserProfile : Fragment() {
     lateinit var binding: FragmentUserProfileBinding
     private lateinit var recyclerView : RecyclerView
     private lateinit var articleList :ArrayList<Article>
-    private lateinit var userList :ArrayList<Users>
     private lateinit var articleAdapter : ArticleUserProfileAdapter
 
 
@@ -69,6 +71,7 @@ class UserProfile : Fragment() {
         getUserInfo(args.userID.toString())
 
 
+
         binding.userInforCallXml.setOnClickListener {
 
             expandedCallUser()
@@ -90,20 +93,17 @@ class UserProfile : Fragment() {
 
 
         articleList = arrayListOf()
-        userList = arrayListOf()
 
         articleAdapter = ArticleUserProfileAdapter(articleList)
 
         recyclerView.adapter = articleAdapter
 
+
+
+
         EventChangeListener("${args.userID.toUri()}")
 
         //---------------------------------------------------------
-
-
-
-
-
 
     }
 
@@ -128,6 +128,8 @@ class UserProfile : Fragment() {
 
                         }
                     }
+                    binding.userArticlesXml.setText(articleList.size.toString())
+
 
                     articleAdapter.notifyDataSetChanged()
 

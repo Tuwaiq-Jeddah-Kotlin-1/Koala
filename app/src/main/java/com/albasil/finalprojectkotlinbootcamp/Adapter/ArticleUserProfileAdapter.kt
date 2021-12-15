@@ -25,7 +25,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
-//class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>) RecyclerView.Adapter<ArticleAdapter.UserViewHolder>() {
 
     class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
@@ -52,6 +51,8 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
         holder.userID = article.userId.toString()
         holder.articleID = article.articleID.toString()
 
+        articleList
+
 
 
         holder.deleteArticle.setOnClickListener {
@@ -59,7 +60,6 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
         }
 
         holder.editArticle.setOnClickListener {
-
 
             val article_data =Article()
 
@@ -71,26 +71,17 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
            article_data.articleID = article.articleID.toString()
 
-            val itemData = ProfileDirections.actionProfileToEditArticle(article_data)
+            val itemData = ProfileDirections.actionProfileToEditArticle(article_data,)
 
             findNavController(holder.itemView.findFragment()).navigate(itemData)
 
-
         }
-
 
         if (currentUserUid == holder.userID.toString()) {
 
-
                 TransitionManager.beginDelayedTransition(holder.editLinear, AutoTransition())
                 holder.editLinear.visibility = View.VISIBLE
-
         }
-
-
-
-
-
 
     }
 
@@ -106,14 +97,13 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
                     //-------------------------------
 
                     /*** delete fun */
-
-
                     val deleteArticle=Firebase.firestore.collection("Articles")
                         .document("${articleID.toString()}").delete()
 
 
                     deleteArticle
                     notifyDataSetChanged()
+
 
 
 

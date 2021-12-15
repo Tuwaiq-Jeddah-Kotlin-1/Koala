@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.albasil.finalprojectkotlinbootcamp.MainActivity
 
 class NotificationHelper(val context: Context) {
-    private val CHANNEL_ID = "anime_channel_id"
+    private val CHANNEL_ID = "koala_channel_id"
     private val NOTIFICATION_ID = 1
 
     fun createNotification(title: String, message: String){
@@ -37,7 +37,7 @@ class NotificationHelper(val context: Context) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID,
                 CHANNEL_ID, importance).apply {
-                description = "Anime Channel description"
+                description = "Koala Channel description"
             }
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)

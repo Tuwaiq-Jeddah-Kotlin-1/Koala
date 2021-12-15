@@ -16,6 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +35,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +53,6 @@ class Profile : Fragment() {
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var articleList :ArrayList<Article>
-    private lateinit var userList :ArrayList<Users>
     private lateinit var articleAdapter : ArticleUserProfileAdapter
     private lateinit var fireStore :FirebaseFirestore
 
@@ -89,14 +91,17 @@ class Profile : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
 
-
         articleList = arrayListOf()
-        userList = arrayListOf()
 
         articleAdapter = ArticleUserProfileAdapter(articleList)
 
         recyclerView.adapter = articleAdapter
 
+
+
+        binding.myArticlesXml.setText(articleList.size.toString())
+
+        //-------------------------
         EventChangeListener("${uid}")
 
         //---------------------------------------------------------
@@ -136,6 +141,11 @@ class Profile : Fragment() {
 
 
 
+        //
+        articleAdapter.notifyDataSetChanged()
+        Toast.makeText(context," ${articleList.size}++++ }",Toast.LENGTH_LONG).show()
+
+
     }
 
 
@@ -169,11 +179,14 @@ class Profile : Fragment() {
 
 
 
+
+
                     } else {
                         Log.e("error \n", "errooooooorr")
                     }
 
 
+                    binding.myArticlesXml.setText(articleList.size.toString())
                 }
 
         } catch (e: Exception) {

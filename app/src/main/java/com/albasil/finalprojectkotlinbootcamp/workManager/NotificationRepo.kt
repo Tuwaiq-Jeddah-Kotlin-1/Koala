@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 class NotificationRepo () {
     fun myNotification(mainActivity: MainActivity){
         val myWorkRequest= PeriodicWorkRequest
-            .Builder(KoalaWorker::class.java,15, TimeUnit.MINUTES)
+            .Builder(KoalaWorker::class.java,15, TimeUnit.DAYS)
             .setInputData(workDataOf(
                 "title" to "Koala App",
                 "message" to "New Article")
