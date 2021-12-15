@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.get
@@ -129,6 +131,11 @@ class Profile : Fragment() {
 
 
             selectImage()
+
+        }
+
+        binding.addInfoXml.setOnClickListener {
+            showdialoguserInfo()
         }
 
 
@@ -150,6 +157,56 @@ class Profile : Fragment() {
 
 
 
+    fun showdialoguserInfo() {
+
+        val builder = android.app.AlertDialog.Builder(context)
+        builder.setTitle("User Information")
+        val view: View = layoutInflater.inflate(R.layout.add_user_information_dialog, null)
+        val editTextExperience: EditText = view.findViewById(R.id.editTextAddExperience)//saveExperience_id
+        val addExperience: Button = view.findViewById(R.id.saveExperience_id)//saveExperience_id
+        builder.setView(view)
+        editTextExperience.setText("{tvExperience.text.toString()}")
+        addExperience.setOnClickListener {
+
+            addInformation("${editTextExperience.text.toString()}")
+
+          //  readUserData()
+        }
+        builder.setNegativeButton("Close", { _, _ -> })
+        builder.show()
+    }
+
+
+    fun addInformation(addExperience:String) = CoroutineScope(Dispatchers.IO).launch {
+
+        val userExperience= hashMapOf(
+            "moreInfo" to "${addExperience}",
+
+        )
+
+
+        val userRef = Firebase.firestore.collection("Users")
+        //-----------UID------------------------
+        val uId = FirebaseAuth.getInstance().currentUser?.uid
+
+        userRef.document("$uId").set(userExperience, SetOptions.merge()).addOnCompleteListener { it
+            when {
+                it.isSuccessful -> {
+                    //readUserData()
+
+                }
+                else -> {
+
+                    //dialog اسوي فانكشين لدايلوق  و امرر القيمة في الدخو او في الخطاء
+
+                }
+            }
+        }
+
+    }
+
+
+
     fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
 
         try {
@@ -165,14 +222,14 @@ class Profile : Fragment() {
                         var userEmail = it.result!!.getString("userEmail")
                         var userFollowing = it.result!!.get("following")
                         var userFollowers = it.result!!.get("followers")
-                        var userPhone = it.result!!.getString("userPhone")
+                        var userPhone = it.result!!.getString("userPhone")//moreInfo
+                        var userInfo = it.result!!.getString("moreInfo")//moreInfo
 
                         Log.e("user Info","userName ${name.toString()} \n ${userEmail.toString()}")
 
 
                         binding.userNameXml.text ="${name.toString()}"
-                        binding.userInfoXml.text ="${userEmail.toString()} \n " +
-                                "${userPhone.toString()}"
+                        binding.userInfoXml.text ="${userInfo.toString()}"
                         binding.userFollowersXml.text ="${userFollowers?.toString()}"
                         binding.userFollowingXml.text ="${userFollowing?.toString()}"
 

@@ -1,16 +1,19 @@
 package com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -78,6 +81,8 @@ class Sign_in : Fragment() {
 
 
 
+
+
                     //fun
                     //----------------------------------------------------------
                     val emailPreference: String = binding.etSignInEmailXml.text.toString()
@@ -99,6 +104,11 @@ class Sign_in : Fragment() {
 
         }
 
+
+        binding.ForgotPasswordXml.setOnClickListener {
+            forgotPasswordDialog()
+        }
+
         binding.newAccountXml.setOnClickListener {
 
             findNavController().navigate(R.id.action_sign_in_to_signUP)
@@ -110,6 +120,39 @@ class Sign_in : Fragment() {
 
 
     }
+
+
+    fun forgotPasswordDialog(){
+
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Forgot Password")
+        val view: View = layoutInflater.inflate(R.layout.dialog_forgot_password, null)
+        val userEmail: EditText = view.findViewById(R.id.etForgotPassword)
+        builder.setView(view)
+        builder.setPositiveButton("Rest", { _, _ ->
+            forgotPassword(userEmail)
+        })
+        builder.setNegativeButton("Close", { _, _ -> })
+        builder.show()
+    }
+
+
+    private fun forgotPassword(userEmail: EditText) {
+
+        val firebseAuth =FirebaseAuth.getInstance()
+        if (userEmail.text.toString().isEmpty()){return}
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {return}
+        firebseAuth.sendPasswordResetEmail(userEmail.text.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(context, "Send password Reset Email", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+    }
+
 
 /*
     private fun logInAuthentication() {
