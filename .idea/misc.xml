@@ -6,12 +6,15 @@
         <entry key="..\:/Users/Bojsl/.gradle/caches/transforms-3/0f402da245643451c7f7053be1519161/transformed/appcompat-1.4.0/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2453125" />
         <entry key="..\:/Users/Bojsl/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/border_linearlayout.xml" value="0.17685185185185184" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_book_24.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_dark_mode_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_favorite.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_help_outline_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_home.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_language_24.xml" value="0.27708333333333335" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_newspaper_24.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_photo_camera.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_security_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_unknown_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/round_border.xml" value="0.13796296296296295" />
@@ -37,7 +40,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/help_and_support.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/home_page.xml" value="0.2484375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/item_article.xml" value="0.264" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/item_article_user_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/item_article_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/se.xml" value="0.2484375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2453125" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/up_date_user_information.xml" value="0.2" />

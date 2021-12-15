@@ -27,6 +27,7 @@ class Sign_in : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
 
     var isRemembered = false
+
     private lateinit var rememberMe: CheckBox
 
     override fun onCreateView(

@@ -21,12 +21,27 @@
         android:gravity="center"
         android:orientation="vertical">
 
-<!--4A6572-->
+        <!--4A6572-->
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvUserName_xml"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:layout_weight="1"
+            android:text="User name "
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
 
         <ImageView
             android:id="@+id/imageItem_xml"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/koala_logo" />
 
@@ -36,16 +51,17 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
 
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvTitle_xml"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
+                android:layout_weight="0"
+                android:gravity="center"
 
                 android:text="Title"
                 android:textColor="@color/white"
@@ -55,9 +71,9 @@
                 android:id="@+id/tvDateItem_xml"
 
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:gravity="right"
 
                 android:padding="5dp"
@@ -75,20 +91,8 @@
             android:layout_margin="15dp"
             android:gravity="center"
 
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/tvUserName_xml"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-
-                android:layout_weight="1"
-                android:text="User name "
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:ignore="RtlHardcoded" />
+            android:padding="5dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -96,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_favorite" />
 
         </LinearLayout>

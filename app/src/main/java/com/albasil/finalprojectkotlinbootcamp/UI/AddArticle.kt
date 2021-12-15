@@ -296,7 +296,7 @@ class AddArticle : Fragment() {
         imageUrl?.let {
             storageReference.putFile(it)
                 .addOnSuccessListener {
-                    Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+
                     // if (progressDialog.isShowing)progressDialog.dismiss()
 
                 }.addOnFailureListener{
