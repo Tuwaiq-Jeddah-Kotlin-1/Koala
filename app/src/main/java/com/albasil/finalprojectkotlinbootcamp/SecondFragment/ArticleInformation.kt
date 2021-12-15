@@ -55,10 +55,6 @@ class ArticleInformation : Fragment() {
         getUserPhoto2(args.articleData.articleImage.toString())
 
 
-
-        //kSgL6CKcJcU1KMAOurEGFHxLb1s1Escanor Sama2021-12-14-04-25-98
-
-
         cheackIsFavoirte(args.articleData.articleImage.toString())
 
 
@@ -136,11 +132,8 @@ class ArticleInformation : Fragment() {
                 for (dc : DocumentChange in value?.documentChanges!!){
 
                     if (dc.type == DocumentChange.Type.ADDED){
-                        Toast.makeText(context,"Article id is here", Toast.LENGTH_LONG).show()
 
                         articleIsFavorte=true
-
-
 
                         favoirteIsTrue(articleIsFavorte)
 
@@ -170,17 +163,10 @@ class ArticleInformation : Fragment() {
                 Toast.LENGTH_LONG).show()
         }else{
             view?.favoriteArticle_xml?.setBackgroundColor(Color.GRAY)
-            Toast.makeText(context,"article Is Favorte ${articleIsFavorte.toString()}",
-                Toast.LENGTH_LONG).show()
+        //    Toast.makeText(context,"article Is Favorte ${articleIsFavorte.toString()}", Toast.LENGTH_LONG).show()
         }
 
     }
-
-
-
-
-
-
 
 
 
@@ -204,10 +190,6 @@ class ArticleInformation : Fragment() {
 
         addUserFavorite(article)
     }
-
-
-
-
 
     fun addUserFavorite(article:Article) = CoroutineScope(Dispatchers.IO).launch {
 
@@ -247,9 +229,6 @@ class ArticleInformation : Fragment() {
         }
     }
     //fireStore
-
-
-
 
 
     fun shareArticle(titleArticle:String,subjectArticle:String){
@@ -304,15 +283,6 @@ class ArticleInformation : Fragment() {
         }
     }
 
-
-
-
-
-
-    fun addFavorite(){
-
-
-    }
 
 }
 

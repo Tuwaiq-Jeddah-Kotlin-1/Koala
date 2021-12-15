@@ -11,6 +11,7 @@ import android.os.Handler
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        NotificationRepo().myNotification(this)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHostFragment.navController
