@@ -9,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
@@ -22,25 +24,39 @@ class MainActivity : AppCompatActivity() {
 
         NotificationRepo().myNotification(this)
 
+        //---------
+
+        //----------
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
+
+//        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.container_fragment)
         bottomNavView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.sign_in -> {
                     bottomNavView.visibility = View.GONE
+                    bottomAppBar.visibility = View.GONE
+
                     //bottomNavView.visibility = View.VISIBLE
                 }
                 R.id.signUP -> {
                     bottomNavView.visibility = View.GONE
-                }
-              /*  R.id.addArticle ->{
-                    bottomNavView.visibility = View.GONE
+                    bottomAppBar.visibility = View.GONE
 
-                }*/
+                }
+                R.id.splashScreen ->{
+                    bottomNavView.visibility = View.GONE
+                    bottomAppBar.visibility = View.GONE
+
+
+                }
                 else -> {
                     bottomNavView.visibility = View.VISIBLE
+                    bottomAppBar.visibility = View.VISIBLE
+
                 }
             }
         }

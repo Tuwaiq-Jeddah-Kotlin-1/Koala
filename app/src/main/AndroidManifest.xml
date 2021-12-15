@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProjectKotlinBootcamp">
         <activity
-                android:name=".MainActivity"
+                android:name=".Splash"
             android:exported="true" />
         <activity
             android:name=".Controller"
@@ -23,7 +23,7 @@
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.FinalProjectKotlinBootcamp.NoActionBar" />
         <activity
-            android:name=".Splash"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

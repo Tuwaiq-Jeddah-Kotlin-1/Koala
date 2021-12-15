@@ -1,7 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.UiModeManager.MODE_NIGHT_YES
 import android.content.Context
 import android.content.Intent
@@ -10,7 +9,6 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,10 +29,6 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.help_and_support.view.*
 import java.util.*
-
-
-import com.albasil.finalprojectkotlinbootcamp.Splash
-import kotlin.system.exitProcess
 
 @Suppress("DEPRECATION")
 
@@ -192,7 +186,7 @@ class Setting : Fragment() {
 
        // Toast.makeText(context,"Settings ${locale.toString()}",Toast.LENGTH_LONG).show()
 
-        val refresh = Intent(context, Splash::class.java)
+        val refresh = Intent(context, MainActivity::class.java)
     //    refresh.putExtra("currentLang", localeName)
         startActivity(refresh)
     }
