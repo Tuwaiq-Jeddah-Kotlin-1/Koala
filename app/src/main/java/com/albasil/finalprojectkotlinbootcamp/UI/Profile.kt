@@ -54,13 +54,6 @@ class Profile : Fragment() {
     private lateinit var articleAdapter : ArticleUserProfileAdapter
     private lateinit var fireStore :FirebaseFirestore
 
-
-    private lateinit var preferences: SharedPreferences
-
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -150,12 +143,10 @@ class Profile : Fragment() {
     fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
 
         try {
-            //coroutine
             val db = FirebaseFirestore.getInstance()
             db.collection("Users")
                 .document("$userID")
-                .get().addOnCompleteListener {
-                    it
+                .get().addOnCompleteListener { it
 
                     if (it.result?.exists()!!) {
 
