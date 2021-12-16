@@ -196,7 +196,7 @@
 
                                     <ImageView
 
-                                        android:id="@+id/addInfo_xml"
+                                        android:id="@+id/addInformation_xml"
                                         android:layout_width="30dp"
                                         android:layout_height="50dp"
                                         android:contentDescription="@string/app_name"

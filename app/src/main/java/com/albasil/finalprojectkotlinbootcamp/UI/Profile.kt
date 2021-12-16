@@ -129,12 +129,11 @@ class Profile : Fragment() {
 
         binding.userImageProfileXml.setOnClickListener {
 
-
             selectImage()
 
         }
 
-        binding.addInfoXml.setOnClickListener {
+        binding.addInformationXml.setOnClickListener {
             showdialoguserInfo()
         }
 
@@ -143,8 +142,7 @@ class Profile : Fragment() {
 
             upDateUserInfoBottomSheet()
         }
-        binding.addInfoXml.setOnClickListener{
-        }
+
 
 
 
@@ -165,13 +163,20 @@ class Profile : Fragment() {
         val editTextExperience: EditText = view.findViewById(R.id.editTextAddExperience)//saveExperience_id
         val addExperience: Button = view.findViewById(R.id.saveExperience_id)//saveExperience_id
         builder.setView(view)
-        editTextExperience.setText("{tvExperience.text.toString()}")
+        editTextExperience.setText(binding.userInfoXml.text.toString())
         addExperience.setOnClickListener {
+
+
+        }
+        builder.setPositiveButton("Save",{_, _->
 
             addInformation("${editTextExperience.text.toString()}")
 
-          //  readUserData()
-        }
+            binding.userInfoXml.setText(editTextExperience.text.toString())
+
+
+        })
+
         builder.setNegativeButton("Close", { _, _ -> })
         builder.show()
     }

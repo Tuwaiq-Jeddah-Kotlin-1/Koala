@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        NotificationRepo().myNotification(this)
+       // NotificationRepo().myNotification(this)
 
         //---------
 

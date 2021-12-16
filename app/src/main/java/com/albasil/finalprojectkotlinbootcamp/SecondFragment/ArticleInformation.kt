@@ -63,7 +63,9 @@ class ArticleInformation : Fragment() {
 
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
+
             upDateFavorite(args.articleData.articleImage.toString())
+
         }
 
         view.shearArticle_xml.setOnClickListener {
@@ -135,6 +137,7 @@ class ArticleInformation : Fragment() {
                     likesCounter = likesCounter+1
 
                     Toast.makeText(context,"likesCounter++  ${likesCounter}",Toast.LENGTH_LONG).show()
+
                     upDateArticleLike(articleID,likesCounter!!.toInt())
 
 
@@ -161,9 +164,6 @@ class ArticleInformation : Fragment() {
     }
 
 
-    fun numberLikes(){
-
-    }
 
     private fun upDateArticleLike(articleID: String,upDateLike:Int,){
 
@@ -174,8 +174,6 @@ class ArticleInformation : Fragment() {
         userRef.document("$articleID").set(upDateLike, SetOptions.merge()).addOnCompleteListener { it
             when {
                 it.isSuccessful -> {
-                   // getUserInfo("${uId}")
-
                     Toast.makeText(context,"UpDate lIEK ",Toast.LENGTH_SHORT).show()
 
                 }
