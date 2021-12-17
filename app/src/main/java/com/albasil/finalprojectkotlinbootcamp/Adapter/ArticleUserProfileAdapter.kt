@@ -51,8 +51,6 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
         holder.userID = article.userId.toString()
         holder.articleID = article.articleID.toString()
 
-        articleList
-
 
 
         holder.deleteArticle.setOnClickListener {
@@ -85,6 +83,12 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
     }
 
+
+
+
+
+
+
         @SuppressLint("NotifyDataSetChanged")
         private fun deleteArticle(articleID:String, view: View) {
             AlertDialog.Builder(view.context)
@@ -95,6 +99,13 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
                     //-------------------------------
+
+
+
+
+
+
+
 
                     /*** delete fun */
                     val deleteArticle=Firebase.firestore.collection("Articles")

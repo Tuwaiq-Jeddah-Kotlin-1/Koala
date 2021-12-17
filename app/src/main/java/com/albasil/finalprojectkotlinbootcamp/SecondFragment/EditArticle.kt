@@ -34,7 +34,7 @@ import java.time.format.DateTimeFormatter
 class EditArticle : Fragment() {
     private val args by navArgs<EditArticleArgs>()
     lateinit var binding: FragmentEditArticleBinding
-    private lateinit var imageUrl : Uri
+    private  var imageUrl : Uri?=null
 
 
     lateinit var categorySelected:String
@@ -162,28 +162,29 @@ class EditArticle : Fragment() {
 
     fun upLoadImage(uIdCategory:String){
 
-        val progressDialog = ProgressDialog(context)
+      /* val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Uploading File ...")
         progressDialog.setCancelable(false)
 
-        progressDialog.show()
+        progressDialog.show()*/
 
 
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
 
-        storageReference.putFile(imageUrl)
-            .addOnSuccessListener {
-                //   userImage.setImageURI(null)
-                Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+        imageUrl?.let {
+            storageReference.putFile(it)
+                .addOnSuccessListener {
+                    //   userImage.setImageURI(null)
+                    Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
 
-                if (progressDialog.isShowing)progressDialog.dismiss()
+                //    if (progressDialog.isShowing)progressDialog.dismiss()
 
 
-
-            }.addOnFailureListener{
-                if (progressDialog.isShowing)progressDialog.dismiss()
-                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-            }
+                }.addOnFailureListener{
+                 //   if (progressDialog.isShowing)progressDialog.dismiss()
+                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
 

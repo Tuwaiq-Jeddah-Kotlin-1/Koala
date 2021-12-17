@@ -23,10 +23,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_article_information.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 
 class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
@@ -60,10 +57,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
 
-
-
-
-
         holder.userName.setOnClickListener {
 
 
@@ -76,6 +69,15 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                 findNavController(holder.itemView.findFragment()).navigate(userInformation)
             }
         }
+
+
+
+
+
+
+
+
+
 
         //-------------------------------------------------------------------------
         val storageRef = FirebaseStorage.getInstance().reference
@@ -98,7 +100,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private var likesCounter = 0
 
 
         val userID = FirebaseAuth.getInstance().currentUser?.uid
@@ -119,17 +120,25 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
         fun upDateFavorite(articleID: String,article: Article ) {
 
-
-
-
             val db = FirebaseFirestore.getInstance()
             db.collection("Users").document("$userID")
                 .collection("Favorite").document(articleID.toString()).get()
                 .addOnCompleteListener {
+
+//                    var job : Job? = null
+//                    job?.cancel()
+//                    job = MainScope().launch{
+//                        delay(500L)
+//
+//                    }
+
+
                     if (it.result?.exists()!!) {
 
                         ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
+
+                        //************************************
                         ivFavorite.setOnClickListener {
 
                             //Fun
@@ -153,6 +162,9 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                     } else {
                         ivFavorite.setImageResource(R.drawable.ic_favorite_border)
 
+
+
+                        //************************************
                         ivFavorite.setOnClickListener {
 
                             //Fun
@@ -168,6 +180,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
                     }
                 }
+
         }
 
         private fun upDateArticleLike(articleID: String, upDateLike: Int) {

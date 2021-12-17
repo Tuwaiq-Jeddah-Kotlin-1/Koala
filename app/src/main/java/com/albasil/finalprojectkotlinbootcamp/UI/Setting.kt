@@ -184,7 +184,6 @@ class Setting : Fragment() {
         editor.putString("Settings", "${locale.toString()}")
         editor.apply()
 
-       // Toast.makeText(context,"Settings ${locale.toString()}",Toast.LENGTH_LONG).show()
 
         val refresh = Intent(context, MainActivity::class.java)
     //    refresh.putExtra("currentLang", localeName)

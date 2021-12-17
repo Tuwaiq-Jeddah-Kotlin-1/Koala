@@ -138,13 +138,13 @@ class AddArticle : Fragment() {
 
                     if(binding.articlerPhotoXml==null){
 
-                        Toast.makeText(context,"binding.articlerPhotoXml==null",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context,"binding.articlerPhotoXml  == null",Toast.LENGTH_LONG).show()
 
                     }else{
                         articleData("${categorySelected.toString()}"
                             ,"${binding.etTitleArticleXml.text.toString()}"
                             ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                            ,"${userId}${binding.etTitleArticleXml.text.toString()}${formatted2}")
+                            ,"${userId}${formatted2}")
 
                     }
 
