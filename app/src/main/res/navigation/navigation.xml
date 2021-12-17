@@ -59,6 +59,12 @@
         <action
             android:id="@+id/action_profile_to_editArticle"
             app:destination="@id/editArticle" />
+        <action
+            android:id="@+id/action_profile_to_userArticle"
+            app:destination="@id/userArticle" />
+        <argument
+            android:name="articleData"
+            app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
     </fragment>
     <fragment
         android:id="@+id/homePage"
@@ -98,6 +104,9 @@
         <argument
             android:name="userID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_userProfile_to_userArticle"
+            app:destination="@id/userArticle" />
     </fragment>
     <fragment
         android:id="@+id/editArticle"
@@ -117,5 +126,14 @@
             app:destination="@id/sign_in"
             app:popUpTo="@id/splashScreen"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/userArticle"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UserArticle"
+        android:label="fragment_user_article"
+        tools:layout="@layout/fragment_user_article" >
+        <argument
+            android:name="articleData"
+            app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
     </fragment>
 </navigation>

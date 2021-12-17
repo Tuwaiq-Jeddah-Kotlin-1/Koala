@@ -13,9 +13,18 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager.widget.ViewPager
+import com.albasil.finalprojectkotlinbootcamp.Adapter.TabAdapter
+import com.albasil.finalprojectkotlinbootcamp.UI.AddArticle
+import com.albasil.finalprojectkotlinbootcamp.UI.HomePage
+import com.albasil.finalprojectkotlinbootcamp.UI.Profile
+import com.albasil.finalprojectkotlinbootcamp.UI.Setting
 import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_splash_screen.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,11 +38,11 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferencesSettings = this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("Settings", "")
         if (language.toString() == "ar") {
-            Toast.makeText(this, " arabic",Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, " arabic",Toast.LENGTH_LONG).show()
             setLocate()
 
         } else {
-            Toast.makeText(this, "English", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "English", Toast.LENGTH_LONG).show()
         }
 
 
@@ -41,15 +50,16 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
             val navController = navHostFragment.navController
             val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
-            val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
 
-//        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.container_fragment)
+
             bottomNavView.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
                     R.id.sign_in -> {
+
                         bottomNavView.visibility = View.GONE
                         bottomAppBar.visibility = View.GONE
+
 
                         //bottomNavView.visibility = View.VISIBLE
                     }
@@ -62,9 +72,14 @@ class MainActivity : AppCompatActivity() {
                         bottomNavView.visibility = View.GONE
                         bottomAppBar.visibility = View.GONE
 
+                    }
+                    R.id.homePage -> {
 
+                        bottomNavView.visibility = View.VISIBLE
+                        bottomAppBar.visibility = View.VISIBLE
                     }
                     else -> {
+
                         bottomNavView.visibility = View.VISIBLE
                         bottomAppBar.visibility = View.VISIBLE
 
@@ -74,7 +89,6 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-
 
 
 

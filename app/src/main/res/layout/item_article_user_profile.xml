@@ -6,6 +6,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/carsItem"
         android:layout_width="match_parent"
         android:elevation="20dp"
         app:cardElevation="20dp"
@@ -14,45 +15,59 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_margin="10dp"
-
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="10dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/titleArticle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="TextView"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/articleCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/image_articleProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_category" />
 
-            <TextView
-                android:layout_margin="10dp"
+            <LinearLayout
+                android:layout_width="match_parent"
 
-                android:id="@+id/dateArticle"
-                android:layout_width="wrap_content"
+
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Date" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/titleArticle"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:text="titleArticle"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_weight="1"
+
+                    android:id="@+id/articleCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/editLinear"
 
-                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:orientation="horizontal"
                 android:padding="5dp"
+                android:textSize="14sp"
                 android:visibility="gone">
 
                 <ImageView

@@ -45,13 +45,13 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.articleDate = article.date
         holder.userName.text = article.userName
         holder.articleCategory = article.category
+        holder.category.text =article.category
         holder.articleDescription = article.description
         holder.image = article.articleImage
         holder.userId = article.userId
         holder.numberLikes.text = article.like.toString()
 
 
-        //  holder.getArticles(article)
         holder.upDateFavorite("${article.articleID}",article,)
 
 
@@ -131,14 +131,10 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 //                        delay(500L)
 //
 //                    }
-
-
                     if (it.result?.exists()!!) {
 
                         ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
-
-                        //************************************
                         ivFavorite.setOnClickListener {
 
                             //Fun
@@ -150,22 +146,24 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
                             article.like--
 
-                            Toast.makeText(this.itemView.context, "DELETE ${article.like}", Toast.LENGTH_LONG).show()
-
                             upDateArticleLike(articleID,article.like)
 
                             ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+
+
+
 
                         }
 
 
                     } else {
-                        ivFavorite.setImageResource(R.drawable.ic_favorite_border)
 
 
-
-                        //************************************
                         ivFavorite.setOnClickListener {
+
+
+                            ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+
 
                             //Fun
                             addFavorite("${articleID}",article)
@@ -173,10 +171,10 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                             article.like++
                             upDateArticleLike(articleID, article.like)
 
-                            ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
 
                         }
+
 
                     }
                 }

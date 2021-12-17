@@ -3,18 +3,18 @@ package com.albasil.finalprojectkotlinbootcamp.Adapter
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.ProfileDirections
@@ -23,10 +23,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
+import java.io.File
 
 
-    class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
+class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -46,10 +48,13 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
         val article= articleList[position]
         holder.titleArticle.text = article.title
-        holder.date.text = article.date
+        holder.articleDate = article.date
         holder.articleCategory.text = article.category
         holder.userID = article.userId.toString()
         holder.articleID = article.articleID.toString()
+        holder.userName = article.userName
+        holder.imageArticleId = article.articleImage
+        holder.articleDescription =article.description
 
 
 
@@ -60,9 +65,8 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
         holder.editArticle.setOnClickListener {
 
             val article_data =Article()
-
             article_data.title = holder.titleArticle.text.toString()
-            article_data.date = holder.date.text.toString()
+            article_data.date = holder.articleDate.toString()
             article_data.category = article.category.toString()
             article_data.description = article.description.toString()
             article.articleImage =article.articleImage.toString()
@@ -81,15 +85,31 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
                 holder.editLinear.visibility = View.VISIBLE
         }
 
+
+
+
+        //--------------------------
+
+                val storageRef = FirebaseStorage.getInstance().reference
+                .child("/imagesArticle/${article.articleImage.toString()}")
+
+        val localFile = File.createTempFile("tempImage", "jpg")
+        storageRef.getFile(localFile).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+            holder.image_article.load(bitmap)
+        }.addOnFailureListener {}
+
+
+
+
+
+
+
     }
 
 
 
-
-
-
-
-        @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged")
         private fun deleteArticle(articleID:String, view: View) {
             AlertDialog.Builder(view.context)
                 .setTitle("Delete Aricle")
@@ -139,17 +159,24 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
     class UserViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
+//        carsItem
         val titleArticle : TextView =itemView.findViewById(R.id.titleArticle)
-        val date : TextView =itemView.findViewById(R.id.dateArticle)
+//        val date : TextView =itemView.findViewById(R.id.dateArticle)
         val articleCategory : TextView =itemView.findViewById(R.id.articleCategory)
 
+        val image_article :ImageView = itemView.findViewById(R.id.image_articleProfile)
         val editLinear :LinearLayout =itemView.findViewById(R.id.editLinear)
 
         val editArticle :ImageView = itemView.findViewById(R.id.imEditArticle_xml)
         val deleteArticle :ImageView = itemView.findViewById(R.id.imDeleteArticle_xml)
 
+
+        lateinit var articleDate : String
        lateinit var userID :String
        lateinit var articleID:String
+       lateinit var userName :String
+       lateinit var imageArticleId:String
+       lateinit var articleDescription:String
 
 
 
@@ -162,14 +189,30 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 
 
 
+
         override fun onClick(v: View?) {
 
+            val article_data =Article()
+
+            article_data.title = titleArticle.text.toString()
+            article_data.userName = userName.toString()
+            article_data.date = articleDate.toString()
+            article_data.category = articleCategory.text.toString()
+            article_data.description = articleDescription.toString()
+            article_data.articleImage = imageArticleId.toString()
 
 
-            Toast.makeText(itemView.context,"${titleArticle.text.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()
+
+            val articleData = ProfileDirections.actionProfileToUserArticle(article_data)
+
+            findNavController(itemView.findFragment()).navigate(articleData)
+
+
+            Toast.makeText(itemView.context,"${article_data.title.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()
 
 
         }
+
 
 
     }

@@ -4,45 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+
         tools:context=".UI.HomePage">
+
+
 <!--
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sortItem_xml"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:drawableEnd="@drawable/ic_arrow_down"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="sort"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent">
 
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-          app:startIconDrawable="@drawable/ic_category"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditDate_xml">
 
-            <AutoCompleteTextView
-                android:hint="Categories"
-
-                android:id="@+id/spinnerSortItem_xml"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="none"
-                android:text="AutoCompleteTextView" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                app:tabGravity="fill"
+                app:tabBackground="@color/teal_200"
+                app:tabIndicatorColor="#F57F17"
+                app:tabInlineLabel="true"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/purple_500"
+                app:tabTextAppearance="@style/TapLayOut"
+                app:tabTextColor="@color/black"
+                tools:ignore="MissingConstraints" />
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewPager"
+
+
+
+            android:background="@color/black"
+            tools:ignore="MissingConstraints" />
 
 -->
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_weight="1"
+                    android:text="All Articles"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/button3"
+
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="My Favorite Articles"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/typeCategory_xml"

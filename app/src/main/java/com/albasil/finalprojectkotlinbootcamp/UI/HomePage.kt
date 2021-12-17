@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
+import com.albasil.finalprojectkotlinbootcamp.Adapter.TabAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
@@ -23,7 +25,7 @@ import com.google.firebase.firestore.*
 
 class HomePage : Fragment() {
 
-    lateinit var binding: FragmentHomePageBinding
+    lateinit var binding:FragmentHomePageBinding
 
 
      var categorySelected:String?=null
@@ -32,7 +34,6 @@ class HomePage : Fragment() {
     private lateinit var recyclerView :RecyclerView
     private lateinit var articleList :ArrayList<Article>
     private lateinit var newArticleList :ArrayList<Article>
-    private lateinit var userList :ArrayList<Users>
     private lateinit var articleAdapter :ArticleAdapter
     private lateinit var fireStore :FirebaseFirestore
 
@@ -43,6 +44,7 @@ class HomePage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        lateinit var binding:FragmentHomePageBinding
 
         binding = FragmentHomePageBinding.inflate(inflater,container,false)
 
@@ -55,23 +57,31 @@ class HomePage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         recyclerView = view.findViewById(R.id.recyclerViewArticle_xml)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
+        articleList = arrayListOf<Article>()
+        newArticleList= arrayListOf<Article>()
 
-
-        articleList = arrayListOf()
-        newArticleList= arrayListOf()
-        userList = arrayListOf()
         articleAdapter = ArticleAdapter(articleList)
-       recyclerView.adapter = articleAdapter
+
+        recyclerView.adapter = articleAdapter
+
+        newArticleList.addAll(articleList)
 
 
-        loadArticle()
+
+        getAllArticles()
 
 
-       typeCategory()
+
+        //loadArticle()
+
+
+      // typeCategory()
+
 
 
 
@@ -79,6 +89,24 @@ class HomePage : Fragment() {
 
     }
 
+/*
+    private fun setUpTaps() {
+
+        val tapAdapter = TabAdapter(supportFragmentManager)
+
+        tapAdapter.addFragment(HomePage(),"Settings")
+        tapAdapter.addFragment(Profile(),"Profile")
+        tapAdapter.addFragment(AddArticle(),"Add Article")
+
+        viewPager.adapter = tapAdapter
+        tabLayout.setupWithViewPager(viewPager)
+
+        tabLayout.getTabAt(0)!!.setIcon(R.drawable.ic_add_24)
+        tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_category)
+        tabLayout.getTabAt(2)!!.setIcon(R.drawable.ic_favorite)
+
+    }
+*/
     fun loadArticle(typeCategory:String?=null){
 
         if(typeCategory.isNullOrEmpty()) {
@@ -132,9 +160,10 @@ class HomePage : Fragment() {
                 categorySelected = "${category[position]}"
                 Toast.makeText(context,"you selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
 
-                showChangeLanguage(categorySelected.toString())
+            //    showChangeLanguage(categorySelected.toString())
 
                 categorySelected2=categorySelected.toString()
+
 
 
               // articleCategory(categorySelected.toString())
@@ -164,20 +193,19 @@ class HomePage : Fragment() {
 
     private fun getAllArticles(){
 
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").orderBy("date")
-            .addSnapshotListener(object :EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").orderBy("date").addSnapshotListener(object :EventListener<QuerySnapshot>{
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null){
                         Log.e("Firestore",error.message.toString())
                         return
                     }
-
                     for (dc : DocumentChange in value?.documentChanges!!){
-
                         if (dc.type == DocumentChange.Type.ADDED){
                             articleList.add(dc.document.toObject(Article::class.java))
+
 
                         }
                     }
@@ -202,7 +230,9 @@ class HomePage : Fragment() {
 
         fireStore = FirebaseFirestore.getInstance()
 
-        fireStore.collection("Articles").whereEqualTo("category","C1".toString()).addSnapshotListener(object :EventListener<QuerySnapshot>{
+        fireStore.collection("Articles").whereEqualTo("category","C1")
+
+            .addSnapshotListener(object :EventListener<QuerySnapshot>{
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
                     if (error != null){

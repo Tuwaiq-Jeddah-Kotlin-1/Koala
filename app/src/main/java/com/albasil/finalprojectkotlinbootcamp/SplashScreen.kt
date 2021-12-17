@@ -25,6 +25,8 @@ class SplashScreen : Fragment() {
         Handler().postDelayed({
             findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
         }, 5000)
+        //5000)
+
 
     }
 }

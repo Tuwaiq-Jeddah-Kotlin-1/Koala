@@ -168,14 +168,14 @@ class Profile : Fragment() {
 
 
         }
-        builder.setPositiveButton("Save",{_, _->
+        builder.setPositiveButton("Save") { _, _ ->
 
             addInformation("${editTextExperience.text.toString()}")
 
             binding.userInfoXml.setText(editTextExperience.text.toString())
 
 
-        })
+        }
 
         builder.setNegativeButton("Close", { _, _ -> })
         builder.show()
