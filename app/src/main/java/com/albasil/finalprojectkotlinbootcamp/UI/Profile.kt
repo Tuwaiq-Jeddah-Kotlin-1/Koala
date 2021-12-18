@@ -140,7 +140,9 @@ class Profile : Fragment() {
 
         binding.upDateButtonXml.setOnClickListener {
 
-            upDateUserInfoBottomSheet()
+           upDateUserInfoBottomSheet()
+
+
         }
 
 
@@ -426,13 +428,27 @@ class Profile : Fragment() {
 
     private fun upDateUserInfo(upDateName:String,upDatePhoneNumber:String){
 
+
+
+        //-----------UID------------------------
+        val uId = FirebaseAuth.getInstance().currentUser?.uid
+        val upDateUserData =Firebase.firestore.collection("Users")
+
+        upDateUserData.document(uId.toString())
+            .update("userNmae", "${upDateName.toString()}",
+                "userNamae","${upDatePhoneNumber.toString()}"
+        )
+
+/*
         val upDateUser= hashMapOf(
             "userNamae" to "${upDateName.toString()}",
             "userPhone" to "${upDatePhoneNumber.toString()}",
         )
-        val userRef = Firebase.firestore.collection("Users")
+
+
         //-----------UID------------------------
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
+        val userRef = Firebase.firestore.collection("Users")
+
         userRef.document("$uId").set(upDateUser, SetOptions.merge()).addOnCompleteListener { it
             when {
                 it.isSuccessful -> {
@@ -444,7 +460,7 @@ class Profile : Fragment() {
                 else -> {
 
                 }
-            }
+            }*/
         }
 
     }
@@ -455,4 +471,3 @@ class Profile : Fragment() {
 
 
 
-}

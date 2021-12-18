@@ -177,7 +177,7 @@
                                 android:textSize="20sp" />
 
                             <Button
-                                android:id="@+id/button2"
+                                android:id="@+id/btnFollowXml"
 
                                 android:layout_width="wrap_content"
 

@@ -79,12 +79,9 @@ class UserProfile : Fragment() {
         }//linearLayOutUserInfo_xml
         binding.showUserInfoXml.setOnClickListener {
 
-            expandedUserInfo()
+           // expandedUserInfo()
 
         }
-
-
-        val uid=FirebaseAuth.getInstance().uid
 
 
         recyclerView = view.findViewById(R.id.userRecyclerView_xml)
@@ -99,14 +96,23 @@ class UserProfile : Fragment() {
         recyclerView.adapter = articleAdapter
 
 
-
-
         EventChangeListener("${args.userID.toUri()}")
 
         //---------------------------------------------------------
 
+
+        binding.btnFollowXml.setOnClickListener {
+            followersUser()
+        }
+
+
+
+
     }
 
+    private fun followersUser() {
+        TODO("Not yet implemented")
+    }
 
 
     private fun EventChangeListener(uId:String){

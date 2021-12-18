@@ -48,9 +48,6 @@ class HomePage : Fragment() {
 
         binding = FragmentHomePageBinding.inflate(inflater,container,false)
 
-
-
-
         return binding.root
     }
 
@@ -68,10 +65,6 @@ class HomePage : Fragment() {
         articleAdapter = ArticleAdapter(articleList)
 
         recyclerView.adapter = articleAdapter
-
-        newArticleList.addAll(articleList)
-
-
 
         getAllArticles()
 

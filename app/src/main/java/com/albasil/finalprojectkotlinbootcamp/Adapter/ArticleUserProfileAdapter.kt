@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.SecondFragment.UserProfileDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.ProfileDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
@@ -203,9 +204,19 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
 
 
 
-            val articleData = ProfileDirections.actionProfileToUserArticle(article_data)
 
-            findNavController(itemView.findFragment()).navigate(articleData)
+
+            val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+            if(userID.toString()==currentUserUid){
+                val articleData = ProfileDirections.actionProfileToUserArticle(article_data)
+
+                findNavController(itemView.findFragment()).navigate(articleData)
+
+            }else{
+                val articleData = UserProfileDirections.actionUserProfileToUserArticle(article_data)
+                findNavController(itemView.findFragment()).navigate(articleData)
+
+            }
 
 
             Toast.makeText(itemView.context,"${article_data.title.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()
