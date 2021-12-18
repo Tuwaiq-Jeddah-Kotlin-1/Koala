@@ -2,6 +2,7 @@ package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.transition.AutoTransition
@@ -27,8 +28,11 @@ import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_home_page.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -66,9 +70,23 @@ class UserProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getUserPhoto(args.userID.toUri())
+        recyclerView = view.findViewById(R.id.userRecyclerView_xml)
+        recyclerView.layoutManager = GridLayoutManager(context,2)
+        recyclerView.setHasFixedSize(true)
+        articleList = arrayListOf()
+        articleAdapter = ArticleUserProfileAdapter(articleList)
 
+        recyclerView.adapter = articleAdapter
+
+
+
+
+
+        //***************************************
+        getArticlesUser("${args.userID.toString()}")
+        getUserPhoto(args.userID.toUri())
         getUserInfo(args.userID.toString())
+        //***************************************
 
 
 
@@ -79,30 +97,19 @@ class UserProfile : Fragment() {
         }//linearLayOutUserInfo_xml
         binding.showUserInfoXml.setOnClickListener {
 
-           // expandedUserInfo()
+            expandedUserInfo()
 
         }
 
 
-        recyclerView = view.findViewById(R.id.userRecyclerView_xml)
-        recyclerView.layoutManager = GridLayoutManager(context,2)
-        recyclerView.setHasFixedSize(true)
-
-
-        articleList = arrayListOf()
-
-        articleAdapter = ArticleUserProfileAdapter(articleList)
-
-        recyclerView.adapter = articleAdapter
-
-
-        EventChangeListener("${args.userID.toUri()}")
 
         //---------------------------------------------------------
-
+        followingOrNot(args.userID.toString())
 
         binding.btnFollowXml.setOnClickListener {
-            followersUser()
+
+            followersUser(args.userID.toString())
+
         }
 
 
@@ -110,15 +117,107 @@ class UserProfile : Fragment() {
 
     }
 
-    private fun followersUser() {
-        TODO("Not yet implemented")
+     fun followingOrNot(userId:String) = CoroutineScope(Dispatchers.IO).launch {
+
+         val myId = FirebaseAuth.getInstance().currentUser?.uid
+
+         fireStore.collection("Users").document("$userId")
+             .collection("Followers").document(myId.toString())
+                 .get().addOnCompleteListener { it
+                     if(it.result?.exists()!!) {
+
+
+                         Log.e("Following", " متابع ")
+
+                         binding.btnFollowXml.setText("Following")
+                         binding.btnFollowXml.setBackgroundColor(Color.GRAY)
+
+
+                     } else {
+                         Log.e("Following", "مو متابع ")
+
+
+                         binding.btnFollowXml.setText("Follow")
+                         binding.btnFollowXml.setBackgroundColor(Color.CYAN)
+
+                     }
+
+         }
+     }
+     fun followersUser(userId:String) = CoroutineScope(Dispatchers.IO).launch {
+
+         val myId = FirebaseAuth.getInstance().currentUser?.uid
+
+         fireStore.collection("Users").document("$userId")
+             .collection("Followers").document(myId.toString())
+                 .get().addOnCompleteListener { it
+                     if(it.result?.exists()!!) {
+
+
+
+                             binding.btnFollowXml.setText("Follow")
+                             binding.btnFollowXml.setBackgroundColor(Color.CYAN)
+                             deleteFollowing(myId.toString(),userId.toString())
+                             deleteFollowers(myId.toString(),userId.toString())
+
+
+                     } else {
+                         Log.e("Following", "مو متابع ")
+
+                             binding.btnFollowXml.setText("Following")
+                             binding.btnFollowXml.setBackgroundColor(Color.GRAY)
+
+                             //addFollowers
+                             addFollowers(myId.toString(),userId.toString())
+                             addFollowing(myId.toString(),userId.toString())
+
+                     }
+         }
+     }
+
+
+   fun addFollowers(myId:String,userId:String){
+       val userData =Users()
+       userData.userId =myId.toString()
+
+       val upDateUser= hashMapOf(
+           "userId" to "${myId.toString()}",
+       )
+       fireStore.collection("Users").document("${userId}")
+           .collection("Followers").document("${myId}").set(upDateUser)
+
+   }
+    fun deleteFollowers(myId:String,userId:String){
+        fireStore.collection("Users").document("${userId}")
+            .collection("Followers").document("${myId}").delete()
+
+    }
+
+    fun addFollowing(myId:String,userId:String){
+       val userData =Users()
+       userData.userId =userId.toString()
+
+        val upDateUser= hashMapOf(
+            "userId" to "${userId.toString()}",
+        )
+
+       fireStore.collection("Users").document("${myId}")
+           .collection("Following").document("${userId}").set(upDateUser)
+
+   }
+
+    fun deleteFollowing(myId:String,userId:String){
+        fireStore.collection("Users").document("${myId}")
+            .collection("Following").document("${userId}").delete()
+
     }
 
 
-    private fun EventChangeListener(uId:String){
+
+    private fun getArticlesUser(userId:String){
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId","${uId}")
+        fireStore.collection("Articles").whereEqualTo("userId","${userId}")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
@@ -179,21 +278,12 @@ class UserProfile : Fragment() {
                             callUser("${userPhone.toString()}")
 
                         }
-
                         binding.userEmailXml.setOnClickListener {
-
 
                             userEmail(userEmail.toString())
 
-
                         }
 
-
-
-
-
-
-                       // Log.e("error \n", "name $name   email $userEmail  //// $eamil")
                     } else {
                         Log.e("error \n", "errooooooorr")
                     }

@@ -201,27 +201,23 @@ class SignUP : Fragment() {
                     findNavController().navigate(R.id.action_signUP_to_homePage)
 
 
-
-
                 } else {
 
                     Toast.makeText(context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
 
 
                 }
-            }.addOnCompleteListener {
-
-
-            }
+            }.addOnCompleteListener {}
 
 
 
     }
 
 
-
     //class
      fun insertUser(email: String, userName: String, userPhone: String) {
+
+
          val userId = FirebaseAuth.getInstance().currentUser?.uid
 
 

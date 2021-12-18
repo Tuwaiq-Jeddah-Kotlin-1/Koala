@@ -52,6 +52,8 @@ class Profile : Fragment() {
     lateinit var binding: FragmentProfileBinding
     private lateinit var imageUrl : Uri
 
+    private lateinit var userPhoneNumber : String
+
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var articleList :ArrayList<Article>
@@ -188,9 +190,7 @@ class Profile : Fragment() {
 
         val userExperience= hashMapOf(
             "moreInfo" to "${addExperience}",
-
         )
-
 
         val userRef = Firebase.firestore.collection("Users")
         //-----------UID------------------------
@@ -242,6 +242,7 @@ class Profile : Fragment() {
 
 
 
+                        userPhoneNumber = "${userPhone.toString()}"
 
 
 
@@ -376,12 +377,11 @@ class Profile : Fragment() {
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            binding.userImageProfileXml.load(bitmap)
+          //  binding.userImageProfileXml.load(bitmap)
+            binding.userImageProfileXml.load(localFile)
 
 
         }.addOnFailureListener{
-            /*if (progressDialog.isShowing)
-                progressDialog.dismiss()*/
 
             Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
@@ -401,7 +401,8 @@ class Profile : Fragment() {
         val upDateInfoButton =  view.upDateInfoButton_xml
 
         view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
-      //  view.editTextPhone.setText("${tvPhone.text.toString()}")
+        view.editTextPhone.setText("${userPhoneNumber.toString()}")
+
 
 
         upDateInfoButton.setOnClickListener {
@@ -410,10 +411,16 @@ class Profile : Fragment() {
                 view.editTextPhone.text.toString().isNotEmpty() &&
                 view.editTextPhone.text.toString().length ==10){
 
+                //view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
+
+                binding.userNameXml.setText(view.editTextTextUserName.text.toString())
+
 
                 upDateUserInfo("${view.editTextTextUserName.text.toString()}",
                     "${view.editTextPhone.text.toString()}")
 
+
+               builder.dismiss()
 
             }else{
 
@@ -428,15 +435,12 @@ class Profile : Fragment() {
 
     private fun upDateUserInfo(upDateName:String,upDatePhoneNumber:String){
 
-
-
-        //-----------UID------------------------
         val uId = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData =Firebase.firestore.collection("Users")
 
         upDateUserData.document(uId.toString())
-            .update("userNmae", "${upDateName.toString()}",
-                "userNamae","${upDatePhoneNumber.toString()}"
+            .update("userNamae", "${upDateName.toString()}",
+                "userPhone","${upDatePhoneNumber.toString()}"
         )
 
 /*

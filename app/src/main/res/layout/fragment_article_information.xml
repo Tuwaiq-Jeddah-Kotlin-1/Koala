@@ -70,10 +70,10 @@
 
             <TextView
                 android:id="@+id/articleDescraptionInfo_xml"
-                android:layout_margin="10dp"
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:lines="7"
                 android:text="Decapitation" />
 
