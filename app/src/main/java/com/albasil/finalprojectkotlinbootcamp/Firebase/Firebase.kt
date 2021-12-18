@@ -56,3 +56,52 @@ class FirebaseAuthentication (){
 
 
 
+
+class FirestoreUser(){
+    fun getUserInfo(userID:String,name:String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("Users")
+                .document("$userID")
+                .get().addOnCompleteListener { it
+                    if (it.result?.exists()!!) {
+                        //+++++++++++++++++++++++++++++++++++++++++
+                        var name = it.result!!.getString("userNamae")
+                        var userEmail = it.result!!.getString("userEmail")
+                        var userFollowing = it.result!!.get("following")
+                        var userFollowers = it.result!!.get("followers")
+                        var userPhone = it.result!!.getString("userPhone")
+                        var userInfo = it.result!!.getString("moreInfo")
+
+
+//                        userNameXml=name.toString()
+//                        binding.userInfoXml.text ="${userInfo.toString()}"
+//                        binding.userFollowersXml.text ="${userFollowers?.toString()}"
+//                        binding.userFollowingXml.text ="${userFollowing?.toString()}"
+//
+//
+//
+//                        userPhoneNumber = "${userPhone.toString()}"
+
+                    } else {
+                        Log.e("error \n", "errooooooorr")
+                    }
+
+
+                   //binding.myArticlesXml.setText(articleList.size.toString())
+                }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
+                Log.e("FUNCTION createUserFirestore", "${e.message}")
+            }
+        }
+
+
+    }
+
+}
+
+
+

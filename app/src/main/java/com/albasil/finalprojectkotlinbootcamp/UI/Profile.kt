@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
@@ -17,19 +16,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.get
-import androidx.core.view.size
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +29,6 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -106,7 +97,7 @@ class Profile : Fragment() {
         binding.myArticlesXml.setText(articleList.size.toString())
 
         //-------------------------
-        EventChangeListener("${uid}")
+        getAllMyArticles("${uid}")
 
         //---------------------------------------------------------
 
@@ -168,10 +159,6 @@ class Profile : Fragment() {
         val addExperience: Button = view.findViewById(R.id.saveExperience_id)//saveExperience_id
         builder.setView(view)
         editTextExperience.setText(binding.userInfoXml.text.toString())
-        addExperience.setOnClickListener {
-
-
-        }
         builder.setPositiveButton("Save") { _, _ ->
 
             addInformation("${editTextExperience.text.toString()}")
@@ -181,7 +168,7 @@ class Profile : Fragment() {
 
         }
 
-        builder.setNegativeButton("Close", { _, _ -> })
+        builder.setNegativeButton("Cancel", { _, _ -> })
         builder.show()
     }
 
@@ -265,7 +252,7 @@ class Profile : Fragment() {
     }
 
 
-    private fun EventChangeListener(uId:String){
+    private fun getAllMyArticles(uId:String){
 
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("userId","${uId}")
