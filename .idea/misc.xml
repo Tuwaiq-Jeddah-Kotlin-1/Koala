@@ -15,10 +15,15 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_home.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_language_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_newspaper_24.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_ogout_24.xml" value="0.25743589743589745" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_photo_camera.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_security_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_unknown_24.xml" value="0.27708333333333335" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/image_view.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/logout_style.xml" value="0.25743589743589745" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/round_border.xml" value="0.13796296296296295" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/settings_style.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/sign_up.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/about_us.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/activity_main.xml" value="0.2609375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/activity_splash.xml" value="0.17037037037037037" />
@@ -41,7 +46,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_article.xml" value="0.2" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_profile.xml" value="0.25263157894736843" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_profile.xml" value="0.2" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/help_and_support.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/home_page.xml" value="0.2484375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/item_article.xml" value="0.264" />
@@ -50,7 +55,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2453125" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/up_date_user_information.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/bottomBar.xml" value="0.2609375" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/bottom_bar.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/bottom_bar.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/mymenu.xml" value="0.536" />
       </map>
     </option>

@@ -11,7 +11,6 @@
 
 
         <ScrollView
-            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -29,9 +28,12 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:background="#1597E5"
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
 
                         <LinearLayout
 
@@ -49,6 +51,7 @@
 
                                 <ImageView
 
+                                    android:background="@drawable/image_view"
                                     android:id="@+id/userImage_xml"
                                     android:layout_width="150dp"
                                     android:layout_height="200dp"
@@ -78,21 +81,26 @@
                                         android:layout_margin="5dp"
                                         android:layout_weight="1"
                                         android:gravity="center"
+
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/textView6"
+                                            android:id="@+id/textViewArticles"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Article" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="@string/article" />
 
                                         <TextView
                                             android:id="@+id/userArticles_xml"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="156" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="0" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -109,14 +117,18 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Following" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="@string/following" />
 
                                         <TextView
                                             android:id="@+id/userFollowing_xml"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="1587" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="0" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -135,14 +147,18 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Followers" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="@string/followers" />
 
                                         <TextView
                                             android:id="@+id/userFollowers_xml"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="18" />
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:text="0" />
                                     </LinearLayout>
 
 
@@ -156,7 +172,7 @@
                         <View
                             android:id="@+id/divider5"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="4dp"
                             android:background="?android:attr/listDivider" />
 
                         <LinearLayout
@@ -172,109 +188,124 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
                                 android:gravity="center"
                                 android:text="user Name"
-                                android:textSize="20sp" />
+                                 />
 
                             <Button
                                 android:id="@+id/btnFollowXml"
-
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
                                 android:layout_width="wrap_content"
 
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:text="Follow" />
+                                android:text="@string/follow" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider2"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/showUserInfo_xml"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:drawableEnd="@drawable/ic_arrow_down"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:gravity="center"
+                                android:text="@string/user_information" />
+
+
+                            <LinearLayout
+                                android:id="@+id/linearLayOutUserInfo_xml"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/userInfo_xml"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:lines="3"
+                                    android:text="more Information" />
+
+                            </LinearLayout>
+
+                            <TextView
+
+                                android:id="@+id/userInforCall_xml"
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:drawableEnd="@drawable/ic_arrow_down"
+                                android:gravity="center"
+                                android:text="@string/call" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayoutCallUser_xml"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:padding="5dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/imageView14"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_chat_24" />
+
+                                <ImageView
+                                    android:id="@+id/userEmail_xml"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_email" />
+
+                                <ImageView
+                                    android:id="@+id/userCall_xml"
+                                    android:layout_width="wrap_content"
+
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_phone" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
 
+
                 </androidx.cardview.widget.CardView>
-
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:id="@+id/showUserInfo_xml"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="User Information" />
-
-
-                    <LinearLayout
-                        android:id="@+id/linearLayOutUserInfo_xml"
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:id="@+id/userInfo_xml"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:lines="3"
-                            android:text="more Information" />
-
-                    </LinearLayout>
-
-                    <TextView
-
-                        android:id="@+id/userInforCall_xml"
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:gravity="center"
-                        android:text="Call" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayoutCallUser_xml"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/imageView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_chat_24" />
-
-                        <ImageView
-                            android:id="@+id/userEmail_xml"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_email" />
-
-                        <ImageView
-                            android:id="@+id/userCall_xml"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_phone" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -283,6 +314,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
                     tools:itemCount="30" />
             </LinearLayout>
         </ScrollView>

@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="change_language">Change language</string>
+    <string name="email">Email</string>
+    <string name="user_name">User Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="new_account">New Account?</string>
+    <string name="sing_in">Sing In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="article">Article</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="follow">Follow</string>
+    <string name="user_information">User Information</string>
+    <string name="call">Call</string>
 </resources>

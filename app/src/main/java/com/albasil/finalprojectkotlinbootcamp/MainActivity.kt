@@ -34,7 +34,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private  lateinit var addEventBar:FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -53,17 +52,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        addEventBar=findViewById(R.id.addEventBtn)
-     /*   addEventBar.setOnClickListener {
-       //     findNavController(R.id.apiFragment)
-          //  findNavController(R.id.apiFragment).navigate(R.id.apiFragment)
 
-        }*/
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
+        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         val bottomBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
 
 
@@ -73,22 +67,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.splashScreen -> {
                     bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
-                    addEventBar.visibility = View.GONE
                 }
                 R.id.signUP -> {
                     bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
-                    addEventBar.visibility = View.GONE
                 }
                 R.id.sign_in -> {
                     bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
-                    addEventBar.visibility = View.GONE
                 }
                 else -> {
                     bottomNavView.visibility = View.VISIBLE
                     bottomBar.visibility = View.VISIBLE
-                    addEventBar.visibility = View.VISIBLE
                 }
             }
         }
