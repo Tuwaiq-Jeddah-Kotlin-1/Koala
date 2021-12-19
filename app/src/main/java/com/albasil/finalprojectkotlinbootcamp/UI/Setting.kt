@@ -73,10 +73,6 @@ class Setting : Fragment() {
         }
 
 
-
-
-
-
             //tvProfileShow
             binding.buttonLogOutXml.setOnClickListener {
 
@@ -92,6 +88,7 @@ class Setting : Fragment() {
                 editor.clear()
                 editor.apply()
                 findNavController().navigate(R.id.action_setting_to_sign_in)
+                findNavController().popBackStack()
 
 
             }

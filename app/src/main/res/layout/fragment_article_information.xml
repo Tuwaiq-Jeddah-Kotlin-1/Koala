@@ -52,7 +52,7 @@
                 android:id="@+id/articlePhotoInfo_xml"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/koala_logo" />
+                android:src="@drawable/koala_logos" />
 
             <TextView
                 android:id="@+id/titleArticleInfo_xml"

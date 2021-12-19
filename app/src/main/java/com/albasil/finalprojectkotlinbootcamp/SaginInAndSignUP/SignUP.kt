@@ -100,11 +100,11 @@ class SignUP : Fragment() {
 
     fun upLoadImage(uId:String){
 
-        val progressDialog = ProgressDialog(context)
+     /*   val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Uploading File ...")
         progressDialog.setCancelable(false)
 
-        progressDialog.show()
+        progressDialog.show()*/
 
         //-----------UID------------------------
 
@@ -116,11 +116,11 @@ class SignUP : Fragment() {
                     //   userImage.setImageURI(null)
                     Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
 
-                    if (progressDialog.isShowing)progressDialog.dismiss()
+               //     if (progressDialog.isShowing)progressDialog.dismiss()
 
 
                 }.addOnFailureListener{
-                    if (progressDialog.isShowing)progressDialog.dismiss()
+                   // if (progressDialog.isShowing)progressDialog.dismiss()
                     Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                 }
         }

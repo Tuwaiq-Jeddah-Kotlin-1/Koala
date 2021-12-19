@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="5dp"
-        android:backgroundTint="#4A6572"
+        android:backgroundTint="#344955"
+
         android:elevation="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="30dp"
@@ -32,10 +33,10 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-
+                android:gravity="center"
                 android:layout_weight="1"
                 android:text="User name "
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded" />
@@ -45,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/koala_logo" />
+                app:srcCompat="@drawable/koala_logos" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +67,7 @@
                     android:gravity="center"
 
                     android:text="Title"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="25sp" />
 
                 <LinearLayout
@@ -85,8 +86,9 @@
                         android:layout_weight="1"
                         android:gravity="center"
 
+
                         android:text="Category"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
 
                         android:textStyle="normal"

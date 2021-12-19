@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
@@ -20,6 +22,7 @@ import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.*
 
 
@@ -36,6 +39,9 @@ class HomePage : Fragment() {
     private lateinit var newArticleList :ArrayList<Article>
     private lateinit var articleAdapter :ArticleAdapter
     private lateinit var fireStore :FirebaseFirestore
+
+  //  private  lateinit var addEventBar: FloatingActionButton
+
 
 
 
@@ -65,6 +71,15 @@ class HomePage : Fragment() {
         articleAdapter = ArticleAdapter(articleList)
 
         recyclerView.adapter = articleAdapter
+
+
+
+      /*  addEventBar=view.findViewById(R.id.addEventBtn)
+        addEventBar.setOnClickListener {
+            //     findNavController(R.id.apiFragment)
+            findNavController().navigate(R.id.action_homePage_to_userProfile)
+
+        }*/
 
         getAllArticles()
 

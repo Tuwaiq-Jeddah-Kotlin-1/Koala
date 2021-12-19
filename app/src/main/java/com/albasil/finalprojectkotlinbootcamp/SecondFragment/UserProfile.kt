@@ -209,13 +209,15 @@ class UserProfile : Fragment() {
        //***************************************************************************************
        var upDateFollowing=binding.userFollowersXml.text.toString().toInt()
        upDateFollowing++
+       binding.userFollowersXml.text =upDateFollowing.toString()
+
        fireStore.collection("Users").document(userId.toString())
            .update("followers",upDateFollowing)
        //***************************************************************************************
 
-
-
    }
+
+
     fun deleteFollowers(myId:String,userId:String){
         fireStore.collection("Users").document("${userId}")
             .collection("Followers").document("${myId}").delete()
@@ -223,6 +225,9 @@ class UserProfile : Fragment() {
         //***************************************************************************************
         var upDateFollowing=binding.userFollowersXml.text.toString().toInt()
         upDateFollowing--
+        binding.userFollowersXml.text =upDateFollowing.toString()
+
+
         Toast.makeText(context,"upDateFollowing ${upDateFollowing}",Toast.LENGTH_LONG).show()
         fireStore.collection("Users").document(userId.toString())
             .update("followers",upDateFollowing)
@@ -231,7 +236,6 @@ class UserProfile : Fragment() {
     }
 
     fun addFollowing(myId:String,userId:String){
-
 
         val upDateFollowing= hashMapOf("userId" to "${userId.toString()}",)
 
@@ -243,6 +247,7 @@ class UserProfile : Fragment() {
 
         var myFollowing= myFollowing.toInt()
         myFollowing++
+
         fireStore.collection("Users").document(myId.toString())
             .update("following",myFollowing)
         //***************************************************************************************
@@ -295,7 +300,6 @@ class UserProfile : Fragment() {
 
 
     fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
-
         try {
             //coroutine
             val db = FirebaseFirestore.getInstance()

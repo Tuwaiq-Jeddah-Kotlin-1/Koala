@@ -3,58 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#4A6572"
         android:orientation="vertical"
-
         tools:context=".UI.HomePage">
 
 
-<!--
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <!--
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                app:tabGravity="fill"
-                app:tabBackground="@color/teal_200"
-                app:tabIndicatorColor="#F57F17"
-                app:tabInlineLabel="true"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/purple_500"
-                app:tabTextAppearance="@style/TapLayOut"
-                app:tabTextColor="@color/black"
-                tools:ignore="MissingConstraints" />
-
-
-        </com.google.android.material.appbar.AppBarLayout>
+                        app:tabGravity="fill"
+                        app:tabBackground="@color/teal_200"
+                        app:tabIndicatorColor="#F57F17"
+                        app:tabInlineLabel="true"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="@color/purple_500"
+                        app:tabTextAppearance="@style/TapLayOut"
+                        app:tabTextColor="@color/black"
+                        tools:ignore="MissingConstraints" />
 
 
-
-
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewPager"
+                </com.google.android.material.appbar.AppBarLayout>
 
 
 
-            android:background="@color/black"
-            tools:ignore="MissingConstraints" />
 
--->
+                <androidx.viewpager.widget.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/viewPager"
+
+
+
+                    android:background="@color/black"
+                    tools:ignore="MissingConstraints" />
+
+        -->
 
 
         <LinearLayout
@@ -104,33 +102,33 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/typeCategory_xml"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:drawableEnd="@drawable/ic_arrow_down"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
             android:text="sort"
+            android:textSize="20sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
 
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-          app:startIconDrawable="@drawable/ic_category"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditDate_xml">
+            app:layout_constraintTop_toBottomOf="@+id/tvEditDate_xml"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_category"
+            tools:ignore="MissingConstraints">
 
             <AutoCompleteTextView
-                android:hint="Categories"
-
                 android:id="@+id/spinnerCategory_xml"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:hint="Categories"
                 android:inputType="none"
                 android:text="AutoCompleteTextView" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <androidx.recyclerview.widget.RecyclerView

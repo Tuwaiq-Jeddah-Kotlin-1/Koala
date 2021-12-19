@@ -53,6 +53,10 @@ class ArticleInformation : Fragment() {
 
         likesCounter=args.articleData.like.toInt()
 
+
+        if (args.articleData.articleImage.toString().isNullOrEmpty()){
+            Toast.makeText(context," if (args.articleData.articleImage.toString().isNullOrEmpty()){",Toast.LENGTH_LONG).show()
+        }
         getArtciclePhoto(args.articleData.articleImage.toString())
 
 

@@ -257,7 +257,7 @@
                     android:drawableEnd="@drawable/ic_ogout_24"
                     android:text="Sign Out"
 
-                    android:textColor="#FF6F00"
+                    android:textColor="#FF0000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

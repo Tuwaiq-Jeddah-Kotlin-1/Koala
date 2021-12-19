@@ -11,9 +11,8 @@
         android:icon="@drawable/ic_api"/>
 
 
-    <item android:title="Add Article"
-        android:id="@+id/addArticle"
-        android:icon="@drawable/ic_add_24"/>
+
+
 
     <item android:title="profile"
         android:id="@+id/profile"
