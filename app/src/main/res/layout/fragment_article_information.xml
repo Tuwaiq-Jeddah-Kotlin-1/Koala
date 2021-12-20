@@ -1,72 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7C98C5"
     tools:context=".SecondFragment.ArticleInformation">
 
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_margin="15dp"
-            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <LinearLayout
-                android:padding="15dp"
 
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_margin="10dp"
                     android:id="@+id/userNameInfo_xml"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="User Name" />
+                    android:layout_margin="10dp"
+
+                    android:layout_weight="1"
+                    android:text="@string/user_name"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_margin="10dp"
-
-                    android:gravity="right"
                     android:id="@+id/articleDateInfo_xml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date" />
+                    android:layout_margin="10dp"
+
+                    android:layout_weight="1"
+
+                    android:gravity="right"
+                    android:text="Date"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <ImageView
-                android:layout_margin="10dp"
-
                 android:id="@+id/articlePhotoInfo_xml"
+
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_margin="10dp"
                 android:src="@drawable/koala_logos" />
 
             <TextView
                 android:id="@+id/titleArticleInfo_xml"
-                android:layout_margin="10dp"
-
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title" />
+                android:layout_margin="10dp"
+                android:gravity="center"
+
+                android:text="@string/title"
+
+
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/articleCategoryInfo_xml"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_margin="10dp"
+
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/category" />
 
             <TextView
                 android:id="@+id/articleDescraptionInfo_xml"
@@ -75,9 +95,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:lines="7"
-                android:text="Decapitation" />
+
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/decapitation" />
 
             <LinearLayout
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -98,6 +123,8 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+
+    </FrameLayout>
+
+</ScrollView>

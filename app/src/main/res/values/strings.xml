@@ -47,4 +47,11 @@
     <string name="follow">Follow</string>
     <string name="user_information">User Information</string>
     <string name="call">Call</string>
+    <string name="categories">Categories</string>
+    <string name="date">Date:</string>
+    <string name="more_information">More Information</string>
+    <string name="update_article">UpDate Article</string>
+    <string name="decapitation">Decapitation</string>
+    <string name="title">Title</string>
+    <string name="category">Category</string>
 </resources>

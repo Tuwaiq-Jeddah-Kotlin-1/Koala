@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/Bojsl/.gradle/caches/transforms-3/0f402da245643451c7f7053be1519161/transformed/appcompat-1.4.0/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2453125" />
         <entry key="..\:/Users/Bojsl/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/article_edit.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/border_linearlayout.xml" value="0.17685185185185184" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/button_edit.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_book_24.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_dark_mode_24.xml" value="0.27708333333333335" />
@@ -35,8 +37,8 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/dialog_forgot_password.xml" value="0.2037037037037037" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/dropdown_item.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_add_article.xml" value="0.264" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_article_information.xml" value="0.2" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_edit_article.xml" value="0.18717948717948718" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_article_information.xml" value="0.264" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_edit_article.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_first.xml" value="0.2578125" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_home_page.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />

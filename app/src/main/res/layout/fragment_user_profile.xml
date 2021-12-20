@@ -89,7 +89,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="@string/article" />
 
@@ -98,7 +98,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="0" />
                                     </LinearLayout>
@@ -117,7 +117,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="@string/following" />
 
@@ -126,7 +126,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="0" />
                                     </LinearLayout>
@@ -147,7 +147,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="@string/followers" />
 
@@ -156,7 +156,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:textColor="@color/black"
+                                            android:textColor="@color/white"
                                             android:textSize="14sp"
                                             android:text="0" />
                                     </LinearLayout>
@@ -188,7 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_weight="1"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="18sp"
                                 android:gravity="center"
                                 android:text="user Name"
@@ -196,7 +196,7 @@
 
                             <Button
                                 android:id="@+id/btnFollowXml"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
                                 android:layout_width="wrap_content"
 
@@ -227,7 +227,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawableEnd="@drawable/ic_arrow_down"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
                                 android:gravity="center"
                                 android:text="@string/user_information" />
@@ -263,7 +263,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginBottom="15dp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
                                 android:drawableEnd="@drawable/ic_arrow_down"
                                 android:gravity="center"

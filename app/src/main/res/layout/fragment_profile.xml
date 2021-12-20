@@ -47,6 +47,7 @@
                                 android:padding="5dp">
 
                                 <ImageView
+                                    android:background="@drawable/image_view"
                                     android:id="@+id/userImageProfile_xml"
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
@@ -71,7 +72,7 @@
 
                                         <TextView
                                             android:id="@+id/textView6"
-
+                                            android:textStyle="bold"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginBottom="15dp"
@@ -81,6 +82,8 @@
                                             android:textSize="14sp" />
 
                                         <TextView
+                                            android:textStyle="bold"
+
                                             android:id="@+id/myArticles_xml"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -91,6 +94,8 @@
                                     </LinearLayout>
 
                                     <LinearLayout
+                                        android:textStyle="bold"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_margin="5dp"
@@ -99,6 +104,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:textStyle="bold"
                                             android:id="@+id/textView10"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -109,6 +115,8 @@
                                             android:text="@string/following" />
 
                                         <TextView
+                                            android:textStyle="bold"
+
                                             android:textColor="@color/black"
                                             android:textSize="14sp"
                                             android:id="@+id/userFollowing_xml"
@@ -131,6 +139,8 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:textStyle="bold"
+
                                             android:id="@+id/textView8"
                                             android:textColor="@color/black"
                                             android:textSize="14sp"
@@ -141,6 +151,8 @@
                                             android:text="@string/followers" />
 
                                         <TextView
+                                            android:textStyle="bold"
+
                                             android:textColor="@color/black"
                                             android:textSize="14sp"
                                             android:id="@+id/userFollowers_xml"
@@ -180,7 +192,7 @@
                                     android:id="@+id/userName_xml"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="user Name" />
+                                    android:text="@string/user_name" />
 
                                 <TextView
                                     android:id="@+id/uId_xml"
@@ -199,6 +211,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:textStyle="bold"
+
                                         android:id="@+id/userInfo_xml"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -207,9 +221,11 @@
                                         android:layout_gravity="center"
                                         android:layout_weight="1"
                                         android:lines="4"
-                                        android:text="more Information" />
+                                        android:text="@string/more_information" />
 
                                     <ImageView
+
+                                        android:textStyle="bold"
 
                                         android:id="@+id/addInformation_xml"
                                         android:layout_width="30dp"
@@ -270,7 +286,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:background="@drawable/logout_style"
                         android:src="@drawable/ic_edit_24"
                         android:text="Edit My Information" />

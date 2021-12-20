@@ -125,12 +125,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                 .collection("Favorite").document(articleID.toString()).get()
                 .addOnCompleteListener {
 
-//                    var job : Job? = null
-//                    job?.cancel()
-//                    job = MainScope().launch{
-//                        delay(500L)
-//
-//                    }
                     if (it.result?.exists()!!) {
 
                         ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)

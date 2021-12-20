@@ -10,6 +10,7 @@
 
 
 
-    <corners android:radius="30dp"/>
+    <corners android:radius="200dp"/>
+    
 </shape>
 

@@ -3,19 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#344955"
-
-        android:elevation="30dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
 
@@ -26,20 +13,43 @@
 
             <!--4A6572-->
 
-            <TextView
-                android:id="@+id/tvUserName_xml"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="User name "
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:ignore="RtlHardcoded" />
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:id="@+id/tvUserName_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="User name "
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    android:id="@+id/articleDate"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2020/12/12" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageItem_xml"
@@ -68,7 +78,7 @@
 
                     android:text="Title"
                     android:textColor="@color/black"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,11 +133,16 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
 
-            <!--
-                            </LinearLayout>
-                -->
+            </LinearLayout>
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
 </layout>
