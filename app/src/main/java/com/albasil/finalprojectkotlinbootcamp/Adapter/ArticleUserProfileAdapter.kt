@@ -132,12 +132,7 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
                     val deleteArticle=Firebase.firestore.collection("Articles")
                         .document("${articleID.toString()}").delete()
 
-
-                    deleteArticle
-                    notifyDataSetChanged()
-
-
-
+                    deleteArticle.addOnCompleteListener { notifyDataSetChanged()                    }
 
                     //----------------------------
 
@@ -201,10 +196,6 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
             article_data.category = articleCategory.text.toString()
             article_data.description = articleDescription.toString()
             article_data.articleImage = imageArticleId.toString()
-
-
-
-
 
             val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
             if(userID.toString()==currentUserUid){

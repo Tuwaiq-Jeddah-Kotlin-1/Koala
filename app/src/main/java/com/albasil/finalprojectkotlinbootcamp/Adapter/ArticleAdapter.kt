@@ -50,6 +50,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.image = article.articleImage
         holder.userId = article.userId
         holder.numberLikes.text = article.like.toString()
+        holder.tvDateArticle.text = article.date
 
 
         holder.upDateFavorite("${article.articleID}",article,)
@@ -110,6 +111,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         val imageArticle: ImageView = itemView.findViewById(R.id.imageItem_xml)
         val numberLikes: TextView = itemView.findViewById(R.id.numberLike_xml)
         val ivFavorite: ImageView = itemView.findViewById(R.id.ivFavorite)
+        val tvDateArticle :TextView = itemView.findViewById(R.id.articleDate)
 
         lateinit var articleCategory: String
         lateinit var articleDate: String
@@ -139,13 +141,9 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                                 .document("${articleID.toString()}").delete()
 
                             article.like--
-
                             upDateArticleLike(articleID,article.like)
 
                             ivFavorite.setImageResource(R.drawable.ic_favorite_border)
-
-
-
 
                         }
 
@@ -157,7 +155,6 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
 
                             ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-
 
                             //Fun
                             addFavorite("${articleID}",article)
@@ -197,28 +194,19 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         }
 
         private fun addFavorite(articleID:String,article: Article) {
-
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             val articleRef = Firebase.firestore.collection("Users")
             articleRef.document(userId.toString()).collection("Favorite")
                 .document("${articleID.toString()}")
-                .set(article).addOnCompleteListener {
-                    it
-                    when {
-                        it.isSuccessful -> {
-
+                .set(article).addOnCompleteListener { it
+                    when {it.isSuccessful -> {
                             Log.d("Add Article","Done to add User Favorite")
-
                         }
                         else ->{
-
                             Log.d("Error","is not Successful fire store")
-
                         }
                     }
-
                 }
-
         }
 
         init {
@@ -247,22 +235,5 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
        }
 
     }
-
-
-
-    /*fun shareArticle2(titleArticle:String,subjectArticle:String,itemView: View){
-
-        val shareArticle = Intent(Intent.ACTION_SEND)
-        shareArticle.type = "text/plain"
-        shareArticle.putExtra(Intent.EXTRA_TEXT,subjectArticle.toString())
-        shareArticle.putExtra(Intent.EXTRA_TITLE,titleArticle.toString())
-        shareArticle.putExtra(Intent.EXTRA_SUBJECT,subjectArticle)
-
-        startActivity(shareArticle)
-    }*/
-
-
-
-
 
 }

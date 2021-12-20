@@ -52,7 +52,12 @@
     <string name="date">Date:</string>
     <string name="more_information">More Information</string>
     <string name="update_article">UpDate Article</string>
-    <string name="decapitation">Decapitation</string>
+    <string name="articleDescription">ArticleDescription</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
+    <string name="title_article">Title Article</string>
+    <string name="article_category">article Category</string>
+    <string name="article_user">Article User</string>
+    <string name="image_article_user">Image Article User</string>
+    <string name="article_title">Article Title</string>
 </resources>

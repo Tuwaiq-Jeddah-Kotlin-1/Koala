@@ -8,8 +8,11 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/article_edit.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/border_linearlayout.xml" value="0.17685185185185184" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/button_edit.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/card_view.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_add_24.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_book_24.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.27708333333333335" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_category.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_dark_mode_24.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_favorite.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/drawable/ic_favorite_border.xml" value="0.25" />
@@ -47,7 +50,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_sign_in.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_splash_screen.xml" value="0.2" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_article.xml" value="0.2" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_article.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_user_profile.xml" value="0.2" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/help_and_support.xml" value="0.1" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/home_page.xml" value="0.2484375" />
@@ -55,7 +58,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/item_article_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/se.xml" value="0.2484375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2453125" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/up_date_user_information.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/up_date_user_information.xml" value="0.2" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/bottomBar.xml" value="0.2609375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/bottom_bar.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/menu/mymenu.xml" value="0.536" />

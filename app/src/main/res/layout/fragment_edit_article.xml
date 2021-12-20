@@ -29,43 +29,44 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
-
             <com.google.android.material.textfield.TextInputLayout
-
 
                 android:id="@+id/tvEditTitleArticle_xml"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Title"
-                android:maxLength="20"
-                android:textColor="@color/black"
+                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:hint="@string/title"
                 app:counterEnabled="true"
-                app:counterMaxLength="15"
+                app:counterMaxLength="20"
                 app:endIconMode="clear_text"
+
                 app:helperText="*"
                 app:helperTextTextColor="#FF0000"
+
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputEditTextCategory_xml"
-
-                app:startIconDrawable="@drawable/ic_baseline_book_24"
-                tools:ignore="MissingConstraints">
+                app:startIconDrawable="@drawable/ic_baseline_book_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+
                     android:id="@+id/etTitleArticle_xml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:hint=""
+                    android:maxLength="10"
 
-                    app:counterEnabled="true"
-                    app:counterMaxLength="10"
-                    app:endIconMode="clear_text" />
+                    android:textColor="@color/black"
+
+                    android:textColorHint="@color/black"
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
 
@@ -79,6 +80,8 @@
                 android:textColor="@color/black"
                 app:endIconMode="clear_text"
                 app:helperText="*"
+                android:textColorHint="@color/black"
+
                 app:helperTextTextColor="#FF0000"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,33 +99,41 @@
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputEditTextCategory_xml"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:endIconMode="clear_text"
-                app:helperText="*"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textColorHint="@color/black"
+
+
                 app:helperTextTextColor="#FF0000"
+
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEditDate_xml"
-                app:startIconDrawable="@drawable/ic_category">
+                app:startIconDrawable="@drawable/ic_category"
+                android:layout_margin="20dp"
+                app:helperText="*"
+
+
+                app:layout_constraintTop_toBottomOf="@+id/tvEditDate_xml">
 
                 <AutoCompleteTextView
-                    android:id="@+id/editSpinnerCategory_xml"
+                    android:hint="@string/categories"
 
+                    android:textColor="@color/black"
+                    android:id="@+id/editSpinnerCategoryXml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="@string/categories"
+                    android:textSize="18sp"
                     android:inputType="none"
-                    android:text="@string/categories"
-                    android:textSize="18sp" />
+                    android:text="@string/categories" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <ImageView
@@ -145,6 +156,8 @@
                 android:layout_marginTop="20dp"
 
                 android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+
                 android:background="@drawable/button_edit"
 
                 android:text="@string/update_article"

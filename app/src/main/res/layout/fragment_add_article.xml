@@ -5,7 +5,7 @@
 
 
     <ScrollView
-        android:background="#636CBF"
+        android:background="@drawable/article_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,13 +15,16 @@
             tools:context=".UI.AddArticle">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/tvDate_xml"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:text="Date :"
-                android:textSize="16sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -30,35 +33,38 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:textColorHint="@color/white"
-
-
+                android:hint="@string/title"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
                 android:id="@+id/tvTitleArticle_xml"
-
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:hint="Title"
                 app:endIconMode="clear_text"
                 app:helperText="*"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
 
                 app:helperTextTextColor="#FF0000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputTextCategory_xml"
                 app:startIconDrawable="@drawable/ic_baseline_book_24"
-                tools:ignore="MissingConstraints">
+                tools:ignore="MissingConstraints"
+                android:textSize="18sp"
+
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTitleArticle_xml"
                     android:layout_width="match_parent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
 
-
-
+                    android:textColorHint="@color/black"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -90,7 +96,7 @@
 
                     android:layout_height="wrap_content"
                     android:lines="3"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvDate_xml">
 
                 <AutoCompleteTextView
-                    android:hint="Categories"
+                    android:hint="@string/categories"
 
                     android:textColor="@color/white"
                     android:id="@+id/spinnerCategory_xml"
@@ -118,7 +124,7 @@
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:inputType="none"
-                    android:text="AutoCompleteTextView" />
+                    android:text="Select One Category " />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,11 +146,13 @@
                 android:id="@+id/btnAddArticle_xml"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-
-                android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
+
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"
                 android:text="Add Article"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/articlerPhoto_xml"

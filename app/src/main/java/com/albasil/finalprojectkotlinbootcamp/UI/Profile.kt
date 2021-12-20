@@ -39,33 +39,25 @@ import java.io.File
 
 class Profile : Fragment() {
 
-
     lateinit var binding: FragmentProfileBinding
-    private lateinit var imageUrl : Uri
-
-    private lateinit var userPhoneNumber : String
-
-
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var articleList :ArrayList<Article>
-    private lateinit var articleAdapter : ArticleUserProfileAdapter
-    private lateinit var fireStore :FirebaseFirestore
+    private lateinit var imageUrl: Uri
+    private lateinit var userPhoneNumber: String
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var articleList: ArrayList<Article>
+    private lateinit var articleAdapter: ArticleUserProfileAdapter
+    private lateinit var fireStore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-       //getUserPhoto()
+        //getUserPhoto()
 
-
-
-
-        binding = FragmentProfileBinding.inflate(inflater,container,false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
 
 
-        val uid=FirebaseAuth.getInstance().uid
-
+        val uid = FirebaseAuth.getInstance().uid
         getUserInfo("${uid}")
 
         return binding.root
@@ -80,10 +72,10 @@ class Profile : Fragment() {
 
         //---------------------------------------------------------
 
-        val uid=FirebaseAuth.getInstance().uid
+        val uid = FirebaseAuth.getInstance().uid
 
         recyclerView = view.findViewById(R.id.userProfileRecyclerView_xml)
-        recyclerView.layoutManager = GridLayoutManager(context,2)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.setHasFixedSize(true)
 
         articleList = arrayListOf()
@@ -96,11 +88,10 @@ class Profile : Fragment() {
 
         binding.myArticlesXml.setText(articleList.size.toString())
 
-        //-------------------------
+        //---------------------------------------------------------
         getAllMyArticles("${uid}")
 
         //---------------------------------------------------------
-
 
 
         binding.myArticleXml.setOnClickListener {
@@ -111,14 +102,10 @@ class Profile : Fragment() {
         }
 
         binding.myFavoriteXml.setOnClickListener {
-
             binding.userProfileRecyclerViewXml.setBackgroundColor(Color.CYAN)
             binding.myFavoriteXml.setBackgroundColor(Color.CYAN)
 
         }
-
-
-
 
         binding.userImageProfileXml.setOnClickListener {
 
@@ -130,24 +117,15 @@ class Profile : Fragment() {
             showdialoguserInfo()
         }
 
-
         binding.upDateButtonXml.setOnClickListener {
-
-           upDateUserInfoBottomSheet()
-
-
+            upDateUserInfoBottomSheet()
         }
-
-
-
 
         //
         articleAdapter.notifyDataSetChanged()
-        Toast.makeText(context," ${articleList.size}++++ }",Toast.LENGTH_LONG).show()
-
+        Toast.makeText(context, " ${articleList.size}++++ }", Toast.LENGTH_LONG).show()
 
     }
-
 
 
     fun showdialoguserInfo() {
@@ -155,16 +133,15 @@ class Profile : Fragment() {
         val builder = android.app.AlertDialog.Builder(context)
         builder.setTitle("User Information")
         val view: View = layoutInflater.inflate(R.layout.add_user_information_dialog, null)
-        val editTextExperience: EditText = view.findViewById(R.id.editTextAddExperience)//saveExperience_id
+        val editTextExperience: EditText =
+            view.findViewById(R.id.editTextAddExperience)//saveExperience_id
         val addExperience: Button = view.findViewById(R.id.saveExperience_id)//saveExperience_id
         builder.setView(view)
         editTextExperience.setText(binding.userInfoXml.text.toString())
         builder.setPositiveButton("Save") { _, _ ->
 
             addInformation("${editTextExperience.text.toString()}")
-
             binding.userInfoXml.setText(editTextExperience.text.toString())
-
 
         }
 
@@ -173,11 +150,9 @@ class Profile : Fragment() {
     }
 
 
-    fun addInformation(addExperience:String) = CoroutineScope(Dispatchers.IO).launch {
+    fun addInformation(addExperience: String) = CoroutineScope(Dispatchers.IO).launch {
 
-        val userExperience= hashMapOf(
-            "moreInfo" to "${addExperience}",
-        )
+        val userExperience = hashMapOf("moreInfo" to "${addExperience}",)
 
         val userRef = Firebase.firestore.collection("Users")
         //-----------UID------------------------
@@ -185,14 +160,8 @@ class Profile : Fragment() {
 
         userRef.document("$uId").set(userExperience, SetOptions.merge()).addOnCompleteListener { it
             when {
-                it.isSuccessful -> {
-                    //readUserData()
-
-                }
+                it.isSuccessful -> { }
                 else -> {
-
-                    //dialog اسوي فانكشين لدايلوق  و امرر القيمة في الدخو او في الخطاء
-
                 }
             }
         }
@@ -200,14 +169,14 @@ class Profile : Fragment() {
     }
 
 
-
-    fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
+    fun getUserInfo(userID: String) = CoroutineScope(Dispatchers.IO).launch {
 
         try {
             val db = FirebaseFirestore.getInstance()
             db.collection("Users")
                 .document("$userID")
-                .get().addOnCompleteListener { it
+                .get().addOnCompleteListener {
+                    it
 
                     if (it.result?.exists()!!) {
 
@@ -219,28 +188,22 @@ class Profile : Fragment() {
                         var userPhone = it.result!!.getString("userPhone")//moreInfo
                         var userInfo = it.result!!.getString("moreInfo")//moreInfo
 
-                        Log.e("user Info","userName ${name.toString()} \n ${userEmail.toString()}")
+                        Log.e("user Info", "userName ${name.toString()} \n ${userEmail.toString()}")
 
-
-                        binding.userNameXml.text ="${name.toString()}"
-                        binding.userInfoXml.text ="${userInfo.toString()}"
-                        binding.userFollowersXml.text ="${userFollowers?.toString()}"
-                        binding.userFollowingXml.text ="${userFollowing?.toString()}"
-
-
+                        binding.userNameXml.text = "${name.toString()}"
+                        binding.userInfoXml.text = "${userInfo.toString()}"
+                        binding.userFollowersXml.text = "${userFollowers?.toString()}"
+                        binding.userFollowingXml.text = "${userFollowing?.toString()}"
 
                         userPhoneNumber = "${userPhone.toString()}"
-
 
 
                     } else {
                         Log.e("error \n", "errooooooorr")
                     }
 
-
                     binding.myArticlesXml.setText(articleList.size.toString())
                 }
-
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
@@ -252,60 +215,46 @@ class Profile : Fragment() {
     }
 
 
-    private fun getAllMyArticles(uId:String){
+    private fun getAllMyArticles(uId: String) {
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId","${uId}")
+        fireStore.collection("Articles").whereEqualTo("userId", "${uId}")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
                         return
                     }
-
-                    for (dc : DocumentChange in value?.documentChanges!!){
-
-                        if (dc.type == DocumentChange.Type.ADDED){
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
                             articleList.add(dc.document.toObject(Article::class.java))
 
                         }
                     }
-
                     articleAdapter.notifyDataSetChanged()
-
 
                 }
 
             })
 
 
-
-
-
-
-
     }
 
 
-
-
-
-
-
-    private fun selectImage(){
+    private fun selectImage() {
 
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivityForResult(intent,100)
+        startActivityForResult(intent, 100)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
 
             imageUrl = data?.data!!
 
@@ -317,8 +266,7 @@ class Profile : Fragment() {
         }
 
     }
-
-    fun upLoadImage(){
+    fun upLoadImage() {
 
         //-----------UID------------------------
         val uId = FirebaseAuth.getInstance().currentUser?.uid
@@ -334,84 +282,78 @@ class Profile : Fragment() {
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
                 //   userImage.setImageURI(null)
-                Toast.makeText(context,"uploading image", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "uploading image", Toast.LENGTH_SHORT).show()
 
-                if (progressDialog.isShowing)progressDialog.dismiss()
+                if (progressDialog.isShowing) progressDialog.dismiss()
 
                 getUserPhoto()
 
 
-
-            }.addOnFailureListener{
-                if (progressDialog.isShowing)progressDialog.dismiss()
-                Toast.makeText(context,"Failed", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
     }
 
-    fun getUserPhoto(){
+    fun getUserPhoto() {
 
 
         val imageName = "${FirebaseAuth.getInstance().currentUser?.uid}"
 
-        val storageRef= FirebaseStorage.getInstance().reference
+        val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesUsers/$imageName")
 
 
-        val localFile = File.createTempFile("tempImage","jpg")
+        val localFile = File.createTempFile("tempImage", "jpg")
 
         storageRef.getFile(localFile).addOnSuccessListener {
 
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-          //  binding.userImageProfileXml.load(bitmap)
+            //  binding.userImageProfileXml.load(bitmap)
             binding.userImageProfileXml.load(localFile)
 
 
-        }.addOnFailureListener{
+        }.addOnFailureListener {
 
-            Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
 
         }
     }
 
 
     private fun upDateUserInfoBottomSheet() {
-        val view:View = layoutInflater.inflate(R.layout.up_date_user_information,null)
+        val view: View = layoutInflater.inflate(R.layout.up_date_user_information, null)
 
         val builder = BottomSheetDialog(requireView()?.context as Context)
         builder.setTitle("Up Date Information")
 
         //upDateUserInfoBottomSheet
-       val  editTextName  = view.editTextTextUserName.text.toString()
-       val  editTextUserPhone  = view.editTextPhone.text.toString()
-        val upDateInfoButton =  view.upDateInfoButton_xml
+        val editTextName = view.editTextTextUserName.text.toString()
+        val editTextUserPhone = view.editTextPhone.text.toString()
+        val upDateInfoButton = view.upDateInfoButton_xml
 
         view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
         view.editTextPhone.setText("${userPhoneNumber.toString()}")
-
-
 
         upDateInfoButton.setOnClickListener {
 
             if (view.editTextTextUserName.text.toString().isNotEmpty() &&
                 view.editTextPhone.text.toString().isNotEmpty() &&
-                view.editTextPhone.text.toString().length ==10){
+                view.editTextPhone.text.toString().length == 10
+            ) {
 
                 //view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
 
                 binding.userNameXml.setText(view.editTextTextUserName.text.toString())
 
+                upDateUserInfo("${view.editTextTextUserName.text.toString()}", "${view.editTextPhone.text.toString()}")
+                builder.dismiss()
 
-                upDateUserInfo("${view.editTextTextUserName.text.toString()}",
-                    "${view.editTextPhone.text.toString()}")
+            } else {
 
-
-               builder.dismiss()
-
-            }else{
-
-                Toast.makeText(context,"Please enter correct Information!!! ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter correct Information!!! ", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -419,42 +361,15 @@ class Profile : Fragment() {
         builder.show()
     }
 
-
-    private fun upDateUserInfo(upDateName:String,upDatePhoneNumber:String){
+    private fun upDateUserInfo(upDateName: String, upDatePhoneNumber: String) {
 
         val uId = FirebaseAuth.getInstance().currentUser?.uid
-        val upDateUserData =Firebase.firestore.collection("Users")
-
-        upDateUserData.document(uId.toString())
-            .update("userNamae", "${upDateName.toString()}",
-                "userPhone","${upDatePhoneNumber.toString()}"
-        )
-
-/*
-        val upDateUser= hashMapOf(
-            "userNamae" to "${upDateName.toString()}",
-            "userPhone" to "${upDatePhoneNumber.toString()}",
-        )
-
-
-        //-----------UID------------------------
-        val userRef = Firebase.firestore.collection("Users")
-
-        userRef.document("$uId").set(upDateUser, SetOptions.merge()).addOnCompleteListener { it
-            when {
-                it.isSuccessful -> {
-                    getUserInfo("${uId}")
-
-                    Toast.makeText(context,"UpDate ",Toast.LENGTH_SHORT).show()
-
-                }
-                else -> {
-
-                }
-            }*/
-        }
+        val upDateUserData = Firebase.firestore.collection("Users")
+        upDateUserData.document(uId.toString()).update("userNamae", "${upDateName.toString()}", "userPhone", "${upDatePhoneNumber.toString()}")
 
     }
+
+}
 
 
 
