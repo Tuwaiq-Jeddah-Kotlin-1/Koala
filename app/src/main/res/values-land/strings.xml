@@ -29,4 +29,7 @@
     <string name="article_user">Article User</string>
     <string name="image_article_user">Image Article User</string>
     <string name="article_title">Article Title</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
 </resources>

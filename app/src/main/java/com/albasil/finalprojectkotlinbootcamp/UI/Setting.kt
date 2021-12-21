@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -26,6 +27,8 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.change_langauge.*
+import kotlinx.android.synthetic.main.change_langauge.view.*
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.help_and_support.view.*
 import java.util.*
@@ -83,7 +86,6 @@ class Setting : Fragment() {
                 // userEmail.text = emailPref
                 val passwordPref = preferences.getString("PASSWORD", "")
 
-
                 val editor: SharedPreferences.Editor = preferences.edit()
                 editor.clear()
                 editor.apply()
@@ -118,9 +120,8 @@ class Setting : Fragment() {
 
             binding.changeLanguagId.setOnClickListener {
 
-                //changeLanguage()
 
-                showChangeLanguage()
+                dialogChangeLanguage()
 
             }
 
@@ -128,17 +129,50 @@ class Setting : Fragment() {
 
         }
 
-    private fun showChangeLanguage(){
+    //------------------------------------------------------------------
 
-        val listItmes = arrayOf("عربي","English")
+   private fun dialogChangeLanguage() {
+
+        val view: View = layoutInflater.inflate(R.layout.change_langauge, null)
+
+        val builder = BottomSheetDialog(requireView().context!!)
+        builder.setTitle("Change Language")
+
+        val btnChangeLanguage = view.btnChangeLanguage
+        val listItmes = arrayOf("عربي", "English")
 
 
-        val mBuilder =AlertDialog.Builder(this.requireContext())
+       var radioGroup = view.radioGroup
 
-        mBuilder.setTitle("Choose Language")
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            var selectedLanguage:RadioButton=view.findViewById(checkedId)
+            if (selectedLanguage != null){
 
-        mBuilder.setSingleChoiceItems(listItmes,-1){
-                 dialog, which ->
+                btnChangeLanguage.setOnClickListener {
+
+                    Log.e("language","${selectedLanguage.text.toString()}")
+
+
+                    if (selectedLanguage.text.toString()=="Arabic"){
+
+                        setLocaleKoala("ar")
+
+                    }else if (selectedLanguage.text.toString()=="English"){
+                        setLocaleKoala("en")
+
+                    }
+                }
+
+            }
+
+        }
+
+
+
+
+
+       /* builder.setSingleChoiceItems(listItmes,-1){
+                dialog, which ->
             if (which ==0){
 
                 //setLocate("ar")
@@ -152,11 +186,36 @@ class Setting : Fragment() {
             dialog.dismiss()
 
 
+        }*/
+
+        builder.setContentView(view)
+
+        btnChangeLanguage.setOnClickListener {
+
+//            builder.dismiss()
+
+           // onRadioButtonClicked(view)
+            if (view is RadioButton) {
+                // Is the button now checked?
+                val checked = view.isChecked
+
+                // Check which radio button was clicked
+                when (view.getId()) {
+                    R.id.englishLanguageXml ->
+                        if (checked) {
+                            Log.e("Language","English")
+                        }
+                    R.id.arabicLanguageXml ->
+                        if (checked) {
+
+                            Log.e("Language","عربي")
+                        }
+                }
+            }
+
+
         }
-        val mDialog =mBuilder.create()
-
-        mDialog.show()
-
+        builder.show()
 
     }
 
@@ -182,9 +241,46 @@ class Setting : Fragment() {
 
 
         val refresh = Intent(context, MainActivity::class.java)
-    //    refresh.putExtra("currentLang", localeName)
+        //    refresh.putExtra("currentLang", localeName)
         startActivity(refresh)
     }
+
+    //------------------------------------------------------------------
+
+
+    private fun showChangeLanguage(){
+
+        val listItmes = arrayOf("عربي","English")
+
+
+        val mBuilder =AlertDialog.Builder(this.requireContext())
+
+        mBuilder.setTitle("Choose Language")
+
+        mBuilder.setSingleChoiceItems(listItmes,-1){
+                 dialog, which ->
+            if (which ==0){
+
+                //setLocate("ar")
+                setLocaleKoala("ar")
+
+            }else if (which==1){
+
+                setLocaleKoala("en")
+
+            }
+
+            dialog.dismiss()
+
+
+        }
+        val mDialog =mBuilder.create()
+
+        mDialog.show()
+
+
+    }
+
 
 
 

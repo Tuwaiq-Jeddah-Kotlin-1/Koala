@@ -50,6 +50,8 @@ class Sign_in : Fragment() {
 
 
         rememberMe = view.findViewById(R.id.cbRemember)
+
+        //-------------------------------------------------------------------------------------------------------
         sharedPreferences = this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
         isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
 
@@ -57,6 +59,7 @@ class Sign_in : Fragment() {
             findNavController().navigate(R.id.action_sign_in_to_homePage)
         }
 
+        //-------------------------------------------------------------------------------------------------------------
 
         binding.btnSignInXml.setOnClickListener {
 
@@ -64,10 +67,13 @@ class Sign_in : Fragment() {
                 TextUtils.isEmpty(binding.etSignInEmailXml.text.toString().trim { it <= ' ' }) -> {
                     //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
                     Toast.makeText(context, "toastMessageEmail", Toast.LENGTH_LONG).show()
+                    binding.etSignInEmailLayout.helperText="gvhjjbkjh"
                 }
                 TextUtils.isEmpty(binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }) -> {
                     //  val toastMessagePassword: String = this.getResources().getString(R.string.please_enter_password)
                     Toast.makeText(context, "toastMessagePassword", Toast.LENGTH_LONG).show()
+
+                    binding.etSignInPasswordLayout.helperText="gvhjjbkjh"
 
                 }
                 else -> {

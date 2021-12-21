@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
 
-    app:cardCornerRadius="100dp"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
+    android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -32,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="User Name"
+            android:hint="@string/user_name"
             app:endIconMode="clear_text"
             app:helperText="*"
             app:helperTextTextColor="#FF0000"
@@ -58,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="phone_number"
+            android:hint="@string/phone_number"
             app:counterEnabled="true"
             app:counterMaxLength="10"
             app:endIconMode="clear_text"
@@ -74,15 +70,16 @@
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint=""
-
                 android:maxLength="10"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:background="@drawable/round_border"
+            android:background="@drawable/button_edit"
+
+
+            android:textColor="@color/black"
 
             android:id="@+id/upDateInfoButton_xml"
             android:layout_width="wrap_content"
@@ -91,4 +88,3 @@
             android:layout_marginBottom="30dp"
             android:text="update" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
