@@ -13,6 +13,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentContainerView
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,8 @@ import com.albasil.finalprojectkotlinbootcamp.UI.AddArticle
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePage
 import com.albasil.finalprojectkotlinbootcamp.UI.Profile
 import com.albasil.finalprojectkotlinbootcamp.UI.Setting
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModelProvider
 import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -34,6 +38,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var viewModel : FeatherViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -41,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         // NotificationRepo().myNotification(this)
 
 
+        val viewModelProviderFactory = FeatherViewModelProvider(application)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(FeatherViewModel::class.java)
         val sharedPreferencesSettings = this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("Settings", "")
         if (language.toString() == "ar") {
