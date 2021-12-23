@@ -15,43 +15,42 @@
             android:id="@+id/textViewChangeLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/change_language"
             android:textColor="@color/black"
             android:textSize="30sp"
-            android:text="@string/change_language"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
-            android:orientation="horizontal"
-
-
-            android:gravity="center"
             android:id="@+id/radioGroup"
+
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewChangeLanguage">
 
             <RadioButton
-                android:layout_margin="10dp"
                 android:id="@+id/englishLanguageXml"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="English"
                 android:textSize="18sp" />
 
             <RadioButton
-                android:layout_margin="10dp"
-
                 android:id="@+id/arabicLanguageXml"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="Arabic"
                 android:textSize="18sp"
                 tools:ignore="MissingConstraints" />
@@ -62,7 +61,7 @@
             android:id="@+id/btnChangeLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="56dp"
 
             android:text="Save Changed"
             app:layout_constraintEnd_toEndOf="parent"

@@ -105,7 +105,7 @@
 
                                         <TextView
                                             android:textStyle="bold"
-                                            android:id="@+id/textView10"
+                                            android:id="@+id/tvFollowingXml"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginBottom="15dp"
@@ -141,7 +141,7 @@
                                         <TextView
                                             android:textStyle="bold"
 
-                                            android:id="@+id/textView8"
+                                            android:id="@+id/tvFollowersXml"
                                             android:textColor="@color/black"
                                             android:textSize="14sp"
                                             android:layout_width="wrap_content"

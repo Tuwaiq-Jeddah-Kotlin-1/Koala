@@ -69,16 +69,17 @@ class AddArticle : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+     //----------------------------------------------------------------------------------------
         val category = resources.getStringArray(R.array.Category)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
+
         binding.spinnerCategoryXml.onItemClickListener = object :AdapterView.OnItemSelectedListener,
             AdapterView.OnItemClickListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-
                 categorySelected = "${category[position]}"
 
             }
@@ -90,7 +91,7 @@ class AddArticle : Fragment() {
                 categorySelected = "${category[position]}"
             }
         }
-
+//-------------------------------------------------------------------------------------------------------
 
         binding.btnAddArticleXml.setOnClickListener {
 

@@ -16,6 +16,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -69,7 +71,6 @@ class Profile : Fragment() {
         //---------------------------------------------------
         getUserPhoto()
 
-
         //---------------------------------------------------------
 
         val uid = FirebaseAuth.getInstance().uid
@@ -93,6 +94,30 @@ class Profile : Fragment() {
 
         //---------------------------------------------------------
 
+
+
+
+        //-----------------------------------------------------
+        binding.tvFollowersXml.setOnClickListener {
+
+
+            val check =
+                ProfileDirections.actionProfileToFollowersUserFragment("Followers")
+            NavHostFragment.findNavController(this).navigate(check)
+
+
+
+        }
+        binding.tvFollowingXml.setOnClickListener {
+
+
+            val check =
+                ProfileDirections.actionProfileToFollowersUserFragment("Following")
+            NavHostFragment.findNavController(this).navigate(check)
+//            findNavController().navigate(R.id.followersUserFragment)
+
+        }
+        //----------------------------------------------
 
         binding.myArticleXml.setOnClickListener {
 
@@ -242,6 +267,10 @@ class Profile : Fragment() {
     }
 
 
+
+
+
+
     private fun selectImage() {
 
         val intent = Intent()
@@ -266,6 +295,9 @@ class Profile : Fragment() {
         }
 
     }
+
+
+
     fun upLoadImage() {
 
         //-----------UID------------------------

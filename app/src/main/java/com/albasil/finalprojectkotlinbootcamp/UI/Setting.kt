@@ -424,6 +424,9 @@ class Setting : Fragment() {
 
         }
 
+
+
+
         private fun support() {
 
             val view: View = layoutInflater.inflate(R.layout.help_and_support, null)

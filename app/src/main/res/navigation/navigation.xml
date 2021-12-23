@@ -65,6 +65,9 @@
         <argument
             android:name="articleData"
             app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
+        <action
+            android:id="@+id/action_profile_to_followersUserFragment"
+            app:destination="@id/followersUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/homePage"
@@ -135,5 +138,16 @@
         <argument
             android:name="articleData"
             app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
+    </fragment>
+    <fragment
+        android:id="@+id/followersUserFragment"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersUserFragment"
+        android:label="FollowersUserFragment" >
+        <action
+            android:id="@+id/action_followersUserFragment_to_userProfile"
+            app:destination="@id/userProfile" />
+        <argument
+            android:name="followersOrFollowing"
+            app:argType="string" />
     </fragment>
 </navigation>
