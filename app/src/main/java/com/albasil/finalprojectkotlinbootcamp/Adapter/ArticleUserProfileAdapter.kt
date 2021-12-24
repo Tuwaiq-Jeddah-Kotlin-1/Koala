@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 import java.io.File
 
 
-class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
+class ArticleUserProfileAdapter(private val articleList:List<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -89,7 +89,7 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
 
 
 
-        //--------------------------
+        //------------------------------------------------------------------
 
                 val storageRef = FirebaseStorage.getInstance().reference
                 .child("/imagesArticle/${article.articleImage.toString()}")
@@ -100,7 +100,7 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
             holder.image_article.load(bitmap)
         }.addOnFailureListener {}
 
-
+//-----------------------------------------------------------------------
 
 
 
@@ -114,19 +114,12 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
         private fun deleteArticle(articleID:String, view: View) {
             AlertDialog.Builder(view.context)
                 .setTitle("Delete Aricle")
-                .setIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setIcon(R.drawable.ic_delete_24)
                 .setMessage("Are sure to delete this article ?!!!")
                 .setPositiveButton("yes") { dialog, _ ->
 
 
                     //-------------------------------
-
-
-
-
-
-
-
 
                     /*** delete fun */
                     val deleteArticle=Firebase.firestore.collection("Articles")
@@ -136,12 +129,14 @@ class ArticleUserProfileAdapter(private val articleList:ArrayList<Article>): Rec
 
                     //----------------------------
 
-
                     dialog.dismiss()
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }.create().show()        }
+
+    //--------------------------------------------------------------------------
+
 
 
         override fun getItemCount(): Int {

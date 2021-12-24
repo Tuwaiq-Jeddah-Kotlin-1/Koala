@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -48,6 +50,8 @@ class Profile : Fragment() {
     private lateinit var articleList: ArrayList<Article>
     private lateinit var articleAdapter: ArticleUserProfileAdapter
     private lateinit var fireStore: FirebaseFirestore
+
+    private lateinit var profileViewModel:ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,8 +93,21 @@ class Profile : Fragment() {
 
         binding.myArticlesXml.setText(articleList.size.toString())
 
+
         //---------------------------------------------------------
-        getAllMyArticles("${uid}")
+
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+
+
+        profileViewModel.getAllMyArticles(uid.toString()).observe(viewLifecycleOwner,{
+
+            binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(it)
+
+        })
+
+
+
+       // getAllMyArticles("${uid}")
 
         //---------------------------------------------------------
 

@@ -25,8 +25,10 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.*
 
+val db = FirebaseFirestore.getInstance()
 
-class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
+class ArticleAdapter(private val articleList: ArrayList<Article>) :
+    RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -43,9 +45,8 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         val article = articleList[position]
         holder.titleArticle.text = article.title
         holder.articleDate = article.date
-        holder.userName.text = article.userName
         holder.articleCategory = article.category
-        holder.category.text =article.category
+        holder.category.text = article.category
         holder.articleDescription = article.description
         holder.image = article.articleImage
         holder.userId = article.userId
@@ -53,14 +54,10 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         holder.tvDateArticle.text = article.date
 
 
-        holder.upDateFavorite("${article.articleID}",article,)
-
-
+        holder.upDateFavorite("${article.articleID}", article)
 
 
         holder.userName.setOnClickListener {
-
-
             if (currentUserUid.toString() == holder.userId.toString()) {
                 findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
 
@@ -70,14 +67,15 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                 findNavController(holder.itemView.findFragment()).navigate(userInformation)
             }
         }
+        //-----------------------------------------------------------------------
 
-
-
-
-
-
-
-
+        db.collection("Users").document(article.userId).get()
+            .addOnCompleteListener { it
+                if (it.result?.exists()!!) {
+                    var userName = it.result!!.getString("userNamae")
+                    holder.userName.text = userName.toString()
+                } else {}
+            }
 
 
         //-------------------------------------------------------------------------
@@ -111,7 +109,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         val imageArticle: ImageView = itemView.findViewById(R.id.imageItem_xml)
         val numberLikes: TextView = itemView.findViewById(R.id.numberLike_xml)
         val ivFavorite: ImageView = itemView.findViewById(R.id.ivFavorite)
-        val tvDateArticle :TextView = itemView.findViewById(R.id.articleDate)
+        val tvDateArticle: TextView = itemView.findViewById(R.id.articleDate)
 
         lateinit var articleCategory: String
         lateinit var articleDate: String
@@ -120,7 +118,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
         lateinit var userId: String
 
 
-        fun upDateFavorite(articleID: String,article: Article ) {
+        fun upDateFavorite(articleID: String, article: Article) {
 
             val db = FirebaseFirestore.getInstance()
             db.collection("Users").document("$userID")
@@ -141,7 +139,7 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                                 .document("${articleID.toString()}").delete()
 
                             article.like--
-                            upDateArticleLike(articleID,article.like)
+                            upDateArticleLike(articleID, article.like)
 
                             ivFavorite.setImageResource(R.drawable.ic_favorite_border)
 
@@ -157,11 +155,10 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
                             ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
                             //Fun
-                            addFavorite("${articleID}",article)
+                            addFavorite("${articleID}", article)
 
                             article.like++
                             upDateArticleLike(articleID, article.like)
-
 
 
                         }
@@ -178,14 +175,15 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
             )
             val userRef = Firebase.firestore.collection("Articles")
             userRef.document("$articleID").set(upDateLike, SetOptions.merge())
-                .addOnCompleteListener { it
+                .addOnCompleteListener {
+                    it
                     when {
                         it.isSuccessful -> {
-                            Log.d("UpDate Like","${upDateLike.toString()}")
+                            Log.d("UpDate Like", "${upDateLike.toString()}")
                         }
                         else -> {
 
-                            Log.d("UpDate Like","${upDateLike.toString()}")
+                            Log.d("UpDate Like", "${upDateLike.toString()}")
 
                         }
                     }
@@ -193,46 +191,47 @@ class ArticleAdapter(private val articleList:ArrayList<Article>):RecyclerView.Ad
 
         }
 
-        private fun addFavorite(articleID:String,article: Article) {
+        private fun addFavorite(articleID: String, article: Article) {
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             val articleRef = Firebase.firestore.collection("Users")
             articleRef.document(userId.toString()).collection("Favorite")
                 .document("${articleID.toString()}")
-                .set(article).addOnCompleteListener { it
-                    when {it.isSuccessful -> {
-                            Log.d("Add Article","Done to add User Favorite")
+                .set(article).addOnCompleteListener {
+                    it
+                    when {
+                        it.isSuccessful -> {
+                            Log.d("Add Article", "Done to add User Favorite")
                         }
-                        else ->{
-                            Log.d("Error","is not Successful fire store")
+                        else -> {
+                            Log.d("Error", "is not Successful fire store")
                         }
                     }
                 }
         }
 
         init {
-           itemView.setOnClickListener(this)
-       }
+            itemView.setOnClickListener(this)
+        }
 
 
-      override fun onClick(v: View?) {
+        override fun onClick(v: View?) {
 
-          val article_data =Article()
+            val article_data = Article()
 
-          article_data.title = titleArticle.text.toString()
-          article_data.userName = userName.text.toString()
-          article_data.date = articleDate.toString()
-          article_data.category = articleCategory.toString()
-          article_data.description = articleDescription.toString()
-          article_data.articleImage = image.toString()
-          article_data.like = numberLikes.text.toString().toInt()
-
-
-          val itemData = HomePageDirections.actionHomePageToArticleInformation(article_data)
-          findNavController(itemView.findFragment()).navigate(itemData)
+            article_data.title = titleArticle.text.toString()
+            article_data.userName = userName.text.toString()
+            article_data.date = articleDate.toString()
+            article_data.category = articleCategory.toString()
+            article_data.description = articleDescription.toString()
+            article_data.articleImage = image.toString()
+            article_data.like = numberLikes.text.toString().toInt()
 
 
+            val itemData = HomePageDirections.actionHomePageToArticleInformation(article_data)
+            findNavController(itemView.findFragment()).navigate(itemData)
 
-       }
+
+        }
 
     }
 
