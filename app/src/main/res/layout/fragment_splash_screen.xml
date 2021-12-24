@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/koala_logos" />
+            app:srcCompat="@drawable/feather_logos_transparent2" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"
@@ -42,7 +42,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView"
             app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
-            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView" />
+            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <ImageView
             android:id="@+id/imageView5"

@@ -14,7 +14,6 @@ import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.AboutUsBinding.inflate
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFollowersBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFollowersUserBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserArticleBindingImpl

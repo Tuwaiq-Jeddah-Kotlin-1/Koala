@@ -32,6 +32,7 @@ class ProfileViewModel() :ViewModel(){
 
                             articleList.add(dc.document.toObject(Article::class.java))
 
+
                         }
                     }
 

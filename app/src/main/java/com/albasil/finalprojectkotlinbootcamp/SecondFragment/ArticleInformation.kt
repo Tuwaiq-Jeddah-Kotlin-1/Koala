@@ -64,7 +64,7 @@ class ArticleInformation : Fragment() {
 
         //يتاكد اذا في المفضلة او لا
         checkIfFavoirte(args.articleData.articleImage.toString())
-
+        Log.e("args.articleData.articleImage.toString()", "${args.articleData.articleID.toString()}")
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
 
@@ -117,11 +117,9 @@ class ArticleInformation : Fragment() {
                 if (it.result?.exists()!!){
 
                   deleteFavoiret(articleID.toString())
-                    Toast.makeText(context,"likesCounter ${likesCounter}",Toast.LENGTH_LONG).show()
 
                     likesCounter = likesCounter-1
 
-                    Toast.makeText(context,"likesCounter--  ${likesCounter}",Toast.LENGTH_LONG).show()
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
                     upDateArticleLike(articleID, likesCounter)
 
@@ -135,12 +133,7 @@ class ArticleInformation : Fragment() {
                         "${args.articleData.articleImage.toString()}"
                         ,view?.articleDateInfo_xml?.text.toString())
 
-
-                    Toast.makeText(context,"likesCounter ${likesCounter}",Toast.LENGTH_LONG).show()
-
                     likesCounter = likesCounter+1
-
-                    Toast.makeText(context,"likesCounter++  ${likesCounter}",Toast.LENGTH_LONG).show()
 
                     upDateArticleLike(articleID,likesCounter!!.toInt())
 
@@ -178,12 +171,12 @@ class ArticleInformation : Fragment() {
         userRef.document("$articleID").set(upDateLike, SetOptions.merge()).addOnCompleteListener { it
             when {
                 it.isSuccessful -> {
-                    Toast.makeText(context,"UpDate lIEK ",Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(context,"UpDate lIEK ",Toast.LENGTH_SHORT).show()
 
                 }
                 else -> {
 
-                    Toast.makeText(context," no UpDate lIEK ",Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(context," no UpDate lIEK ",Toast.LENGTH_SHORT).show()
 
 
                 }
@@ -196,9 +189,6 @@ class ArticleInformation : Fragment() {
 
 
     fun articleData(userName:String,category:String,title: String,description:String, articlePhoto: String,articleDate:String){
-
-
-
         val article = Article()
         article.userName =userName.toString()
         article.category = category.toString()
@@ -207,35 +197,33 @@ class ArticleInformation : Fragment() {
         article.description = description.toString()
         article.title = title.toString()
         article.articleImage = articlePhoto.toString()
-
         article.articleID=articlePhoto.toString()
-
         addUserFavorite(article)
     }
 
     fun addUserFavorite(article:Article) = CoroutineScope(Dispatchers.IO).launch {
-
+        val addFavorite= hashMapOf(
+            "articleID" to "${article.articleID}",
+            "userId" to "${article.userId}",
+        )
         val userId =FirebaseAuth.getInstance().currentUser?.uid
         try {
             val articleRef = Firebase.firestore.collection("Users")
 
             articleRef.document(userId.toString()).collection("Favorite")
                 .document(args.articleData.articleImage.toString())
-                .set(article).addOnCompleteListener { it
+                .set(addFavorite).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
 
 
-                        Toast.makeText(context,"Done to add User Favorite",Toast.LENGTH_LONG).show()
+                      //  Toast.makeText(context,"Done to add User Favorite",Toast.LENGTH_LONG).show()
                     }
                     else -> {
 
-                        Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
-
+                    //    Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
 
                     }
-
-
                 }
             }
 
@@ -287,7 +275,7 @@ class ArticleInformation : Fragment() {
         }.addOnFailureListener{
 
 
-            Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }
     }

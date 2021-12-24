@@ -10,14 +10,14 @@
         android:id="@+id/addArticle"
         android:icon="@drawable/ic_add_24"/>
 
-    <item android:title="Favorite Article"
-        android:id="@+id/favoriteFragment"
-        android:icon="@drawable/ic_favorite_border"/>
+<!--    <item android:title="My Favorite"-->
+<!--        android:id="@+id/favoriteFragment"-->
+<!--        android:icon="@drawable/ic_favorite_border"/>-->
 
 
-<!--    <item android:title="Following Articles"-->
-<!--        android:id="@+id/apiFragment"-->
-<!--        android:icon="@drawable/ic_api"/>-->
+    <item android:title="Following Articles"
+        android:id="@+id/followersArticlesFragment"
+        android:icon="@drawable/ic_api"/>
 
 
 

@@ -89,37 +89,35 @@ class Profile : Fragment() {
 
         recyclerView.adapter = articleAdapter
 
-
-
         binding.myArticlesXml.setText(articleList.size.toString())
-
 
         //---------------------------------------------------------
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-
         profileViewModel.getAllMyArticles(uid.toString()).observe(viewLifecycleOwner,{
 
             binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(it)
 
+            articleAdapter.notifyDataSetChanged()
+
         })
 
-
-
-       // getAllMyArticles("${uid}")
+        getAllMyArticles("${uid}")
 
         //---------------------------------------------------------
 
 
+        binding.myFavoriteXml.setOnClickListener {
+            findNavController().navigate(R.id.favoriteFragment)
+        }
 
 
         //-----------------------------------------------------
         binding.tvFollowersXml.setOnClickListener {
 
 
-            val check =
-                ProfileDirections.actionProfileToFollowersUserFragment("Followers")
+            val check = ProfileDirections.actionProfileToFollowersUserFragment("Followers")
             NavHostFragment.findNavController(this).navigate(check)
 
 
@@ -143,11 +141,7 @@ class Profile : Fragment() {
 
         }
 
-        binding.myFavoriteXml.setOnClickListener {
-            binding.userProfileRecyclerViewXml.setBackgroundColor(Color.CYAN)
-            binding.myFavoriteXml.setBackgroundColor(Color.CYAN)
 
-        }
 
         binding.userImageProfileXml.setOnClickListener {
 
@@ -165,8 +159,6 @@ class Profile : Fragment() {
 
         //
         articleAdapter.notifyDataSetChanged()
-        Toast.makeText(context, " ${articleList.size}++++ }", Toast.LENGTH_LONG).show()
-
     }
 
 
@@ -419,10 +411,3 @@ class Profile : Fragment() {
     }
 
 }
-
-
-
-
-
-
-

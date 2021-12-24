@@ -36,9 +36,6 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
 
-
-
-
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_article_user_profile,parent,false)
 
         return UserViewHolder(itemView)

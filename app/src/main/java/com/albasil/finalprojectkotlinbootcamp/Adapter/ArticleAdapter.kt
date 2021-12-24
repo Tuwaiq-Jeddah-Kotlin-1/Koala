@@ -192,11 +192,15 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
         }
 
         private fun addFavorite(articleID: String, article: Article) {
+            val addFavorite= hashMapOf(
+                "articleID" to "${article.articleID}",
+                "userId" to "${article.userId}",
+            )
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             val articleRef = Firebase.firestore.collection("Users")
             articleRef.document(userId.toString()).collection("Favorite")
                 .document("${articleID.toString()}")
-                .set(article).addOnCompleteListener {
+                .set(addFavorite).addOnCompleteListener {
                     it
                     when {
                         it.isSuccessful -> {

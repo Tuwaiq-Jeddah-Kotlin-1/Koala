@@ -140,12 +140,12 @@
         android:id="@+id/followersUserFragment"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersUserFragment"
         android:label="FollowersUserFragment" >
-        <action
-            android:id="@+id/action_followersUserFragment_to_userProfile"
-            app:destination="@id/userProfile" />
         <argument
             android:name="followersOrFollowing"
             app:argType="string" />
+        <action
+            android:id="@+id/action_followersUserFragment_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -160,6 +160,15 @@
             app:destination="@id/profile" />
         <action
             android:id="@+id/action_favoriteFragment_to_userProfile"
+            app:destination="@id/userProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/followersArticlesFragment"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragment"
+        android:label="fragment_followers_articles"
+        tools:layout="@layout/fragment_followers_articles" >
+        <action
+            android:id="@+id/action_followersArticlesFragment_to_userProfile"
             app:destination="@id/userProfile" />
     </fragment>
 </navigation>

@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--    android:maxLength="20"-->
 
     <ScrollView
-        android:background="@drawable/article_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +23,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="Date :"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +31,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:textColorHint="@color/white"
                 android:hint="@string/title"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -59,6 +57,7 @@
                     android:id="@+id/etTitleArticle_xml"
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
+                    android:maxLength="20"
 
                     android:textColorHint="@color/black"
                     android:layout_height="wrap_content"
@@ -70,7 +69,6 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/tvDescraptaionArticle_xml"
-                android:textColorHint="@color/white"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -91,8 +89,6 @@
                     android:id="@+id/etDescraptaionArticle_xml"
                     android:layout_width="match_parent"
 
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
 
                     android:layout_height="wrap_content"
                     android:lines="3"
@@ -103,21 +99,18 @@
                 android:id="@+id/inputTextCategory_xml"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:textColorHint="@color/white"
 
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:startIconDrawable="@drawable/ic_category"
                 android:layout_margin="20dp"
-                android:textColor="@color/white"
 
                 app:layout_constraintTop_toBottomOf="@+id/tvDate_xml">
 
                 <AutoCompleteTextView
                     android:hint="@string/categories"
 
-                    android:textColor="@color/white"
                     android:id="@+id/spinnerCategory_xml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

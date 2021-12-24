@@ -46,8 +46,6 @@ class UserProfile : Fragment() {
     private lateinit var myFollowers:String
     private lateinit  var myFollowing:String
 
-
-
     private lateinit var fireStore :FirebaseFirestore
 
 
@@ -197,7 +195,6 @@ class UserProfile : Fragment() {
 
 
    fun addFollowers(myId:String,userId:String){
-
 
        val upDateFollowers= hashMapOf(
            "userId" to "${myId.toString()}",
