@@ -6,10 +6,6 @@
         android:id="@+id/homePage"
         android:icon="@drawable/ic_home"/>
 
-    <item android:title="Add Article"
-        android:id="@+id/addArticle"
-        android:icon="@drawable/ic_add_24"/>
-
 <!--    <item android:title="My Favorite"-->
 <!--        android:id="@+id/favoriteFragment"-->
 <!--        android:icon="@drawable/ic_favorite_border"/>-->
@@ -23,6 +19,10 @@
 
 
 
+
+    <item android:title="Add Article"
+        android:id="@+id/addArticle"
+        android:icon="@drawable/ic_add_24"/>
 
 
     <item android:title="profile"

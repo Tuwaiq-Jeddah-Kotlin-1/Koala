@@ -20,7 +20,7 @@
     <string name="app_name">كوالا</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login">login</string>
+    <string name="login">تسجيل دخول</string>
     <string name="setting">setting</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <!-- Strings used for fragments for navigation -->
@@ -36,9 +36,9 @@
     <string name="user_name">User Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="sign_up">Sign Up</string>
-    <string name="password">Password</string>
+    <string name="password">كلمة المرور</string>
     <string name="remember_me">Remember Me</string>
-    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password">هل نسيت كلمة المرور ؟</string>
     <string name="new_account">New Account?</string>
     <string name="sing_in">Sing In</string>
     <string name="sign_out">Sign Out</string>

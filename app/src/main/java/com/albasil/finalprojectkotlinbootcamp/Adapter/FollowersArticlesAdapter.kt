@@ -46,19 +46,6 @@ class FollowersArticlesAdapter(internal val followersArticlesList: ArrayList<Art
         holder.dateArticle.visibility = View.GONE
         holder.linearLayOutFavorite.visibility = View.GONE
 
-        holder.userName.setOnClickListener {
-            if (currentUserUid.toString() == holder.userID.toString()) {
-                 NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
-
-            } else {
-              //  NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(R.id.userProfile)
-
-                val userInformation =
-                    FollowersArticlesFragmentDirections.actionFollowersArticlesFragmentToUserProfile(holder.userID.toString())
-                NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(userInformation)
-             }
-        }
-
         val storageRef = FirebaseStorage.getInstance().reference
             .child("//imagesUsers/${followersArticle.userId.toString()}")
 
@@ -110,7 +97,16 @@ class FollowersArticlesAdapter(internal val followersArticlesList: ArrayList<Art
         }
 
         override fun onClick(v: View?) {
+            if (uId.toString() == userID.toString()) {
+                NavHostFragment.findNavController(itemView.findFragment()).navigate(R.id.profile)
 
+            } else {
+                //  NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(R.id.userProfile)
+
+                val userInformation =
+                    FollowersArticlesFragmentDirections.actionFollowersArticlesFragmentToUserProfile(userID.toString())
+                NavHostFragment.findNavController(itemView.findFragment()).navigate(userInformation)
+            }
 
         }
     }
