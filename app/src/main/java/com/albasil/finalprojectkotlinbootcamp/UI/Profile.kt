@@ -100,6 +100,8 @@ class Profile : Fragment() {
             binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(it)
 
             articleAdapter.notifyDataSetChanged()
+            getAllMyArticles("${uid}")
+
 
         })
 

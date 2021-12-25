@@ -3,101 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".UI.HomePage">
-
-
-        <!--
-                <com.google.android.material.appbar.AppBarLayout
-                    android:id="@+id/appBarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        app:tabGravity="fill"
-                        app:tabBackground="@color/teal_200"
-                        app:tabIndicatorColor="#F57F17"
-                        app:tabInlineLabel="true"
-                        app:tabMode="fixed"
-                        app:tabSelectedTextColor="@color/purple_500"
-                        app:tabTextAppearance="@style/TapLayOut"
-                        app:tabTextColor="@color/black"
-                        tools:ignore="MissingConstraints" />
-
-
-                </com.google.android.material.appbar.AppBarLayout>
-
-
-
-
-                <androidx.viewpager.widget.ViewPager
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/viewPager"
-
-
-
-                    android:background="@color/black"
-                    tools:ignore="MissingConstraints" />
-
-        -->
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:layout_weight="1"
-                    android:text="All Articles"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/button3"
-
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="My Favorite Articles"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:visibility="gone" />
-
-        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/typeCategory_xml"
@@ -108,7 +19,7 @@
             android:drawableEnd="@drawable/ic_arrow_down"
             android:text="sort"
             android:textSize="20sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
@@ -134,11 +45,12 @@
             android:id="@+id/recyclerViewArticle_xml"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/typeCategory_xml" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
