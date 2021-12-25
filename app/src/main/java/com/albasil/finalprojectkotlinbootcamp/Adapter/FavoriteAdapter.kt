@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FavoriteFragmentDirections
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -48,7 +50,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
             } else {
                 val userInformation =
-                    FavoriteFragmentDirections.actionFavoriteFragmentToUserProfile(holder.userID.toString())
+                    TabBarFragmentDirections.actionTabBarFragmentToUserProfile(holder.userID.toString())
                 NavHostFragment.findNavController(holder.itemView.findFragment())
                     .navigate(userInformation)
             }
@@ -151,9 +153,9 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                 .show()
 
 
-            val itemData =
-                FavoriteFragmentDirections.actionFavoriteFragmentToArticleInformation(article_data)
-          NavHostFragment.findNavController(itemView.findFragment()).navigate(itemData)
+            val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
+            NavHostFragment.findNavController(itemView.findFragment()).navigate(itemData)
+
         }
     }
 

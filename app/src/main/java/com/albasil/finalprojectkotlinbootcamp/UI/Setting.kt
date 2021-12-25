@@ -47,23 +47,18 @@ class Setting : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View?{
         binding = FragmentSettingBinding.inflate(inflater,container,false)
-
 
         return binding.root
 
     }
 
-
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         //loadLocate()
-
 
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -74,8 +69,6 @@ class Setting : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
             }
         }
-
-
             //tvProfileShow
             binding.buttonLogOutXml.setOnClickListener {
 
@@ -169,8 +162,6 @@ class Setting : Fragment() {
 
 
 
-
-
        /* builder.setSingleChoiceItems(listItmes,-1){
                 dialog, which ->
             if (which ==0){
@@ -232,13 +223,11 @@ class Setting : Fragment() {
         //---------------------------------------------------------------
         context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
 
-
         settings = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
         val editor: SharedPreferences.Editor = settings.edit()
         editor.putString("Settings", "${locale.toString()}")
         editor.apply()
-
 
         val refresh = Intent(context, MainActivity::class.java)
         //    refresh.putExtra("currentLang", localeName)

@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_sign_in_to_apiFragment"
             app:destination="@id/apiFragment" />
+        <action
+            android:id="@+id/action_sign_in_to_tabBarFragment"
+            app:destination="@id/tabBarFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUP"
@@ -36,6 +39,9 @@
         <action
             android:id="@+id/action_signUP_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_signUP_to_tabBarFragment"
+            app:destination="@id/tabBarFragment" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -169,6 +175,17 @@
         tools:layout="@layout/fragment_followers_articles" >
         <action
             android:id="@+id/action_followersArticlesFragment_to_userProfile"
+            app:destination="@id/userProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabBarFragment"
+        android:name="com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment"
+        android:label="TabBarFragment" >
+        <action
+            android:id="@+id/action_tabBarFragment_to_articleInformation"
+            app:destination="@id/articleInformation" />
+        <action
+            android:id="@+id/action_tabBarFragment_to_userProfile"
             app:destination="@id/userProfile" />
     </fragment>
 </navigation>

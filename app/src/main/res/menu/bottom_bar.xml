@@ -3,7 +3,7 @@
 
 
     <item android:title="Home"
-        android:id="@+id/homePage"
+        android:id="@+id/tabBarFragment"
         android:icon="@drawable/ic_home"/>
 
 <!--    <item android:title="My Favorite"-->
@@ -11,9 +11,14 @@
 <!--        android:icon="@drawable/ic_favorite_border"/>-->
 
 
-    <item android:title="Following Articles"
-        android:id="@+id/followersArticlesFragment"
+    <item android:title="API"
+        android:id="@+id/apiFragment"
         android:icon="@drawable/ic_api"/>
+
+
+<!--    <item android:title="Following Articles"-->
+<!--        android:id="@+id/followersArticlesFragment"-->
+<!--        android:icon="@drawable/ic_api"/>-->
 
 
 

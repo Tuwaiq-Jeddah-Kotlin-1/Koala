@@ -17,6 +17,8 @@ import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFr
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersUserFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -104,7 +106,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: ArrayList<Art
                 //  NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(R.id.userProfile)
 
                 val userInformation =
-                    FollowersArticlesFragmentDirections.actionFollowersArticlesFragmentToUserProfile(userID.toString())
+                    TabBarFragmentDirections.actionTabBarFragmentToUserProfile(userID.toString())
                 NavHostFragment.findNavController(itemView.findFragment()).navigate(userInformation)
             }
 

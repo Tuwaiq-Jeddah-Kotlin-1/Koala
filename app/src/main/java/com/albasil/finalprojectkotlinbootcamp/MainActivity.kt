@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         val viewModelProviderFactory = FeatherViewModelProvider(application)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(FeatherViewModel::class.java)
+
         val sharedPreferencesSettings = this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("Settings", "")
         if (language.toString() == "ar") {

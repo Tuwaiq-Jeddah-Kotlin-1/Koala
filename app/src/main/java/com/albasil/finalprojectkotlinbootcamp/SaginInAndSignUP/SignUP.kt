@@ -199,7 +199,7 @@ class SignUP : Fragment() {
                         "${binding.etPhoneXml.text.toString()}")
 
 
-                    findNavController().navigate(R.id.action_signUP_to_homePage)
+                    findNavController().navigate(R.id.action_signUP_to_tabBarFragment)
 
 
                 } else {

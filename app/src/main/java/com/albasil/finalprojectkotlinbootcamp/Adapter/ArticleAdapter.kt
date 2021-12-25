@@ -17,6 +17,8 @@ import java.io.File
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -63,7 +65,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
 
             } else {
                 val userInformation =
-                    HomePageDirections.actionHomePageToUserProfile(holder.userId.toString())
+                    TabBarFragmentDirections.actionTabBarFragmentToUserProfile(holder.userId.toString())
                 findNavController(holder.itemView.findFragment()).navigate(userInformation)
             }
         }
@@ -231,7 +233,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
             article_data.like = numberLikes.text.toString().toInt()
 
 
-            val itemData = HomePageDirections.actionHomePageToArticleInformation(article_data)
+            val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             findNavController(itemView.findFragment()).navigate(itemData)
 
 
