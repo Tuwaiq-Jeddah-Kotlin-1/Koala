@@ -79,6 +79,7 @@ class HomePage : Fragment() {
                     Toast.makeText(context, " selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
 
                     recyclerView.swapAdapter(articleAdapter, false)
+
                     loadArticle(categorySelected)
 
                 }
@@ -108,14 +109,43 @@ class HomePage : Fragment() {
             recyclerView.swapAdapter(articleAdapter, false)
 
             getAllArticles()
+
         } else {
            // articleAdapter = ArticleAdapter(articleList)
            recyclerView.swapAdapter(articleAdapter, false)
+            removeAllArticles()
+
             articleCategory(typeCategory.toString())
 
         }
 
     }
+
+    private fun removeAllArticles() {
+
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.remove(dc.document.toObject(Article::class.java))
+
+
+                        }
+                    }
+
+                    articleAdapter.notifyDataSetChanged()
+
+
+                }
+
+            })    }
 
 
     private fun getAllArticles() {

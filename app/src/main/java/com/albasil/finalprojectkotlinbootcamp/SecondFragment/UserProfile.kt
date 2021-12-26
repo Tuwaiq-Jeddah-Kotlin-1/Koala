@@ -406,7 +406,7 @@ class UserProfile : Fragment() {
             /*if (progressDialog.isShowing)
                 progressDialog.dismiss()*/
 
-            Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }
     }
