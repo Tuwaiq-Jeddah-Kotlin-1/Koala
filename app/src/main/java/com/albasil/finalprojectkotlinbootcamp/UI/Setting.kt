@@ -27,7 +27,6 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.change_langauge.*
 import kotlinx.android.synthetic.main.change_langauge.view.*
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.help_and_support.view.*
@@ -148,10 +147,10 @@ class Setting : Fragment() {
 
                     if (selectedLanguage.text.toString()=="Arabic"){
 
-                        setLocaleKoala("ar")
+                        setLocaleFeather("ar")
 
                     }else if (selectedLanguage.text.toString()=="English"){
-                        setLocaleKoala("en")
+                        setLocaleFeather("en")
 
                     }
                 }
@@ -210,14 +209,14 @@ class Setting : Fragment() {
 
     }
 
-    private fun setLocaleKoala(localeName: String) {
+
+
+    //------------------------------------------------------------------
+    private fun setLocaleFeather(localeName: String) {
 
         val locale =Locale(localeName.toString())
-
         Locale.setDefault(locale)
-
         val config = Configuration()
-
         config.locale = locale
 
         //---------------------------------------------------------------
@@ -236,7 +235,6 @@ class Setting : Fragment() {
 
     //------------------------------------------------------------------
 
-
     private fun showChangeLanguage(){
 
         val listItmes = arrayOf("عربي","English")
@@ -251,27 +249,20 @@ class Setting : Fragment() {
             if (which ==0){
 
                 //setLocate("ar")
-                setLocaleKoala("ar")
+                setLocaleFeather("ar")
 
             }else if (which==1){
 
-                setLocaleKoala("en")
-
+                setLocaleFeather("en")
             }
-
             dialog.dismiss()
 
 
         }
         val mDialog =mBuilder.create()
-
         mDialog.show()
 
-
     }
-
-
-
 
         //--------------------------------------------------------------------------
         fun dialogChangePassword() {
@@ -296,8 +287,6 @@ class Setting : Fragment() {
                     "${confirmNewPassword.text.toString()}"
                 )
 
-
-                //Toast.makeText(context,"${etNewPassword.text.toString()}",Toast.LENGTH_SHORT).show()
             }
             builder.show()
 

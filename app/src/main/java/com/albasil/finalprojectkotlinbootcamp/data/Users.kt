@@ -16,7 +16,7 @@ data class Users(
 
     var userId :String = "",
     var userEmail: String = "",
-    var userNamae: String = "",
+    var userName: String = "",
     var userPhone: String = "",
     var creationAccount: String = "${formatted.toString()}",
     var followers :Int =0,

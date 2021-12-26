@@ -42,7 +42,7 @@ class FollowersAdapter(private val followersList:ArrayList<Users>): RecyclerView
                 .get().addOnCompleteListener {it
 
                     if (it.result?.exists()!!) {
-                        var name = it.result!!.getString("userNamae")
+                        var name = it.result!!.getString("userName")
                         holder.followersName.text = name
                         Log.e("user Info", "userName ${name.toString()} \n ")
                     } else {

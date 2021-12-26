@@ -225,7 +225,7 @@ class SignUP : Fragment() {
          val user =Users()
          user.userId = userId.toString()
          user.userEmail = email.toString()
-         user.userNamae = userName.toString()
+         user.userName = userName.toString()
          user.userPhone = userPhone.toString()
 
 

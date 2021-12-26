@@ -27,6 +27,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.protobuf.Empty
+import kotlinx.android.synthetic.main.fragment_add_article.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,7 +72,7 @@ class AddArticle : Fragment() {
 
 
      //----------------------------------------------------------------------------------------
-        val category = resources.getStringArray(R.array.Category)
+        val category = resources.getStringArray(R.array.categories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 
@@ -106,11 +107,6 @@ class AddArticle : Fragment() {
             selectImage()
 
         }
-
-
-
-
-
     }
 
     fun checkFields(){
@@ -121,25 +117,26 @@ class AddArticle : Fragment() {
 
         when {
             TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
-
+                binding.tvTitleArticleXml.helperText="Title Article is null"
 
                 Toast.makeText(
                     context, "etTitleArticleXml", Toast.LENGTH_LONG).show()
             }
             TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
-                Toast.makeText(context, "etDescraptaionArticleXml", Toast.LENGTH_LONG).show()
+                binding.tvDescraptaionArticleXml.helperText="Descraptaion Article is null"
+             //   Toast.makeText(context, "etDescraptaionArticleXml", Toast.LENGTH_LONG).show()
 
             }
             else -> {
 
                 if (categorySelected.isNullOrEmpty()){
-                    Toast.makeText(context, "categorySelected is null", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
 
                 }else{
 
                     if(binding.articlerPhotoXml==null){
 
-                        Toast.makeText(context,"binding.articlerPhotoXml  == null",Toast.LENGTH_LONG).show()
+                     //   Toast.makeText(context,"binding.articlerPhotoXml  == null",Toast.LENGTH_LONG).show()
 
                     }else{
                         articleData("${categorySelected.toString()}"
@@ -194,11 +191,11 @@ class AddArticle : Fragment() {
 
                         upLoadImage("${article.articleImage.toString()}")
 
-                        Toast.makeText(context,"Done to Add Article",Toast.LENGTH_LONG).show()
+                     //   Toast.makeText(context,"Done to Add Article",Toast.LENGTH_LONG).show()
                     }
                     else -> {
 
-                        Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
+                      //  Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
 
 
                     }
@@ -231,7 +228,7 @@ class AddArticle : Fragment() {
                     it
                     if (it.getResult()?.exists()!!) {
                         //+++++++++++++++++++++++++++++++++++++++++
-                        var userName = it.getResult()!!.getString("userNamae")
+                        var userName = it.getResult()!!.getString("userName")
                         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                         userNameGlobl = userName.toString()
@@ -284,25 +281,15 @@ class AddArticle : Fragment() {
     }
 
     fun upLoadImage(uIdCategory:String){
-
-        /*    val progressDialog = ProgressDialog(context)
-            progressDialog.setMessage("Uploading File ...")
-            progressDialog.setCancelable(false)
-
-            progressDialog.show()*/
-
-
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
 
         imageUrl?.let {
             storageReference.putFile(it)
                 .addOnSuccessListener {
 
-                    // if (progressDialog.isShowing)progressDialog.dismiss()
 
                 }.addOnFailureListener{
-                    // if (progressDialog.isShowing)progressDialog.dismiss()
-                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                 }
         }
     }

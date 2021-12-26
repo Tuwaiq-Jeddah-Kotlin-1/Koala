@@ -1,6 +1,5 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,21 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
-import com.albasil.finalprojectkotlinbootcamp.Adapter.TabAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.*
 
 
@@ -33,7 +24,6 @@ class HomePage : Fragment() {
 
 
     var categorySelected: String? = null
-    var categorySelected2: String? = null
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var articleList: ArrayList<Article>
@@ -48,8 +38,6 @@ class HomePage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        lateinit var binding: FragmentHomePageBinding
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
@@ -66,136 +54,66 @@ class HomePage : Fragment() {
 
         articleList = arrayListOf<Article>()
         newArticleList = arrayListOf<Article>()
-
         articleAdapter = ArticleAdapter(articleList)
-
         recyclerView.adapter = articleAdapter
 
 
-        /*  addEventBar=view.findViewById(R.id.addEventBtn)
-          addEventBar.setOnClickListener {
-              //     findNavController(R.id.apiFragment)
-              findNavController().navigate(R.id.action_homePage_to_userProfile)
 
-          }*/
-
-        getAllArticles()
-
-
-        //loadArticle()
-
-
-        // typeCategory()
-
-
-    }
-
-    /*
-        private fun setUpTaps() {
-
-            val tapAdapter = TabAdapter(supportFragmentManager)
-
-            tapAdapter.addFragment(HomePage(),"Settings")
-            tapAdapter.addFragment(Profile(),"Profile")
-            tapAdapter.addFragment(AddArticle(),"Add Article")
-
-            viewPager.adapter = tapAdapter
-            tabLayout.setupWithViewPager(viewPager)
-
-            tabLayout.getTabAt(0)!!.setIcon(R.drawable.ic_add_24)
-            tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_category)
-            tabLayout.getTabAt(2)!!.setIcon(R.drawable.ic_favorite)
-
-        }
-    */
-    fun loadArticle(typeCategory: String? = null) {
-
-        if (typeCategory.isNullOrEmpty()) {
-            articleAdapter = ArticleAdapter(articleList)
-
-            recyclerView.adapter = articleAdapter
-
-            //GET all DATA
-            getAllArticles()
-
-        } else {
-
-
-            articleAdapter = ArticleAdapter(articleList)
-
-            recyclerView.swapAdapter(articleAdapter, false)
-
-
-            articleCategory()
-
-        }
-
-    }
-
-
-    fun typeCategory() {
-
-        val category = resources.getStringArray(R.array.Category)
-
+        //*************************************************************************************
+        val category = resources.getStringArray(R.array.categories)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
-
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
         binding.spinnerCategoryXml.onItemClickListener =
             object : AdapterView.OnItemSelectedListener,
                 AdapterView.OnItemClickListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-
-
-                    categorySelected = "${category[position]}"
                     // loadArticle(categorySelected.toString())
-
-
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
-
                 override fun onItemClick(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-
                     categorySelected = "${category[position]}"
-                    Toast.makeText(
-                        context,
-                        "you selected :  ${category[position]}",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                    //    showChangeLanguage(categorySelected.toString())
+                    Toast.makeText(context, " selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
 
-                    categorySelected2 = categorySelected.toString()
+                    recyclerView.swapAdapter(articleAdapter, false)
+                    loadArticle(categorySelected)
 
-
-                    // articleCategory(categorySelected.toString())
                 }
             }
+
+//***********************************************************************************************************************
+        //getAllArticles()
+
+        Toast.makeText(context, "you selected :  ${categorySelected}", Toast.LENGTH_SHORT).show()
+
+        loadArticle(categorySelected)
+
+
 
 
     }
 
-    private fun showChangeLanguage(type: String) {
 
+    fun loadArticle(typeCategory: String? = null) {
 
-        val mBuilder = AlertDialog.Builder(this.requireContext())
+        if (typeCategory.isNullOrEmpty()) {
+          //  articleAdapter = ArticleAdapter(articleList)
 
-        mBuilder.setTitle("Choose Language")
+            recyclerView.adapter = articleAdapter
 
-        mBuilder.setMessage("${type.toString()}")
+            //GET all DATA
+            recyclerView.swapAdapter(articleAdapter, false)
 
+            getAllArticles()
+        } else {
+           // articleAdapter = ArticleAdapter(articleList)
+           recyclerView.swapAdapter(articleAdapter, false)
+            articleCategory(typeCategory.toString())
 
-        val mDialog = mBuilder.create()
-
-        mDialog.show()
-
+        }
 
     }
 
@@ -230,15 +148,11 @@ class HomePage : Fragment() {
     }
 
 
-    private fun articleCategory() {
-
+    private fun articleCategory(typeCategory:String) {
         fireStore = FirebaseFirestore.getInstance()
-
-        fireStore.collection("Articles").whereEqualTo("category", "C1")
-
+        fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
                     if (error != null) {
                         Log.e("Firestore", error.message.toString())
                         return

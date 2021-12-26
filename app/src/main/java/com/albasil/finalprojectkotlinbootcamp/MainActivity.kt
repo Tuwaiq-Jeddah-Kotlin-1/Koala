@@ -1,39 +1,21 @@
 package com.albasil.finalprojectkotlinbootcamp
 
 import android.app.Activity
-import android.app.UiModeManager
-import android.content.Context
+import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager.widget.ViewPager
-import com.albasil.finalprojectkotlinbootcamp.Adapter.TabAdapter
-import com.albasil.finalprojectkotlinbootcamp.UI.AddArticle
-import com.albasil.finalprojectkotlinbootcamp.UI.HomePage
-import com.albasil.finalprojectkotlinbootcamp.UI.Profile
-import com.albasil.finalprojectkotlinbootcamp.UI.Setting
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModelProvider
-import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_splash_screen.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -50,14 +32,14 @@ class MainActivity : AppCompatActivity() {
         val viewModelProviderFactory = FeatherViewModelProvider(application)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(FeatherViewModel::class.java)
 
+
+        //------------------------------------------------------------------------------------
         val sharedPreferencesSettings = this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("Settings", "")
+
         if (language.toString() == "ar") {
-            //Toast.makeText(this, " arabic",Toast.LENGTH_LONG).show()
             setLocate()
 
-        } else {
-            //Toast.makeText(this, "English", Toast.LENGTH_LONG).show()
         }
 
 
@@ -111,5 +93,41 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-}
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_bar,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.share -> {
+                val shareArticle = Intent(Intent.ACTION_SEND)
+                shareArticle.type = "text/plain"
+                shareArticle.putExtra(Intent.EXTRA_TEXT,"Feather ")
+                shareArticle.putExtra(Intent.EXTRA_TITLE,"titleArticle.toString()")
+                shareArticle.putExtra(Intent.EXTRA_SUBJECT,"subjectArticle")
+
+                startActivity(shareArticle)
+                return true
+            }
+            R.id.about_Feather -> {
+                AlertDialog.Builder(this)
+                    .setTitle("About Feather")
+                    .setIcon(R.drawable.ic_photo_camera)
+                    .setMessage("تم تطوير تطبيق ToDoList من قبل المطور باسل بأشراف من أ/ شادي سليم  و أ/ سمية الطويرقي .... ")
+                    .setPositiveButton("OK"){
+                            dialog,_ ->
+
+                        dialog.dismiss()
+                    }.create().show()
+                return true
+            }
+            else -> return true
+        }
+    }
+
+
+
+
+
+}

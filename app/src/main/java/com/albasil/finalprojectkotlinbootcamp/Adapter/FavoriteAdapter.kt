@@ -103,7 +103,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         db.collection("Users").document(favoriteArticle.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
-                    var userName = it.result!!.getString("userNamae")
+                    var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {}
             }

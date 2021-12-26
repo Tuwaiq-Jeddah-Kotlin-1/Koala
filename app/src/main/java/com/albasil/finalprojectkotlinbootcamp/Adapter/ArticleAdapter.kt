@@ -74,7 +74,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
         db.collection("Users").document(article.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
-                    var userName = it.result!!.getString("userNamae")
+                    var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {}
             }
@@ -150,9 +150,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
 
                     } else {
 
-
                         ivFavorite.setOnClickListener {
-
 
                             ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
@@ -162,10 +160,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
                             article.like++
                             upDateArticleLike(articleID, article.like)
 
-
                         }
-
-
                     }
                 }
 
@@ -184,9 +179,7 @@ class ArticleAdapter(private val articleList: ArrayList<Article>) :
                             Log.d("UpDate Like", "${upDateLike.toString()}")
                         }
                         else -> {
-
                             Log.d("UpDate Like", "${upDateLike.toString()}")
-
                         }
                     }
                 }

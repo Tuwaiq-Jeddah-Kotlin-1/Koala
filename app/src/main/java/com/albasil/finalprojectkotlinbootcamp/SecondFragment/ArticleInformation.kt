@@ -186,8 +186,6 @@ class ArticleInformation : Fragment() {
     }
 
 
-
-
     fun articleData(userName:String,category:String,title: String,description:String, articlePhoto: String,articleDate:String){
         val article = Article()
         article.userName =userName.toString()

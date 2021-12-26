@@ -1,13 +1,22 @@
 <resources>
 
 
-    <string-array name="Category">
+    <string-array name="categories">
         <item>All</item>
         <item>A1</item>
         <item>B1</item>
         <item>C1</item>
         <item>D1</item>
 
+    </string-array>
+
+    <string-array name="categories2">
+        <item>Designers</item>
+        <item>Teachers</item>
+        <item>Fixers</item>
+        <item>Technicians</item>
+        <item>Cookers</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="sortArticle">

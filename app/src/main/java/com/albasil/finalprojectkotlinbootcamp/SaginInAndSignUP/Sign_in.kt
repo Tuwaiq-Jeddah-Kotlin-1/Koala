@@ -66,14 +66,11 @@ class Sign_in : Fragment() {
             when {
                 TextUtils.isEmpty(binding.etSignInEmailXml.text.toString().trim { it <= ' ' }) -> {
                     //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
-                    Toast.makeText(context, "toastMessageEmail", Toast.LENGTH_LONG).show()
-                    binding.etSignInEmailLayout.helperText="gvhjjbkjh"
+                    binding.etSignInEmailLayout.helperText="Please Enter Your Email"
                 }
                 TextUtils.isEmpty(binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }) -> {
-                    //  val toastMessagePassword: String = this.getResources().getString(R.string.please_enter_password)
-                    Toast.makeText(context, "toastMessagePassword", Toast.LENGTH_LONG).show()
 
-                    binding.etSignInPasswordLayout.helperText="gvhjjbkjh"
+                    binding.etSignInPasswordLayout.helperText="Please Enter Your Password"
 
                 }
                 else -> {

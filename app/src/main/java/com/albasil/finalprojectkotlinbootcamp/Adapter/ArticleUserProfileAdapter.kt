@@ -100,9 +100,6 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
 //-----------------------------------------------------------------------
 
 
-
-
-
     }
 
 

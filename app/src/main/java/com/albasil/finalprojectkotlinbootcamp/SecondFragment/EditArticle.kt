@@ -91,7 +91,7 @@ class EditArticle : Fragment() {
         //---------------------------------------------------------------------
 
 
-        val category = resources.getStringArray(R.array.Category)
+        val category = resources.getStringArray(R.array.categories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 

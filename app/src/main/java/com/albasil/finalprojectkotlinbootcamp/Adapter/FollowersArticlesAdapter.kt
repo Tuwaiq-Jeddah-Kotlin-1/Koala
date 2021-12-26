@@ -62,7 +62,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: ArrayList<Art
             .addOnCompleteListener {
                 it
                 if (it.result?.exists()!!) {
-                    var userName = it.result!!.getString("userNamae")
+                    var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {
 
@@ -108,6 +108,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: ArrayList<Art
                 val userInformation =
                     TabBarFragmentDirections.actionTabBarFragmentToUserProfile(userID.toString())
                 NavHostFragment.findNavController(itemView.findFragment()).navigate(userInformation)
+
             }
 
         }

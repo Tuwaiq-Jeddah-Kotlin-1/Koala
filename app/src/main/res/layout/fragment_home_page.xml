@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:hint="Categories"
                 android:inputType="none"
-                android:text="AutoCompleteTextView" />
+                android:text="categories" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

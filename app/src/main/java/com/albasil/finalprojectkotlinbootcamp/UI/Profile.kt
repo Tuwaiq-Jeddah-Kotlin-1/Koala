@@ -217,7 +217,7 @@ class Profile : Fragment() {
                     if (it.result?.exists()!!) {
 
                         //+++++++++++++++++++++++++++++++++++++++++
-                        var name = it.result!!.getString("userNamae")
+                        var name = it.result!!.getString("userName")
                         var userEmail = it.result!!.getString("userEmail")
                         var userFollowing = it.result!!.get("following")
                         var userFollowers = it.result!!.get("followers")
