@@ -58,13 +58,12 @@ class Profile : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        //getUserPhoto()
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
 
         val uid = FirebaseAuth.getInstance().uid
-        getUserInfo("${uid}")
+       getUserInfo("${uid}")
 
         return binding.root
     }
@@ -313,27 +312,26 @@ class Profile : Fragment() {
 
         //-----------UID------------------------
         val uId = FirebaseAuth.getInstance().currentUser?.uid
-
-        val progressDialog = ProgressDialog(context)
-        progressDialog.setMessage("Uploading File ...")
-        progressDialog.setCancelable(false)
-
-        progressDialog.show()
+//
+//        val progressDialog = ProgressDialog(context)
+//        progressDialog.setMessage("Uploading File ...")
+//        progressDialog.setCancelable(false)
+//
+//        progressDialog.show()
 
         val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${uId}")
 
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
-                //   userImage.setImageURI(null)
                 Toast.makeText(context, "uploading image", Toast.LENGTH_SHORT).show()
 
-                if (progressDialog.isShowing) progressDialog.dismiss()
+//                if (progressDialog.isShowing) progressDialog.dismiss()
 
                 getUserPhoto()
 
 
             }.addOnFailureListener {
-                if (progressDialog.isShowing) progressDialog.dismiss()
+//                if (progressDialog.isShowing) progressDialog.dismiss()
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
     }
@@ -354,8 +352,8 @@ class Profile : Fragment() {
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            //  binding.userImageProfileXml.load(bitmap)
-            binding.userImageProfileXml.load(localFile)
+              binding.userImageProfileXml.load(bitmap)
+          //  binding.userImageProfileXml.load(localFile)
 
 
         }.addOnFailureListener {

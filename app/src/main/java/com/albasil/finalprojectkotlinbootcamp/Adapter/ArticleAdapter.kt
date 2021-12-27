@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -75,14 +76,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
 
 
 
-
-
-
-
-
-
-
-
     //----------------------------------------------------------------------------------------------------
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -108,6 +101,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
         holder.upDateFavorite("${article.articleID}", article)
 
 
+
+        //-------------------------------------------------------------------------------
         holder.userName.setOnClickListener {
             if (currentUserUid.toString() == holder.userId.toString()) {
                 findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
@@ -118,11 +113,14 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
                 findNavController(holder.itemView.findFragment()).navigate(userInformation)
             }
         }
+
+
         //-----------------------------------------------------------------------
 
         db.collection("Users").document(article.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
+
                     var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {}
@@ -188,14 +186,12 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
                                 .document(userID.toString())
                                 .collection("Favorite")
                                 .document("${articleID.toString()}").delete()
-
                             article.like--
                             upDateArticleLike(articleID, article.like)
 
                             ivFavorite.setImageResource(R.drawable.ic_favorite_border)
 
                         }
-
 
                     } else {
 

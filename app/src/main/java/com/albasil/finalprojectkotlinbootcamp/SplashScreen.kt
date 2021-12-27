@@ -32,6 +32,6 @@ class SplashScreen : Fragment() {
                 findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
             }
         }, 5000)
-        //5000)
+        //5000)*
     }
 }

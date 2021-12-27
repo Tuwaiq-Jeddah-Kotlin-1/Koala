@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.Repo.fireStore
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FavoriteFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
@@ -73,7 +74,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         val db = FirebaseFirestore.getInstance()
         db.collection("Articles").document(favoriteArticle.articleID).get()
             .addOnCompleteListener {it
-
                 if (it.result?.exists()!!) {
                     var articleTitle = it.result!!.getString("title")
                     var date = it.result!!.getString("date")
@@ -84,8 +84,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     var like = it.result!!.get("like")
                    var description = it.result!!.getString("description")
 //                    var category = it.result!!.getString("articleImage")
-
-
                     holder.articleTitle.text = articleTitle.toString()
                     holder.articleCategory.text = category.toString()
                     holder.dateArticle.text = date.toString()
@@ -97,6 +95,13 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     Log.e("articleImage", "${articleImage.toString()}")
 
                 } else {
+
+                    val deleteFavorite= fireStore.collection("Users").document(currentUserUid.toString())
+                        .collection("Favorite").document(favoriteArticle.articleID).delete()
+                    deleteFavorite
+
+
+                    Toast.makeText(holder.itemView.context,"Not found it...",Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -107,6 +112,13 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     holder.userName.text = userName.toString()
                 } else {}
             }
+    }
+
+    private fun deleteFavoite() {
+
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -121,9 +133,9 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         lateinit var articleID: String
         lateinit var userID: String
 
-        lateinit var numberLikes: String
-        lateinit var image: String
-        lateinit var articleDescription: String
+         var numberLikes: String?=null
+         var image: String?=null
+         var articleDescription: String?=null
 
 
         val articleTitle: TextView = itemView.findViewById(R.id.tvTitle_xml)
@@ -146,14 +158,16 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
             article_data.category = articleCategory.text.toString()
             article_data.description = articleDescription.toString()
             article_data.articleImage = image.toString()
-            article_data.like = numberLikes.toInt().toString().toInt()
+            //article_data.like = numberLikes?.toInt().toString().toInt()
+
+
 
             Toast.makeText(itemView.context, "${article_data.like}", Toast.LENGTH_LONG).show()
             Toast.makeText(itemView.context, "${article_data.description}", Toast.LENGTH_LONG)
                 .show()
 
 
-            val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
+           val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             NavHostFragment.findNavController(itemView.findFragment()).navigate(itemData)
 
         }

@@ -31,7 +31,8 @@ class HomePage : Fragment() {
     private lateinit var articleList: ArrayList<Article>
     private lateinit var newArticleList: ArrayList<Article>
     private lateinit var articleAdapter: ArticleAdapter
-    private lateinit var fireStore: FirebaseFirestore
+    private  var  fireStore = FirebaseFirestore.getInstance()
+
 
 
     lateinit var viewModel: FeatherViewModel
@@ -101,12 +102,12 @@ class HomePage : Fragment() {
             }
 
 //***********************************************************************************************************************
-        //getAllArticles()
+
 
         viewModel = (activity as MainActivity).viewModel
 
         if (viewModel.hasInternetConnection()){
-            loadArticle(categorySelected)
+            //loadArticle(categorySelected)
 
         }else{
             Toast.makeText(context,"55555555555555555",Toast.LENGTH_LONG).show()
@@ -171,8 +172,7 @@ class HomePage : Fragment() {
     private fun getAllArticles() {
 
 
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles")
+        fireStore.collection("Articles").orderBy("date", Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
@@ -199,6 +199,7 @@ class HomePage : Fragment() {
 
 
     private fun articleCategory(typeCategory:String) {
+
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
