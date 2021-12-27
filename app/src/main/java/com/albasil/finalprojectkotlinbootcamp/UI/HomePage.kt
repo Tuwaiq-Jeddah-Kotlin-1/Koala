@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -70,11 +71,9 @@ class HomePage : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
         binding.spinnerCategoryXml.onItemClickListener =
-            object : AdapterView.OnItemSelectedListener,
-                AdapterView.OnItemClickListener {
+            object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-                    // loadArticle(categorySelected.toString())
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemClick(
@@ -86,7 +85,6 @@ class HomePage : Fragment() {
 
                     recyclerView.swapAdapter(articleAdapter, false)
 
-
                     //**********************************
 
                     viewModel = (activity as MainActivity).viewModel
@@ -94,8 +92,10 @@ class HomePage : Fragment() {
                     if (viewModel.hasInternetConnection()){
                         loadArticle(categorySelected)
 
+                        binding.imageView6.visibility = View.GONE
+
                     }else{
-                        Toast.makeText(context,"000000000000000000000000",Toast.LENGTH_LONG).show()
+                        binding.imageView6.visibility = View.VISIBLE
                     }
 
                 }
@@ -103,14 +103,15 @@ class HomePage : Fragment() {
 
 //***********************************************************************************************************************
 
-
         viewModel = (activity as MainActivity).viewModel
 
         if (viewModel.hasInternetConnection()){
-            //loadArticle(categorySelected)
+            loadArticle(categorySelected)
+            binding.imageView6.visibility = View.GONE
 
         }else{
-            Toast.makeText(context,"55555555555555555",Toast.LENGTH_LONG).show()
+
+            binding.imageView6.visibility = View.VISIBLE
         }
 
 
@@ -121,14 +122,14 @@ class HomePage : Fragment() {
 
     fun loadArticle(typeCategory: String? = null) {
 
-        if (typeCategory.isNullOrEmpty()) {
-            //  articleAdapter = ArticleAdapter(articleList)
+        if (typeCategory.isNullOrEmpty() || typeCategory=="All") {
 
             recyclerView.adapter = articleAdapter
 
             //GET all DATA
             recyclerView.swapAdapter(articleAdapter, false)
 
+            removeAllArticles()
             getAllArticles()
 
         } else {
@@ -199,9 +200,12 @@ class HomePage : Fragment() {
 
 
     private fun articleCategory(typeCategory:String) {
+       val sort = "like"
 
+//orderBy("date", Query.Direction.DESCENDING)
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
+            .orderBy("like",Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {

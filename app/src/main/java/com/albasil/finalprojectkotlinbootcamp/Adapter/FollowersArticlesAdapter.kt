@@ -89,6 +89,8 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
         holder.userID = followersArticle.userId
         holder.image = followersArticle.userPhone
 
+        holder.userName.setBackgroundColor(Color.BLUE)
+
 
         holder.userName2.visibility = View.GONE
         holder.articleCategory.visibility = View.GONE
@@ -103,8 +105,29 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
             holder.userImage.load(bitmap)
         }.addOnFailureListener {}
+        //--------------------------------------------------------------------------------------------
 
+        /*
+        db.collection("Users").document(currentUserUid.toString()).collection("Following").get()
+            .addOnSuccessListener {
+                Log.e("it.size()","users ${it.size()}")
 
+                Log.e("TEXT1","Outer - document ${it}")
+                it.forEach{
+
+                    it.reference.collection("Articles").whereEqualTo("userId",it.toString()).get()
+                        .addOnSuccessListener {
+                            Log.e("Articles","Articles user id ${it}")
+                           // it.size()
+                            it.documents.forEach{
+                                Log.e("data"," data ${it.id}  : ${it.data!!.get("title")}")
+                            }
+                        }
+                }
+            }
+*/
+
+        //--------------------------------------------------------------------------------------------
         db.collection("Users").document(followersArticle.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {

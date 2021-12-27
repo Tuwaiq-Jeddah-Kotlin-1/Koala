@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
-import com.albasil.finalprojectkotlinbootcamp.Adapter.SectionPagerAdapter
+import com.albasil.finalprojectkotlinbootcamp.Adapter.TapLayOut
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FavoriteFragment
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragment
@@ -40,7 +40,7 @@ import com.google.android.material.tabs.TabLayout
         }
 
         private fun setUpViewPager(viewPager: ViewPager?) {
-            val adapter = SectionPagerAdapter(childFragmentManager)
+            val adapter = TapLayOut(childFragmentManager)
             adapter.addFragment(HomePage(), "All Article")
             adapter.addFragment(FavoriteFragment(), "My Favorite")
             adapter.addFragment(FollowersArticlesFragment(), "All Users")

@@ -31,12 +31,12 @@ import kotlin.collections.ArrayList
 
 val db = FirebaseFirestore.getInstance()
 
-class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.MyViewHolder>(),Filterable {
+class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
     //----------------------------------------------------------------------------------------------------
 
 
-    var storeList = mutableListOf<Article>()
+    /*var storeList = mutableListOf<Article>()
 
     init {
         //Log.d(TAG, "$storeFilterList: ")
@@ -71,10 +71,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
             articleList.addAll(results.values as List<Article>)
             notifyDataSetChanged()
         }
-    }
-
-
-
+    }*/
 
     //----------------------------------------------------------------------------------------------------
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -99,6 +96,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
         holder.tvDateArticle.text = article.date
 
         holder.upDateFavorite("${article.articleID}", article)
+
 
 
 
@@ -185,11 +183,41 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
                             deleteFavoriteArticle.collection("Users")
                                 .document(userID.toString())
                                 .collection("Favorite")
-                                .document("${articleID.toString()}").delete()
-                            article.like--
-                            upDateArticleLike(articleID, article.like)
+                                .document("${articleID.toString()}").delete().addOnCompleteListener {
+                                    //article.like--
+                                    //   upDateArticleLike(articleID, article.like)
 
-                            ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+                                    when{
+                                        it.isSuccessful -> {
+
+                                            deleteFavoriteArticle.collection("Articles")
+                                                .document(articleID)
+                                                .collection("Favorite")
+                                                .document("${userId}").delete()
+                                            Toast.makeText(itemView.context,"  delete ",Toast.LENGTH_LONG).show()
+
+
+
+                                            db.collection("Articles").document(articleID).collection("Favorite").get()
+
+                                                .addOnSuccessListener {
+                                                    var numberOfFavorite=it.size()
+                                                    val userRef = Firebase.firestore.collection("Articles")
+                                                    userRef.document("$articleID").update("like",numberOfFavorite)
+
+                                                    Toast.makeText(itemView.context," after delete ${numberOfFavorite}",Toast.LENGTH_LONG).show()
+
+                                                    numberLikes.setText(numberOfFavorite.toString())
+
+                                                }
+
+                                            ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+
+                                        }
+                                    }
+
+
+                                }
 
                         }
 
@@ -202,20 +230,29 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
                             //Fun
                             addFavorite("${articleID}", article)
 
-                            article.like++
-                            upDateArticleLike(articleID, article.like)
 
                         }
                     }
                 }
 
         }
-
+/*
         private fun upDateArticleLike(articleID: String, upDateLike: Int) {
-            val upDateLike = hashMapOf(
-                "like" to upDateLike.toInt(),
-            )
+            var numberOfFavorite:Int=0
+            db.collection("Articles").document(articleID).collection("Favorite").get()
+                .addOnSuccessListener {
+
+                     numberOfFavorite=it.size()
+                }
+
             val userRef = Firebase.firestore.collection("Articles")
+            userRef.document("$articleID").update("like",numberOfFavorite)
+
+
+            val upDateLike = hashMapOf(
+                "like" to numberOfFavorite.toInt(),
+            )
+     /*       val userRef = Firebase.firestore.collection("Articles")
             userRef.document("$articleID").set(upDateLike, SetOptions.merge())
                 .addOnCompleteListener {
                     it
@@ -227,10 +264,10 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
                             Log.d("UpDate Like", "${upDateLike.toString()}")
                         }
                     }
-                }
+                }*/
 
         }
-
+*/
         private fun addFavorite(articleID: String, article: Article) {
             val addFavorite= hashMapOf(
                 "articleID" to "${article.articleID}",
@@ -240,17 +277,34 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
             val articleRef = Firebase.firestore.collection("Users")
             articleRef.document(userId.toString()).collection("Favorite")
                 .document("${articleID.toString()}")
-                .set(addFavorite).addOnCompleteListener {
-                    it
+                .set(addFavorite).addOnCompleteListener { it
                     when {
                         it.isSuccessful -> {
                             Log.d("Add Article", "Done to add User Favorite")
+
+                            db.collection("Articles").document(articleID).collection("Favorite").get().addOnSuccessListener {
+                                    var numberOfFavorite=it.size()
+                                    val userRef = Firebase.firestore.collection("Articles")
+                                    userRef.document("$articleID").update("like",numberOfFavorite)
+
+                                    Toast.makeText(itemView.context," after delete ${numberOfFavorite}",Toast.LENGTH_LONG).show()
+
+                                    numberLikes.setText(numberOfFavorite.toString())
+
+                                }
                         }
                         else -> {
                             Log.d("Error", "is not Successful fire store")
                         }
                     }
                 }
+            //---------------------------------------------------------------------------------
+            val addToArticle = Firebase.firestore.collection("Articles")
+            addToArticle.document(articleID.toString()).collection("Favorite")
+                .document("${userId.toString()}").set(addFavorite)
+
+
+
         }
 
         init {
@@ -259,9 +313,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
 
 
         override fun onClick(v: View?) {
-
             val article_data = Article()
-
             article_data.title = titleArticle.text.toString()
             article_data.userName = userName.text.toString()
             article_data.date = articleDate.toString()
@@ -271,8 +323,15 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
             article_data.like = numberLikes.text.toString().toInt()
 
 
-            val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
-            findNavController(itemView.findFragment()).navigate(itemData)
+//            val ff=Firebase.firestore.collection("Users")
+//
+//            ff.document(userId.toString()).collection("Favorite").get()
+//                .addOnSuccessListener {
+//
+//                }
+
+         //   val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
+          //  findNavController(itemView.findFragment()).navigate(itemData)
 
 
         }
