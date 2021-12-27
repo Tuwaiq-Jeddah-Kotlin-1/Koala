@@ -105,7 +105,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerVi
         holder.numberLikes.text = article.like.toString()
         holder.tvDateArticle.text = article.date
 
-
         holder.upDateFavorite("${article.articleID}", article)
 
 

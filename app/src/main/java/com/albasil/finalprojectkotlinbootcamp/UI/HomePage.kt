@@ -12,7 +12,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
+import com.albasil.finalprojectkotlinbootcamp.MainActivity
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.google.firebase.firestore.*
@@ -31,7 +33,10 @@ class HomePage : Fragment() {
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var fireStore: FirebaseFirestore
 
-    //  private  lateinit var addEventBar: FloatingActionButton
+
+    lateinit var viewModel: FeatherViewModel
+
+
 
 
     override fun onCreateView(
@@ -80,7 +85,17 @@ class HomePage : Fragment() {
 
                     recyclerView.swapAdapter(articleAdapter, false)
 
-                    loadArticle(categorySelected)
+
+                    //**********************************
+
+                    viewModel = (activity as MainActivity).viewModel
+
+                    if (viewModel.hasInternetConnection()){
+                        loadArticle(categorySelected)
+
+                    }else{
+                        Toast.makeText(context,"000000000000000000000000",Toast.LENGTH_LONG).show()
+                    }
 
                 }
             }
@@ -88,9 +103,14 @@ class HomePage : Fragment() {
 //***********************************************************************************************************************
         //getAllArticles()
 
-        Toast.makeText(context, "you selected :  ${categorySelected}", Toast.LENGTH_SHORT).show()
+        viewModel = (activity as MainActivity).viewModel
 
-        loadArticle(categorySelected)
+        if (viewModel.hasInternetConnection()){
+            loadArticle(categorySelected)
+
+        }else{
+            Toast.makeText(context,"55555555555555555",Toast.LENGTH_LONG).show()
+        }
 
 
 

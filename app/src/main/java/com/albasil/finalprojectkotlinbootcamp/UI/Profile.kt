@@ -89,7 +89,7 @@ class Profile : Fragment() {
 
         recyclerView.adapter = articleAdapter
 
-        binding.myArticlesXml.setText(articleList.size.toString())
+     //   binding.myArticlesXml.setText(articleList.size.toString())
 
         //---------------------------------------------------------
 
@@ -105,7 +105,7 @@ class Profile : Fragment() {
 
         })
 
-        getAllMyArticles("${uid}")
+       // getAllMyArticles("${uid}")
 
         articleAdapter.notifyDataSetChanged()
 

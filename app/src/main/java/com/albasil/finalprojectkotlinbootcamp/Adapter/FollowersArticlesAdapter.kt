@@ -89,7 +89,6 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
         holder.userID = followersArticle.userId
         holder.image = followersArticle.userPhone
 
-        holder.userName.setBackgroundColor(Color.BLUE)
 
         holder.userName2.visibility = View.GONE
         holder.articleCategory.visibility = View.GONE
