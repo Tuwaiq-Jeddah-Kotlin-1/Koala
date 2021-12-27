@@ -6,26 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
-import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFollowersArticlesBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
 
 class FollowersArticlesFragment : Fragment() {
 
-    lateinit var binding: FragmentFollowersArticlesBinding
+   // lateinit var binding: FragmentFollowersArticlesBinding
 
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var articleList: ArrayList<Article>
-    private lateinit var articleAdapter: FollowersArticlesAdapter
+    private lateinit var usersList: MutableList<Users>
+    private lateinit var FollowersAdapter: FollowersArticlesAdapter
     private lateinit var fireStore: FirebaseFirestore
+
+    private lateinit var searchView:SearchView
 
 
 
@@ -48,38 +50,55 @@ class FollowersArticlesFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context,3)
         recyclerView.setHasFixedSize(true)
 
-        articleList = arrayListOf<Article>()
+        usersList = mutableListOf()
 
-        articleAdapter = FollowersArticlesAdapter(articleList)
-        recyclerView.adapter = articleAdapter
+        FollowersAdapter = FollowersArticlesAdapter(usersList)
+        recyclerView.adapter = FollowersAdapter
 
 
-        getAllArticles()
+        getAllUsers()
+        searchView = view.findViewById(R.id.searchUser)
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                FollowersAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
 
 
 
-    private fun getAllArticles() {
+    private fun getAllUsers() {
 
         val userId= FirebaseAuth.getInstance().currentUser?.uid
 
         fireStore = FirebaseFirestore.getInstance()
-        // fireStore.collection("Users").document(userId.toString()).collection("Favorite")Following
-        fireStore.collection("Users")//.document(userId.toString()).collection("Following")
+        fireStore.collection("Users")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
                         Log.e("Firestore", error.message.toString())
                         return
                     }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            articleList.add(dc.document.toObject(Article::class.java))
 
-                        }
+
+                    if (value != null) {
+                        FollowersAdapter= FollowersArticlesAdapter(value.toObjects(Users::class.java))
+                        recyclerView.adapter = FollowersAdapter
                     }
-                    articleAdapter.notifyDataSetChanged()
+//                    for (dc: DocumentChange in value?.documentChanges!!) {
+//                        if (dc.type == DocumentChange.Type.ADDED) {
+//                            usersList.add(dc.document.toObject(Users::class.java))
+//                        }
+//                    }
+//                    FollowersAdapter.notifyDataSetChanged()
 
                 }
 

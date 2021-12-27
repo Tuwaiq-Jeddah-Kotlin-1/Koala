@@ -65,7 +65,6 @@ class UserArticle : Fragment() {
         val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesArticle/$imagePath")
 
-
         val localFile = File.createTempFile("tempImage", "jpg")
 
         storageRef.getFile(localFile).addOnSuccessListener {

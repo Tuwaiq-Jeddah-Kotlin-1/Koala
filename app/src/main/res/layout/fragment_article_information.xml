@@ -93,10 +93,8 @@
                 android:id="@+id/articleDescraptionInfo_xml"
                 android:layout_width="match_parent"
 
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:lines="7"
-
                 android:text="@string/articleDescription"
                 android:textColor="@color/black"
                 android:textSize="14sp"

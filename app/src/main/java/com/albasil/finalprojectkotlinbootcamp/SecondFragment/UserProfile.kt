@@ -40,13 +40,13 @@ import java.io.File
 class UserProfile : Fragment() {
 
     lateinit var binding: FragmentUserProfileBinding
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var articleList :ArrayList<Article>
-    private lateinit var articleAdapter : ArticleUserProfileAdapter
-    private lateinit var myFollowers:String
-    private lateinit  var myFollowing:String
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var articleList: ArrayList<Article>
+    private lateinit var articleAdapter: ArticleUserProfileAdapter
+    private lateinit var myFollowers: String
+    private lateinit var myFollowing: String
 
-    private lateinit var fireStore :FirebaseFirestore
+    private lateinit var fireStore: FirebaseFirestore
 
 
     private val args by navArgs<UserProfileArgs>()
@@ -56,7 +56,7 @@ class UserProfile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         binding = FragmentUserProfileBinding.inflate(inflater,container,false)
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
 
         return binding.root
@@ -68,7 +68,7 @@ class UserProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.userRecyclerView_xml)
-        recyclerView.layoutManager = GridLayoutManager(context,2)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.setHasFixedSize(true)
         articleList = arrayListOf()
         articleAdapter = ArticleUserProfileAdapter(articleList)
@@ -80,15 +80,12 @@ class UserProfile : Fragment() {
         getMyInfo(myId.toString())
 
 
-
-
         //***************************************
         getArticlesUser("${args.userID.toString()}")
         getUserPhoto(args.userID.toUri())
         getUserInfo(args.userID.toString())
 
         //***************************************
-
 
 
         binding.userInforCallXml.setOnClickListener {
@@ -103,7 +100,6 @@ class UserProfile : Fragment() {
         }
 
 
-
         //---------------------------------------------------------
         followingOrNot(args.userID.toString())
 
@@ -114,62 +110,60 @@ class UserProfile : Fragment() {
         }
 
 
-
-
     }
 
-     fun followingOrNot(userId:String) = CoroutineScope(Dispatchers.IO).launch {
+    fun followingOrNot(userId: String) = CoroutineScope(Dispatchers.IO).launch {
 
-         val myId = FirebaseAuth.getInstance().currentUser?.uid
+        val myId = FirebaseAuth.getInstance().currentUser?.uid
 
-         fireStore.collection("Users").document("$userId")
-             .collection("Followers").document(myId.toString())
-                 .get().addOnCompleteListener { it
-                     if(it.result?.exists()!!) {
-
-
-
-                         binding.btnFollowXml.setText("Following")
-                         binding.btnFollowXml.setBackgroundColor(Color.GRAY)
+        fireStore.collection("Users").document("$userId")
+            .collection("Followers").document(myId.toString())
+            .get().addOnCompleteListener {
+                it
+                if (it.result?.exists()!!) {
 
 
-                     } else {
-
-                         binding.btnFollowXml.setText("Follow")
-                         binding.btnFollowXml.setBackgroundColor(Color.CYAN)
-
-                     }
-
-         }
-     }
-     fun followersUser(userId:String) = CoroutineScope(Dispatchers.IO).launch {
-
-         val myId = FirebaseAuth.getInstance().currentUser?.uid
-
-         fireStore.collection("Users").document("$userId")
-             .collection("Followers").document(myId.toString())
-                 .get().addOnCompleteListener { it
-                     if(it.result?.exists()!!) {
-
-                       unfollowDialog(myId.toString(),userId.toString())
-                         //showdialoguserInfo(myId.toString(),userId.toString())
+                    binding.btnFollowXml.setText("Following")
+                    binding.btnFollowXml.setBackgroundColor(Color.GRAY)
 
 
-                     } else {
-                             binding.btnFollowXml.setText("Following")
-                             binding.btnFollowXml.setBackgroundColor(Color.GRAY)
-                             //addFollowers
-                             addFollowers(myId.toString(),userId.toString())
-                             addFollowing(myId.toString(),userId.toString())
+                } else {
+
+                    binding.btnFollowXml.setText("Follow")
+                    binding.btnFollowXml.setBackgroundColor(Color.CYAN)
+
+                }
+
+            }
+    }
+
+    fun followersUser(userId: String) = CoroutineScope(Dispatchers.IO).launch {
+
+        val myId = FirebaseAuth.getInstance().currentUser?.uid
+
+        fireStore.collection("Users").document("$userId")
+            .collection("Followers").document(myId.toString())
+            .get().addOnCompleteListener {
+                it
+                if (it.result?.exists()!!) {
+
+                    unfollowDialog(myId.toString(), userId.toString())
+                    //showdialoguserInfo(myId.toString(),userId.toString())
 
 
+                } else {
+                    binding.btnFollowXml.setText("Following")
+                    binding.btnFollowXml.setBackgroundColor(Color.GRAY)
+                    //addFollowers
+                    addFollowers(myId.toString(), userId.toString())
+                    addFollowing(myId.toString(), userId.toString())
 
 
-                     }
-         }
-     }
+                }
+            }
+    }
 
-    fun unfollowDialog(myId:String,userId:String) {
+    fun unfollowDialog(myId: String, userId: String) {
 
         val builder = android.app.AlertDialog.Builder(context)
         builder.setTitle("Unfollow User")
@@ -180,11 +174,8 @@ class UserProfile : Fragment() {
 
             binding.btnFollowXml.setText("Follow")
             binding.btnFollowXml.setBackgroundColor(Color.CYAN)
-            deleteFollowing(myId.toString(),userId.toString())
-            deleteFollowers(myId.toString(),userId.toString())
-
-
-
+            deleteFollowing(myId.toString(), userId.toString())
+            deleteFollowers(myId.toString(), userId.toString())
 
 
         }
@@ -194,91 +185,90 @@ class UserProfile : Fragment() {
     }
 
 
-   fun addFollowers(myId:String,userId:String){
+    fun addFollowers(myId: String, userId: String) {
 
-       val upDateFollowers= hashMapOf(
-           "userId" to "${myId.toString()}",
-       )
-       fireStore.collection("Users").document("${userId}")
-           .collection("Followers").document("${myId}").set(upDateFollowers)
-
-
-       //***************************************************************************************
-       var upDateFollowing=binding.userFollowersXml.text.toString().toInt()
-       upDateFollowing++
-       binding.userFollowersXml.text =upDateFollowing.toString()
-
-       fireStore.collection("Users").document(userId.toString())
-           .update("followers",upDateFollowing)
-       //***************************************************************************************
-
-   }
+        val upDateFollowers = hashMapOf(
+            "userId" to "${myId.toString()}",
+        )
+        fireStore.collection("Users").document("${userId}")
+            .collection("Followers").document("${myId}").set(upDateFollowers)
 
 
-    fun deleteFollowers(myId:String,userId:String){
+        //***************************************************************************************
+        var upDateFollowing = binding.userFollowersXml.text.toString().toInt()
+        upDateFollowing++
+        binding.userFollowersXml.text = upDateFollowing.toString()
+
+        fireStore.collection("Users").document(userId.toString())
+            .update("followers", upDateFollowing)
+        //***************************************************************************************
+
+    }
+
+
+    fun deleteFollowers(myId: String, userId: String) {
         fireStore.collection("Users").document("${userId}")
             .collection("Followers").document("${myId}").delete()
 
         //***************************************************************************************
-        var upDateFollowing=binding.userFollowersXml.text.toString().toInt()
+        var upDateFollowing = binding.userFollowersXml.text.toString().toInt()
         upDateFollowing--
-        binding.userFollowersXml.text =upDateFollowing.toString()
+        binding.userFollowersXml.text = upDateFollowing.toString()
 
 
-        Toast.makeText(context,"upDateFollowing ${upDateFollowing}",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "upDateFollowing ${upDateFollowing}", Toast.LENGTH_LONG).show()
         fireStore.collection("Users").document(userId.toString())
-            .update("followers",upDateFollowing)
+            .update("followers", upDateFollowing)
         //***************************************************************************************
 
     }
 
-    fun addFollowing(myId:String,userId:String){
+    fun addFollowing(myId: String, userId: String) {
 
-        val upDateFollowing= hashMapOf("userId" to "${userId.toString()}",)
+        val upDateFollowing = hashMapOf("userId" to "${userId.toString()}")
 
-       fireStore.collection("Users").document("${myId}")
-           .collection("Following").document("${userId}").set(upDateFollowing)
+        fireStore.collection("Users").document("${myId}")
+            .collection("Following").document("${userId}").set(upDateFollowing)
 
         // ***************************************************************************************
 
 
-        var myFollowing= myFollowing.toInt()
+        var myFollowing = myFollowing.toInt()
         myFollowing++
 
         fireStore.collection("Users").document(myId.toString())
-            .update("following",myFollowing)
+            .update("following", myFollowing)
         //***************************************************************************************
 
-   }
+    }
 
-    fun deleteFollowing(myId:String,userId:String){
+    fun deleteFollowing(myId: String, userId: String) {
         fireStore.collection("Users").document("${myId}")
             .collection("Following").document("${userId}").delete()
 
 
-        var myFollowing= myFollowing.toInt()
+        var myFollowing = myFollowing.toInt()
         myFollowing--
         fireStore.collection("Users").document(myId.toString())
-            .update("following",myFollowing)
+            .update("following", myFollowing)
     }
 
 
-
-    private fun getArticlesUser(userId:String){
+    private fun getArticlesUser(userId: String) {
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId","${userId}")
+        fireStore.collection("Articles").whereEqualTo("userId", "${userId}")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
-                    if (error != null){
-                        Log.e("Firestore",error.message.toString())
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
                         return
                     }
 
-                    for (dc : DocumentChange in value?.documentChanges!!){
+                    for (dc: DocumentChange in value?.documentChanges!!) {
 
-                        if (dc.type == DocumentChange.Type.ADDED){
+                        if (dc.type == DocumentChange.Type.ADDED) {
                             articleList.add(dc.document.toObject(Article::class.java))
 
                         }
@@ -296,7 +286,7 @@ class UserProfile : Fragment() {
     }
 
 
-    fun getUserInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
+    fun getUserInfo(userID: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
             //coroutine
             val db = FirebaseFirestore.getInstance()
@@ -314,13 +304,13 @@ class UserProfile : Fragment() {
                         var userFollowers = it.result!!.get("followers")
                         var userPhone = it.result!!.getString("userPhone")
 
-                        Log.e("user Info","userName ${name.toString()} \n ${userEmail.toString()}")
+                        Log.e("user Info", "userName ${name.toString()} \n ${userEmail.toString()}")
 
 
-                        binding.userNameXml.text ="${name.toString()}"
-                        binding.userInfoXml.text ="${userEmail.toString()}"
-                        binding.userFollowersXml.text ="${userFollowers?.toString()}"
-                        binding.userFollowingXml.text ="${userFollowing?.toString()}"
+                        binding.userNameXml.text = "${name.toString()}"
+                        binding.userInfoXml.text = "${userEmail.toString()}"
+                        binding.userFollowersXml.text = "${userFollowers?.toString()}"
+                        binding.userFollowingXml.text = "${userFollowing?.toString()}"
 
                         binding.userCallXml.setOnClickListener {
 
@@ -351,12 +341,13 @@ class UserProfile : Fragment() {
     }
 
 
-    fun getMyInfo(userID:String) = CoroutineScope(Dispatchers.IO).launch {
+    fun getMyInfo(userID: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val db = FirebaseFirestore.getInstance()
             db.collection("Users")
                 .document("$userID")
-                .get().addOnCompleteListener { it
+                .get().addOnCompleteListener {
+                    it
                     if (it.result?.exists()!!) {
                         //+++++++++++++++++++++++++++++++++++++++++
                         var name = it.result!!.getString("userName")
@@ -385,14 +376,14 @@ class UserProfile : Fragment() {
 
     }
 
-    fun getUserPhoto(userPhoto:Uri){
+    fun getUserPhoto(userPhoto: Uri) {
 
 
-        val storageRef= FirebaseStorage.getInstance().reference
+        val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesUsers/$userPhoto")
 
 
-        val localFile = File.createTempFile("tempImage","jpg")
+        val localFile = File.createTempFile("tempImage", "jpg")
 
         storageRef.getFile(localFile).addOnSuccessListener {
 
@@ -402,31 +393,30 @@ class UserProfile : Fragment() {
             binding.userImageXml.load(bitmap)
 
 
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             /*if (progressDialog.isShowing)
                 progressDialog.dismiss()*/
 
-         //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
+            //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }
     }
 
 
-
-    fun callUser(userNumber:String){
+    fun callUser(userNumber: String) {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:${userNumber.toString()}")
         startActivity(intent)
 
     }
 
-    fun userEmail(userEmail:String){
+    fun userEmail(userEmail: String) {
 
 
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, "${userEmail.toString()}")
-        intent.putExtra(Intent.EXTRA_SUBJECT,"Feedback")
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
 
         if (activity?.let { it -> intent.resolveActivity(it.packageManager) } != null) {
             startActivity(intent)
@@ -436,28 +426,40 @@ class UserProfile : Fragment() {
     }
 
 
-    fun expandedCallUser(){
+    fun expandedCallUser() {
 
-        if (binding.linearLayoutCallUserXml.visibility == View.GONE){
-            TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
+        if (binding.linearLayoutCallUserXml.visibility == View.GONE) {
+            TransitionManager.beginDelayedTransition(
+                binding.linearLayoutCallUserXml,
+                AutoTransition()
+            )
             binding.linearLayoutCallUserXml.visibility = View.VISIBLE
 
-        }else{
-            TransitionManager.beginDelayedTransition(binding.linearLayoutCallUserXml, AutoTransition())
+        } else {
+            TransitionManager.beginDelayedTransition(
+                binding.linearLayoutCallUserXml,
+                AutoTransition()
+            )
             binding.linearLayoutCallUserXml.visibility = View.GONE
         }
 
     }
 
 
-    fun expandedUserInfo(){
+    fun expandedUserInfo() {
 
-        if (binding.linearLayOutUserInfoXml.visibility == View.GONE){
-            TransitionManager.beginDelayedTransition(binding.linearLayOutUserInfoXml, AutoTransition())
+        if (binding.linearLayOutUserInfoXml.visibility == View.GONE) {
+            TransitionManager.beginDelayedTransition(
+                binding.linearLayOutUserInfoXml,
+                AutoTransition()
+            )
             binding.linearLayOutUserInfoXml.visibility = View.VISIBLE
 
-        }else{
-            TransitionManager.beginDelayedTransition(binding.linearLayOutUserInfoXml, AutoTransition())
+        } else {
+            TransitionManager.beginDelayedTransition(
+                binding.linearLayOutUserInfoXml,
+                AutoTransition()
+            )
             binding.linearLayOutUserInfoXml.visibility = View.GONE
         }
 

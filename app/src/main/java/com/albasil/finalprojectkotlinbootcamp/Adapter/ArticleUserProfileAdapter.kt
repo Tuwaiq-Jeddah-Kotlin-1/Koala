@@ -119,7 +119,9 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
                     val deleteArticle=Firebase.firestore.collection("Articles")
                         .document("${articleID.toString()}").delete()
 
-                    deleteArticle.addOnCompleteListener { notifyDataSetChanged()                    }
+                    deleteArticle.addOnCompleteListener {
+
+                    }
 
                     //----------------------------
 

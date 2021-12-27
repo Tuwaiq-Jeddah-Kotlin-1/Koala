@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -19,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
+import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -26,14 +25,65 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 val db = FirebaseFirestore.getInstance()
 
-class ArticleAdapter(private val articleList: ArrayList<Article>) :
-    RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
+class ArticleAdapter(private val articleList: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.MyViewHolder>(),Filterable {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+    //----------------------------------------------------------------------------------------------------
 
 
+    var storeList = mutableListOf<Article>()
+
+    init {
+        //Log.d(TAG, "$storeFilterList: ")
+        articleList.forEach {
+            storeList.add(it)
+        //    Log.d(TAG, "$it: ")
+        }
+    }
+
+    override fun getFilter(): Filter = object : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults? {
+            val filteredList: MutableList<Article> = ArrayList()
+
+            if (constraint == null || constraint.isEmpty()) {
+                filteredList.addAll(storeList)
+                //Log.d(TAG, "performFiltering: $storeList")
+            } else {
+                val filterPattern = constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
+                for (item in storeList) {
+                    if (item.userName.lowercase(Locale.getDefault()).contains(filterPattern)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults) {
+            articleList.clear()
+            articleList.addAll(results.values as List<Article>)
+            notifyDataSetChanged()
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------------
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView =

@@ -101,7 +101,7 @@ class HomePage : Fragment() {
     fun loadArticle(typeCategory: String? = null) {
 
         if (typeCategory.isNullOrEmpty()) {
-          //  articleAdapter = ArticleAdapter(articleList)
+            //  articleAdapter = ArticleAdapter(articleList)
 
             recyclerView.adapter = articleAdapter
 
@@ -111,8 +111,8 @@ class HomePage : Fragment() {
             getAllArticles()
 
         } else {
-           // articleAdapter = ArticleAdapter(articleList)
-           recyclerView.swapAdapter(articleAdapter, false)
+            // articleAdapter = ArticleAdapter(articleList)
+            recyclerView.swapAdapter(articleAdapter, false)
             removeAllArticles()
 
             articleCategory(typeCategory.toString())

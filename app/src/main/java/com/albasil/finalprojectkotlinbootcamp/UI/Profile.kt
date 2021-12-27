@@ -107,6 +107,9 @@ class Profile : Fragment() {
 
         getAllMyArticles("${uid}")
 
+        articleAdapter.notifyDataSetChanged()
+
+
         //---------------------------------------------------------
 
 
@@ -143,8 +146,6 @@ class Profile : Fragment() {
 
         }
 
-
-
         binding.userImageProfileXml.setOnClickListener {
 
             selectImage()
@@ -171,7 +172,6 @@ class Profile : Fragment() {
         val view: View = layoutInflater.inflate(R.layout.add_user_information_dialog, null)
         val editTextExperience: EditText =
             view.findViewById(R.id.editTextAddExperience)//saveExperience_id
-        val addExperience: Button = view.findViewById(R.id.saveExperience_id)//saveExperience_id
         builder.setView(view)
         editTextExperience.setText(binding.userInfoXml.text.toString())
         builder.setPositiveButton("Save") { _, _ ->
@@ -182,6 +182,7 @@ class Profile : Fragment() {
         }
 
         builder.setNegativeButton("Cancel", { _, _ -> })
+
         builder.show()
     }
 
@@ -265,7 +266,6 @@ class Profile : Fragment() {
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             articleList.add(dc.document.toObject(Article::class.java))
-
                         }
                     }
                     articleAdapter.notifyDataSetChanged()
