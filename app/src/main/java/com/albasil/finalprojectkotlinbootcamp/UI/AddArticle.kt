@@ -57,9 +57,7 @@ class AddArticle : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addArticleViewModel = ViewModelProvider(this).get(AddArticleViewModel::class.java)
-
-
-        //----------------------------------------------------------------------------------------
+ //----------------------------------------------------------------------------------------
         val category = resources.getStringArray(R.array.categories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
@@ -76,7 +74,6 @@ class AddArticle : Fragment() {
 
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
-
                 categorySelected = "${category[position]}"
             }
         }
@@ -151,7 +148,6 @@ class AddArticle : Fragment() {
     }
 
 
-
     //images
     private fun selectImage(){
         val intent = Intent()
@@ -169,7 +165,6 @@ class AddArticle : Fragment() {
         }
     }
 
-
     fun upLoadImage(imageId:String){
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
         imageUrl?.let {
@@ -179,7 +174,4 @@ class AddArticle : Fragment() {
                 }
         }
     }
-
-
-
 }

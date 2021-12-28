@@ -19,19 +19,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.SignIn_ViewModel
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class Sign_in : Fragment() {
+
+    private lateinit var signInViewModel:SignIn_ViewModel
     lateinit var binding:FragmentSignInBinding
-
-
     private lateinit var sharedPreferences: SharedPreferences
-
     var isRemembered = false
-
     private lateinit var rememberMe: CheckBox
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +46,7 @@ class Sign_in : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        /// val signinVM = ViewModelProvider(this).get(SignIn_ViewModel::)
+        signInViewModel= ViewModelProvider(this).get(SignIn_ViewModel::class.java)
 
 
         rememberMe = view.findViewById(R.id.cbRemember)
@@ -63,47 +63,8 @@ class Sign_in : Fragment() {
 
         binding.btnSignInXml.setOnClickListener {
 
-            when {
-                TextUtils.isEmpty(binding.etSignInEmailXml.text.toString().trim { it <= ' ' }) -> {
-                    //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
-                    binding.etSignInEmailLayout.helperText="Please Enter Your Email"
-                }
-                TextUtils.isEmpty(binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }) -> {
 
-                    binding.etSignInPasswordLayout.helperText="Please Enter Your Password"
-
-                }
-                else -> {
-
-                    val firebaseLogIn =FirebaseAuthentication()
-
-                    firebaseLogIn.logInAuthentication("${binding.etSignInEmailXml.text.toString()}",
-                        "${binding.etSignInPasswordXml.text.toString()}"
-                        ,view,rememberMe.isChecked)
-
-
-
-
-
-
-                    //fun
-                    //----------------------------------------------------------
-                    val emailPreference: String = binding.etSignInEmailXml.text.toString()
-                    val passwordPreference: String = binding.etSignInPasswordXml.text.toString()
-                    val checked: Boolean = rememberMe.isChecked
-
-                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                    editor.putString("EMAIL", emailPreference)
-                    editor.putString("PASSWORD", passwordPreference)
-                    editor.putBoolean("CHECKBOX", checked)
-                    editor.apply()
-
-                    //------------------------------------------------------------
-
-
-                    // logInAuthentication()
-
-                }}
+            checkOfText()
 
         }
 
@@ -115,7 +76,6 @@ class Sign_in : Fragment() {
         binding.newAccountXml.setOnClickListener {
 
             findNavController().navigate(R.id.action_sign_in_to_signUP)
-
         }
 
 
@@ -124,17 +84,69 @@ class Sign_in : Fragment() {
 
     }
 
+    private fun checkOfText() {
 
-    fun forgotPasswordDialog(){
+        when {
+            TextUtils.isEmpty(binding.etSignInEmailXml.text.toString().trim { it <= ' ' }) -> {
+                //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
+                binding.etSignInEmailLayout.helperText="Please Enter Your Email"
+            }
+            TextUtils.isEmpty(binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }) -> {
+                binding.etSignInPasswordLayout.helperText="Please Enter Your Password"
+
+            }
+            else -> {
+
+                val firebaseLogIn =FirebaseAuthentication()
+
+
+
+                view?.let {
+
+                    signInViewModel.signIn(
+                        binding.etSignInEmailXml.text.toString(),
+                        binding.etSignInPasswordXml.text.toString(), it)
+                }
+
+//                view?.let {
+//                    firebaseLogIn.logInAuthentication(
+//                        binding.etSignInEmailXml.text.toString(),
+//                        binding.etSignInPasswordXml.text.toString(), it,rememberMe.isChecked)
+//                }
+
+                //----------------------------------------------------------
+                rememberMe()
+                //------------------------------------------------------------
+
+
+            }}
+
+
+
+    }
+
+    private fun rememberMe(){
+        val emailPreference: String = binding.etSignInEmailXml.text.toString()
+        val passwordPreference: String = binding.etSignInPasswordXml.text.toString()
+        val checked: Boolean = rememberMe.isChecked
+
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("EMAIL", emailPreference)
+        editor.putString("PASSWORD", passwordPreference)
+        editor.putBoolean("CHECKBOX", checked)
+        editor.apply()
+    }
+
+    private fun forgotPasswordDialog(){
 
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Forgot Password")
         val view: View = layoutInflater.inflate(R.layout.dialog_forgot_password, null)
         val userEmail: EditText = view.findViewById(R.id.etForgotPassword)
         builder.setView(view)
-        builder.setPositiveButton("Rest", { _, _ ->
+        builder.setPositiveButton("Rest") { _, _ ->
             forgotPassword(userEmail)
-        })
+        }
         builder.setNegativeButton("Close", { _, _ -> })
         builder.show()
     }

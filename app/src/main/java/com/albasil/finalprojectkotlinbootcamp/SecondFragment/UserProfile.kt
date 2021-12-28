@@ -19,18 +19,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
-import com.albasil.finalprojectkotlinbootcamp.Firebase.FirestoreUser
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firestore.v1.FirestoreGrpc
-import kotlinx.android.synthetic.main.fragment_home_page.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

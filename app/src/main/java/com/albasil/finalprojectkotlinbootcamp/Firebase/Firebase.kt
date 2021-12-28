@@ -29,11 +29,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FirebaseAuthentication (){
-
     lateinit var binding: FirebaseAuthentication
 
-
-    fun logInAuthentication(emailSignIn: String,passwordSignIn: String,view: View,rememberMe:Boolean) {
+    fun logInAuthentication(emailSignIn: String,passwordSignIn: String,view: View) {
 
         val email: String = emailSignIn.toString().trim { it <= ' ' }
         val password: String = passwordSignIn.toString().trim { it <= ' ' }
@@ -41,67 +39,17 @@ class FirebaseAuthentication (){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    findNavController(view).navigate(R.id.action_sign_in_to_homePage)
+                    findNavController(view).navigate(R.id.action_sign_in_to_tabBarFragment)
 
-                    Toast.makeText(view.context, "${email.toString()}  ${password.toString()}  ${rememberMe.toString()} ", Toast.LENGTH_LONG).show()
+                 //  Toast.makeText(view.context, "${email.toString()}  ${password.toString()}  ${rememberMe.toString()} ", Toast.LENGTH_LONG).show()
 
                 } else {
-                    Toast.makeText(view.context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
+                   Toast.makeText(view.context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
 
                 }
             }
     }
 
 }
-
-
-
-
-class FirestoreUser(){
-    fun getUserInfo(userID:String,name:String) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Users")
-                .document("$userID")
-                .get().addOnCompleteListener { it
-                    if (it.result?.exists()!!) {
-                        //+++++++++++++++++++++++++++++++++++++++++
-                        var name = it.result!!.getString("userNamae")
-                        var userEmail = it.result!!.getString("userEmail")
-                        var userFollowing = it.result!!.get("following")
-                        var userFollowers = it.result!!.get("followers")
-                        var userPhone = it.result!!.getString("userPhone")
-                        var userInfo = it.result!!.getString("moreInfo")
-
-
-//                        userNameXml=name.toString()
-//                        binding.userInfoXml.text ="${userInfo.toString()}"
-//                        binding.userFollowersXml.text ="${userFollowers?.toString()}"
-//                        binding.userFollowingXml.text ="${userFollowing?.toString()}"
-//
-//
-//
-//                        userPhoneNumber = "${userPhone.toString()}"
-
-                    } else {
-                        Log.e("error \n", "errooooooorr")
-                    }
-
-
-                   //binding.myArticlesXml.setText(articleList.size.toString())
-                }
-
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-
-
-    }
-
-}
-
 
 
