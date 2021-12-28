@@ -1,8 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.app.Activity
-import android.app.ProgressDialog
-import android.content.ClipDescription
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,23 +13,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.albasil.finalprojectkotlinbootcamp.R
-import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
-import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentAddArticleBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.protobuf.Empty
-import kotlinx.android.synthetic.main.fragment_add_article.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,14 +32,8 @@ class AddArticle : Fragment() {
 
     private lateinit var addArticleViewModel:AddArticleViewModel
     private  var imageUrl : Uri?=null
-
     lateinit var binding: FragmentAddArticleBinding
-    val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-
-    var userNameGlobl:String?=null
-
-
+    val currentUser = FirebaseAuth.getInstance().currentUser?.uid
     var categorySelected:String?=null
 
     // Date  object
@@ -64,16 +47,13 @@ class AddArticle : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        getUserName()
-
         binding = FragmentAddArticleBinding.inflate(inflater, container, false)
-
+        //getUserName()
         binding.tvDateXml.setText(" Date :${formatted}")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
         addArticleViewModel = ViewModelProvider(this).get(AddArticleViewModel::class.java)
@@ -115,7 +95,6 @@ class AddArticle : Fragment() {
     }
 
      fun checkFields(){
-        // Date  object
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
         val formatted2 = current.format(formatter)
@@ -132,36 +111,21 @@ class AddArticle : Fragment() {
 
             }
             else -> {
-
                 if (categorySelected.isNullOrEmpty()){
                     Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
 
                 }else{
 
-                    if(binding.articlerPhotoXml==null){
-
-                     //   Toast.makeText(context,"binding.articlerPhotoXml  == null",Toast.LENGTH_LONG).show()
-
-                    }else{
                         articleData("${categorySelected.toString()}"
                             ,"${binding.etTitleArticleXml.text.toString()}"
                             ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                            ,"${userId}${formatted2}")
-
-                    }
-
+                            ,"${currentUser}${formatted2}")
 
                 }
-
-
-            }}
-
-
+            }
+        }
     }
 
-
-
-    //fireStore
      fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
 
@@ -169,7 +133,7 @@ class AddArticle : Fragment() {
 
 
         val article =Article()
-        article.userName =userNameGlobl.toString()
+        //article.userName =userNameGlobl.toString()
         article.category = category.toString()
         article.userId = userId.toString()
         article.date = formatted.toString()
@@ -185,34 +149,6 @@ class AddArticle : Fragment() {
         upLoadImage(articlePhoto)
 
     }
-
-
-
-    fun getUserName() = CoroutineScope(Dispatchers.IO).launch {
-        val uId = FirebaseAuth.getInstance().currentUser!!.uid
-        try {
-            //coroutine
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Users").document("$uId")
-                .get().addOnCompleteListener { it
-                    if (it.getResult()?.exists()!!) {
-                        var userName = it.getResult()!!.getString("userName")
-
-                        userNameGlobl = userName.toString()
-                    } else {
-                        Log.e("Null", "Not Found")
-                    }
-                }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-
-
-    }
-
-
 
 
 
