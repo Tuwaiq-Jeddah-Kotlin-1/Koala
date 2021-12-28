@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,14 +113,18 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
                 .setMessage("Are sure to delete this article ?!!!")
                 .setPositiveButton("yes") { dialog, _ ->
 
-
-                    //-------------------------------
-
                     /*** delete fun */
                     val deleteArticle=Firebase.firestore.collection("Articles")
                         .document("${articleID.toString()}").delete()
 
                     deleteArticle.addOnCompleteListener {
+                        when {
+                            it.isSuccessful ->{
+                                Log.d("Delete","Delete Article")
+                                this.notifyDataSetChanged()
+
+                            }
+                        }
 
                     }
 
@@ -208,6 +213,8 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
 
 
 
+
+
     }
 
 
@@ -218,4 +225,7 @@ class ArticleUserProfileAdapter(private val articleList:List<Article>): Recycler
 
 
 
+
+
 }
+

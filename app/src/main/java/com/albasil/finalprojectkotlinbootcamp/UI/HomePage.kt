@@ -56,7 +56,7 @@ class HomePage : Fragment() {
 
 
         recyclerView = view.findViewById(R.id.recyclerViewArticle_xml)
-        recyclerView.layoutManager = GridLayoutManager(context,2)
+        recyclerView.layoutManager = GridLayoutManager(context,1)
         recyclerView.setHasFixedSize(true)
 
         articleList = arrayListOf<Article>()
@@ -114,9 +114,6 @@ class HomePage : Fragment() {
             binding.imageView6.visibility = View.VISIBLE
         }
 
-
-
-
     }
 
 
@@ -136,15 +133,12 @@ class HomePage : Fragment() {
             // articleAdapter = ArticleAdapter(articleList)
             recyclerView.swapAdapter(articleAdapter, false)
             removeAllArticles()
-
             articleCategory(typeCategory.toString())
-
         }
 
     }
 
     private fun removeAllArticles() {
-
 
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles")
@@ -157,8 +151,6 @@ class HomePage : Fragment() {
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             articleList.remove(dc.document.toObject(Article::class.java))
-
-
                         }
                     }
 
@@ -187,15 +179,10 @@ class HomePage : Fragment() {
 
                         }
                     }
-
                     articleAdapter.notifyDataSetChanged()
 
-
                 }
-
             })
-
-
     }
 
 

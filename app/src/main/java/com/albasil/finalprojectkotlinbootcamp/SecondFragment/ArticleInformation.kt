@@ -109,35 +109,12 @@ class ArticleInformation : Fragment() {
             }
     }
 
-
-    //---------upDateFavorite------------------------------------------------------------------------------------------
-    /*  fun upDateFavorite(articleID: String, article: Article) {
-          val db = FirebaseFirestore.getInstance()
-          db.collection("Users").document("$userID")
-              .collection("Favorite").document(articleID).get()
-              .addOnCompleteListener {
-                  if (it.result?.exists()!!) {
-                      ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                      ivFavorite.setOnClickListener {
-                          deleteFavorite("${articleID}")
-                          ivFavorite.setImageResource(R.drawable.ic_favorite_border)
-                      }
-                  } else {
-                      ivFavorite.setOnClickListener {
-                          ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                          addFavorite("${articleID}", article)
-                      }
-                  }
-              }
-      }
-  */
-
     //---------deleteFavorite------------------------------------------------------------------------------------------
      fun deleteFavorite(articleID: String) {
         userId
         val deleteFavoriteArticle = FirebaseFirestore.getInstance()
-        deleteFavoriteArticle.collection("Articles").document(articleID).collection("Favorite")
-            .document("${userId.toString()}").delete()
+        deleteFavoriteArticle.collection("Articles").document(articleID)
+            .collection("Favorite").document("${userId.toString()}").delete()
             .addOnCompleteListener {
                 when {
                     it.isSuccessful -> {
@@ -159,10 +136,6 @@ class ArticleInformation : Fragment() {
             }
         numberOfFavorite(articleID)
     }
-
-
-
-
 
 
     //---------------addFavorite-------------------------------------------------------------------------------------------
@@ -192,6 +165,9 @@ class ArticleInformation : Fragment() {
                 addToArticle.document(articleID.toString()).collection("Favorite")
                     .document("${userId.toString()}").set(addFavorite)
                 //---------------------------------------------------------------------------------
+
+
+                //delete ...
                 numberOfFavorite(articleID)
 
             }
@@ -204,12 +180,9 @@ class ArticleInformation : Fragment() {
                 var numberOfFavorite = it.size()
                 val userRef = Firebase.firestore.collection("Articles")
                 userRef.document("$articleID").update("like", numberOfFavorite)
-                // numberLikes.setText(numberOfFavorite.toString())
 
             }
     }
-
-    //----------------------------------------------------------------------------------------------------------------
 
 
     //---------------------------------------
@@ -220,7 +193,6 @@ class ArticleInformation : Fragment() {
             .collection("Favorite").document(articleID.toString()).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
-
 
                     deleteFavorite(articleID)
 
@@ -242,46 +214,7 @@ class ArticleInformation : Fragment() {
             }
     }
 
-/*
-    private fun deleteFavorite(articleID: String) {
-        val deleteFavoriteArticle = FirebaseFirestore.getInstance()
-        deleteFavoriteArticle.collection("Articles").document(articleID)
-            .collection("Favorite").document("${articleID}").delete()
-            .addOnCompleteListener {
-                when {
-                    it.isSuccessful -> {
-                        Log.e("Delete Article ", "Delete From Articles Favorite")
-                    }
-                }
-            }
 
-        //-------------deleteFavoriteArticleUser----------------------------------------------------------
-        val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
-        deleteFavoriteArticleUser.collection("Users").document(userId.toString())
-            .collection("Favorite").document("${articleID.toString()}").delete()
-            .addOnCompleteListener {
-                when {
-                    it.isSuccessful -> {
-                        Log.e("Delete Article ", "Delete From User Favorite")
-                    }
-                }
-            }
-        numberOfFavorite(articleID)
-    }
-*/
-
-
-
-/*
-    private fun deleteFavoiret(articleID: String) {
-        val fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Users").document(userId.toString())
-            .collection("Favorite").document("${articleID.toString()}").delete()
-
-        Toast.makeText(context, "delete article ", Toast.LENGTH_LONG).show()
-
-    }
-    */
 
     //------------------------------------------------------------------------------------------
     fun articleData(userName: String, category: String, title: String, description: String, articlePhoto: String, articleDate: String) {
@@ -300,44 +233,6 @@ class ArticleInformation : Fragment() {
 
         addFavorite(article.articleID,article)
     }
-
-    fun addUserFavorite(article: Article) = CoroutineScope(Dispatchers.IO).launch {
-        val addFavorite = hashMapOf(
-            "articleID" to "${article.articleID}",
-            "userId" to "${article.userId}",
-        )
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        try {
-            val articleRef = Firebase.firestore.collection("Users")
-
-            articleRef.document(userId.toString()).collection("Favorite")
-                .document(args.articleData.articleImage.toString())
-                .set(addFavorite).addOnCompleteListener {
-                    it
-                    when {
-                        it.isSuccessful -> {
-
-                            //  Toast.makeText(context,"Done to add User Favorite",Toast.LENGTH_LONG).show()
-                        }
-                        else -> {
-
-                            //    Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
-
-                        }
-                    }
-                }
-
-            withContext(Dispatchers.Main) {
-                //Toast.makeText(coroutineContext.javaClass, "Welcome ${user.fullName.toString()}", Toast.LENGTH_LONG).show()
-
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-    }
-    //fireStore
 
     fun shareArticle(titleArticle: String, subjectArticle: String) {
 
@@ -376,32 +271,6 @@ class ArticleInformation : Fragment() {
             //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }
-    }
-
-
-
-    private fun upDateArticleLike(articleID: String, upDateLike: Int) {
-
-        val upDateLike = hashMapOf(
-            "like" to upDateLike.toInt(),
-        )
-        val userRef = Firebase.firestore.collection("Articles")
-        userRef.document("$articleID").set(upDateLike, SetOptions.merge()).addOnCompleteListener {
-            it
-            when {
-                it.isSuccessful -> {
-                    // Toast.makeText(context,"UpDate lIEK ",Toast.LENGTH_SHORT).show()
-
-                }
-                else -> {
-
-                    // Toast.makeText(context," no UpDate lIEK ",Toast.LENGTH_SHORT).show()
-
-
-                }
-            }
-        }
-
     }
 
 }

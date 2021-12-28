@@ -16,26 +16,19 @@ class ProfileViewModel() :ViewModel(){
         val article= MutableLiveData<List<Article>>()
 
         val articleList :MutableList<Article> = mutableListOf()
-
-
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("userId", "${uId}")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-
                     if (error != null) {
                         Log.e("Firestore", error.message.toString())
                         return
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
-
                             articleList.add(dc.document.toObject(Article::class.java))
-
-
                         }
                     }
-
                     article.value = articleList
                 }
 

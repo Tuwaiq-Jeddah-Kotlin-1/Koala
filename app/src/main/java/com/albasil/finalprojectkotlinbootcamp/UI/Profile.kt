@@ -59,6 +59,7 @@ class Profile : Fragment() {
     ): View {
 
 
+
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
 

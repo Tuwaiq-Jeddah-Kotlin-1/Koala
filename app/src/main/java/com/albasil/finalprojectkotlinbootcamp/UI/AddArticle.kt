@@ -16,11 +16,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentAddArticleBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -37,6 +41,7 @@ import java.time.format.DateTimeFormatter
 
 class AddArticle : Fragment() {
 
+    private lateinit var addArticleViewModel:AddArticleViewModel
     private  var imageUrl : Uri?=null
 
     lateinit var binding: FragmentAddArticleBinding
@@ -68,10 +73,13 @@ class AddArticle : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
+        addArticleViewModel = ViewModelProvider(this).get(AddArticleViewModel::class.java)
 
-     //----------------------------------------------------------------------------------------
+
+        //----------------------------------------------------------------------------------------
         val category = resources.getStringArray(R.array.categories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
@@ -96,10 +104,7 @@ class AddArticle : Fragment() {
 
         binding.btnAddArticleXml.setOnClickListener {
 
-            Toast.makeText(context,"Name USER IS ${userNameGlobl.toString()}",Toast.LENGTH_SHORT).show()
             checkFields()
-
-
         }
 
         binding.articlerPhotoXml.setOnClickListener {
@@ -109,7 +114,7 @@ class AddArticle : Fragment() {
         }
     }
 
-    fun checkFields(){
+     fun checkFields(){
         // Date  object
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
@@ -124,7 +129,6 @@ class AddArticle : Fragment() {
             }
             TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
                 binding.tvDescraptaionArticleXml.helperText="Descraptaion Article is null"
-             //   Toast.makeText(context, "etDescraptaionArticleXml", Toast.LENGTH_LONG).show()
 
             }
             else -> {
@@ -158,7 +162,7 @@ class AddArticle : Fragment() {
 
 
     //fireStore
-    fun articleData(category:String,title: String,description:String, articlePhoto: String){
+     fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -175,80 +179,38 @@ class AddArticle : Fragment() {
 
         article.articleID=articlePhoto.toString()
 
-        addArticleToFirestore(article)
+
+        addArticleViewModel.addArticle(article)
+
+        upLoadImage(articlePhoto)
+
     }
 
-
-    //firebase class
-    fun addArticleToFirestore(article: Article) = CoroutineScope(Dispatchers.IO).launch {
-
-        try {
-            val articleRef = Firebase.firestore.collection("Articles")
-
-            articleRef.document(article.articleID).set(article).addOnCompleteListener { it
-                when {
-                    it.isSuccessful -> {
-
-                        upLoadImage("${article.articleImage.toString()}")
-
-                     //   Toast.makeText(context,"Done to Add Article",Toast.LENGTH_LONG).show()
-                    }
-                    else -> {
-
-                      //  Toast.makeText(context, "is not Successful fire store ", Toast.LENGTH_LONG).show()
-
-
-                    }
-
-
-                }
-            }
-
-            withContext(Dispatchers.Main) {
-                //Toast.makeText(coroutineContext.javaClass, "Welcome ${user.fullName.toString()}", Toast.LENGTH_LONG).show()
-
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-    }
 
 
     fun getUserName() = CoroutineScope(Dispatchers.IO).launch {
-
         val uId = FirebaseAuth.getInstance().currentUser!!.uid
         try {
             //coroutine
             val db = FirebaseFirestore.getInstance()
             db.collection("Users").document("$uId")
-                .get().addOnCompleteListener {
-                    it
+                .get().addOnCompleteListener { it
                     if (it.getResult()?.exists()!!) {
-                        //+++++++++++++++++++++++++++++++++++++++++
                         var userName = it.getResult()!!.getString("userName")
-                        //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                         userNameGlobl = userName.toString()
-                        Log.e("error \n", "name $userName   email $userName  //// $userName")
                     } else {
-                        Log.e("error \n", "errooooooorr")
+                        Log.e("Null", "Not Found")
                     }
-
                 }
-
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
                 Log.e("FUNCTION createUserFirestore", "${e.message}")
             }
         }
 
 
     }
-
 
 
 
@@ -256,40 +218,28 @@ class AddArticle : Fragment() {
 
     //images
     private fun selectImage(){
-
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
         startActivityForResult(intent,100)
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
         if (requestCode == 100 && resultCode == Activity.RESULT_OK){
-
             imageUrl = data?.data!!
-
             binding.articlerPhotoXml.setImageURI(imageUrl)
-
         }
-
-
-
     }
 
-    fun upLoadImage(uIdCategory:String){
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
 
+    fun upLoadImage(imageId:String){
+        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
         imageUrl?.let {
             storageReference.putFile(it)
                 .addOnSuccessListener {
-
-
                 }.addOnFailureListener{
-//                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                 }
         }
     }

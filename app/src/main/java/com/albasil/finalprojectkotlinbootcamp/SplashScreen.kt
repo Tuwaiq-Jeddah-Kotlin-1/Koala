@@ -25,8 +25,6 @@ class SplashScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-
         Handler().postDelayed({
             if(viewModel.hasInternetConnection()){
                 findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())

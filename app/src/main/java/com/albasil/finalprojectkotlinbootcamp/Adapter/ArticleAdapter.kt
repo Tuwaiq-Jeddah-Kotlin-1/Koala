@@ -116,6 +116,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
         val userID = FirebaseAuth.getInstance().currentUser?.uid
         val titleArticle: TextView = itemView.findViewById(R.id.tvTitle_xml)
         val userName: TextView = itemView.findViewById(R.id.tvUserName_xml)
