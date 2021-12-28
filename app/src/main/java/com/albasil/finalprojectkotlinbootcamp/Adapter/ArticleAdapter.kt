@@ -84,7 +84,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             }
         }
 
-
         //-----------------------------------------------------------------------
 
         db.collection("Users").document(article.userId).get()
@@ -113,11 +112,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
     }
 
 
-    override fun getItemCount(): Int {
+    override fun getItemCount(): Int = articleList.size
 
-        return articleList.size
-
-    }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val userID = FirebaseAuth.getInstance().currentUser?.uid
@@ -135,19 +131,17 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var userId: String
 
 
+        //---------upDateFavorite------------------------------------------------------------------------------------------
         fun upDateFavorite(articleID: String, article: Article) {
             val db = FirebaseFirestore.getInstance()
             db.collection("Users").document("$userID")
                 .collection("Favorite").document(articleID).get()
                 .addOnCompleteListener {
                     if (it.result?.exists()!!) {
-
                         ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-
                         ivFavorite.setOnClickListener {
-
                             deleteFavorite("${articleID}")
-
+                            ivFavorite.setImageResource(R.drawable.ic_favorite_border)
                         }
                     } else {
                         ivFavorite.setOnClickListener {
@@ -158,44 +152,35 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
         }
 
+
+        //---------deleteFavorite------------------------------------------------------------------------------------------
         private fun deleteFavorite(articleID: String) {
-            Toast.makeText(itemView.context, "articleID ${articleID}", Toast.LENGTH_LONG).show()
             val deleteFavoriteArticle = FirebaseFirestore.getInstance()
-            deleteFavoriteArticle.collection("Articles")
-                .document(articleID).collection("Favorite")
-                .document("${userID}").delete()
+            deleteFavoriteArticle.collection("Articles").document(articleID)
+                .collection("Favorite").document("${userID}").delete()
                 .addOnCompleteListener {
                     when {
                         it.isSuccessful -> {
                             Log.e("Delete Article ", "Delete From Articles Favorite")
-
-                            ivFavorite.setImageResource(R.drawable.ic_favorite_border)
-
                         }
                     }
-
-
                 }
 
-            //----------------------------------------------------------------------------------------
+            //-------------deleteFavoriteArticleUser----------------------------------------------------------
             val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
-            deleteFavoriteArticleUser.collection("Users")
-                .document(userID.toString())
-                .collection("Favorite")
-                .document("${articleID.toString()}").delete()
+            deleteFavoriteArticleUser.collection("Users").document(userID.toString())
+                .collection("Favorite").document("${articleID.toString()}").delete()
                 .addOnCompleteListener {
                     when {
                         it.isSuccessful -> {
                             Log.e("Delete Article ", "Delete From User Favorite")
                         }
-
                     }
-
                 }
-
-
+            numberOfFavorite(articleID)
         }
 
+        //---------------addFavorite-------------------------------------------------------------------------------------------
         private fun addFavorite(articleID: String, article: Article) {
             val addFavorite = hashMapOf(
                 "articleID" to "${article.articleID}",
@@ -222,23 +207,24 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     addToArticle.document(articleID.toString()).collection("Favorite")
                         .document("${userId.toString()}").set(addFavorite)
                     //---------------------------------------------------------------------------------
+                    numberOfFavorite(articleID)
 
-
-                    db.collection("Articles").document(articleID).collection("Favorite")
-                        .get().addOnSuccessListener {
-                            var numberOfFavorite = it.size()
-                            val userRef = Firebase.firestore.collection("Articles")
-                            userRef.document("$articleID").update("like", numberOfFavorite)
-
-                            numberLikes.setText(numberOfFavorite.toString())
-
-                        }
                 }
-
-
         }
 
+        private fun numberOfFavorite(articleID: String) {
+            db.collection("Articles").document(articleID)
+                .collection("Favorite").get()
+                .addOnSuccessListener {
+                    var numberOfFavorite = it.size()
+                    val userRef = Firebase.firestore.collection("Articles")
+                    userRef.document("$articleID").update("like", numberOfFavorite)
+                    numberLikes.setText(numberOfFavorite.toString())
 
+                }
+        }
+
+        //----------------------------------------------------------------------------------------------------------------
         init {
             itemView.setOnClickListener(this)
         }
