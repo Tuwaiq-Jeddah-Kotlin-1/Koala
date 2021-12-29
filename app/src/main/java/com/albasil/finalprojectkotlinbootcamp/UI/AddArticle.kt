@@ -100,8 +100,6 @@ class AddArticle : Fragment() {
             TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
                 binding.tvTitleArticleXml.helperText="Title Article is null"
 
-                Toast.makeText(
-                    context, "etTitleArticleXml", Toast.LENGTH_LONG).show()
             }
             TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
                 binding.tvDescraptaionArticleXml.helperText="Descraptaion Article is null"
@@ -125,10 +123,7 @@ class AddArticle : Fragment() {
 
      fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
-
         val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-
         val article =Article()
         //article.userName =userNameGlobl.toString()
         article.category = category.toString()

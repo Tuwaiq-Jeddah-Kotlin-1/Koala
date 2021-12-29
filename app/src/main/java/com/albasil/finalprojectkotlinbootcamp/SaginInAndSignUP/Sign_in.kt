@@ -23,7 +23,6 @@ import com.albasil.finalprojectkotlinbootcamp.ViewModels.SignIn_ViewModel
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
 class Sign_in : Fragment() {
 
     private lateinit var signInViewModel:SignIn_ViewModel
@@ -31,7 +30,6 @@ class Sign_in : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     var isRemembered = false
     private lateinit var rememberMe: CheckBox
-
 
 
     override fun onCreateView(
@@ -47,25 +45,15 @@ class Sign_in : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         signInViewModel= ViewModelProvider(this).get(SignIn_ViewModel::class.java)
-
-
         rememberMe = view.findViewById(R.id.cbRemember)
 
         //-------------------------------------------------------------------------------------------------------
-        sharedPreferences = this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
-        isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
-
-        if (isRemembered) {
-            findNavController().navigate(R.id.action_sign_in_to_tabBarFragment)
-        }
-
+        remembered()
         //-------------------------------------------------------------------------------------------------------------
 
         binding.btnSignInXml.setOnClickListener {
 
-
             checkOfText()
-
         }
 
 
@@ -78,11 +66,15 @@ class Sign_in : Fragment() {
             findNavController().navigate(R.id.action_sign_in_to_signUP)
         }
 
-
-
-
-
     }
+
+    private fun remembered() {
+        sharedPreferences = this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
+        isRemembered = sharedPreferences.getBoolean("CHECKBOX", false)
+
+        if (isRemembered) {
+            findNavController().navigate(R.id.action_sign_in_to_tabBarFragment)
+        }    }
 
     private fun checkOfText() {
 
@@ -96,23 +88,12 @@ class Sign_in : Fragment() {
 
             }
             else -> {
-
-                val firebaseLogIn =FirebaseAuthentication()
-
-
-
                 view?.let {
 
                     signInViewModel.signIn(
                         binding.etSignInEmailXml.text.toString(),
                         binding.etSignInPasswordXml.text.toString(), it)
                 }
-
-//                view?.let {
-//                    firebaseLogIn.logInAuthentication(
-//                        binding.etSignInEmailXml.text.toString(),
-//                        binding.etSignInPasswordXml.text.toString(), it,rememberMe.isChecked)
-//                }
 
                 //----------------------------------------------------------
                 rememberMe()

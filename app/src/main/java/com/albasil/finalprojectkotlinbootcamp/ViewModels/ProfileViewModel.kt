@@ -12,12 +12,11 @@ class ProfileViewModel() :ViewModel(){
 
 
 
-     fun getAllMyArticles(uId: String):LiveData<List<Article>> {
-        val article= MutableLiveData<List<Article>>()
+     fun getAllMyArticles(myID:String,articleList: MutableList<Article>):LiveData<MutableList<Article>> {
+        val article= MutableLiveData<MutableList<Article>>()
 
-        val articleList :MutableList<Article> = mutableListOf()
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId", "${uId}")
+        fireStore.collection("Articles").whereEqualTo("userId", myID)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {

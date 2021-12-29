@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.up_date_user_information.view.*
 import java.io.File
 
 
-class ArticleUserProfileAdapter(private val articleList:List<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
+class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
     val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
 

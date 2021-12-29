@@ -24,9 +24,7 @@ class AppRepo(context: Context) {
     val firebase = FirebaseAuthentication()
 
     suspend fun insertUserToDB(users: Users) {
-        //appDB.taskDao.insert(addTask)
 
-        //firebase.registerUser("F","F")
 
     }
 
@@ -55,7 +53,6 @@ class AppRepo(context: Context) {
             }
         }
     }
-
 
 
     fun upLoadImage(uIdCategory:String){

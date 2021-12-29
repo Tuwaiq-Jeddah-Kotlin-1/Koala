@@ -1,10 +1,13 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
@@ -28,11 +32,13 @@ import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +53,7 @@ class Profile : Fragment() {
     private lateinit var imageUrl: Uri
     private lateinit var userPhoneNumber: String
     private lateinit var recyclerView: RecyclerView
-    private lateinit var articleList: ArrayList<Article>
+    private lateinit var articleList: MutableList<Article>
     private lateinit var articleAdapter: ArticleUserProfileAdapter
     private lateinit var fireStore: FirebaseFirestore
 
@@ -57,8 +63,6 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
@@ -80,10 +84,9 @@ class Profile : Fragment() {
         val uid = FirebaseAuth.getInstance().uid
 
         recyclerView = view.findViewById(R.id.userProfileRecyclerView_xml)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = GridLayoutManager(context, 1)
         recyclerView.setHasFixedSize(true)
-
-        articleList = arrayListOf()
+        articleList = mutableListOf()
 
         articleAdapter = ArticleUserProfileAdapter(articleList)
 
@@ -95,19 +98,19 @@ class Profile : Fragment() {
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        profileViewModel.getAllMyArticles(uid.toString()).observe(viewLifecycleOwner,{
+        profileViewModel.getAllMyArticles(uid.toString(),articleList).observe(viewLifecycleOwner,{
 
-            binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(it)
+            binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(articleList)
 
             articleAdapter.notifyDataSetChanged()
-            getAllMyArticles("${uid}")
+        //    getAllMyArticles("${uid}")
 
 
         })
 
        // getAllMyArticles("${uid}")
 
-        articleAdapter.notifyDataSetChanged()
+//        articleAdapter.notifyDataSetChanged()
 
 
         //---------------------------------------------------------
@@ -161,7 +164,99 @@ class Profile : Fragment() {
         }
 
         //
-        articleAdapter.notifyDataSetChanged()
+
+
+        val deleteArticle=ItemTouchHelper(itemTouchHelper)
+
+        deleteArticle.attachToRecyclerView(recyclerView)
+
+//        articleAdapter.notifyDataSetChanged()
+    }
+    private fun deleteArticle(articleID:String, view: View) {
+        AlertDialog.Builder(view.context)
+            .setTitle("Delete Aricle")
+            .setIcon(R.drawable.ic_delete_24)
+            .setMessage("Are sure to delete this article ?!!!")
+            .setPositiveButton("yes") { dialog, _ ->
+
+                /*** delete fun */
+                val deleteArticle=Firebase.firestore.collection("Articles")
+                    .document("${articleID.toString()}").delete()
+
+                deleteArticle.addOnCompleteListener {
+                    when {
+                        it.isSuccessful ->{
+                            Log.d("Delete","Delete Article")
+
+                        }
+                    }
+
+                }
+
+                //----------------------------
+
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }.create().show()        }
+
+
+    // For swipe ..
+    val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+    ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val article = articleList[position]
+            when(direction){
+                ItemTouchHelper.LEFT->{
+
+                    articleList.remove(article)
+                    articleAdapter.notifyItemRemoved(position)
+                    /*** delete fun */
+                    val deleteArticle=Firebase.firestore.collection("Articles")
+                        .document(article.articleID).delete()
+
+                    deleteArticle.addOnCompleteListener {
+                        when {
+                            it.isSuccessful ->{
+                                Log.d("Delete","Delete Article")
+
+                            }
+                        }
+
+                    }
+
+
+                }
+            }
+          //  viewModel.deleteArticle(article)
+            /*Snackbar.make(view, "Article Deleted Successfully", Snackbar.LENGTH_LONG).apply {
+                setAction("Undo") {
+                   // viewModel.saveArticle(article)
+                }
+                show()
+            }*/
+        }
+
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#CD5C5C"))
+                .addSwipeLeftActionIcon(R.drawable.ic_delete_24)
+                .create()
+                .decorate()
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        }
     }
 
 

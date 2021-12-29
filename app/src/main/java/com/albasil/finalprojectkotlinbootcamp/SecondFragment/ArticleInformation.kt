@@ -2,7 +2,6 @@ package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.db
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -22,12 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_article_information.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
-import kotlin.properties.Delegates
 
 class ArticleInformation : Fragment() {
     val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -66,7 +59,7 @@ class ArticleInformation : Fragment() {
 
 
         //يتاكد اذا في المفضلة او لا
-        checkIfFavoirte(args.articleData.articleImage.toString())
+        checkIfFavorite(args.articleData.articleImage.toString())
         Log.e(
             "args.articleData.articleImage.toString()",
             "${args.articleData.articleID.toString()}"
@@ -91,26 +84,25 @@ class ArticleInformation : Fragment() {
     }
 
     //---------------------------------------------------------------------
-    private fun checkIfFavoirte(articleID: String) {
+    private fun checkIfFavorite(articleID: String) {
+
         val uId = FirebaseAuth.getInstance().currentUser?.uid
+
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").document("$uId")
-            .collection("Favorite").document(articleID.toString()).get()
+            .collection("Favorite").document(articleID).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
-
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
 
                 } else {
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
-
-
                 }
             }
     }
 
     //---------deleteFavorite------------------------------------------------------------------------------------------
-     fun deleteFavorite(articleID: String) {
+    fun deleteFavorite(articleID: String) {
         userId
         val deleteFavoriteArticle = FirebaseFirestore.getInstance()
         deleteFavoriteArticle.collection("Articles").document(articleID)
@@ -200,12 +192,14 @@ class ArticleInformation : Fragment() {
 
 
                 } else {
-                  articleData(view?.userNameInfo_xml?.text.toString(),
+                    articleData(
+                        view?.userNameInfo_xml?.text.toString(),
                         "${view?.articleCategoryInfo_xml?.text.toString()}",
                         "${view?.titleArticleInfo_xml?.text.toString()}",
                         "${view?.articleDescraptionInfo_xml?.text}",
-                        "${args.articleData.articleImage.toString()}"
-                        ,view?.articleDateInfo_xml?.text.toString())
+                        "${args.articleData.articleImage.toString()}",
+                        view?.articleDateInfo_xml?.text.toString()
+                    )
 
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
 
@@ -215,9 +209,15 @@ class ArticleInformation : Fragment() {
     }
 
 
-
     //------------------------------------------------------------------------------------------
-    fun articleData(userName: String, category: String, title: String, description: String, articlePhoto: String, articleDate: String) {
+    fun articleData(
+        userName: String,
+        category: String,
+        title: String,
+        description: String,
+        articlePhoto: String,
+        articleDate: String
+    ) {
         val article = Article()
         article.userName = userName.toString()
         article.category = category.toString()
@@ -231,7 +231,7 @@ class ArticleInformation : Fragment() {
 
         // addUserFavorite(article)
 
-        addFavorite(article.articleID,article)
+        addFavorite(article.articleID, article)
     }
 
     fun shareArticle(titleArticle: String, subjectArticle: String) {

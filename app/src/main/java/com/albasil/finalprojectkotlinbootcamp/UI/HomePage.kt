@@ -25,7 +25,6 @@ class HomePage : Fragment() {
 
     lateinit var binding: FragmentHomePageBinding
 
-
     var categorySelected: String? = null
 
     private lateinit var recyclerView: RecyclerView
@@ -34,12 +33,7 @@ class HomePage : Fragment() {
     private lateinit var articleAdapter: ArticleAdapter
     private  var  fireStore = FirebaseFirestore.getInstance()
 
-
-
     lateinit var viewModel: FeatherViewModel
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,11 +48,9 @@ class HomePage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         recyclerView = view.findViewById(R.id.recyclerViewArticle_xml)
         recyclerView.layoutManager = GridLayoutManager(context,1)
         recyclerView.setHasFixedSize(true)
-
         articleList = arrayListOf<Article>()
         newArticleList = arrayListOf<Article>()
         articleAdapter = ArticleAdapter(articleList)
@@ -72,9 +64,7 @@ class HomePage : Fragment() {
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
         binding.spinnerCategoryXml.onItemClickListener =
             object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                ) {
-                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemClick(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
