@@ -56,10 +56,10 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
         holder.articleDescription =article.description
 
 
-
-        holder.deleteArticle.setOnClickListener {
-            deleteArticle("${holder.articleID}",holder.itemView)
-        }
+//
+//        holder.deleteArticle.setOnClickListener {
+//            deleteArticle("${holder.articleID}",holder.itemView)
+//        }
 
         holder.editArticle.setOnClickListener {
 
@@ -183,9 +183,7 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
 
 
         override fun onClick(v: View?) {
-
             val article_data =Article()
-
             article_data.title = titleArticle.text.toString()
             article_data.userName = userName.toString()
             article_data.date = articleDate.toString()
@@ -204,28 +202,9 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
                 findNavController(itemView.findFragment()).navigate(articleData)
 
             }
-
-
             Toast.makeText(itemView.context,"${article_data.title.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()
 
-
         }
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 

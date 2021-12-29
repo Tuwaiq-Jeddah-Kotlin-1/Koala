@@ -1,40 +1,31 @@
 package com.albasil.finalprojectkotlinbootcamp.ViewModels
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
 import com.albasil.finalprojectkotlinbootcamp.Repo.fireStore
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ProfileViewModel() :ViewModel(){
+class ProfileViewModel(context: Application) : AndroidViewModel(context) {
+    val repo : AppRepo = AppRepo(context)
 
-
-
-     fun getAllMyArticles(myID:String,articleList: MutableList<Article>):LiveData<MutableList<Article>> {
-        val article= MutableLiveData<MutableList<Article>>()
-
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId", myID)
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.e("Firestore", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            articleList.add(dc.document.toObject(Article::class.java))
-                        }
-                    }
-                    article.value = articleList
-                }
+    fun getAllMyArticles(myID:String,articleList: MutableList<Article>,viewLifecycleOwner: LifecycleOwner):LiveData<MutableList<Article>>{
+    //    viewModelScope.launch (Dispatchers.IO){
+        val myArticles= MutableLiveData<MutableList<Article>>()
+       // myArticles.postValue(repo.getAllMyArticles(myID,articleList))
+            repo.getAllMyArticles(myID,articleList).observe(viewLifecycleOwner,{
+                myArticles.postValue(it)
 
             })
 
+        //}
 
-        return article
+
+        return myArticles
     }
 
 }

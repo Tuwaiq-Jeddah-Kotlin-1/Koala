@@ -175,7 +175,7 @@ class EditArticle : Fragment() {
             storageReference.putFile(it)
                 .addOnSuccessListener {
                     //   userImage.setImageURI(null)
-                    Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
 
                 //    if (progressDialog.isShowing)progressDialog.dismiss()
 
