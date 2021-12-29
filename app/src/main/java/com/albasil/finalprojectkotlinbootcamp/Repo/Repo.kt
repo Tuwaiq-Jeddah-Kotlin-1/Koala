@@ -10,6 +10,7 @@ import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
@@ -135,6 +136,7 @@ class AppRepo(context: Context) {
 
 
     fun getInfo(myID: String):Users{
+        var name22=""
 
         val userInfo =Users()
         val db = FirebaseFirestore.getInstance()
@@ -143,21 +145,23 @@ class AppRepo(context: Context) {
 
                 if (it.result?.exists()!!) {
                     //+++++++++++++++++++++++++++++++++++++++++
-                    userInfo.userName = it.result!!.getString("userName").toString()
-                    val userFollowing = it.result!!.get("following")
-                    val userFollowers = it.result!!.get("followers")
-                    val userPhone = it.result!!.getString("userPhone")//moreInfo
-                    val moreInfo = it.result!!.getString("moreInfo")//moreInfo
+                    name22 = it.result!!.getString("userName").toString()
+//                    userInfo.following = it.result!!.get("following") as Int
+//                    userInfo.followers = it.result!!.get("followers") as Int
+//                    userInfo.userPhone = it.result!!.getString("userPhone").toString()
+
+
+
+
 
                 } else {
                     Log.e("er45fd5ffror \n", "${userInfo.userName}")
                 }
 
             }
-        return  Users("$myID","${userInfo.userEmail}","44${userInfo.userName}","${userInfo.userPhone}","${userInfo.creationAccount}",userInfo.followers,userInfo.following)
+        return userInfo
+
     }
-
-
 
     fun deleteArticle(articleID:String){
         val deleteArticle = Firebase.firestore.collection("Articles")

@@ -195,13 +195,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/user_name" />
 
-                                <TextView
-                                    android:id="@+id/uId_xml"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:text="User Information"
-                                    android:visibility="gone" />
-
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -238,43 +231,6 @@
 
                             </LinearLayout>
 
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:visibility="gone">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-
-                                    android:orientation="horizontal"
-                                    android:visibility="visible">
-
-
-                                    <Button
-                                        android:id="@+id/myArticle_xml"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="3dp"
-                                        android:layout_weight="1"
-                                        android:padding="2dp"
-                                        android:text="My Article" />
-
-                                    <Button
-                                        android:id="@+id/myFavorite_xml"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="3dp"
-                                        android:layout_weight="1"
-                                        android:padding="2dp"
-                                        android:text="My favorite" />
-
-
-                                </LinearLayout>
-
-                            </LinearLayout>
 
                         </LinearLayout>
 

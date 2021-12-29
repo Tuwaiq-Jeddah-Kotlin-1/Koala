@@ -66,7 +66,6 @@ class Profile : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-
         return binding.root
     }
 
@@ -76,6 +75,7 @@ class Profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //---------------------------------------------------
         getUserPhoto()
+        getUserInfo(myID.toString())
 
         //---------------------------------------------------------
 
@@ -100,14 +100,7 @@ class Profile : Fragment() {
 
             })
 
-
-       binding.userNameXml.text=  profileViewModel.getUserInformation(myID.toString()).userName.toString()
-
-
-        //delete
-        binding.myFavoriteXml.setOnClickListener {
-            findNavController().navigate(R.id.favoriteFragment)
-        }
+//       binding.userNameXml.text=  profileViewModel.getUserInformation(myID.toString()).userName
 
 
         //-----------------------------------------------------
@@ -122,21 +115,11 @@ class Profile : Fragment() {
 
         }
 
-        binding.myArticleXml.setOnClickListener {
 
-            binding.userProfileRecyclerViewXml.setBackgroundColor(Color.GRAY)
-            binding.myArticleXml.setBackgroundColor(Color.GRAY)
 
-        }
+        binding.userImageProfileXml.setOnClickListener { selectImage() }
 
-        binding.userImageProfileXml.setOnClickListener {
-
-            selectImage()
-
-        }
-
-        binding.addInformationXml.setOnClickListener {
-            showDialogUserInfo()
+        binding.addInformationXml.setOnClickListener { showDialogUserInfo()
         }
 
         binding.upDateButtonXml.setOnClickListener {
@@ -150,7 +133,7 @@ class Profile : Fragment() {
     }
 
 
-    // For swipe ..
+    // Swipe
     val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN,
         ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -194,16 +177,8 @@ class Profile : Fragment() {
             actionState: Int,
             isCurrentlyActive: Boolean
         ) {
-            RecyclerViewSwipeDecorator.Builder(
-                c,
-                recyclerView,
-                viewHolder,
-                dX,
-                dY,
-                actionState,
-                isCurrentlyActive
-            )
-                .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#CD5C5C"))
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#0000FF"))
                 .addSwipeLeftActionIcon(R.drawable.ic_delete_24)
                 .create().decorate()
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -255,7 +230,6 @@ class Profile : Fragment() {
                 .get().addOnCompleteListener { it
 
                     if (it.result?.exists()!!) {
-
                         //+++++++++++++++++++++++++++++++++++++++++
                         val name = it.result!!.getString("userName")
                         val userFollowing = it.result!!.get("following")
