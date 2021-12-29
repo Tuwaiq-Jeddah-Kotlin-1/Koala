@@ -138,58 +138,30 @@ class Setting : Fragment() {
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             var selectedLanguage:RadioButton=view.findViewById(checkedId)
-            if (selectedLanguage != null){
+            if (selectedLanguage != null) btnChangeLanguage.setOnClickListener {
 
-                btnChangeLanguage.setOnClickListener {
-
-                    Log.e("language","${selectedLanguage.text.toString()}")
+                Log.e("language","${selectedLanguage.text.toString()}")
 
 
-                    if (selectedLanguage.text.toString()=="Arabic"){
+                if (selectedLanguage.text.toString()=="Arabic"){
 
-                        setLocaleFeather("ar")
+                    setLocaleFeather("ar")
 
-                    }else if (selectedLanguage.text.toString()=="English"){
-                        setLocaleFeather("en")
+                }else if (selectedLanguage.text.toString()=="English"){
+                    setLocaleFeather("en")
 
-                    }
                 }
-
             }
 
         }
-
-
-
-       /* builder.setSingleChoiceItems(listItmes,-1){
-                dialog, which ->
-            if (which ==0){
-
-                //setLocate("ar")
-                setLocaleKoala("ar")
-
-            }else if (which==1){
-                setLocaleKoala("en")
-
-            }
-
-            dialog.dismiss()
-
-
-        }*/
 
         builder.setContentView(view)
 
         btnChangeLanguage.setOnClickListener {
 
-//            builder.dismiss()
-
-           // onRadioButtonClicked(view)
             if (view is RadioButton) {
-                // Is the button now checked?
                 val checked = view.isChecked
 
-                // Check which radio button was clicked
                 when (view.getId()) {
                     R.id.englishLanguageXml ->
                         if (checked) {
@@ -197,7 +169,6 @@ class Setting : Fragment() {
                         }
                     R.id.arabicLanguageXml ->
                         if (checked) {
-
                             Log.e("Language","عربي")
                         }
                 }
@@ -229,40 +200,9 @@ class Setting : Fragment() {
         editor.apply()
 
         val refresh = Intent(context, MainActivity::class.java)
-        //    refresh.putExtra("currentLang", localeName)
         startActivity(refresh)
     }
 
-    //------------------------------------------------------------------
-
-    private fun showChangeLanguage(){
-
-        val listItmes = arrayOf("عربي","English")
-
-
-        val mBuilder =AlertDialog.Builder(this.requireContext())
-
-        mBuilder.setTitle("Choose Language")
-
-        mBuilder.setSingleChoiceItems(listItmes,-1){
-                 dialog, which ->
-            if (which ==0){
-
-                //setLocate("ar")
-                setLocaleFeather("ar")
-
-            }else if (which==1){
-
-                setLocaleFeather("en")
-            }
-            dialog.dismiss()
-
-
-        }
-        val mDialog =mBuilder.create()
-        mDialog.show()
-
-    }
 
         //--------------------------------------------------------------------------
         fun dialogChangePassword() {
@@ -278,7 +218,6 @@ class Setting : Fragment() {
             val btnChangePasswor = view.buttonChangePassword_xml
 
             builder.setContentView(view)
-
 
             btnChangePasswor.setOnClickListener {
                 changePassword(
@@ -298,8 +237,8 @@ class Setting : Fragment() {
             confirmNewPassword: String
         ) {
 
-            if (oldPassword.toString().isNotEmpty() &&
-                newPassword.toString().isNotEmpty() &&
+            if (oldPassword.isNotEmpty() &&
+                newPassword.isNotEmpty() &&
                 confirmNewPassword.toString().isNotEmpty()
             ) {
                 Log.e("new password", "${newPassword.toString()}")

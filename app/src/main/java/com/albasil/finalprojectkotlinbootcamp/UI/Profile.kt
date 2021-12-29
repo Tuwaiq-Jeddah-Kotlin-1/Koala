@@ -2,8 +2,6 @@ package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
@@ -17,11 +15,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager.findFragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -31,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.UserProfileDirections
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentProfileBinding
@@ -55,15 +49,15 @@ import java.io.File
 
 class Profile : Fragment() {
 
+    val myID = FirebaseAuth.getInstance().currentUser?.uid
     lateinit var binding: FragmentProfileBinding
     private lateinit var imageUrl: Uri
     private lateinit var userPhoneNumber: String
     private lateinit var recyclerView: RecyclerView
     private lateinit var articleList: MutableList<Article>
     private lateinit var articleAdapter: ArticleUserProfileAdapter
-    private lateinit var fireStore: FirebaseFirestore
 
-    private lateinit var profileViewModel:ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,9 +66,6 @@ class Profile : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-
-        val uid = FirebaseAuth.getInstance().uid
-       getUserInfo("${uid}")
 
         return binding.root
     }
@@ -88,8 +79,6 @@ class Profile : Fragment() {
 
         //---------------------------------------------------------
 
-        val uid = FirebaseAuth.getInstance().uid
-
         recyclerView = view.findViewById(R.id.userProfileRecyclerView_xml)
         recyclerView.layoutManager = GridLayoutManager(context, 1)
         recyclerView.setHasFixedSize(true)
@@ -101,14 +90,18 @@ class Profile : Fragment() {
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        profileViewModel.getAllMyArticles(uid.toString(),articleList,viewLifecycleOwner).observe(viewLifecycleOwner,{
+        profileViewModel.getAllMyArticles(myID.toString(), articleList, viewLifecycleOwner)
+            .observe(viewLifecycleOwner, {
 
-            binding.userProfileRecyclerViewXml.adapter=ArticleUserProfileAdapter(articleList)
-            binding.numberOrArticle.setText(articleList.size.toString())
+                binding.userProfileRecyclerViewXml.adapter = ArticleUserProfileAdapter(articleList)
+                binding.numberOrArticle.setText(articleList.size.toString())
 
-            articleAdapter.notifyDataSetChanged()
+                articleAdapter.notifyDataSetChanged()
 
-        })
+            })
+
+
+       binding.userNameXml.text=  profileViewModel.getUserInformation(myID.toString()).userName.toString()
 
 
         //delete
@@ -143,20 +136,18 @@ class Profile : Fragment() {
         }
 
         binding.addInformationXml.setOnClickListener {
-            showdialoguserInfo()
+            showDialogUserInfo()
         }
 
         binding.upDateButtonXml.setOnClickListener {
             upDateUserInfoBottomSheet()
         }
 
-        val deleteArticle=ItemTouchHelper(itemTouchHelper)
+        val deleteArticle = ItemTouchHelper(itemTouchHelper)
 
         deleteArticle.attachToRecyclerView(recyclerView)
 
-//        articleAdapter.notifyDataSetChanged()
     }
-
 
 
     // For swipe ..
@@ -164,43 +155,54 @@ class Profile : Fragment() {
         ItemTouchHelper.UP or ItemTouchHelper.DOWN,
         ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
     ) {
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return true }
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
+        }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
             val article = articleList[position]
-            when(direction){
-                ItemTouchHelper.LEFT->{
+            when (direction) {
+                ItemTouchHelper.LEFT -> {
                     articleList.remove(article)
                     articleAdapter.notifyItemRemoved(position)
-                    /*** delete fun */
-                    val deleteArticle=Firebase.firestore.collection("Articles")
-                        .document(article.articleID).delete()
 
-                    deleteArticle.addOnCompleteListener {
-                        when {
-                            it.isSuccessful ->{
-                                Log.d("Delete","Delete Article")
+
+                    profileViewModel.deleteArticle(article.articleID)
+                    view?.let {
+                        Snackbar.make(it, "Article Deleted Successfully", Snackbar.LENGTH_LONG).apply {
+                            setAction("Undo") {
+                                profileViewModel.addArticle(article)
                             }
-                        }
-                    }
-                }
-                ItemTouchHelper.RIGHT->{
-                    upDateUserArticle(article)
+                            show()
 
+                        }}
+                    }
+                ItemTouchHelper.RIGHT -> {
+                    upDateUserArticle(article)
                 }
             }
-          //  viewModel.deleteArticle(article)
-            /*Snackbar.make(view, "Article Deleted Successfully", Snackbar.LENGTH_LONG).apply {
-                setAction("Undo") {
-                   // viewModel.saveArticle(article)
-                }
-                show()
-            }*/
         }
 
-        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
-            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        override fun onChildDraw(
+            c: Canvas,
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            dX: Float,
+            dY: Float,
+            actionState: Int,
+            isCurrentlyActive: Boolean
+        ) {
+            RecyclerViewSwipeDecorator.Builder(
+                c,
+                recyclerView,
+                viewHolder,
+                dX,
+                dY,
+                actionState,
+                isCurrentlyActive
+            )
                 .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#CD5C5C"))
                 .addSwipeLeftActionIcon(R.drawable.ic_delete_24)
                 .create().decorate()
@@ -208,8 +210,8 @@ class Profile : Fragment() {
         }
     }
 
-    private fun upDateUserArticle(article:Article) {
-        val article_data =Article()
+    private fun upDateUserArticle(article: Article) {
+        val article_data = Article()
         article_data.title = article.title
         article_data.userName = article.userName
         article_data.date = article.date.toString()
@@ -217,15 +219,14 @@ class Profile : Fragment() {
         article_data.description = article.description
         article_data.articleImage = article.articleImage
         article_data.articleID = article.articleID.toString()
-        val itemData = ProfileDirections.actionProfileToEditArticle(article_data,)
+        val itemData = ProfileDirections.actionProfileToEditArticle(article_data)
 
         NavHostFragment.findNavController(this@Profile).navigate(itemData)
 
     }
 
 
-    fun showdialoguserInfo() {
-
+    fun showDialogUserInfo() {
         val builder = android.app.AlertDialog.Builder(context)
         builder.setTitle("User Information")
         val view: View = layoutInflater.inflate(R.layout.add_user_information_dialog, null)
@@ -234,7 +235,7 @@ class Profile : Fragment() {
         editTextExperience.setText(binding.userInfoXml.text.toString())
         builder.setPositiveButton("Save") { _, _ ->
 
-            addInformation("${editTextExperience.text.toString()}")
+            profileViewModel.addUserInfo(myID.toString(), editTextExperience.text.toString())
             binding.userInfoXml.setText(editTextExperience.text.toString())
 
         }
@@ -245,25 +246,7 @@ class Profile : Fragment() {
     }
 
 
-    fun addInformation(addExperience: String) = CoroutineScope(Dispatchers.IO).launch {
-
-        val userExperience = hashMapOf("moreInfo" to "${addExperience}",)
-
-        val userRef = Firebase.firestore.collection("Users")
-        //-----------UID------------------------
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
-
-        userRef.document("$uId").set(userExperience, SetOptions.merge()).addOnCompleteListener { it
-            when {
-                it.isSuccessful -> { }
-                else -> {
-                }
-            }
-        }
-
-    }
-
-
+    //احطها في الفيو موديل
     fun getUserInfo(userID: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val db = FirebaseFirestore.getInstance()
@@ -275,19 +258,15 @@ class Profile : Fragment() {
 
                         //+++++++++++++++++++++++++++++++++++++++++
                         val name = it.result!!.getString("userName")
-                        val userEmail = it.result!!.getString("userEmail")
                         val userFollowing = it.result!!.get("following")
                         val userFollowers = it.result!!.get("followers")
                         val userPhone = it.result!!.getString("userPhone")//moreInfo
                         val userInfo = it.result!!.getString("moreInfo")//moreInfo
 
-                        Log.e("user Info", "userName ${name.toString()} \n ${userEmail.toString()}")
-
                         binding.userNameXml.text = "${name.toString()}"
                         binding.userInfoXml.text = "${userInfo.toString()}"
                         binding.userFollowersXml.text = "${userFollowers?.toString()}"
                         binding.userFollowingXml.text = "${userFollowing?.toString()}"
-
                         userPhoneNumber = "${userPhone.toString()}"
 
                     } else {
@@ -300,7 +279,40 @@ class Profile : Fragment() {
             }
         }
 
+    }
 
+
+    //--------------------------------------------------------------------------------
+
+    private fun upDateUserInfoBottomSheet() {
+        val view: View = layoutInflater.inflate(R.layout.up_date_user_information, null)
+        val builder = BottomSheetDialog(requireView().context as Context)
+        builder.setTitle("Up Date Information")
+
+        val upDateInfoButton = view.upDateInfoButton_xml
+        view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
+        view.editTextPhone.setText("${userPhoneNumber.toString()}")
+        upDateInfoButton.setOnClickListener {
+            if (view.editTextTextUserName.text.toString().isNotEmpty() &&
+                view.editTextPhone.text.toString().isNotEmpty() &&
+                view.editTextPhone.text.toString().length == 10
+            ) {
+
+                binding.userNameXml.setText(view.editTextTextUserName.text.toString())
+                profileViewModel.upDateUserInformation(
+                    "${view.editTextTextUserName.text.toString()}",
+                    "${view.editTextPhone.text.toString()}"
+                )
+
+                builder.dismiss()
+            } else {
+                Toast.makeText(context, "Please enter correct Information!!! ", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
+        builder.setContentView(view)
+        builder.show()
     }
 
     //--------------------------------------------------------------------------------------
@@ -312,6 +324,7 @@ class Profile : Fragment() {
 
         startActivityForResult(intent, 100)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -327,6 +340,7 @@ class Profile : Fragment() {
         }
 
     }
+
     fun upLoadImage() {
 
         //-----------UID------------------------
@@ -354,74 +368,27 @@ class Profile : Fragment() {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
     }
-    fun getUserPhoto() {
 
+    fun getUserPhoto() {
 
         val imageName = "${FirebaseAuth.getInstance().currentUser?.uid}"
 
         val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesUsers/$imageName")
 
-
         val localFile = File.createTempFile("tempImage", "jpg")
-
         storageRef.getFile(localFile).addOnSuccessListener {
-
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-              binding.userImageProfileXml.load(bitmap)
-          //  binding.userImageProfileXml.load(localFile)
-
+            binding.userImageProfileXml.load(bitmap)
+            //  binding.userImageProfileXml.load(localFile)
 
         }.addOnFailureListener {
-
             Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
-
         }
     }
     //--------------------------------------------------------------------------------------
 
-
-    private fun upDateUserInfoBottomSheet() {
-        val view: View = layoutInflater.inflate(R.layout.up_date_user_information, null)
-        val builder = BottomSheetDialog(requireView()?.context as Context)
-        builder.setTitle("Up Date Information")
-        //upDateUserInfoBottomSheet
-        val editTextName = view.editTextTextUserName.text.toString()
-        val editTextUserPhone = view.editTextPhone.text.toString()
-        val upDateInfoButton = view.upDateInfoButton_xml
-
-        view.editTextTextUserName.setText("${binding.userNameXml.text.toString()}")
-        view.editTextPhone.setText("${userPhoneNumber.toString()}")
-
-        upDateInfoButton.setOnClickListener {
-
-            if (view.editTextTextUserName.text.toString().isNotEmpty() &&
-                view.editTextPhone.text.toString().isNotEmpty() &&
-                view.editTextPhone.text.toString().length == 10
-            ) {
-
-                binding.userNameXml.setText(view.editTextTextUserName.text.toString())
-                upDateUserInfo("${view.editTextTextUserName.text.toString()}", "${view.editTextPhone.text.toString()}")
-                builder.dismiss()
-
-            } else {
-
-                Toast.makeText(context, "Please enter correct Information!!! ", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-        builder.setContentView(view)
-        builder.show()
-    }
-
-    private fun upDateUserInfo(upDateName: String, upDatePhoneNumber: String) {
-
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
-        val upDateUserData = Firebase.firestore.collection("Users")
-        upDateUserData.document(uId.toString()).update("userName", "${upDateName.toString()}", "userPhone", "${upDatePhoneNumber.toString()}")
-
-    }
 
 }

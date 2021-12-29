@@ -20,6 +20,11 @@ class AddArticleViewModel(context: Application) : AndroidViewModel(context) {
 
         }
     }
+
+
+
+
+
 /*
     fun articleImage(articleImage: String){
         viewModelScope.launch (Dispatchers.IO){
