@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:background="#1597E5"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Categories"
+                android:hint="@string/categories"
                 android:inputType="none"
-                android:text="categories" />
+                android:text="@string/categories" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +67,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/typeCategory_xml" />
+                    app:layout_constraintTop_toBottomOf="@+id/typeCategory_xml"
+                    tools:ignore="NotSibling" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>

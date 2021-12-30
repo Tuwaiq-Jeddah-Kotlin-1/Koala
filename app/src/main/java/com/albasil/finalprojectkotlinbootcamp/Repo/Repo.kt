@@ -136,7 +136,6 @@ class AppRepo(context: Context) {
 
 
     fun getInfo(myID: String):Users{
-        var name22=""
 
         val userInfo =Users()
         val db = FirebaseFirestore.getInstance()
@@ -145,14 +144,10 @@ class AppRepo(context: Context) {
 
                 if (it.result?.exists()!!) {
                     //+++++++++++++++++++++++++++++++++++++++++
-                    name22 = it.result!!.getString("userName").toString()
+                    val userName = it.result!!.getString("userName").toString()
 //                    userInfo.following = it.result!!.get("following") as Int
 //                    userInfo.followers = it.result!!.get("followers") as Int
 //                    userInfo.userPhone = it.result!!.getString("userPhone").toString()
-
-
-
-
 
                 } else {
                     Log.e("er45fd5ffror \n", "${userInfo.userName}")

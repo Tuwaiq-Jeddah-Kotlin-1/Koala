@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/black"
-    app:cardCornerRadius="50dp"
     app:cardElevation="60sp"
     android:layout_margin="10dp"
     tools:context=".MainActivity">
@@ -47,26 +45,26 @@
 
         <TextView
 
-            android:pointerIcon="cell"
-
             android:id="@+id/callNumber_ID"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:pointerIcon="cell"
             android:text="966569861476"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/sendEmail"
-            android:drawableStart="@color/cardview_shadow_end_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="60dp"
+            android:drawableStart="@color/cardview_shadow_end_color"
             android:text="basil_alluqmni_hotmail_com"
             android:textSize="15sp"
             android:textStyle="bold" />

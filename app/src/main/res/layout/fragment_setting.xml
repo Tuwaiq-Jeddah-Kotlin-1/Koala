@@ -35,7 +35,7 @@
 
                 android:text="@string/setting"
 
-                android:textColor="#2E3192"
+                android:textColor="#1597E5"
 
 
                 android:textSize="35sp"
@@ -86,11 +86,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
 
-                        android:drawableStart="@drawable/ic_security_24"
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:text="  change_password"
+                        android:text="@string/change_password"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_security_24" />
 
                     <View
                         android:id="@+id/divider"
@@ -105,12 +105,12 @@
 
                         android:layout_margin="10dp"
 
-                        android:drawableStart="@drawable/ic_language_24"
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:text="  Change language"
+                        android:text="@string/change_language"
 
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:drawableStartCompat="@drawable/ic_language_24"
+                        app:drawableEndCompat="@drawable/ic_arrow_down" />
 
                     <View
                         android:id="@+id/divider2"
@@ -123,11 +123,11 @@
 
                         android:layout_width="match_parent"
 
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_dark_mode_24"
-                        android:text="  Dark Mode"
+                        android:text="@string/dark_mode"
 
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
@@ -154,8 +154,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="About App"
-                android:textColor="#2E3192"
+                android:text="@string/about_app"
+                android:textColor="#1597E5"
                 android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.192"
@@ -201,11 +201,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:drawableStart="@drawable/ic_unknown_24"
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:text="AboutUs"
+                        android:text="@string/aboutus"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:drawableStartCompat="@drawable/ic_unknown_24"
+                        app:drawableEndCompat="@drawable/ic_arrow_down" />
 
                     <View
                         android:id="@+id/divider3"
@@ -219,13 +219,13 @@
                         android:layout_height="wrap_content"
 
                         android:layout_margin="10dp"
-                        android:drawableStart="@drawable/ic_help_outline_24"
-                        android:drawableEnd="@drawable/ic_arrow_down"
-                        android:text="help and support"
+                        android:text="@string/help_and_support"
                         android:textColor="#FFFFFF"
 
                         android:textSize="16sp"
-                        tools:ignore="DuplicateIds" />
+                        tools:ignore="DuplicateIds"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_help_outline_24" />
 
 
                 </LinearLayout>
@@ -238,8 +238,8 @@
                 android:layout_width="match_parent"
 
 
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:layout_margin="30sp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"

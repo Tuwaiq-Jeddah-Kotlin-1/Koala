@@ -13,13 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <!--
-            #2E3192
-            #1BFFFF
-            #E8AB4B
-            android:background="#00CAEB"
 
-                         -->
             <FrameLayout
                 android:background="@drawable/sign_up"
                 android:id="@+id/FrameLayout"

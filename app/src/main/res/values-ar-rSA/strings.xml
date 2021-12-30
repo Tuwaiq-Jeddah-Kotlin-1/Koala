@@ -1,13 +1,13 @@
 <resources>
 
 
-    <string-array name="Category">
-        <item>All</item>
-        <item>A1</item>
-        <item>B1</item>
-        <item>C1</item>
-        <item>D1</item>
-
+    <string-array name="categories">
+        <item>Designers</item>
+        <item>Teachers</item>
+        <item>Fixers</item>
+        <item>Technicians</item>
+        <item>Cookers</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="sortArticle">
@@ -20,8 +20,8 @@
     <string name="app_name">ريشة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login">تسجيل دخول</string>
-    <string name="setting">setting</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="setting">إعدادات الحساب</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -32,35 +32,43 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="change_language">تغير اللغة</string>
-    <string name="email">Email</string>
-    <string name="user_name">User Name</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="phone_number">رقم الجوال</string>
+    <string name="sign_up">تسجيل حساب جديد</string>
     <string name="password">كلمة المرور</string>
-    <string name="remember_me">Remember Me</string>
+    <string name="remember_me">تذكرني!</string>
     <string name="forgot_password">هل نسيت كلمة المرور ؟</string>
-    <string name="new_account">New Account?</string>
-    <string name="sing_in">Sing In</string>
-    <string name="sign_out">Sign Out</string>
-    <string name="article">Article</string>
-    <string name="following">Following</string>
-    <string name="followers">Followers</string>
-    <string name="follow">Follow</string>
-    <string name="user_information">User Information</string>
-    <string name="call">Call</string>
-    <string name="categories">Categories</string>
-    <string name="date">Date:</string>
-    <string name="more_information">More Information</string>
-    <string name="update_article">UpDate Article</string>
-    <string name="articleDescription">ArticleDescription</string>
-    <string name="title">Title</string>
-    <string name="category">Category</string>
-    <string name="title_article">Title Article</string>
-    <string name="article_category">article Category</string>
-    <string name="article_user">Article User</string>
-    <string name="image_article_user">Image Article User</string>
-    <string name="article_title">Article Title</string>
-    <string name="enter_old_password">Enter old password</string>
-    <string name="enter_new_password">Enter new password</string>
-    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="new_account">حساب جديد؟</string>
+    <string name="sing_in">تسجيل دخول</string>
+    <string name="sign_out">تسجيل خروج</string>
+    <string name="article">مقالة</string>
+    <string name="following">متابع</string>
+    <string name="followers">متابعون</string>
+    <string name="follow">تابع</string>
+    <string name="user_information">معلومات المستخدم</string>
+    <string name="call">اتصال</string>
+    <string name="categories">الفئات</string>
+    <string name="date">التاريخ:</string>
+    <string name="more_information">معلومات اكثر</string>
+    <string name="update_article">تعديل المقالة</string>
+    <string name="articleDescription">متحوى المقالة</string>
+    <string name="title">العنوان</string>
+    <string name="category">الفئة</string>
+    <string name="title_article">عنوان المقالة</string>
+    <string name="article_category">فئة المقالة</string>
+    <string name="article_user">صاحب المقالة</string>
+    <string name="image_article_user">صورة المقالة</string>
+    <string name="article_title">عنوان المقالة</string>
+    <string name="enter_old_password">كلمة المرور القديمة</string>
+    <string name="enter_new_password">كلمة المرور الجديدة</string>
+    <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="home">الرئسية</string>
+    <string name="add_article">إضافة مقالة</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="change_password"> تغير كلمة المرور</string>
+    <string name="dark_mode">النمط </string>
+    <string name="aboutus"> عننا</string>
+    <string name="help_and_support">الدعم </string>
+    <string name="about_app"> حول التطبيق</string>
 </resources>

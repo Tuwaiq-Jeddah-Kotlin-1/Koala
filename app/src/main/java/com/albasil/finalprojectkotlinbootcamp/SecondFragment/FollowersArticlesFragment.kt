@@ -47,7 +47,7 @@ class FollowersArticlesFragment : Fragment() {
 
 
         recyclerView = view.findViewById(R.id.followersArticlesRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context,3)
+        recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
 
         usersList = mutableListOf()

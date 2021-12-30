@@ -1,16 +1,9 @@
 <resources>
 
 
+
+
     <string-array name="categories">
-        <item>All</item>
-        <item>A1</item>
-        <item>B1</item>
-        <item>C1</item>
-        <item>D1</item>
-
-    </string-array>
-
-    <string-array name="categories2">
         <item>Designers</item>
         <item>Teachers</item>
         <item>Fixers</item>
@@ -73,4 +66,12 @@
     <string name="enter_old_password">Enter old password</string>
     <string name="enter_new_password">Enter new password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="home">Home</string>
+    <string name="add_article">Add Article</string>
+    <string name="profile">profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="aboutus">AboutUs</string>
+    <string name="help_and_support">help and support</string>
+    <string name="about_app">About App</string>
 </resources>

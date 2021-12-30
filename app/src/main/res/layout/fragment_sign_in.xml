@@ -173,21 +173,20 @@
                 android:id="@+id/ForgotPassword_xml"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="252dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/forgot_password"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.128"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_xml" />
-
 
             <TextView
                 android:id="@+id/newAccount_xml"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/new_account"
                 android:textColor="#000000"
@@ -195,10 +194,9 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintHorizontal_bias="0.853"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ForgotPassword_xml"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="@+id/ForgotPassword_xml" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
