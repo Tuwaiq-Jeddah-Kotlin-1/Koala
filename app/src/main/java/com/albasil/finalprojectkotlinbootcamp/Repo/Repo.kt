@@ -122,7 +122,6 @@ class AppRepo(context: Context) {
 
 
     fun upDateUserInfo(upDateName: String, upDatePhoneNumber: String) {
-
         val uId = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("Users")
         upDateUserData.document(uId.toString()).update(
@@ -135,26 +134,22 @@ class AppRepo(context: Context) {
     }
 
 
-    fun getInfo(myID: String):Users{
-
-        val userInfo =Users()
+    fun getUserInfo(myID: String,userInfo :Users): LiveData<Users>{
+        val user = MutableLiveData<Users>()
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").document("$myID")
             .get().addOnCompleteListener { it
 
                 if (it.result?.exists()!!) {
-                    //+++++++++++++++++++++++++++++++++++++++++
-                    val userName = it.result!!.getString("userName").toString()
-//                    userInfo.following = it.result!!.get("following") as Int
-//                    userInfo.followers = it.result!!.get("followers") as Int
-//                    userInfo.userPhone = it.result!!.getString("userPhone").toString()
-
+                    userInfo.userName = it.result!!.getString("userName").toString()
+                    userInfo.userPhone = it.result!!.getString("userPhone").toString()
+                    userInfo.userEmail = it.result!!.getString("userEmail").toString()
+                    userInfo.moreInfo =it.result!!.getString("moreInfo").toString()
                 } else {
-                    Log.e("er45fd5ffror \n", "${userInfo.userName}")
                 }
-
+                user.value= userInfo
             }
-        return userInfo
+        return user
 
     }
 
@@ -169,36 +164,6 @@ class AppRepo(context: Context) {
                 }
             }
         }
-    }
-
-    fun getUserInfo(userID: String) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Users")
-                .document("$userID")
-                .get().addOnCompleteListener {
-                    it
-
-                    if (it.result?.exists()!!) {
-
-                        //+++++++++++++++++++++++++++++++++++++++++
-                        val name = it.result!!.getString("userName")
-                        val userFollowing = it.result!!.get("following")
-                        val userFollowers = it.result!!.get("followers")
-                        val userPhone = it.result!!.getString("userPhone")//moreInfo
-                        val userInfo = it.result!!.getString("moreInfo")//moreInfo
-
-
-                    } else {
-                        Log.e("error \n", "errooooooorr")
-                    }
-                }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-
     }
 
 }

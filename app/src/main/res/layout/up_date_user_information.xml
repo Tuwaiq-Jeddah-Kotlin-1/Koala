@@ -33,6 +33,7 @@
             app:helperText="*"
             app:helperTextTextColor="#FF0000"
             app:layout_constraintEnd_toEndOf="parent"
+            app:counterMaxLength="15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etSignUpEmailLayout"
             app:startIconDrawable="@drawable/ic_person">
@@ -42,6 +43,7 @@
                 android:id="@+id/editTextTextUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="10"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +61,7 @@
             app:counterMaxLength="10"
             app:endIconMode="clear_text"
             app:helperText="*"
+
             app:helperTextTextColor="#FF0000"
 
             app:startIconDrawable="@drawable/ic_phone"
@@ -71,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=""
+                android:inputType="phone"
                 android:maxLength="10"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,5 +90,5 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
-            android:text="update" />
+            android:text="@string/edit" />
     </LinearLayout>

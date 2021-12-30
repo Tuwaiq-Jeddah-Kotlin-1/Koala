@@ -79,7 +79,6 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
         }
 
         if (currentUserUid == holder.userID.toString()) {
-
                 TransitionManager.beginDelayedTransition(holder.editLinear, AutoTransition())
                 holder.editLinear.visibility = View.VISIBLE
         }

@@ -1,15 +1,10 @@
 package com.albasil.finalprojectkotlinbootcamp.ViewModels
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.*
 import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
-import com.albasil.finalprojectkotlinbootcamp.Repo.fireStore
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
-import com.google.firebase.firestore.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -39,10 +34,15 @@ class ProfileViewModel(context: Application) : AndroidViewModel(context) {
     }
 
 
-    fun getUserInformation(myID: String):Users{
-
-     return repo.getInfo(myID)
+    fun getUserInformation(myID: String, userInfo: Users, viewLifecycleOwner: LifecycleOwner):LiveData<Users>{
+        val user = MutableLiveData<Users>()
+     repo.getUserInfo(myID,userInfo).observe(viewLifecycleOwner,{
+         user.postValue(userInfo)
+     })
+        return user
     }
+
+
 
     fun deleteArticle(articleID:String){
         repo.deleteArticle(articleID)

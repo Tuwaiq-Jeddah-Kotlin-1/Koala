@@ -93,70 +93,38 @@ class Setting : Fragment() {
             binding.tvChangePasswordXml.setOnClickListener {
                 dialogChangePassword()
 
-                //showChangeLanguage()
-
             }
-
-
 
             binding.aboutUsId.setOnClickListener {
                 aboutUs()
-
             }
-
 
             binding.helpAndSupportId.setOnClickListener {
                 support()
             }
-
-
             binding.changeLanguagId.setOnClickListener {
-
-
                 dialogChangeLanguage()
-
             }
-
-
-
         }
 
     //------------------------------------------------------------------
-
    private fun dialogChangeLanguage() {
-
         val view: View = layoutInflater.inflate(R.layout.change_langauge, null)
-
         val builder = BottomSheetDialog(requireView().context!!)
         builder.setTitle("Change Language")
-
         val btnChangeLanguage = view.btnChangeLanguage
-        val listItmes = arrayOf("عربي", "English")
-
-
        var radioGroup = view.radioGroup
-
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             var selectedLanguage:RadioButton=view.findViewById(checkedId)
             if (selectedLanguage != null) btnChangeLanguage.setOnClickListener {
-
-                Log.e("language","${selectedLanguage.text.toString()}")
-
-
                 if (selectedLanguage.text.toString()=="Arabic"){
-
                     setLocaleFeather("ar")
-
                 }else if (selectedLanguage.text.toString()=="English"){
                     setLocaleFeather("en")
-
                 }
             }
-
         }
-
         builder.setContentView(view)
-
         btnChangeLanguage.setOnClickListener {
 
             if (view is RadioButton) {
@@ -177,31 +145,26 @@ class Setting : Fragment() {
 
         }
         builder.show()
-
     }
 
 
-
-    //------------------------------------------------------------------
+    //**************************************************
     private fun setLocaleFeather(localeName: String) {
-
-        val locale =Locale(localeName.toString())
+        val locale =Locale(localeName)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale
-
         //---------------------------------------------------------------
         context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
-
         settings = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
         val editor: SharedPreferences.Editor = settings.edit()
         editor.putString("Settings", "${locale.toString()}")
         editor.apply()
-
         val refresh = Intent(context, MainActivity::class.java)
         startActivity(refresh)
     }
+
+
 
 
         //--------------------------------------------------------------------------

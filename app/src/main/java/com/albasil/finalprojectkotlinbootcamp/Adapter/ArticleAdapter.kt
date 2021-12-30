@@ -153,7 +153,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
         }
 
-
         //---------deleteFavorite------------------------------------------------------------------------------------------
         private fun deleteFavorite(articleID: String) {
             val deleteFavoriteArticle = FirebaseFirestore.getInstance()
@@ -166,7 +165,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                         }
                     }
                 }
-
             //-------------deleteFavoriteArticleUser----------------------------------------------------------
             val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
             deleteFavoriteArticleUser.collection("Users").document(userID.toString())

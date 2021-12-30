@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
-        tools:context=".UI.Setting">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ic_launcher_background"
+    app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
+    tools:context=".UI.Setting">
 
 
     <ScrollView
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -34,8 +36,6 @@
                 android:layout_marginTop="16dp"
 
                 android:text="@string/setting"
-
-                android:textColor="#1597E5"
 
 
                 android:textSize="35sp"
@@ -109,8 +109,8 @@
 
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        app:drawableStartCompat="@drawable/ic_language_24"
-                        app:drawableEndCompat="@drawable/ic_arrow_down" />
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_language_24" />
 
                     <View
                         android:id="@+id/divider2"
@@ -141,11 +141,11 @@
 
             <View
                 android:id="@+id/divider6"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/cardSettings"
-                android:background="?android:attr/listDivider" />
+                android:layout_marginTop="15dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@+id/cardSettings" />
 
             <TextView
                 android:id="@+id/aboutApp"
@@ -155,7 +155,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/about_app"
-                android:textColor="#1597E5"
                 android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.192"
@@ -204,8 +203,8 @@
                         android:text="@string/aboutus"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
-                        app:drawableStartCompat="@drawable/ic_unknown_24"
-                        app:drawableEndCompat="@drawable/ic_arrow_down" />
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_unknown_24" />
 
                     <View
                         android:id="@+id/divider3"
@@ -223,9 +222,9 @@
                         android:textColor="#FFFFFF"
 
                         android:textSize="16sp"
-                        tools:ignore="DuplicateIds"
                         app:drawableEndCompat="@drawable/ic_arrow_down"
-                        app:drawableStartCompat="@drawable/ic_help_outline_24" />
+                        app:drawableStartCompat="@drawable/ic_help_outline_24"
+                        tools:ignore="DuplicateIds" />
 
 
                 </LinearLayout>
@@ -257,14 +256,11 @@
 
                     android:layout_marginRight="30dp"
                     android:background="@drawable/logout_style"
-
-
-                    android:drawableEnd="@drawable/ic_ogout_24"
                     android:text="@string/sign_out"
-
                     android:textColor="#FF0000"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/white" />
 
             </LinearLayout>
 

@@ -10,13 +10,10 @@ import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersAdapter
+import com.albasil.finalprojectkotlinbootcamp.Adapter.`FollowersAndFollowingAdapter`
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Users
-import com.albasil.finalprojectkotlinbootcamp.databinding.AboutUsBinding.inflate
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFollowersUserBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserArticleBindingImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -34,7 +31,7 @@ class FollowersUserFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var followersList: ArrayList<Users>
-    private lateinit var followersAdapter: FollowersAdapter
+    private lateinit var aFollowersAndFollowingAdapter: `FollowersAndFollowingAdapter`
 
 
     override fun onCreateView(
@@ -62,9 +59,9 @@ class FollowersUserFragment : Fragment() {
 
         followersList = arrayListOf<Users>()
 
-        followersAdapter = FollowersAdapter(followersList)
+        aFollowersAndFollowingAdapter = `FollowersAndFollowingAdapter`(followersList)
 
-        recyclerView.adapter = followersAdapter
+        recyclerView.adapter = aFollowersAndFollowingAdapter
 
         Toast.makeText(context,"Good",Toast.LENGTH_LONG).show()
         Toast.makeText(context,args.followersOrFollowing.toString(),Toast.LENGTH_LONG).show()
@@ -103,7 +100,7 @@ class FollowersUserFragment : Fragment() {
                         }
                     }
 
-                    followersAdapter.notifyDataSetChanged()
+                    aFollowersAndFollowingAdapter.notifyDataSetChanged()
 
 
                 }
