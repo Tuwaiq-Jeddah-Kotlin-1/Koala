@@ -45,7 +45,7 @@ class AddArticle : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?{
 
         binding = FragmentAddArticleBinding.inflate(inflater, container, false)
         //getUserName()
@@ -121,6 +121,8 @@ class AddArticle : Fragment() {
         }
     }
 
+
+    //VIEW mODEL
      fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -136,6 +138,8 @@ class AddArticle : Fragment() {
         article.articleID=articlePhoto.toString()
 
 
+
+         //view Model
         addArticleViewModel.addArticle(article)
 
         upLoadImage(articlePhoto)

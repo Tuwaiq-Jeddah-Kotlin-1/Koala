@@ -3,19 +3,20 @@ package com.albasil.finalprojectkotlinbootcamp.Repo
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserInfo
+import com.google.firebase.auth.*
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -109,8 +110,7 @@ class AppRepo(context: Context) {
 
             val userInfo = hashMapOf("moreInfo" to "${userInformation}",)
             val userRef = Firebase.firestore.collection("Users")
-            userRef.document("$myID").set(userInfo, SetOptions.merge()).addOnCompleteListener {
-                it
+            userRef.document("$myID").set(userInfo, SetOptions.merge()).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
                     }
@@ -125,10 +125,7 @@ class AppRepo(context: Context) {
         val uId = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("Users")
         upDateUserData.document(uId.toString()).update(
-            "userName",
-            "${upDateName.toString()}",
-            "userPhone",
-            "${upDatePhoneNumber.toString()}"
+            "userName", "${upDateName.toString()}", "userPhone", "${upDatePhoneNumber.toString()}"
         )
 
     }
@@ -164,6 +161,89 @@ class AppRepo(context: Context) {
                 }
             }
         }
+    }
+
+
+
+
+    //-------------------------Settings----------------------------------
+     fun changePassword(
+        oldPassword: String,
+        newPassword: String,
+        confirmNewPassword: String,view:View
+    ) {
+
+        if (oldPassword.isNotEmpty() &&
+            newPassword.isNotEmpty() &&
+            confirmNewPassword.toString().isNotEmpty()
+        ) {
+            Log.e("new password", "${newPassword.toString()}")
+            Log.e("confirmNewPassword", "${confirmNewPassword.toString()}")
+
+            if (newPassword.toString().equals(confirmNewPassword.toString())) {
+
+                val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                val userEmail = FirebaseAuth.getInstance().currentUser!!.email
+                if (user.toString() != null && userEmail.toString() != null) {
+
+                    val credential: AuthCredential = EmailAuthProvider
+                        .getCredential(
+                            "${user?.email.toString()!!}",
+                            "${oldPassword.toString()}"
+                        )
+                    user?.reauthenticate(credential)
+
+                        ?.addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(view.context, "Auth Successful ", Toast.LENGTH_SHORT)
+                                    .show()
+
+
+
+                                //احط متغير
+                                user.updatePassword("${newPassword.toString()}")
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Toast.makeText(view.context, "isSuccessful , Update password", Toast.LENGTH_SHORT).show()
+
+
+                                            view.etOldPassword_xml?.setText("")
+                                            view?.etConfirmNewPassword_xml?.setText("")
+                                            view?.etNewPassword_xml?.setText("")
+
+                                        }
+                                    }
+
+                            } else {
+
+                                Toast.makeText( view.context, "Auth Failed ", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+
+                } else {
+                  /*  Toast.makeText(
+                        view.context,
+                        "كلمة المرور القديمة غير صحيحه ",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
+
+                }
+
+            } else {
+               /* Toast.makeText(
+                    view.context,
+                    "New Password is not equals Confirm New Password.",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+            }
+
+        } else {
+//            Toast.makeText(view.context, "Please enter all the fields", Toast.LENGTH_LONG).show()
+//
+//            Toast.makeText( view.context, "Please enter all the fields", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }
