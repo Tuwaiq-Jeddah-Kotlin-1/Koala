@@ -37,10 +37,6 @@ class UserArticle : Fragment() {
 
         return binding.root
 
-
-
-
-
     }
 
 

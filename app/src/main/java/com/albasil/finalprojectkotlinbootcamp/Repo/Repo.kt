@@ -246,5 +246,38 @@ class AppRepo(context: Context) {
 
     }
 
+
+
+
+    //------------------------------------------------------------------------
+
+
+    fun favoriteArticles(myID: String, articleList: MutableList<Article>
+    ): LiveData<MutableList<Article>> {
+        val article = MutableLiveData<MutableList<Article>>()
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Users").document(myID).collection("Favorite")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.add(dc.document.toObject(Article::class.java))
+                        }
+                    }
+                    article.value = articleList
+                }
+
+            })
+        return article
+    }
+
+
+
+
 }
 

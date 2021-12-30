@@ -16,12 +16,6 @@
             android:id="@+id/action_sign_in_to_setting"
             app:destination="@id/setting" />
         <action
-            android:id="@+id/action_sign_in_to_profile"
-            app:destination="@id/profile" />
-        <action
-            android:id="@+id/action_sign_in_to_homePage"
-            app:destination="@id/homePage" />
-        <action
             android:id="@+id/action_sign_in_to_addArticle"
             app:destination="@id/addArticle" />
         <action
@@ -36,9 +30,6 @@
         android:name="com.albasil.finalprojectkotlinbootcamp.SaginInAndSignUP.SignUP"
         android:label="fragment_sign_u_p"
         tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUP_to_homePage"
-            app:destination="@id/homePage" />
         <action
             android:id="@+id/action_signUP_to_tabBarFragment"
             app:destination="@id/tabBarFragment" />
