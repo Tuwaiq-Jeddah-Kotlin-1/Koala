@@ -1,12 +1,14 @@
 package com.albasil.finalprojectkotlinbootcamp.Repo
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.db
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
@@ -24,12 +26,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
 var fireStore :FirebaseFirestore= FirebaseFirestore.getInstance()
-class AppRepo(context: Context) {
+class AppRepo(val context: Context) {
+
 
     private var imageUrl: Uri? = null
 
@@ -83,10 +87,7 @@ class AppRepo(context: Context) {
     }
 
 
-    fun getAllMyArticles(
-        myID: String,
-        articleList: MutableList<Article>
-    ): LiveData<MutableList<Article>> {
+    fun getAllMyArticles(myID: String, articleList: MutableList<Article>): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
 
         fireStore = FirebaseFirestore.getInstance()
@@ -108,7 +109,6 @@ class AppRepo(context: Context) {
             })
         return article
     }
-
 
     fun addUserInformation(myID: String, userInformation: String) =
         CoroutineScope(Dispatchers.IO).launch {
@@ -152,13 +152,11 @@ class AppRepo(context: Context) {
                 user.value= userInfo
             }
         return user
-
     }
 
     fun deleteArticle(articleID:String){
         val deleteArticle = Firebase.firestore.collection("Articles")
             .document(articleID).delete()
-
         deleteArticle.addOnCompleteListener {
             when {
                 it.isSuccessful -> {
@@ -169,48 +167,30 @@ class AppRepo(context: Context) {
     }
 
 
-
-
     //-------------------------Settings----------------------------------
-     fun changePassword(
-        oldPassword: String,
-        newPassword: String,
-        confirmNewPassword: String,view:View
-    ) {
+     fun changePassword(oldPassword: String, newPassword: String,confirmNewPassword: String,view:View) {
 
-        if (oldPassword.isNotEmpty() &&
-            newPassword.isNotEmpty() &&
-            confirmNewPassword.toString().isNotEmpty()
-        ) {
-            Log.e("new password", "${newPassword.toString()}")
+        if (oldPassword.isNotEmpty() && newPassword.isNotEmpty() && confirmNewPassword.toString().isNotEmpty()) { Log.e("new password", "${newPassword.toString()}")
             Log.e("confirmNewPassword", "${confirmNewPassword.toString()}")
-
             if (newPassword.toString().equals(confirmNewPassword.toString())) {
 
                 val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 val userEmail = FirebaseAuth.getInstance().currentUser!!.email
-                if (user.toString() != null && userEmail.toString() != null) {
 
-                    val credential: AuthCredential = EmailAuthProvider
-                        .getCredential(
-                            "${user?.email.toString()!!}",
-                            "${oldPassword.toString()}"
-                        )
+                if (user.toString() != null && userEmail.toString() != null) {
+                    val credential: AuthCredential = EmailAuthProvider.getCredential("${user?.email.toString()!!}",
+                        "${oldPassword.toString()}")
                     user?.reauthenticate(credential)
 
                         ?.addOnCompleteListener {
                             if (it.isSuccessful) {
                                 Toast.makeText(view.context, "Auth Successful ", Toast.LENGTH_SHORT)
                                     .show()
-
-
-
                                 //احط متغير
                                 user.updatePassword("${newPassword.toString()}")
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             Toast.makeText(view.context, "isSuccessful , Update password", Toast.LENGTH_SHORT).show()
-
 
                                             view.etOldPassword_xml?.setText("")
                                             view?.etConfirmNewPassword_xml?.setText("")
@@ -221,26 +201,26 @@ class AppRepo(context: Context) {
 
                             } else {
 
-                                Toast.makeText( view.context, "Auth Failed ", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText( view.context, " Failed Change Password ", Toast.LENGTH_SHORT).show()
                             }
                         }
 
-                } else {
+                }
+
+                else {
                   /*  Toast.makeText(
                         view.context,
-                        "كلمة المرور القديمة غير صحيحه ",
+              "كلمة المرور القديمة غير صحيحه ",
                         Toast.LENGTH_SHORT
                     ).show()*/
-
                 }
 
             } else {
-               /* Toast.makeText(
-                    view.context,
+               Toast.makeText(
+                    context,
                     "New Password is not equals Confirm New Password.",
                     Toast.LENGTH_SHORT
-                ).show()*/
+                ).show()
             }
 
         } else {
@@ -252,14 +232,11 @@ class AppRepo(context: Context) {
     }
 
 
-
-
     //------------------------------------------------------------------------
 
     fun favoriteArticles(myID: String, articleList: MutableList<Article>
     ): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
-
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Users").document(myID).collection("Favorite")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -279,8 +256,6 @@ class AppRepo(context: Context) {
             })
         return article
     }
-
-
 
     //--------------------editArticleData--------------------------------------------------------
     fun editArticleData(articleID:String,titleArticle:String,descraptaionArticle:String,category:String,view: View){
@@ -302,12 +277,9 @@ class AppRepo(context: Context) {
                     }
                     else -> {
                         Toast.makeText(view.context,"Error to Update ",Toast.LENGTH_SHORT).show()
-
-
                     }
                 }
             }
-
     }
 
     fun editImageArticles(imageArticleID:String,view: View){
@@ -335,22 +307,18 @@ class AppRepo(context: Context) {
     }
 
     //--------------------Article Favorite--------------------------------------------------------------------
-
      fun checkIfFavorite(myID: String,articleID: String,view:View) {
-
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").document(myID)
             .collection("Favorite").document(articleID).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
-
+                    view.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
                 } else {
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
+                    view.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
                 }
             }
     }
-
     //---------------------------------------
      fun upDateFavorite(myID:String,articleID: String,userID: String,view: View) {
         //check in the fireStore
@@ -366,15 +334,12 @@ class AppRepo(context: Context) {
                 } else {
 
                     addFavorite(articleID,userID)
-
-
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
 
 
                 }
             }
     }
-
 
     //---------deleteFavorite------------------------------------------------------------------------------------------
     fun deleteFavorite(myID: String,articleID: String) {
@@ -402,7 +367,6 @@ class AppRepo(context: Context) {
             }
         numberOfFavorite(articleID)
     }
-
 
     //---------------addFavorite-------------------------------------------------------------------------------------------
     private fun addFavorite(articleID: String, userID:String) {
@@ -432,7 +396,6 @@ class AppRepo(context: Context) {
                     .document("${userId.toString()}").set(addFavorite)
                 //---------------------------------------------------------------------------------
 
-
                 //delete ...
                 numberOfFavorite(articleID)
 
@@ -452,19 +415,77 @@ class AppRepo(context: Context) {
 
 
 
-    //------------------------------------------------------------------------------------------
-    fun articleData(userName: String, category: String, title: String,articlePhoto: String, articleDate: String) {
-        val article = Article()
-        article.userName = userName.toString()
-        article.category = category.toString()
-        article.date = articleDate
-        article.title = title.toString()
-        article.articleImage = articlePhoto.toString()
-        article.articleID = articlePhoto.toString()
+//-----------------Profile--------------------------------------
+    fun getUserPhoto(): File {
+
+        val imageName = "${FirebaseAuth.getInstance().currentUser?.uid}"
+
+        val storageRef = FirebaseStorage.getInstance().reference
+            .child("imagesUsers/$imageName")
+
+        val localFile = File.createTempFile("tempImage", "jpg")
+        storageRef.getFile(localFile).addOnSuccessListener {
+
+            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+
+//            binding.userImageProfileXml.load(bitmap)
+            //  binding.userImageProfileXml.load(localFile)
+
+        }.addOnFailureListener {
+            Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
+        }
+        return localFile
+    }
 
 
 
-        Log.e("TAG","USER ID : ${article.userId}")
+    //-----------------Home Page------------------------------------------------------------
+
+    //----------------------getAllMyArticles-----------------------------------
+    fun getAllArticles(articleList: MutableList<Article>): LiveData<MutableList<Article>> {
+        val article = MutableLiveData<MutableList<Article>>()
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").orderBy("date", Query.Direction.DESCENDING)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.add(dc.document.toObject(Article::class.java))
+                        }
+                    }
+                    article.value = articleList
+                }
+            })
+
+        return article
+    }
+
+
+    fun removeAllArticles(articleList: MutableList<Article>): LiveData<MutableList<Article>> {
+        val article = MutableLiveData<MutableList<Article>>()
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Articles").orderBy("date", Query.Direction.DESCENDING)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.remove(dc.document.toObject(Article::class.java))
+                        }
+                    }
+                    article.value = articleList
+                }
+            })
+
+        return article
     }
 
 

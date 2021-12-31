@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.item_article.*
 import kotlinx.android.synthetic.main.item_article_user_profile.*
 import kotlinx.android.synthetic.main.up_date_user_information.view.*
@@ -71,11 +72,11 @@ class Profile : Fragment() {
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
 
-        //---------------------------------------------------
+        //--------------User Photo-------------------------------------
+
         getUserPhoto()
 
-
-        //---------------------------------------------------------------------------------------------
+        //----------------------------getUserInformation-----------------------------------------------------------------
         userInfo= Users()
         profileViewModel.getUserInformation(myID.toString(),userInfo,viewLifecycleOwner).observe(viewLifecycleOwner,{
             binding.userNameXml.text = userInfo.userName
@@ -91,7 +92,7 @@ class Profile : Fragment() {
         articleAdapter = ArticleUserProfileAdapter(articleList)
         binding.userProfileRecyclerViewXml.adapter = articleAdapter
 
-        //---------------------------------------------------------
+        //----------------------getAllMyArticles-----------------------------------
 
         profileViewModel.getAllMyArticles(myID.toString(), articleList, viewLifecycleOwner)
             .observe(viewLifecycleOwner, {
@@ -170,7 +171,9 @@ class Profile : Fragment() {
             isCurrentlyActive: Boolean
         ) {
             RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-               // .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#F4F4F4"))
+                .addSwipeLeftBackgroundColor(R.color.teal_200)
+                .addSwipeRightBackgroundColor(android.graphics.Color.parseColor("#F4F4F4"))
+                .addSwipeRightActionIcon(R.drawable.ic_delete_24)
                 .addSwipeLeftActionIcon(R.drawable.ic_delete_24)
                 .create().decorate()
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -266,18 +269,16 @@ class Profile : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
-
             imageUrl = data?.data!!
 
             binding.userImageProfileXml.setImageURI(imageUrl)
-
             //*******************************************************
-
             upLoadImage()
         }
 
     }
 
+    //repo or fire storage
     fun upLoadImage() {
 
         //-----------UID------------------------
@@ -286,18 +287,17 @@ class Profile : Fragment() {
 //        val progressDialog = ProgressDialog(context)
 //        progressDialog.setMessage("Uploading File ...")
 //        progressDialog.setCancelable(false)
-//
 //        progressDialog.show()
 
         val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${uId}")
 
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
-                Toast.makeText(context, "uploading image", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(context, "uploading image", Toast.LENGTH_SHORT).show()
 
 //                if (progressDialog.isShowing) progressDialog.dismiss()
 
-                getUserPhoto()
+             //   getUserPhoto()
 
 
             }.addOnFailureListener {

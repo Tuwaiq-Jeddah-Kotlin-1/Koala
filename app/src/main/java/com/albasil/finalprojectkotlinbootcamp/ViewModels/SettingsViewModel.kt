@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
@@ -17,7 +18,12 @@ import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.change_langauge.view.*
+import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -25,9 +31,9 @@ import java.util.zip.Inflater
 
 class SettingsViewModel(context: Application) : AndroidViewModel(context) {
 
-    val repo : AppRepo = AppRepo(context)
+    val repo: AppRepo = AppRepo(context)
 
-    private lateinit var settings :SharedPreferences
+    private lateinit var settings: SharedPreferences
 /*
     private fun dialogChangeLanguage(context:Context) {
         val view: View =this.viewModelScope(R.layout.change_langauge, null)
@@ -70,34 +76,38 @@ class SettingsViewModel(context: Application) : AndroidViewModel(context) {
 */
 
     //**************************************************
-    private fun setLocaleFeather(localeName: String,context:Context) {
+    private fun setLocaleFeather(localeName: String, context: Context) {
         val locale = Locale(localeName)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale
         //---------------------------------------------------------------
-        context?.resources?.updateConfiguration(config,context.resources.displayMetrics)
+        context?.resources?.updateConfiguration(config, context.resources.displayMetrics)
         settings = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = settings.edit()
         editor.putString("Settings", "${locale.toString()}")
         editor.apply()
         val refresh = Intent(context, MainActivity::class.java)
-        startActivity(context,refresh,refresh.extras)
+        startActivity(context, refresh, refresh.extras)
     }
-
-
 
 
     // Change Password
-    fun changePassword( oldPassword: String, newPassword: String, confirmNewPassword: String,view:View){
-        viewModelScope.launch (Dispatchers.IO){
-            repo.changePassword(oldPassword,newPassword,confirmNewPassword,view)
+    fun changePassword(
+        oldPassword: String,
+        newPassword: String,
+        confirmNewPassword: String,
+        view: View
+    ) {
 
-        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.changePassword(oldPassword, newPassword, confirmNewPassword, view)
+
+        }}
+
     }
 
 
 
 
-
-}

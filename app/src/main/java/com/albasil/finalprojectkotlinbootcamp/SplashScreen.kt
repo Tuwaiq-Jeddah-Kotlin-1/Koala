@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
 import androidx.navigation.fragment.findNavController
 
@@ -28,7 +29,11 @@ class SplashScreen : Fragment() {
         Handler().postDelayed({
             if(viewModel.hasInternetConnection()){
                 findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
+            }else{
+                Toast.makeText(context, "No Internet !!!!", Toast.LENGTH_SHORT).show()
             }
+            findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
+
         }, 5000)
         //5000)*
     }

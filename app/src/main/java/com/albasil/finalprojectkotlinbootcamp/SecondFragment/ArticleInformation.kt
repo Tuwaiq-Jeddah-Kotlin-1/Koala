@@ -52,16 +52,9 @@ class ArticleInformation : Fragment() {
 
         getArtciclePhoto(args.articleData.articleImage.toString())
 
-
-
-        Toast.makeText(context, "Userid ${args.articleData.userId}", Toast.LENGTH_SHORT).show()
         //يتاكد اذا في المفضلة او لا
-       //checkIfFavorite(args.articleData.articleImage.toString())
        articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleImage.toString(),view)
 
-
-        Log.e("args.articleData.articleImage.toString()", "${args.articleData.articleID.toString()}"
-        )
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
             articleInformationViewModel.udDateFavorite(myID.toString(),args.articleData.articleImage.toString().toString(),args.articleData.userId,view)
@@ -76,150 +69,9 @@ class ArticleInformation : Fragment() {
         return view
     }
 
-    //--------delete---------------------------------------------
-    private fun checkIfFavorite(articleID: String) {
-
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
-
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document("$uId")
-            .collection("Favorite").document(articleID).get()
-            .addOnCompleteListener {
-                if (it.result?.exists()!!) {
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
-
-                } else {
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
-                }
-            }
-    }
-
-    //---------deleteFavorite------------------------------------------------------------------------------------------
-    fun deleteFavorite(articleID: String) {
-        val deleteFavoriteArticle = FirebaseFirestore.getInstance()
-        deleteFavoriteArticle.collection("Articles").document(articleID)
-            .collection("Favorite").document("${myID.toString()}").delete()
-            .addOnCompleteListener {
-                when {
-                    it.isSuccessful -> {
-                        Log.e("Delete Article ", "Delete From Articles Favorite")
-                    }
-                }
-            }
-
-        //-------------deleteFavoriteArticleUser----------------------------------------------------------
-        val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
-        deleteFavoriteArticleUser.collection("Users").document(myID.toString())
-            .collection("Favorite").document("${articleID.toString()}").delete()
-            .addOnCompleteListener {
-                when {
-                    it.isSuccessful -> {
-                        Log.e("Delete Article ", "Delete From User Favorite")
-                    }
-                }
-            }
-        numberOfFavorite(articleID)
-    }
 
 
-    //---------------addFavorite-------------------------------------------------------------------------------------------
-    private fun addFavorite(articleID: String, article: Article) {
-        val addFavorite = hashMapOf(
-            "articleID" to "${article.articleID}",
-            "userId" to "${article.userId}",
-        )
-        //---------------------------------------------------------------------------------
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val articleRef = Firebase.firestore.collection("Users")
-        articleRef.document(userId.toString()).collection("Favorite")
-            .document("${articleID.toString()}")
-            .set(addFavorite).addOnCompleteListener {
-                it
-                when {
-                    it.isSuccessful -> {
-                        Log.d("Add Article", "Done to add User Favorite")
-                    }
-                    else -> {
-                        Log.d("Error", "is not Successful fire store")
-                    }
-                }
-
-                //---------------------------------------------------------------------------------
-                val addToArticle = Firebase.firestore.collection("Articles")
-                addToArticle.document(articleID.toString()).collection("Favorite")
-                    .document("${userId.toString()}").set(addFavorite)
-                //---------------------------------------------------------------------------------
-
-
-                //delete ...
-                numberOfFavorite(articleID)
-
-            }
-    }
-
-    private fun numberOfFavorite(articleID: String) {
-        db.collection("Articles").document(articleID)
-            .collection("Favorite").get()
-            .addOnSuccessListener {
-                var numberOfFavorite = it.size()
-                val userRef = Firebase.firestore.collection("Articles")
-                userRef.document("$articleID").update("like", numberOfFavorite)
-
-            }
-    }
-
-
-    //---------------------------------------
-    private fun upDateFavorite(articleID: String) {
-        //check in the fireStore
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document("$myID")
-            .collection("Favorite").document(articleID.toString()).get()
-            .addOnCompleteListener {
-                if (it.result?.exists()!!) {
-
-                    deleteFavorite(articleID)
-
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
-
-                } else {
-                    articleData(
-                        view?.userNameInfo_xml?.text.toString(),
-                        "${view?.articleCategoryInfo_xml?.text.toString()}",
-                        "${view?.titleArticleInfo_xml?.text.toString()}",
-                        "${view?.articleDescraptionInfo_xml?.text}",
-                        "${args.articleData.articleImage.toString()}",
-                        view?.articleDateInfo_xml?.text.toString()
-                    )
-
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
-
-
-                }
-            }
-    }
-
-
-    //------------------------------------------------------------------------------------------
-    fun articleData(userName: String, category: String, title: String, description: String, articlePhoto: String, articleDate: String) {
-        val article = Article()
-        article.userName = userName.toString()
-        article.category = category.toString()
-        article.userId = myID.toString()
-        article.date = articleDate
-        article.description = description.toString()
-        article.title = title.toString()
-        article.articleImage = articlePhoto.toString()
-        article.articleID = articlePhoto.toString()
-
-        // addUserFavorite(article)
-
-        addFavorite(article.articleID, article)
-    }
-
-
-
-    //------------------------------------------------------------------
+    //---------------Share Article---------------------------------------------------
     fun shareArticle(titleArticle: String, subjectArticle: String) {
 
         val shareArticle = Intent(Intent.ACTION_SEND)
@@ -230,6 +82,10 @@ class ArticleInformation : Fragment() {
 
         startActivity(shareArticle)
     }
+
+
+
+
 
     fun getArtciclePhoto(imagePath: String) {
 

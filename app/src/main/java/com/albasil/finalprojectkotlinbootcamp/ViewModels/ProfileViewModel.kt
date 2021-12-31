@@ -7,6 +7,7 @@ import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 
 class ProfileViewModel(context: Application) : AndroidViewModel(context) {
     val repo: AppRepo = AppRepo(context)
@@ -51,12 +52,22 @@ class ProfileViewModel(context: Application) : AndroidViewModel(context) {
 
 
 
+    //i can add article after deleted
     fun addArticle(article: Article) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.addArticleToFirestore(article)
 
         }
     }
+
+
+    fun getUserProfile(): File {
+
+        return repo.getUserPhoto()
+    }
+
+
+
 
 }
 

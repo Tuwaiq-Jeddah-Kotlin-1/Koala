@@ -124,7 +124,6 @@ class AddArticle : Fragment() {
     }
 
 
-    //VIEW mODEL
      fun articleData(category:String,title: String,description:String, articlePhoto: String){
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -148,7 +147,6 @@ class AddArticle : Fragment() {
 
     }
 
-
     //images
     private fun selectImage(){
         val intent = Intent()
@@ -165,7 +163,6 @@ class AddArticle : Fragment() {
             binding.articlerPhotoXml.setImageURI(imageUrl)
         }
     }
-
     fun upLoadImage(imageId:String){
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
         imageUrl?.let {
