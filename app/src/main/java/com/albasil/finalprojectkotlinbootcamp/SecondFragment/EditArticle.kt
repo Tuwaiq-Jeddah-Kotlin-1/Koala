@@ -1,12 +1,11 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +13,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.EditArticleViewModel
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentEditArticleBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.android.synthetic.main.fragment_edit_article.view.*
 import java.io.File
 import java.time.LocalDateTime
@@ -35,10 +32,9 @@ class EditArticle : Fragment() {
     private val args by navArgs<EditArticleArgs>()
     lateinit var binding: FragmentEditArticleBinding
     private  var imageUrl : Uri?=null
-
-
     lateinit var categorySelected:String
 
+    private lateinit var editArticleViewModel:EditArticleViewModel
 
 
 
@@ -63,6 +59,7 @@ class EditArticle : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        editArticleViewModel = ViewModelProvider(this).get(EditArticleViewModel::class.java)
 
 
 
@@ -72,9 +69,7 @@ class EditArticle : Fragment() {
         binding.editSpinnerCategoryXml.setText("${args.editArticle.category.toString()}")
         categorySelected=args.editArticle.category.toString()
 
-        getUserPhoto2("${args.editArticle.articleID.toString()}")
-
-
+        getUserPhoto("${args.editArticle.articleID.toString()}")
 
         //-------------------------------------------------------------------
 
@@ -84,10 +79,6 @@ class EditArticle : Fragment() {
             selectImage()
 
         }
-
-
-
-
         //---------------------------------------------------------------------
 
 
@@ -100,7 +91,6 @@ class EditArticle : Fragment() {
             AdapterView.OnItemClickListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-
                 categorySelected = "${category[position]}"
 
             }
@@ -108,9 +98,7 @@ class EditArticle : Fragment() {
 
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
-
                 categorySelected = "${category[position]}"
-               Toast.makeText(context,"you selected :  ${category[position]}",Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -120,16 +108,27 @@ class EditArticle : Fragment() {
 
 
         binding.btnUpDateArticleXml.setOnClickListener {
+            when {
+                TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
+                    binding.tvEditTitleArticleXml.helperText="Title Article is null"
+                }
+                TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
+                    binding.tvEditDescraptaionArticleXml.helperText="Descraptaion Article is null"
+                }
+                else -> {
+                    if (categorySelected.isNullOrEmpty()){
+                        Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
+                    }else{
+                        editArticleViewModel.editArticle("${args.editArticle.articleID.toString()}",
+                            "${binding.etTitleArticleXml.text.toString()}"
+                            ,"${binding.etDescraptaionArticleXml.text.toString()}",categorySelected.toString(),view)
 
+                       upLoadImage(args.editArticle.articleID.toString())
 
-            editArticleData("${args.editArticle.articleID.toString()}",
-                "${binding.etTitleArticleXml.text.toString()}"
-                ,"${binding.etDescraptaionArticleXml.text.toString()}",categorySelected.toString())
-
+                    }
+                }
+            }
         }
-
-
-
     }
 
 
@@ -160,7 +159,7 @@ class EditArticle : Fragment() {
 
     }
 
-    fun upLoadImage(uIdCategory:String){
+    fun upLoadImage(imageArticleID:String){
 
       /* val progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Uploading File ...")
@@ -168,8 +167,7 @@ class EditArticle : Fragment() {
 
         progressDialog.show()*/
 
-
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
+        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageArticleID}")
 
         imageUrl?.let {
             storageReference.putFile(it)
@@ -189,50 +187,11 @@ class EditArticle : Fragment() {
 
 
 
-    //-----------------------------------------
-    fun checkEditText(){
-
-    }
-    fun editArticleData(articleID:String,TitleArticle:String,DescraptaionArtic:String,category:String){
-// Date
-        val current = LocalDateTime.now()
-
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-        val formatted = current.format(formatter)
-        val upDateUser= hashMapOf(
-            "title" to TitleArticle.toString(),
-            "description" to DescraptaionArtic,
-            "date" to formatted,
-            "category" to category
-        )
-
-        val userRef = Firebase.firestore.collection("Articles")
-        userRef.document("${articleID}").set(upDateUser, SetOptions.merge()).addOnCompleteListener { it
-            when {
-                it.isSuccessful -> {
-                    //getUserInfo("${uId}")
-
-                    upLoadImage(articleID)
-                    Toast.makeText(context,"UpDate ",Toast.LENGTH_SHORT).show()
-
-                }
-                else -> {
-                    Toast.makeText(context,"Error to Update ",Toast.LENGTH_SHORT).show()
-
-
-                }
-            }
-        }
-
-    }
 
 
 
 
-
-
-    fun getUserPhoto2(articleImagePath:String){
+    fun getUserPhoto(articleImagePath:String){
 
 
         val imageName = "${articleImagePath.toString()}"

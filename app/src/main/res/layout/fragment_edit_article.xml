@@ -94,7 +94,6 @@
                     android:layout_height="wrap_content"
 
                     android:lines="3"
-                    android:textColor="@color/black"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,9 +101,7 @@
                 android:id="@+id/inputEditTextCategory_xml"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textColorHint="@color/black"
 
 
                 app:helperTextTextColor="#FF0000"
@@ -122,7 +119,6 @@
                 <AutoCompleteTextView
                     android:hint="@string/categories"
 
-                    android:textColor="@color/black"
                     android:id="@+id/editSpinnerCategoryXml"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -140,7 +136,6 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="15dp"
-
                 android:src="@drawable/ic_photo_camera"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"

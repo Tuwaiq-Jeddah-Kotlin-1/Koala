@@ -22,7 +22,6 @@ import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBindin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-
 class FavoriteFragment : Fragment() {
     val myID = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -31,7 +30,6 @@ class FavoriteFragment : Fragment() {
     private lateinit var articleList: ArrayList<Article>
     private lateinit var articleAdapter: FavoriteAdapter
     private lateinit var fireStore: FirebaseFirestore
-
     private lateinit var favoriteViewModel: FavoriteViewModel
 
 
@@ -50,11 +48,8 @@ class FavoriteFragment : Fragment() {
         recyclerView = view.findViewById(R.id.favoriteArticleRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
-
         articleList = arrayListOf<Article>()
-
         articleAdapter = FavoriteAdapter(articleList)
-
         recyclerView.adapter = articleAdapter
 
 
@@ -66,9 +61,5 @@ class FavoriteFragment : Fragment() {
                 recyclerView.adapter = FavoriteAdapter(articleList)
                 articleAdapter.notifyDataSetChanged()
             })
-
     }
-
-
-
 }

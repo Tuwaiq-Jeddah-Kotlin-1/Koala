@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AddArticle : Fragment() {
 
@@ -114,7 +115,8 @@ class AddArticle : Fragment() {
                         articleData("${categorySelected.toString()}"
                             ,"${binding.etTitleArticleXml.text.toString()}"
                             ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                            ,"${currentUser}${formatted2}")
+                            ,UUID.randomUUID().toString())
+                    //${currentUser}${formatted2}
 
                 }
             }

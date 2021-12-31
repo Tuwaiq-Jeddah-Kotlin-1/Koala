@@ -21,6 +21,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 var fireStore :FirebaseFirestore= FirebaseFirestore.getInstance()
@@ -251,7 +253,6 @@ class AppRepo(context: Context) {
 
     //------------------------------------------------------------------------
 
-
     fun favoriteArticles(myID: String, articleList: MutableList<Article>
     ): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
@@ -274,6 +275,60 @@ class AppRepo(context: Context) {
 
             })
         return article
+    }
+
+
+
+    //--------------------editArticleData--------------------------------------------------------
+    fun editArticleData(articleID:String,titleArticle:String,descraptaionArticle:String,category:String,view: View){
+//
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+        val formatted = current.format(formatter)
+        val userRef = Firebase.firestore.collection("Articles")
+        userRef.document("${articleID}")
+            .update("title",titleArticle,"description",descraptaionArticle,
+                "date",formatted,"category",category).addOnCompleteListener { it
+                when {
+                    it.isSuccessful -> {
+
+                           Toast.makeText(view.context,"UpDate ",Toast.LENGTH_SHORT).show()
+
+                    }
+                    else -> {
+                        Toast.makeText(view.context,"Error to Update ",Toast.LENGTH_SHORT).show()
+
+
+                    }
+                }
+            }
+
+    }
+
+    fun editImageArticles(imageArticleID:String,view: View){
+        /* val progressDialog = ProgressDialog(context)
+          progressDialog.setMessage("Uploading File ...")
+          progressDialog.setCancelable(false)
+          progressDialog.show()*/
+        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageArticleID}")
+        imageUrl?.let {
+            storageReference.putFile(it)
+                .addOnSuccessListener {
+                    //   userImage.setImageURI(null)
+                    //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+
+                    //    if (progressDialog.isShowing)progressDialog.dismiss()
+
+                    Toast.makeText(view.context,"Its upload image to firestorage",Toast.LENGTH_SHORT).show()
+
+
+                }.addOnFailureListener{
+                    //   if (progressDialog.isShowing)progressDialog.dismiss()
+                    Toast.makeText(view.context,"Failed",Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
 
