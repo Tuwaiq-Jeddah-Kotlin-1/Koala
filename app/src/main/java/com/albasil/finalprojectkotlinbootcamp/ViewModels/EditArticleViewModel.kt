@@ -21,10 +21,4 @@ class EditArticleViewModel(context: Application) : AndroidViewModel(context) {
 
         }
     }
-
-
-
-
-
-
 }

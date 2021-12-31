@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.albasil.finalprojectkotlinbootcamp.Adapter.db
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
+import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.*
@@ -17,6 +19,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
+import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -330,6 +333,141 @@ class AppRepo(context: Context) {
                 }
         }
     }
+
+    //--------------------Article Favorite--------------------------------------------------------------------
+
+     fun checkIfFavorite(myID: String,articleID: String,view:View) {
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Users").document(myID)
+            .collection("Favorite").document(articleID).get()
+            .addOnCompleteListener {
+                if (it.result?.exists()!!) {
+                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
+
+                } else {
+                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
+                }
+            }
+    }
+
+    //---------------------------------------
+     fun upDateFavorite(myID:String,articleID: String,userID: String,view: View) {
+        //check in the fireStore
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Users").document(myID)
+            .collection("Favorite").document(articleID).get()
+            .addOnCompleteListener {
+                if (it.result?.exists()!!) {
+
+                    deleteFavorite(myID,articleID)
+                    view.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
+
+                } else {
+
+                    addFavorite(articleID,userID)
+
+
+                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
+
+
+                }
+            }
+    }
+
+
+    //---------deleteFavorite------------------------------------------------------------------------------------------
+    fun deleteFavorite(myID: String,articleID: String) {
+        val deleteFavoriteArticle = FirebaseFirestore.getInstance()
+        deleteFavoriteArticle.collection("Articles").document(articleID)
+            .collection("Favorite").document("${myID.toString()}").delete()
+            .addOnCompleteListener {
+                when {
+                    it.isSuccessful -> {
+                        Log.e("Delete Article ", "Delete From Articles Favorite")
+                    }
+                }
+            }
+
+        //-------------deleteFavoriteArticleUser----------------------------------------------------------
+        val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
+        deleteFavoriteArticleUser.collection("Users").document(myID.toString())
+            .collection("Favorite").document("${articleID.toString()}").delete()
+            .addOnCompleteListener {
+                when {
+                    it.isSuccessful -> {
+                        Log.e("Delete Article ", "Delete From User Favorite")
+                    }
+                }
+            }
+        numberOfFavorite(articleID)
+    }
+
+
+    //---------------addFavorite-------------------------------------------------------------------------------------------
+    private fun addFavorite(articleID: String, userID:String) {
+        val addFavorite = hashMapOf(
+            "articleID" to articleID,
+            "userId" to userID,
+        )
+        //---------------------------------------------------------------------------------
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val articleRef = Firebase.firestore.collection("Users")
+        articleRef.document(userId.toString()).collection("Favorite")
+            .document("${articleID.toString()}")
+            .set(addFavorite).addOnCompleteListener {
+                it
+                when {
+                    it.isSuccessful -> {
+                        Log.d("Add Article", "Done to add User Favorite")
+                    }
+                    else -> {
+                        Log.d("Error", "is not Successful fire store")
+                    }
+                }
+
+                //---------------------------------------------------------------------------------
+                val addToArticle = Firebase.firestore.collection("Articles")
+                addToArticle.document(articleID.toString()).collection("Favorite")
+                    .document("${userId.toString()}").set(addFavorite)
+                //---------------------------------------------------------------------------------
+
+
+                //delete ...
+                numberOfFavorite(articleID)
+
+            }
+    }
+
+    private fun numberOfFavorite(articleID: String) {
+        db.collection("Articles").document(articleID)
+            .collection("Favorite").get()
+            .addOnSuccessListener {
+                var numberOfFavorite = it.size()
+                val userRef = Firebase.firestore.collection("Articles")
+                userRef.document("$articleID").update("like", numberOfFavorite)
+
+            }
+    }
+
+
+
+    //------------------------------------------------------------------------------------------
+    fun articleData(userName: String, category: String, title: String,articlePhoto: String, articleDate: String) {
+        val article = Article()
+        article.userName = userName.toString()
+        article.category = category.toString()
+        article.date = articleDate
+        article.title = title.toString()
+        article.articleImage = articlePhoto.toString()
+        article.articleID = articlePhoto.toString()
+
+
+
+        Log.e("TAG","USER ID : ${article.userId}")
+    }
+
+
 
 
 

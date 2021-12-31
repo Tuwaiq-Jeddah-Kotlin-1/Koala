@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.db
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.ArticleInformationViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -23,67 +26,57 @@ import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import java.io.File
 
 class ArticleInformation : Fragment() {
-    val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    private lateinit var articleInformationViewModel: ArticleInformationViewModel
+
+    val myID = FirebaseAuth.getInstance().currentUser?.uid
 
     private var likesCounter: Int = 0
-
-
     private val args by navArgs<ArticleInformationArgs>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_article_information, container, false)
 
+        articleInformationViewModel = ViewModelProvider(this).get(ArticleInformationViewModel::class.java)
         //------------------------------------------------------------------------
         view.titleArticleInfo_xml.text = " ${args.articleData.title.toString()}"
         view.userNameInfo_xml.text = " ${args.articleData.userName.toString()}"
         view.articleDateInfo_xml.text = " ${args.articleData.date.toString()}"
         view.articleCategoryInfo_xml.text = " ${args.articleData.category.toString()}"
         view.articleDescraptionInfo_xml.text = " ${args.articleData.description.toString()}"
-
-
+        //------------------------------------------------------------------------
 
         likesCounter = args.articleData.like.toInt()
 
-
-        if (args.articleData.articleImage.toString().isNullOrEmpty()) {
-            Toast.makeText(
-                context,
-                " if (args.articleData.articleImage.toString().isNullOrEmpty()){",
-                Toast.LENGTH_LONG
-            ).show()
-        }
         getArtciclePhoto(args.articleData.articleImage.toString())
 
 
+
+        Toast.makeText(context, "Userid ${args.articleData.userId}", Toast.LENGTH_SHORT).show()
         //يتاكد اذا في المفضلة او لا
-        checkIfFavorite(args.articleData.articleImage.toString())
-        Log.e(
-            "args.articleData.articleImage.toString()",
-            "${args.articleData.articleID.toString()}"
+       //checkIfFavorite(args.articleData.articleImage.toString())
+       articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleImage.toString(),view)
+
+
+        Log.e("args.articleData.articleImage.toString()", "${args.articleData.articleID.toString()}"
         )
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
-
-            upDateFavorite(args.articleData.articleImage.toString())
+            articleInformationViewModel.udDateFavorite(myID.toString(),args.articleData.articleImage.toString().toString(),args.articleData.userId,view)
+         //   upDateFavorite(args.articleData.articleImage.toString())
 
         }
 
         view.shearArticle_xml.setOnClickListener {
-
-            shareArticle(
-                "${view.titleArticleInfo_xml.text}",
-                "${view.articleDescraptionInfo_xml.text}"
-            )
+            shareArticle("${view.titleArticleInfo_xml.text}", "${view.articleDescraptionInfo_xml.text}")
         }
-
 
         return view
     }
 
-    //---------------------------------------------------------------------
+    //--------delete---------------------------------------------
     private fun checkIfFavorite(articleID: String) {
 
         val uId = FirebaseAuth.getInstance().currentUser?.uid
@@ -103,10 +96,9 @@ class ArticleInformation : Fragment() {
 
     //---------deleteFavorite------------------------------------------------------------------------------------------
     fun deleteFavorite(articleID: String) {
-        userId
         val deleteFavoriteArticle = FirebaseFirestore.getInstance()
         deleteFavoriteArticle.collection("Articles").document(articleID)
-            .collection("Favorite").document("${userId.toString()}").delete()
+            .collection("Favorite").document("${myID.toString()}").delete()
             .addOnCompleteListener {
                 when {
                     it.isSuccessful -> {
@@ -117,7 +109,7 @@ class ArticleInformation : Fragment() {
 
         //-------------deleteFavoriteArticleUser----------------------------------------------------------
         val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
-        deleteFavoriteArticleUser.collection("Users").document(userId.toString())
+        deleteFavoriteArticleUser.collection("Users").document(myID.toString())
             .collection("Favorite").document("${articleID.toString()}").delete()
             .addOnCompleteListener {
                 when {
@@ -181,7 +173,7 @@ class ArticleInformation : Fragment() {
     private fun upDateFavorite(articleID: String) {
         //check in the fireStore
         val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document("$userId")
+        db.collection("Users").document("$myID")
             .collection("Favorite").document(articleID.toString()).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
@@ -189,7 +181,6 @@ class ArticleInformation : Fragment() {
                     deleteFavorite(articleID)
 
                     view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_favorite_border)
-
 
                 } else {
                     articleData(
@@ -210,30 +201,25 @@ class ArticleInformation : Fragment() {
 
 
     //------------------------------------------------------------------------------------------
-    fun articleData(
-        userName: String,
-        category: String,
-        title: String,
-        description: String,
-        articlePhoto: String,
-        articleDate: String
-    ) {
+    fun articleData(userName: String, category: String, title: String, description: String, articlePhoto: String, articleDate: String) {
         val article = Article()
         article.userName = userName.toString()
         article.category = category.toString()
-        article.userId = userId.toString()
+        article.userId = myID.toString()
         article.date = articleDate
         article.description = description.toString()
         article.title = title.toString()
         article.articleImage = articlePhoto.toString()
         article.articleID = articlePhoto.toString()
 
-
         // addUserFavorite(article)
 
         addFavorite(article.articleID, article)
     }
 
+
+
+    //------------------------------------------------------------------
     fun shareArticle(titleArticle: String, subjectArticle: String) {
 
         val shareArticle = Intent(Intent.ACTION_SEND)
@@ -245,29 +231,20 @@ class ArticleInformation : Fragment() {
         startActivity(shareArticle)
     }
 
-
     fun getArtciclePhoto(imagePath: String) {
-
 
         val imageName = "${imagePath.toString()}"
 
         val storageRef = FirebaseStorage.getInstance().reference
             .child("/imagesArticle/$imageName")
 
-
         val localFile = File.createTempFile("tempImage", "*")//jpg
-
         storageRef.getFile(localFile).addOnSuccessListener {
 
-
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-
             view?.articlePhotoInfo_xml?.load(bitmap)
 
-
         }.addOnFailureListener {
-
-
             //   Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }

@@ -49,8 +49,6 @@ class EditArticle : Fragment() {
         binding = FragmentEditArticleBinding.inflate(inflater,container,false)
 
 
-
-
         return binding.root
 
     }
@@ -60,8 +58,6 @@ class EditArticle : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         editArticleViewModel = ViewModelProvider(this).get(EditArticleViewModel::class.java)
-
-
 
         binding.tvEditDateXml.text = " ${args.editArticle.date.toString()}"
         binding.etTitleArticleXml.setText("${args.editArticle.title.toString()}")
@@ -80,7 +76,6 @@ class EditArticle : Fragment() {
 
         }
         //---------------------------------------------------------------------
-
 
         val category = resources.getStringArray(R.array.categories)
 
@@ -101,8 +96,6 @@ class EditArticle : Fragment() {
                 categorySelected = "${category[position]}"
             }
         }
-
-
 
         //----------------------------------------------------------------------
 

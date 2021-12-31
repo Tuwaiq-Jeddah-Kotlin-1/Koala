@@ -1,32 +1,33 @@
 package com.albasil.finalprojectkotlinbootcamp.ViewModels
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.view.View
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-
-class AddArticleViewModel(context: Application) : AndroidViewModel(context) {
+class ArticleInformationViewModel (context: Application) : AndroidViewModel(context) {
     val repo : AppRepo = AppRepo(context)
-    // add to firebase
-     fun addArticle(article: Article){
+
+    fun checkIfFavorite(myID: String,articleID: String,view:View){
         viewModelScope.launch (Dispatchers.IO){
-            repo.addArticleToFirestore(article)
+            repo.checkIfFavorite(myID,articleID,view)
 
         }
     }
-
-/*
-    fun articleImage(articleImage: String){
+    fun udDateFavorite(myID:String,articleID: String,userID: String,view: View){
         viewModelScope.launch (Dispatchers.IO){
+            repo.upDateFavorite(myID,articleID,userID,view)
 
-            repo.upLoadImage(articleImage)
         }
-    }
-*/
+    }//upDateFavorite
+
+
+
 }
