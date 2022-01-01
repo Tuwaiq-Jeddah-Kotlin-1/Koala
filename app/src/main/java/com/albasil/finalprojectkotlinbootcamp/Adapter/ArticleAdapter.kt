@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.*
 import java.util.*
 
-val db = FirebaseFirestore.getInstance()
+val firestore = FirebaseFirestore.getInstance()
 
 class ArticleAdapter(private val articleList: MutableList<Article>) :
     RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
@@ -47,10 +47,14 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.userId = article.userId
         holder.numberLikes.text = article.like.toString()
         holder.tvDateArticle.text = article.date
+        holder.articleID = article.articleID
 
-       holder.upDateFavorite("${article.articleID}", article)
+      /*  holder.ivFavorite.setOnClickListener {
+            holder.upDateFavorite("${article.articleID}", article)
+        }*/
 
-        //holder.ivFavorite.setImageResource(R.drawable.ic_favorite)
+        holder.imageArticle()
+
 
 
         val db = FirebaseFirestore.getInstance()
@@ -97,15 +101,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
             }
 
-        //-------------------------------------------------------------------------
-        val storageRef = FirebaseStorage.getInstance().reference
-            .child("/imagesArticle/${article.articleImage.toString()}")
-        val localFile = File.createTempFile("tempImage", "jpg")
-        storageRef.getFile(localFile).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-            holder.imageArticle.load(localFile)
-        }.addOnFailureListener {}
-        //------------------------------------------------------------------------------------
 
     }
 
@@ -129,26 +124,43 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var articleDescription: String
         lateinit var image: String
         lateinit var userId: String
+        lateinit var articleID:String
+
+
+        //-------------------------------------------------------------------------
+        fun imageArticle(){
+            val storageRef = FirebaseStorage.getInstance().reference
+                .child("/imagesArticle/${image}")
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                imageArticle.load(localFile)
+            }.addOnFailureListener {}
+        }
+
+        //------------------------------------------------------------------------------------
+
+
+
 
 
         //---------upDateFavorite------------------------------------------------------------------------------------------
         fun upDateFavorite(articleID: String, article: Article) {
+            Toast.makeText(itemView.context, "article.articleID ${article.articleID.toString()}", Toast.LENGTH_SHORT).show()
             val db = FirebaseFirestore.getInstance()
             db.collection("Users").document(myID.toString()).collection("Favorite")
                 .document(articleID).get()
                 .addOnCompleteListener {
                     if (it.result?.exists()!!) {
-                        ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
 
-                        ivFavorite.setOnClickListener {
                             deleteFavorite("${articleID}")
                             ivFavorite.setImageResource(R.drawable.ic_favorite_border)
-                        }
+
                     } else {
-                        ivFavorite.setOnClickListener {
+
                             ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                             addFavorite("${articleID}", article)
-                        }
+
                     }
                 }
         }
@@ -212,7 +224,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         }
 
          fun numberOfFavorite(articleID: String) {
-            db.collection("Articles").document(articleID)
+            firestore.collection("Articles").document(articleID)
                 .collection("Favorite").get()
                 .addOnSuccessListener {
                     var numberOfFavorite = it.size()
@@ -226,10 +238,14 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         //----------------------------------------------------------------------------------------------------------------
         init {
             itemView.setOnClickListener(this)
+
         }
 
 
         override fun onClick(v: View?) {
+
+
+
             val article_data = Article()
             article_data.userId =userId
             article_data.title = titleArticle.text.toString()
@@ -244,6 +260,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             val itemData =
                 TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             findNavController(itemView.findFragment()).navigate(itemData)
+
+
 
 
         }

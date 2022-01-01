@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.albasil.finalprojectkotlinbootcamp.Adapter.db
+import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.ArticleInformationViewModel

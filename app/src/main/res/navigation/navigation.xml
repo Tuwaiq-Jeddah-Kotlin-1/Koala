@@ -161,9 +161,9 @@
     </fragment>
     <fragment
         android:id="@+id/followersArticlesFragment"
-        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragment"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.AllUsersFragment"
         android:label="fragment_followers_articles"
-        tools:layout="@layout/fragment_followers_articles" >
+        tools:layout="@layout/all_users_fragment" >
         <action
             android:id="@+id/action_followersArticlesFragment_to_userProfile"
             app:destination="@id/userProfile" />

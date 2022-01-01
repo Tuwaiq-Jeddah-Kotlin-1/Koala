@@ -2,7 +2,6 @@ package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.Adapter.FavoriteAdapter
-import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FavoriteViewModel
-import com.albasil.finalprojectkotlinbootcamp.ViewModels.ProfileViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFavoriteBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 

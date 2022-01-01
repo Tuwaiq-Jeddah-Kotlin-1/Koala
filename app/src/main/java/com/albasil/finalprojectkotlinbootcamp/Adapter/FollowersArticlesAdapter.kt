@@ -1,7 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,17 +11,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragment
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragmentDirections
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersUserFragmentDirections
-import com.albasil.finalprojectkotlinbootcamp.UI.HomePageDirections
-import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragment
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
-import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import java.util.*
@@ -107,7 +98,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
         //--------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------
-        db.collection("Users").document(followersArticle.userId).get()
+        firestore.collection("Users").document(followersArticle.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")

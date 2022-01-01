@@ -32,7 +32,7 @@ class SplashScreen : Fragment() {
             }else{
                 Toast.makeText(context, "No Internet !!!!", Toast.LENGTH_SHORT).show()
             }
-            findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
+           // findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
 
         }, 5000)
         //5000)*

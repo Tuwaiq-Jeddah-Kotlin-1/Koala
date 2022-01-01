@@ -7,27 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
 import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.AllUsersViewModel
+import com.albasil.finalprojectkotlinbootcamp.ViewModels.HomePageViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Users
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentFollowersArticlesBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.albasil.finalprojectkotlinbootcamp.databinding.AllUsersFragmentBinding
+
 import com.google.firebase.firestore.*
 
 
-class FollowersArticlesFragment : Fragment() {
+class AllUsersFragment : Fragment() {
 
-   // lateinit var binding: FragmentFollowersArticlesBinding
+    lateinit var binding: AllUsersFragmentBinding
+
+    private lateinit var allUsersViewModel: AllUsersViewModel
 
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var usersList: MutableList<Users>
     private lateinit var FollowersAdapter: FollowersArticlesAdapter
     private lateinit var fireStore: FirebaseFirestore
-
-    private lateinit var searchView:SearchView
 
 
 
@@ -35,31 +38,33 @@ class FollowersArticlesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_followers_articles, container, false)
+
+
+        binding = AllUsersFragmentBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        allUsersViewModel = ViewModelProvider(this).get(AllUsersViewModel::class.java)
 
 
-
-        recyclerView = view.findViewById(R.id.followersArticlesRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context,1)
-        recyclerView.setHasFixedSize(true)
+        binding.allUsersRecyclerView.layoutManager = GridLayoutManager(context,1)
+        binding.allUsersRecyclerView.setHasFixedSize(true)
 
         usersList = mutableListOf()
 
         FollowersAdapter = FollowersArticlesAdapter(usersList)
-        recyclerView.adapter = FollowersAdapter
+        binding.allUsersRecyclerView.adapter = FollowersAdapter
 
 
-        getAllUsers()
-        searchView = view.findViewById(R.id.searchUser)
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+       getAllUsers()//getAllUsers
+
+        binding.searchUser.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -72,12 +77,7 @@ class FollowersArticlesFragment : Fragment() {
         })
     }
 
-
-
-
     private fun getAllUsers() {
-
-        val userId= FirebaseAuth.getInstance().currentUser?.uid
 
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Users")
@@ -88,17 +88,10 @@ class FollowersArticlesFragment : Fragment() {
                         return
                     }
 
-
                     if (value != null) {
                         FollowersAdapter= FollowersArticlesAdapter(value.toObjects(Users::class.java))
-                        recyclerView.adapter = FollowersAdapter
+                        binding.allUsersRecyclerView.adapter = FollowersAdapter
                     }
-//                    for (dc: DocumentChange in value?.documentChanges!!) {
-//                        if (dc.type == DocumentChange.Type.ADDED) {
-//                            usersList.add(dc.document.toObject(Users::class.java))
-//                        }
-//                    }
-//                    FollowersAdapter.notifyDataSetChanged()
 
                 }
 

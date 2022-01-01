@@ -32,6 +32,8 @@ class HomePage : Fragment() {
     var categorySelected: String? = null
 
     private lateinit var homePageViewModel: HomePageViewModel
+
+
     private lateinit var articleList: MutableList<Article>
     private lateinit var articleAdapter: ArticleAdapter
     private  var  fireStore = FirebaseFirestore.getInstance()
@@ -40,7 +42,7 @@ class HomePage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?{
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
@@ -68,6 +70,8 @@ class HomePage : Fragment() {
         val category = resources.getStringArray(R.array.categories)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
+
+
         binding.spinnerCategoryXml.onItemClickListener =
             object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
@@ -81,14 +85,11 @@ class HomePage : Fragment() {
 
                     binding.recyclerViewArticleXml.swapAdapter(articleAdapter, false)
 
-
                     //**********************************
                     viewModel = (activity as MainActivity).viewModel
                     if (viewModel.hasInternetConnection()){
                        loadArticle(categorySelected)
-
                         binding.imageView6.visibility = View.GONE
-
                     }else{
                         binding.imageView6.visibility = View.VISIBLE
                     }

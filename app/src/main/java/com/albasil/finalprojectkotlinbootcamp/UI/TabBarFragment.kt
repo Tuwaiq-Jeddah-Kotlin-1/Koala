@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.albasil.finalprojectkotlinbootcamp.Adapter.TapLayOut
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FavoriteFragment
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.FollowersArticlesFragment
+import com.albasil.finalprojectkotlinbootcamp.SecondFragment.AllUsersFragment
 import com.google.android.material.tabs.TabLayout
 
 
@@ -43,7 +43,7 @@ import com.google.android.material.tabs.TabLayout
             val adapter = TapLayOut(childFragmentManager)
             adapter.addFragment(HomePage(), "المقالات")
             adapter.addFragment(FavoriteFragment(), "المفضلة")
-            adapter.addFragment(FollowersArticlesFragment(), "المستخدمين")
+            adapter.addFragment(AllUsersFragment(), "المستخدمين")
 
             viewPager!!.adapter = adapter
         }

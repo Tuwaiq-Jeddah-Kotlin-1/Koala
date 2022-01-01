@@ -9,7 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import coil.load
-import com.albasil.finalprojectkotlinbootcamp.Adapter.db
+import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
+import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -403,7 +404,7 @@ class AppRepo(val context: Context) {
     }
 
     private fun numberOfFavorite(articleID: String) {
-        db.collection("Articles").document(articleID)
+        firestore.collection("Articles").document(articleID)
             .collection("Favorite").get()
             .addOnSuccessListener {
                 var numberOfFavorite = it.size()
@@ -491,6 +492,40 @@ class AppRepo(val context: Context) {
 
 
 
+
+
+    //-----------------------get Followers And Following------------------------------------------------------------------------
+
+
+    fun getFollowersAndFollowing(type:String, articleList: MutableList<Users>
+    ): LiveData<MutableList<Users>> {
+        val article = MutableLiveData<MutableList<Users>>()
+        val myID = FirebaseAuth.getInstance().currentUser?.uid
+
+        fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Users").document(myID.toString())
+            .collection(type.toString())
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.add(dc.document.toObject(Users::class.java))
+                        }
+                    }
+                    article.value = articleList
+
+                }
+
+            })
+        return article
+    }
+
+
+        //-----------------------------------------------------------------------------------------------------
 
 
 }

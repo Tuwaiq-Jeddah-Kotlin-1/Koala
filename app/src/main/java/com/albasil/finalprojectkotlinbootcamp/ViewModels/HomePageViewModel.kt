@@ -8,7 +8,7 @@ import com.albasil.finalprojectkotlinbootcamp.data.Article
 class HomePageViewModel(context: Application) : AndroidViewModel(context) {
     val repo: AppRepo = AppRepo(context)
 
-    //----------------------getAllMyArticles-----------------------------------
+    //----------------------getAllArticles-----------------------------------
     fun getAllArticles(articleList: MutableList<Article>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Article>> {
 
         val allArticles = MutableLiveData<MutableList<Article>>()
