@@ -14,10 +14,10 @@ class EditArticleViewModel(context: Application) : AndroidViewModel(context) {
     val repo : AppRepo = AppRepo(context)
 
 
-    fun editArticle(articleID: String,title: String,description: String,category:String,view:View){
+    fun editArticle(articleID: String,title: String,description: String,category:String,iamgeArtcileId:String,view:View){
         viewModelScope.launch (Dispatchers.IO){
 
-            repo.editArticleData(articleID,title,description,category,view)
+            repo.editArticleData(articleID,title,description,category,iamgeArtcileId,view)
 
         }
     }

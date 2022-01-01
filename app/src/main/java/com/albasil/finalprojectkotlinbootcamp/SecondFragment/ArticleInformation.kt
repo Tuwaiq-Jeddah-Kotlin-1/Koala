@@ -50,10 +50,16 @@ class ArticleInformation : Fragment() {
 
         likesCounter = args.articleData.like.toInt()
 
-        getArtciclePhoto(args.articleData.articleImage.toString())
+        if (args.articleData.articleImage.toString().isNotEmpty()) {
+            getArtciclePhoto(args.articleData.articleImage.toString())
+            Toast.makeText(context, "Is not null ", Toast.LENGTH_SHORT).show()
+
+        }else{
+            Toast.makeText(context, "Is null ", Toast.LENGTH_SHORT).show()
+        }
 
         //يتاكد اذا في المفضلة او لا
-       articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleImage.toString(),view)
+       articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleID.toString(),view)
 
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {

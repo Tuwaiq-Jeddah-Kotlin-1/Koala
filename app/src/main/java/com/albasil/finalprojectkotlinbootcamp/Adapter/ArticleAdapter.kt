@@ -49,12 +49,11 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.tvDateArticle.text = article.date
         holder.articleID = article.articleID
 
-      /*  holder.ivFavorite.setOnClickListener {
-            holder.upDateFavorite("${article.articleID}", article)
-        }*/
 
-        holder.imageArticle()
+        if (article.articleImage.isNullOrBlank()){
 
+            holder.imageArticle.visibility= View.GONE
+        }
 
 
         val db = FirebaseFirestore.getInstance()
@@ -69,6 +68,15 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
                 }
             }
+
+        holder.ivFavorite.setOnClickListener {
+            holder.upDateFavorite("${article.articleID}", article)
+        }
+
+        holder.imageArticle()
+
+
+
         //******************************************************************************************
         //count number likes
         db.collection("Articles").document(article.articleID).collection("Favorite").get()
@@ -122,9 +130,11 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var articleCategory: String
         lateinit var articleDate: String
         lateinit var articleDescription: String
-        lateinit var image: String
+         var image: String?=null
         lateinit var userId: String
         lateinit var articleID:String
+
+
 
 
         //-------------------------------------------------------------------------
@@ -255,15 +265,12 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             article_data.description = articleDescription.toString()
             article_data.articleImage = image.toString()
             article_data.like = numberLikes.text.toString().toInt()
+            article_data.articleID =articleID.toString()
 
 
             val itemData =
                 TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             findNavController(itemView.findFragment()).navigate(itemData)
-
-
-
-
         }
 
     }

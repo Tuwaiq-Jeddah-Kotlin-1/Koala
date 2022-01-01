@@ -78,7 +78,6 @@ class EditArticle : Fragment() {
         //---------------------------------------------------------------------
 
         val category = resources.getStringArray(R.array.categories)
-
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 
         binding.editSpinnerCategoryXml.setAdapter(arrayAdapter)
@@ -112,11 +111,31 @@ class EditArticle : Fragment() {
                     if (categorySelected.isNullOrEmpty()){
                         Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
                     }else{
-                        editArticleViewModel.editArticle("${args.editArticle.articleID.toString()}",
-                            "${binding.etTitleArticleXml.text.toString()}"
-                            ,"${binding.etDescraptaionArticleXml.text.toString()}",categorySelected.toString(),view)
 
-                       upLoadImage(args.editArticle.articleID.toString())
+                        if (imageUrl!=null) {
+                            editArticleViewModel.editArticle(
+                                "${args.editArticle.articleID.toString()}",
+                                "${binding.etTitleArticleXml.text.toString()}",
+                                "${binding.etDescraptaionArticleXml.text.toString()}",
+                                categorySelected.toString(),
+                                args.editArticle.articleID.toString(),
+                                view
+                            )
+                            Toast.makeText(context, "upate image", Toast.LENGTH_SHORT).show()
+
+                            upLoadImage(args.editArticle.articleID.toString())
+                        }else{
+
+                            editArticleViewModel.editArticle(
+                                "${args.editArticle.articleID.toString()}",
+                                "${binding.etTitleArticleXml.text.toString()}",
+                                "${binding.etDescraptaionArticleXml.text.toString()}",
+                                categorySelected.toString(),
+                               "",
+                                view
+                            )
+                            Toast.makeText(context, "Is nullllll", Toast.LENGTH_SHORT).show()
+                        }
 
                     }
                 }

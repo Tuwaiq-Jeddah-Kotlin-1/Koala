@@ -33,14 +33,6 @@ class SignUP : Fragment() {
     private  var imageUrl : Uri? =null
 
 
-   // val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-
-    /* var etEmail = binding.etEmailXml.text.toString()
-     var etPassword = binding.etPasswordXml.text.toString()
-     var etUserName = binding.etUserNameXml.text.toString()
-     var etPhone = binding.etPhoneXml.toString()*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -91,6 +83,9 @@ class SignUP : Fragment() {
             imageUrl = data?.data!!
 
             binding.userImageXml.setImageURI(imageUrl)
+
+            Log.e("URL",imageUrl.toString())
+            Log.e("URL",imageUrl.toString())
 
             //*******************************************************
 

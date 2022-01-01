@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
@@ -31,9 +32,6 @@ import java.io.File
 
 
 class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): RecyclerView.Adapter<ArticleUserProfileAdapter.UserViewHolder>() {
-    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
 
@@ -56,35 +54,10 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
         holder.articleDescription =article.description
 
 
-//
-//        holder.deleteArticle.setOnClickListener {
-//            deleteArticle("${holder.articleID}",holder.itemView)
-//        }
+        if (article.articleImage.isNullOrBlank()){
 
-        holder.editArticle.setOnClickListener {
-
-            val article_data =Article()
-            article_data.title = holder.titleArticle.text.toString()
-            article_data.date = holder.articleDate.toString()
-            article_data.category = article.category.toString()
-            article_data.description = article.description.toString()
-            article.articleImage =article.articleImage.toString()
-
-           article_data.articleID = article.articleID.toString()
-
-            val itemData = ProfileDirections.actionProfileToEditArticle(article_data,)
-
-            findNavController(holder.itemView.findFragment()).navigate(itemData)
-
+            holder.image_article.visibility= View.GONE
         }
-
-        if (currentUserUid == holder.userID.toString()) {
-                TransitionManager.beginDelayedTransition(holder.editLinear, AutoTransition())
-                holder.editLinear.visibility = View.VISIBLE
-        }
-
-
-
 
         //------------------------------------------------------------------
 
@@ -99,68 +72,16 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
 
 //-----------------------------------------------------------------------
 
-
     }
-
-
-
-    @SuppressLint("NotifyDataSetChanged")
-        private fun deleteArticle(articleID:String, view: View) {
-            AlertDialog.Builder(view.context)
-                .setTitle("Delete Aricle")
-                .setIcon(R.drawable.ic_delete_24)
-                .setMessage("Are sure to delete this article ?!!!")
-                .setPositiveButton("yes") { dialog, _ ->
-
-                    /*** delete fun */
-                    val deleteArticle=Firebase.firestore.collection("Articles")
-                        .document("${articleID.toString()}").delete()
-
-                    deleteArticle.addOnCompleteListener {
-                        when {
-                            it.isSuccessful ->{
-                                Log.d("Delete","Delete Article")
-                                this.notifyDataSetChanged()
-
-                            }
-                        }
-
-                    }
-
-                    //----------------------------
-
-                    dialog.dismiss()
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }.create().show()        }
-
-    //--------------------------------------------------------------------------
-
-
-
-        override fun getItemCount(): Int {
-
-        return articleList.size
-
-    }
-
-
+        override fun getItemCount()=articleList.size
 
 
     class UserViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
-//        carsItem
         val titleArticle : TextView =itemView.findViewById(R.id.titleArticle)
-//        val date : TextView =itemView.findViewById(R.id.dateArticle)
         val articleCategory : TextView =itemView.findViewById(R.id.articleCategory)
 
         val image_article :ImageView = itemView.findViewById(R.id.image_articleProfile)
-        val editLinear :LinearLayout =itemView.findViewById(R.id.editLinear)
-
-        val editArticle :ImageView = itemView.findViewById(R.id.imEditArticle_xml)
-        val deleteArticle :ImageView = itemView.findViewById(R.id.imDeleteArticle_xml)
-
 
         lateinit var articleDate : String
        lateinit var userID :String
@@ -169,17 +90,9 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
        lateinit var imageArticleId:String
        lateinit var articleDescription:String
 
-
-
-
-
-        //description
-        init {
+       init {
             itemView.setOnClickListener(this)
         }
-
-
-
 
         override fun onClick(v: View?) {
             val article_data =Article()
@@ -191,6 +104,7 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
             article_data.articleImage = imageArticleId.toString()
 
             val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
             if(userID.toString()==currentUserUid){
                 val articleData = ProfileDirections.actionProfileToUserArticle(article_data)
 
@@ -201,7 +115,6 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
                 findNavController(itemView.findFragment()).navigate(articleData)
 
             }
-            Toast.makeText(itemView.context,"${article_data.title.toString()} , ${articleCategory.text.toString()}",Toast.LENGTH_SHORT).show()
 
         }
     }

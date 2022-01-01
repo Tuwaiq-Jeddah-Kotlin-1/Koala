@@ -63,33 +63,6 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/editLinear"
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:textSize="14sp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/imEditArticle_xml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="Edit Article"
-                    app:srcCompat="@drawable/ic_edit_24" />
-
-                <ImageView
-                    android:id="@+id/imDeleteArticle_xml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="Delete Article"
-                    app:srcCompat="@drawable/ic_delete_24" />
-            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

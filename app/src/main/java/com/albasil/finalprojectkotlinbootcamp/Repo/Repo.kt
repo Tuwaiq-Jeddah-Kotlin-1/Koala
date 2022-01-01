@@ -256,7 +256,7 @@ class AppRepo(val context: Context) {
     }
 
     //--------------------editArticleData--------------------------------------------------------
-    fun editArticleData(articleID:String,titleArticle:String,descraptaionArticle:String,category:String,view: View){
+    fun editArticleData(articleID:String,titleArticle:String,descraptaionArticle:String,category:String,imageArticleID: String,view: View){
 //
         val current = LocalDateTime.now()
 
@@ -266,7 +266,7 @@ class AppRepo(val context: Context) {
         val userRef = Firebase.firestore.collection("Articles")
         userRef.document("${articleID}")
             .update("title",titleArticle,"description",descraptaionArticle,
-                "date",formatted,"category",category).addOnCompleteListener { it
+                "date",formatted,"category",category,"articleImage",imageArticleID).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
 

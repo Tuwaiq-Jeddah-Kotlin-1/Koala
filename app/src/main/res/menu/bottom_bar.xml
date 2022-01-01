@@ -6,9 +6,6 @@
         android:id="@+id/tabBarFragment"
         android:icon="@drawable/ic_home"/>
 
-<!--    <item android:title="My Favorite"-->
-<!--        android:id="@+id/favoriteFragment"-->
-<!--        android:icon="@drawable/ic_favorite_border"/>-->
 
 
 <!--    <item android:title="API"-->
@@ -17,18 +14,14 @@
 <!--    -->
 
 
-<!--    <item android:title="Following Articles"-->
-<!--        android:id="@+id/followersArticlesFragment"-->
-<!--        android:icon="@drawable/ic_api"/>-->
 
 
 
 
 
-
-    <item android:title="@string/add_article"
-        android:id="@+id/addArticle"
-        android:icon="@drawable/ic_add_24"/>
+<!--    <item android:title="@string/add_article"-->
+<!--        android:id="@+id/addArticle"-->
+<!--        android:icon="@drawable/ic_add_24"/>-->
 
 
     <item android:title="@string/profile"

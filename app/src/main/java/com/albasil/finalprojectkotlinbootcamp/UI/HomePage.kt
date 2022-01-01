@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
@@ -119,6 +120,12 @@ class HomePage : Fragment() {
 
                 Toast.makeText(context, "hasInternetConnection() ${ viewModel.hasInternetConnection()}", Toast.LENGTH_SHORT).show()
             }
+        }
+
+
+        binding.addArticleFlotButton.setOnClickListener{
+
+            findNavController().navigate(R.id.addArticle)
         }
 
     }

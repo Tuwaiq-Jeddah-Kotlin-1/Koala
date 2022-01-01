@@ -50,9 +50,7 @@ class ProfileViewModel(context: Application) : AndroidViewModel(context) {
     }
 
 
-
-
-    //i can add article after deleted
+    //add article after deleted
     fun addArticle(article: Article) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.addArticleToFirestore(article)

@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -42,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-
 
 class Profile : Fragment() {
 
@@ -108,7 +108,10 @@ class Profile : Fragment() {
             NavHostFragment.findNavController(this).navigate(check)
         }
 
-        binding.userImageProfileXml.setOnClickListener { selectImage() }
+        binding.userImageProfileXml.setOnClickListener {
+            selectImage()
+
+        }
 
         binding.addInformationXml.setOnClickListener {
             Toast.makeText(context, "userEmail ${userInfo.userEmail.toString()}", Toast.LENGTH_SHORT).show()
@@ -169,9 +172,9 @@ class Profile : Fragment() {
             isCurrentlyActive: Boolean
         ) {
             RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                .addSwipeLeftBackgroundColor(R.color.teal_200)
-                .addSwipeRightBackgroundColor(android.graphics.Color.parseColor("#F4F4F4"))
-                .addSwipeRightActionIcon(R.drawable.ic_delete_24)
+             //   .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#FF0000"))
+            //    .addSwipeRightBackgroundColor(android.graphics.Color.parseColor("#3EFD4C"))
+                .addSwipeRightActionIcon(R.drawable.ic_edit_24)
                 .addSwipeLeftActionIcon(R.drawable.ic_delete_24)
                 .create().decorate()
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -270,6 +273,11 @@ class Profile : Fragment() {
             imageUrl = data?.data!!
 
             binding.userImageProfileXml.setImageURI(imageUrl)
+
+            Log.e("URL",imageUrl.toString())
+            Log.e("URL",imageUrl.toString())
+            Log.e("URL",imageUrl.toString())
+
             //*******************************************************
             upLoadImage()
         }
@@ -297,6 +305,10 @@ class Profile : Fragment() {
 
              //   getUserPhoto()
 
+                Log.e("URL2",imageUrl.toString())
+                Log.e("URL2",imageUrl.toString())
+                Log.e("URL2",imageUrl.toString())
+
 
             }.addOnFailureListener {
 //                if (progressDialog.isShowing) progressDialog.dismiss()
@@ -316,8 +328,12 @@ class Profile : Fragment() {
 
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            binding.userImageProfileXml.load(bitmap)
-            //  binding.userImageProfileXml.load(localFile)
+            //binding.userImageProfileXml.load(bitmap)
+
+            Log.e("bitmap",bitmap.toString())
+
+            binding.userImageProfileXml.load(localFile)
+            Log.e("localFile",localFile.toString())
 
         }.addOnFailureListener {
             Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()

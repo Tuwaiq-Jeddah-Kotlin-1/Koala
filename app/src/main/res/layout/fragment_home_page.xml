@@ -19,7 +19,7 @@
             android:layout_margin="10dp"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:text="sort"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/typeCategory_xml"
-                    tools:ignore="NotSibling" />
+                    tools:ignore="NotSibling">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addArticleFlotButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_add_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>

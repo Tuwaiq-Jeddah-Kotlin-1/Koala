@@ -112,19 +112,28 @@ class AddArticle : Fragment() {
 
                 }else{
 
-                        articleData("${categorySelected.toString()}"
-                            ,"${binding.etTitleArticleXml.text.toString()}"
-                            ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                            ,UUID.randomUUID().toString())
-                    //${currentUser}${formatted2}
+                   if (imageUrl != null) {
+
+                       articleData("${categorySelected.toString()}"
+                           ,"${binding.etTitleArticleXml.text.toString()}"
+                           ,"${binding.etDescraptaionArticleXml.text.toString()}"
+                           ,"${UUID.randomUUID().toString()}","${UUID.randomUUID().toString()}")
+                        }else{
+
+                       articleData("${categorySelected.toString()}"
+                           ,"${binding.etTitleArticleXml.text.toString()}"
+                           ,"${binding.etDescraptaionArticleXml.text.toString()}"
+                           ,"${UUID.randomUUID().toString()}")
+                       Toast.makeText(context, "Image URL is Null", Toast.LENGTH_SHORT).show()
+                   }
+
 
                 }
             }
         }
     }
 
-
-     fun articleData(category:String,title: String,description:String, articlePhoto: String){
+     fun articleData(category:String,title: String,description:String, articleID: String,articlePhotoID:String?=""){
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val article =Article()
@@ -134,16 +143,15 @@ class AddArticle : Fragment() {
         article.date = formatted.toString()
         article.description = description.toString()
         article.title = title.toString()
-        article.articleImage = articlePhoto.toString()
-
-        article.articleID=articlePhoto.toString()
+        article.articleID=articleID.toString()
+         article.articleImage = articlePhotoID.toString()
 
 
 
          //view Model
         addArticleViewModel.addArticle(article)
 
-        upLoadImage(articlePhoto)
+        upLoadImage(articlePhotoID.toString())
 
     }
 
@@ -164,12 +172,21 @@ class AddArticle : Fragment() {
         }
     }
     fun upLoadImage(imageId:String){
+        Toast.makeText(context, "upLoadImage ${imageId.toString()}", Toast.LENGTH_SHORT).show()
         val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
-        imageUrl?.let {
-            storageReference.putFile(it)
-                .addOnSuccessListener {
-                }.addOnFailureListener{
-                }
-        }
+       if (imageUrl!=null){
+           imageUrl?.let {
+               storageReference.putFile(it)
+                   .addOnSuccessListener {
+                   }.addOnFailureListener{
+                   }
+           }
+       }
+//        imageUrl?.let {
+//            storageReference.putFile(it)
+//                .addOnSuccessListener {
+//                }.addOnFailureListener{
+//                }
+//        }
     }
 }

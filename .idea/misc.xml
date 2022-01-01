@@ -35,6 +35,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/activity_splash.xml" value="0.17037037037037037" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/add_user_information_dialog.xml" value="0.128" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/all_users_fragment.xml" value="0.215625" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/change_langauge.xml" value="0.2609375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/change_language.xml" value="0.2453125" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/change_password.xml" value="0.2453125" />
@@ -50,7 +51,7 @@
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_followers.xml" value="0.25" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_followers_articles.xml" value="0.234375" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_followers_user.xml" value="0.1962962962962963" />
-        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_home_page.xml" value="0.1" />
+        <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_home_page.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_second.xml" value="0.2578125" />
         <entry key="..\:/Users/Bojsl/Desktop/FinalProjectKotlinBootcamp/app/src/main/res/layout/fragment_setting.xml" value="0.2" />
