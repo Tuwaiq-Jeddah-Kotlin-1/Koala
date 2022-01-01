@@ -8,8 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import coil.load
-import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
 import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
@@ -17,7 +15,6 @@ import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -88,11 +85,11 @@ class AppRepo(val context: Context) {
     }
 
 
-    fun getAllMyArticles(myID: String, articleList: MutableList<Article>): LiveData<MutableList<Article>> {
+    fun getUserArticles(userID: String, articleList: MutableList<Article>): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
 
         fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("userId", myID)
+        fireStore.collection("Articles").whereEqualTo("userId", userID)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
@@ -137,10 +134,10 @@ class AppRepo(val context: Context) {
     }
 
 
-    fun getUserInfo(myID: String,userInfo :Users): LiveData<Users>{
+    fun getUserInfo(userID: String,userInfo :Users): LiveData<Users>{
         val user = MutableLiveData<Users>()
         val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document("$myID")
+        db.collection("Users").document("$userID")
             .get().addOnCompleteListener { it
 
                 if (it.result?.exists()!!) {
@@ -495,8 +492,6 @@ class AppRepo(val context: Context) {
 
 
     //-----------------------get Followers And Following------------------------------------------------------------------------
-
-
     fun getFollowersAndFollowing(type:String, articleList: MutableList<Users>
     ): LiveData<MutableList<Users>> {
         val article = MutableLiveData<MutableList<Users>>()
@@ -525,8 +520,39 @@ class AppRepo(val context: Context) {
     }
 
 
-        //-----------------------------------------------------------------------------------------------------
+        //---------------------------User Profile--------------------------------------------------------------------------
 
+    //-------------------Add------------------------
+
+    fun addFollowers(myId: String, userId: String) {
+        val upDateFollowers = hashMapOf(
+            "userId" to "${myId}",
+        )
+        fireStore.collection("Users").document("${userId}")
+            .collection("Followers").document("${myId}").set(upDateFollowers)
+
+       // countNumberOfFollowers(userId)
+    }
+    fun addFollowing(myId: String, userId: String) {
+        val upDateFollowing = hashMapOf("userId" to "${userId}")
+        fireStore.collection("Users").document("${myId}")
+            .collection("Following").document("${userId}").set(upDateFollowing)
+
+       // countNumberOfFollowers(userId)
+    }
+
+
+    //----------------Delete---------------------------------------------------------
+    fun deleteFollowers(myId: String, userId: String) {
+        fireStore.collection("Users").document("${userId}")
+            .collection("Followers").document("${myId}").delete()
+    }
+
+    fun deleteFollowing(myId: String, userId: String) {
+        fireStore.collection("Users").document("${myId}")
+            .collection("Following").document("${userId}").delete()
+
+    }
 
 }
 

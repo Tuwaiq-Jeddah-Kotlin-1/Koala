@@ -15,7 +15,7 @@ class ProfileViewModel(context: Application) : AndroidViewModel(context) {
     fun getAllMyArticles(myID: String, articleList: MutableList<Article>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Article>> {
 
         val myArticles = MutableLiveData<MutableList<Article>>()
-        repo.getAllMyArticles(myID, articleList).observe(viewLifecycleOwner, {
+        repo.getUserArticles(myID, articleList).observe(viewLifecycleOwner, {
             myArticles.postValue(it)
 
         })

@@ -73,7 +73,6 @@ class Profile : Fragment() {
 
 
         //--------------User Photo-------------------------------------
-
         getUserPhoto()
 
         //----------------------------getUserInformation-----------------------------------------------------------------
@@ -93,7 +92,6 @@ class Profile : Fragment() {
         binding.userProfileRecyclerViewXml.adapter = articleAdapter
 
         //----------------------getAllMyArticles-----------------------------------
-
         profileViewModel.getAllMyArticles(myID.toString(), articleList, viewLifecycleOwner)
             .observe(viewLifecycleOwner, {
                 binding.userProfileRecyclerViewXml.adapter = ArticleUserProfileAdapter(articleList)
