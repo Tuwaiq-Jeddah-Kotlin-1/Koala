@@ -28,11 +28,11 @@ class SplashScreen : Fragment() {
 
         Handler().postDelayed({
             if(viewModel.hasInternetConnection()){
-                findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
+              //  findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
             }else{
                 Toast.makeText(context, "No Internet !!!!", Toast.LENGTH_SHORT).show()
             }
-           // findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
+           findNavController().navigate(SplashScreenDirections.actionSplashScreenToSignIn())
 
         }, 5000)
         //5000)*

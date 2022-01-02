@@ -89,6 +89,8 @@ class UserProfile : Fragment() {
             .observe(viewLifecycleOwner, {
                 binding.userRecyclerViewXml.adapter = ArticleUserProfileAdapter(articleList)
                 articleAdapter.notifyDataSetChanged()
+                binding.userArticlesXml.setText(articleList.size.toString())
+
             })
 
         //----------------------------getUserInformation-----------------------------------------------------------------

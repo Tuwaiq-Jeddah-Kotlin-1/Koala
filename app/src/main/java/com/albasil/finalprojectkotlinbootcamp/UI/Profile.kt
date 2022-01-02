@@ -305,10 +305,6 @@ class Profile : Fragment() {
 
              //   getUserPhoto()
 
-                Log.e("URL2",imageUrl.toString())
-                Log.e("URL2",imageUrl.toString())
-                Log.e("URL2",imageUrl.toString())
-
 
             }.addOnFailureListener {
 //                if (progressDialog.isShowing) progressDialog.dismiss()
@@ -336,7 +332,7 @@ class Profile : Fragment() {
             Log.e("localFile",localFile.toString())
 
         }.addOnFailureListener {
-            Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
         }
     }
     //--------------------------------------------------------------------------------------

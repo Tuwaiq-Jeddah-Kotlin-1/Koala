@@ -33,7 +33,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
         return MyViewHolder(itemView)
-
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -50,8 +49,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.articleID = article.articleID
 
 
+        //------------------------------------------------------------------------------------------
         if (article.articleImage==""){
-
             holder.imageArticle.visibility= View.GONE
         }
 
@@ -62,10 +61,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
                     holder.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-
                 } else {
                     holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border)
-
                 }
             }
 
@@ -75,6 +72,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
         holder.imageArticle()
 
+        holder.imageArticle.load(holder.image)
 
 
         //******************************************************************************************
@@ -83,9 +81,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             .addOnSuccessListener {
                 var numberOfFavorite = it.size()
                 holder.numberLikes.text =numberOfFavorite.toString()
-
             }
-
 
         //---------------userName----------------------------------------------------------------
         holder.userName.setOnClickListener {
@@ -135,8 +131,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var articleID:String
 
 
-
-
         //-------------------------------------------------------------------------
         fun imageArticle(){
             val storageRef = FirebaseStorage.getInstance().reference
@@ -147,11 +141,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 imageArticle.load(localFile)
             }.addOnFailureListener {}
         }
-
         //------------------------------------------------------------------------------------
-
-
-
 
 
         //---------upDateFavorite------------------------------------------------------------------------------------------
@@ -241,7 +231,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     val userRef = Firebase.firestore.collection("Articles")
                     userRef.document("$articleID").update("like", numberOfFavorite)
                     numberLikes.setText(numberOfFavorite.toString())
-
                 }
         }
 

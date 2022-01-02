@@ -161,7 +161,6 @@ class Setting : Fragment() {
         startActivity(refresh)
 
     }
-
         //--------------------------------------------------------------------------
         fun dialogChangePassword(view: View) {
 

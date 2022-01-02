@@ -65,8 +65,6 @@ class HomePage : Fragment() {
 
 
 
-
-
         //----------------------select category-----------------------------------
         val category = resources.getStringArray(R.array.categories)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
@@ -87,9 +85,14 @@ class HomePage : Fragment() {
                     binding.recyclerViewArticleXml.swapAdapter(articleAdapter, false)
 
                     //**********************************
+
                     viewModel = (activity as MainActivity).viewModel
                     if (viewModel.hasInternetConnection()){
+
+
                        loadArticle(categorySelected)
+
+
                         binding.imageView6.visibility = View.GONE
                     }else{
                         binding.imageView6.visibility = View.VISIBLE
@@ -100,9 +103,8 @@ class HomePage : Fragment() {
 
 //***********************************************************************************************************************
 
-        viewModel = (activity as MainActivity).viewModel
 
-        if (viewModel.hasInternetConnection()){
+       if (viewModel.hasInternetConnection()){
 
            homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
                 .observe(viewLifecycleOwner, {
@@ -122,15 +124,12 @@ class HomePage : Fragment() {
             }
         }
 
-
         binding.addArticleFlotButton.setOnClickListener{
 
             findNavController().navigate(R.id.addArticle)
         }
 
     }
-
-
 
 
 

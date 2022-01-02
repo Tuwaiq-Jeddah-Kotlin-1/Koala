@@ -107,7 +107,6 @@ class AppRepo(val context: Context) {
             })
         return article
     }
-
     fun addUserInformation(myID: String, userInformation: String) =
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -319,8 +318,6 @@ class AppRepo(val context: Context) {
     }
     //---------------------------------------
      fun upDateFavorite(myID:String,articleID: String,userID: String,view: View) {
-        Log.e("TAG","articleID ${articleID.toString()}")
-        Log.e("TAG","articleID ${articleID.toString()}")
         //check in the fireStore
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").document(myID)
@@ -549,11 +546,9 @@ class AppRepo(val context: Context) {
         fireStore.collection("Users").document("${userId}")
             .collection("Followers").document("${myId}").delete()
     }
-
     fun deleteFollowing(myId: String, userId: String) {
         fireStore.collection("Users").document("${myId}")
             .collection("Following").document("${userId}").delete()
-
     }
 
 }
