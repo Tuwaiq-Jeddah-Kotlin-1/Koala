@@ -188,8 +188,7 @@ class EditArticle : Fragment() {
                   //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
 
                 //    if (progressDialog.isShowing)progressDialog.dismiss()
-
-
+                    
                 }.addOnFailureListener{
                  //   if (progressDialog.isShowing)progressDialog.dismiss()
                     Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()

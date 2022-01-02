@@ -143,6 +143,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
             article_data.category = articleCategory.text.toString()
             article_data.description = articleDescription.toString()
             article_data.articleImage = image.toString()
+            article_data.articleID = articleID
 
            val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             NavHostFragment.findNavController(itemView.findFragment()).navigate(itemData)

@@ -104,7 +104,7 @@ class HomePage : Fragment() {
 
         if (viewModel.hasInternetConnection()){
 
-            homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
+           homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
                 .observe(viewLifecycleOwner, {
                     binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
                     articleAdapter.notifyDataSetChanged()

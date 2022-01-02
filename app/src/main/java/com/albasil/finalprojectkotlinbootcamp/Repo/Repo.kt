@@ -319,6 +319,8 @@ class AppRepo(val context: Context) {
     }
     //---------------------------------------
      fun upDateFavorite(myID:String,articleID: String,userID: String,view: View) {
+        Log.e("TAG","articleID ${articleID.toString()}")
+        Log.e("TAG","articleID ${articleID.toString()}")
         //check in the fireStore
         val db = FirebaseFirestore.getInstance()
         db.collection("Users").document(myID)

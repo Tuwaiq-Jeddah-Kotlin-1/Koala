@@ -50,7 +50,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.articleID = article.articleID
 
 
-        if (article.articleImage.isNullOrBlank()){
+        if (article.articleImage==""){
 
             holder.imageArticle.visibility= View.GONE
         }
@@ -130,7 +130,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var articleCategory: String
         lateinit var articleDate: String
         lateinit var articleDescription: String
-         var image: String?=null
+        var image: String?=null
         lateinit var userId: String
         lateinit var articleID:String
 
@@ -163,20 +163,20 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 .addOnCompleteListener {
                     if (it.result?.exists()!!) {
 
-                            deleteFavorite("${articleID}")
-                            ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+                        deleteFavorite("${articleID}")
+                        ivFavorite.setImageResource(R.drawable.ic_favorite_border)
 
                     } else {
 
-                            ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                            addFavorite("${articleID}", article)
+                        ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        addFavorite("${articleID}", article)
 
                     }
                 }
         }
 
         //---------deleteFavorite------------------------------------------------------------------------------------------
-         fun deleteFavorite(articleID: String) {
+        fun deleteFavorite(articleID: String) {
             val deleteFavoriteArticle = FirebaseFirestore.getInstance()
             deleteFavoriteArticle.collection("Articles").document(articleID)
                 .collection("Favorite").document(myID.toString()).delete()
@@ -202,7 +202,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         }
 
         //---------------addFavorite-------------------------------------------------------------------------------------------
-         fun addFavorite(articleID: String, article: Article) {
+        fun addFavorite(articleID: String, article: Article) {
             val addFavorite = hashMapOf(
                 "articleID" to "${article.articleID}",
                 "userId" to "${article.userId}",
@@ -233,7 +233,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
         }
 
-         fun numberOfFavorite(articleID: String) {
+        fun numberOfFavorite(articleID: String) {
             firestore.collection("Articles").document(articleID)
                 .collection("Favorite").get()
                 .addOnSuccessListener {

@@ -52,18 +52,17 @@ class ArticleInformation : Fragment() {
 
         if (args.articleData.articleImage.toString().isNotEmpty()) {
             getArtciclePhoto(args.articleData.articleImage.toString())
-            Toast.makeText(context, "Is not null ", Toast.LENGTH_SHORT).show()
 
         }else{
-            Toast.makeText(context, "Is null ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "image is null ", Toast.LENGTH_SHORT).show()
         }
 
         //يتاكد اذا في المفضلة او لا
-       articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleID.toString(),view)
+      articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleID.toString(),view)
 
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
-            articleInformationViewModel.udDateFavorite(myID.toString(),args.articleData.articleImage.toString().toString(),args.articleData.userId,view)
+            articleInformationViewModel.udDateFavorite(myID.toString(),args.articleData.articleID.toString(),args.articleData.userId,view)
          //   upDateFavorite(args.articleData.articleImage.toString())
 
         }
@@ -74,8 +73,6 @@ class ArticleInformation : Fragment() {
 
         return view
     }
-
-
 
     //---------------Share Article---------------------------------------------------
     fun shareArticle(titleArticle: String, subjectArticle: String) {

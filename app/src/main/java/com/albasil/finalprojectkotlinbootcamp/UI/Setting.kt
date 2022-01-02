@@ -157,13 +157,10 @@ class Setting : Fragment() {
         val editor: SharedPreferences.Editor = preferencesFeather.edit()
         editor.putString("Settings", "${locale.toString()}")
         editor.apply()
-        val refresh = Intent(context, Setting::class.java)
+        val refresh = Intent(context, MainActivity::class.java)
         startActivity(refresh)
 
     }
-
-//--------------------------------------------------------------
-
 
         //--------------------------------------------------------------------------
         fun dialogChangePassword(view: View) {
