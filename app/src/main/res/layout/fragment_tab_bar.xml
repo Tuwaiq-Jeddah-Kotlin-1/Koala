@@ -7,7 +7,6 @@
     tools:context=".UI.TabBarFragment">
 
     <LinearLayout
-        android:background="@color/ic_launcher_background"
 
         android:orientation="vertical"
         android:layout_width="match_parent"

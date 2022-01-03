@@ -50,7 +50,10 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
 
         //------------------------------------------------------------------------------------------
-        if (article.articleImage==""){
+
+
+        if (article.articleImage.isNullOrBlank()){
+
             holder.imageArticle.visibility= View.GONE
         }
 
@@ -70,9 +73,9 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             holder.upDateFavorite("${article.articleID}", article)
         }
 
-        holder.imageArticle()
+        holder.imageArticle(article.articleImage)
 
-        holder.imageArticle.load(holder.image)
+        holder.imageArticle.load(article.articleImage)
 
 
         //******************************************************************************************
@@ -132,9 +135,9 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
 
         //-------------------------------------------------------------------------
-        fun imageArticle(){
+        fun imageArticle(articleImage:String){
             val storageRef = FirebaseStorage.getInstance().reference
-                .child("/imagesArticle/${image}")
+                .child("/imagesArticle/${articleImage}")
             val localFile = File.createTempFile("tempImage", "jpg")
             storageRef.getFile(localFile).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)

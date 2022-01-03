@@ -136,7 +136,6 @@ class Profile : Fragment() {
     // Swipe
     val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return true }
-
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
             val article = articleList[position]
@@ -189,7 +188,7 @@ class Profile : Fragment() {
         article_data.date = article.date.toString()
         article_data.category = article.category
         article_data.description = article.description
-        article_data.articleImage = article.articleImage
+        article_data.articleImage = article.articleImage.toString()
         article_data.articleID = article.articleID.toString()
         val itemData = ProfileDirections.actionProfileToEditArticle(article_data)
         NavHostFragment.findNavController(this@Profile).navigate(itemData)

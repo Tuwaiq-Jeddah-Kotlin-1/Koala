@@ -17,238 +17,241 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:elevation="20dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.cardview.widget.CardView
-
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:elevation="20dp"
-                        app:cardCornerRadius="10dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
 
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/userImageProfile_xml"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_person" />
 
                             <LinearLayout
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:padding="5dp">
-
-                                <ImageView
-                                    android:background="@drawable/image_view"
-                                    android:id="@+id/userImageProfile_xml"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/ic_person" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="horizontal">
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-
-                                        android:layout_height="match_parent"
-                                        android:layout_margin="5dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:id="@+id/textView6"
-                                            android:textStyle="bold"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="15dp"
-                                            android:layout_weight="1"
-                                            android:text="@string/article"
-                                            android:textSize="14sp" />
-
-                                        <TextView
-                                            android:id="@+id/numberOrArticle"
-
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0"
-                                            android:textSize="14sp"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:textStyle="bold"
-
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_margin="5dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:textStyle="bold"
-                                            android:id="@+id/tvFollowingXml"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="15dp"
-                                            android:layout_weight="1"
-                                            android:textSize="14sp"
-                                            android:text="@string/following" />
-
-                                        <TextView
-                                            android:id="@+id/userFollowing_xml"
-
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0"
-                                            android:textSize="14sp"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-
-                                        android:layout_width="wrap_content"
-
-                                        android:layout_height="match_parent"
-
-
-                                        android:layout_margin="5dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:textStyle="bold"
-
-                                            android:id="@+id/tvFollowersXml"
-                                            android:textSize="14sp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="15dp"
-                                            android:layout_weight="1"
-                                            android:text="@string/followers" />
-
-                                        <TextView
-                                            android:textStyle="bold"
-                                            android:textSize="14sp"
-                                            android:id="@+id/userFollowers_xml"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0" />
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-
-                            </LinearLayout>
-
-                            <View
-                                android:id="@+id/divider4"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="?android:attr/listDivider" />
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-
-                                android:layout_height="match_parent"
-                                android:layout_margin="3dp"
-                                android:gravity="right"
-                                android:orientation="vertical"
-                                android:padding="5dp">
-
-                                <TextView
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:gravity="center"
-                                    android:id="@+id/userName_xml"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/user_name" />
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5dp"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <TextView
-                                        android:textStyle="bold"
-
-                                        android:id="@+id/userInfo_xml"
-                                        android:layout_width="match_parent"
+                                        android:id="@+id/textView6"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="14sp"
-                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="15dp"
                                         android:layout_weight="1"
-                                        android:lines="4"
-                                        android:text="@string/more_information" />
+                                        android:text="@string/article"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
 
-                                    <ImageView
+                                    <TextView
+                                        android:id="@+id/numberOrArticle"
 
-                                        android:textStyle="bold"
-
-                                        android:id="@+id/addInformation_xml"
-                                        android:layout_width="30dp"
-                                        android:layout_height="50dp"
-                                        android:contentDescription="@string/app_name"
-                                        android:src="@drawable/ic_add_24" />
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
 
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:textStyle="bold">
+
+                                    <TextView
+                                        android:id="@+id/tvFollowingXml"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="15dp"
+                                        android:layout_weight="1"
+                                        android:text="@string/following"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/userFollowing_xml"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_width="wrap_content"
+
+                                    android:layout_height="match_parent"
+
+
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvFollowersXml"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="15dp"
+                                        android:layout_weight="1"
+                                        android:text="@string/followers"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/userFollowers_xml"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
 
                             </LinearLayout>
 
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                        <View
+                            android:id="@+id/divider4"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="?android:attr/listDivider" />
 
-                    <Button
 
-                        android:id="@+id/upDateButton_xml"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:background="@drawable/logout_style"
-                        android:src="@drawable/ic_edit_24"
-                        android:text="Edit My Information" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
 
-                </LinearLayout>
+                            android:layout_height="match_parent"
+                            android:layout_margin="3dp"
+                            android:gravity="right"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/userName_xml"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/user_name"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/userInfo_xml"
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:lines="4"
+                                    android:text="@string/more_information"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+
+                                    android:id="@+id/addInformation_xml"
+
+                                    android:layout_width="30dp"
+                                    android:layout_height="50dp"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/ic_add_24"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+
+                    android:id="@+id/upDateButton_xml"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="72dp"
+                    android:background="@drawable/logout_style"
+                    android:src="@drawable/ic_edit_24"
+                    android:text="Edit My Information"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/userProfileRecyclerView_xml"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/upDateButton_xml"
                     tools:itemCount="30" />
-            </LinearLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
 

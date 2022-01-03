@@ -9,12 +9,8 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
-import com.albasil.finalprojectkotlinbootcamp.Adapter.FollowersArticlesAdapter
-import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.Adapter.AllUsers
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AllUsersViewModel
-import com.albasil.finalprojectkotlinbootcamp.ViewModels.HomePageViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.databinding.AllUsersFragmentBinding
 
@@ -29,7 +25,7 @@ class AllUsersFragment : Fragment() {
 
 
     private lateinit var usersList: MutableList<Users>
-    private lateinit var FollowersAdapter: FollowersArticlesAdapter
+    private lateinit var followersAdapter: AllUsers
     private lateinit var fireStore: FirebaseFirestore
 
 
@@ -57,8 +53,8 @@ class AllUsersFragment : Fragment() {
 
         usersList = mutableListOf()
 
-        FollowersAdapter = FollowersArticlesAdapter(usersList)
-        binding.allUsersRecyclerView.adapter = FollowersAdapter
+        followersAdapter = AllUsers(usersList)
+        binding.allUsersRecyclerView.adapter = followersAdapter
 
 
 
@@ -70,7 +66,7 @@ class AllUsersFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                FollowersAdapter.filter.filter(newText)
+                followersAdapter.filter.filter(newText)
                 return false
             }
 
@@ -89,8 +85,8 @@ class AllUsersFragment : Fragment() {
                     }
 
                     if (value != null) {
-                        FollowersAdapter= FollowersArticlesAdapter(value.toObjects(Users::class.java))
-                        binding.allUsersRecyclerView.adapter = FollowersAdapter
+                        followersAdapter= AllUsers(value.toObjects(Users::class.java))
+                        binding.allUsersRecyclerView.adapter = followersAdapter
                     }
 
                 }

@@ -40,7 +40,7 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.favoriteArticleRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context,2)
+        recyclerView.layoutManager = GridLayoutManager(context,1)
         recyclerView.setHasFixedSize(true)
         articleList = arrayListOf<Article>()
         articleAdapter = FavoriteAdapter(articleList)

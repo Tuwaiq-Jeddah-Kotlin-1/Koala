@@ -1,7 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,31 +19,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<Users>) :
-    RecyclerView.Adapter<FollowersArticlesAdapter.FollowersArticlesViewHolder>(),Filterable {
-    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+class AllUsers(internal val usersList: MutableList<Users>) :
+    RecyclerView.Adapter<AllUsers.FollowersArticlesViewHolder>(),Filterable {
     //--------------------------------------------------------------------------------------------------
-
-    var storeList = mutableListOf<Users>()
+    var filterUsersList = mutableListOf<Users>()
 
     init {
-        Log.d("TAG", "$followersArticlesList: ")
-        followersArticlesList.forEach {
-            storeList.add(it)
-            Log.d("TAG2", "$it: ")
+        usersList.forEach {
+            filterUsersList.add(it)
         }
     }
-
     override fun getFilter(): Filter = object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults? {
             val filteredList: MutableList<Users> = ArrayList()
 
             if (constraint == null || constraint.isEmpty()) {
-                filteredList.addAll(storeList)
-                Log.d("TAG3", "performFiltering: $storeList")
+                filteredList.addAll(filterUsersList)
             } else {
                 val filterPattern = constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                for (item in storeList) {
+                for (item in filterUsersList) {
                     if (item.userName.lowercase(Locale.getDefault()).contains(filterPattern)) {
                         filteredList.add(item)
                     }
@@ -56,8 +49,8 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults) {
-            followersArticlesList.clear()
-            followersArticlesList.addAll(results.values as List<Users>)
+            usersList.clear()
+            usersList.addAll(results.values as List<Users>)
             notifyDataSetChanged()
         }
     }
@@ -76,7 +69,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
 
 
     override fun onBindViewHolder(holder: FollowersArticlesViewHolder, position: Int) {
-        val followersArticle = followersArticlesList[position]
+        val followersArticle = usersList[position]
         holder.userID = followersArticle.userId
         holder.image = followersArticle.userPhone
 
@@ -110,8 +103,7 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
     }
 
     override fun getItemCount(): Int {
-
-        return followersArticlesList.size
+        return usersList.size
 
     }
 
@@ -122,7 +114,6 @@ class FollowersArticlesAdapter(internal val followersArticlesList: MutableList<U
 
         lateinit var image: String
         lateinit var articleDescription: String
-
 
 
         val userName: TextView = itemView.findViewById(R.id.tvTitle_xml)

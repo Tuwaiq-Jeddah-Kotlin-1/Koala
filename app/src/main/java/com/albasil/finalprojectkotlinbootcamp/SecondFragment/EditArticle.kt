@@ -65,8 +65,9 @@ class EditArticle : Fragment() {
         binding.editSpinnerCategoryXml.setText("${args.editArticle.category.toString()}")
         categorySelected=args.editArticle.category.toString()
 
-        getUserPhoto("${args.editArticle.articleID.toString()}")
+        getUserPhoto("${args.editArticle.articleImage}")
 
+        Toast.makeText(context, "Imag ID ${args.editArticle.articleImage}", Toast.LENGTH_SHORT).show()
         //-------------------------------------------------------------------
 
         binding.editImageViewArticleXml.setOnClickListener {

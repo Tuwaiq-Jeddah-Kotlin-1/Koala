@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleUserProfileAdapter
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -73,7 +74,8 @@ class UserProfile : Fragment() {
 
 
         //----------------user RecyclerView-----------------------------------------
-        binding.userRecyclerViewXml.layoutManager = GridLayoutManager(context, 2)
+        binding.userRecyclerViewXml.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.userRecyclerViewXml.setHasFixedSize(true)
         articleList = arrayListOf()
         articleAdapter = ArticleUserProfileAdapter(articleList)

@@ -103,8 +103,15 @@ class HomePage : Fragment() {
 
 //***********************************************************************************************************************
 
+     /*   homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
+            .observe(viewLifecycleOwner, {
+                binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
+                articleAdapter.notifyDataSetChanged()
+            })
+*/
+        viewModel = (activity as MainActivity).viewModel
 
-       if (viewModel.hasInternetConnection()){
+        if (viewModel.hasInternetConnection()){
 
            homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
                 .observe(viewLifecycleOwner, {
@@ -112,7 +119,6 @@ class HomePage : Fragment() {
                     articleAdapter.notifyDataSetChanged()
                 })
 
-            Toast.makeText(context, "hasInternetConnection() ${ viewModel.hasInternetConnection()}", Toast.LENGTH_SHORT).show()
 
             binding.imageView6.visibility = View.GONE
         }else{
@@ -120,7 +126,6 @@ class HomePage : Fragment() {
             binding.imageView6.setOnClickListener {
 
 
-                Toast.makeText(context, "hasInternetConnection() ${ viewModel.hasInternetConnection()}", Toast.LENGTH_SHORT).show()
             }
         }
 
