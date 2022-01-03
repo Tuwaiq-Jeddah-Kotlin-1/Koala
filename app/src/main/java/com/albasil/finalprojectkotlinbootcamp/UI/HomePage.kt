@@ -103,14 +103,7 @@ class HomePage : Fragment() {
 
 //***********************************************************************************************************************
 
-     /*   homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
-            .observe(viewLifecycleOwner, {
-                binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
-                articleAdapter.notifyDataSetChanged()
-            })
-*/
         viewModel = (activity as MainActivity).viewModel
-
         if (viewModel.hasInternetConnection()){
 
            homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)

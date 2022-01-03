@@ -54,108 +54,99 @@
                                 android:layout_weight="1"
                                 android:src="@drawable/ic_person" />
 
-                            <LinearLayout
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:orientation="horizontal">
 
-                                <LinearLayout
+                                <TextView
+                                    android:id="@+id/textView6"
                                     android:layout_width="wrap_content"
-
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="5dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
+                                    android:text="@string/article"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                                    <TextView
-                                        android:id="@+id/textView6"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="15dp"
-                                        android:layout_weight="1"
-                                        android:text="@string/article"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/numberOrArticle"
-
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="0"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="5dp"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:orientation="vertical"
-                                    android:textStyle="bold">
-
-                                    <TextView
-                                        android:id="@+id/tvFollowingXml"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="15dp"
-                                        android:layout_weight="1"
-                                        android:text="@string/following"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/userFollowing_xml"
-
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="0"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
+                                <TextView
+                                    android:id="@+id/numberOrArticle"
 
                                     android:layout_width="wrap_content"
-
-                                    android:layout_height="match_parent"
-
-
-                                    android:layout_margin="5dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
+                                    android:text="0"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/textView6"
+                                    app:layout_constraintStart_toStartOf="@+id/textView6"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                                    <TextView
-                                        android:id="@+id/tvFollowersXml"
+                                <TextView
+                                    android:id="@+id/tvFollowingXml"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/following"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="15dp"
-                                        android:layout_weight="1"
-                                        android:text="@string/followers"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/userFollowing_xml"
 
-                                    <TextView
-                                        android:id="@+id/userFollowers_xml"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="0"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:text="0"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvFollowingXml"
+                                    app:layout_constraintStart_toStartOf="@+id/tvFollowingXml"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvFollowingXml" />
 
-                            </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tvFollowersXml"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/followers"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/tvFollowingXml"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/userFollowers_xml"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:text="0"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvFollowersXml"
+                                    app:layout_constraintStart_toStartOf="@+id/tvFollowersXml"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvFollowersXml" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                         </LinearLayout>

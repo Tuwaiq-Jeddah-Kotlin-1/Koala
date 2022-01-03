@@ -113,11 +113,12 @@ class AddArticle : Fragment() {
                 }else{
 
                    if (imageUrl != null) {
+                       var UUID=UUID.randomUUID().toString()
 
                        articleData("${categorySelected.toString()}"
                            ,"${binding.etTitleArticleXml.text.toString()}"
                            ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                           ,"${UUID.randomUUID().toString()}","${UUID.randomUUID().toString()}")
+                           ,"${UUID.toString()}","${UUID}")
                         }else{
 
                        articleData("${categorySelected.toString()}"
@@ -145,7 +146,6 @@ class AddArticle : Fragment() {
         article.title = title.toString()
         article.articleID=articleID.toString()
          article.articleImage = articlePhotoID.toString()
-
 
 
          //view Model

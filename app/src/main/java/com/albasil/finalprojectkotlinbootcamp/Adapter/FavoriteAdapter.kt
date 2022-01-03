@@ -58,20 +58,23 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
         //--------------------------------------------------------------------------
 
-        val storageRef = FirebaseStorage.getInstance().reference
-            .child("/imagesArticle/${favoriteArticle.articleID.toString()}")
+
+
+        holder.imageArticle(favoriteArticle.articleID)
+
+      /*  val storageRef = FirebaseStorage.getInstance().reference
+            .child("/imagesArticle/${favoriteArticle.articleImage.toString()}")
 
         val localFile = File.createTempFile("tempImage", "jpg")
         storageRef.getFile(localFile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
             holder.image_article.load(bitmap)
         }.addOnFailureListener {}
-
+*/
 
         //--------------------------------------------------------------------------
 
         val firestore = FirebaseFirestore.getInstance()
-
         firestore.collection("Articles").document(favoriteArticle.articleID).get()
             .addOnCompleteListener {it
                 if (it.result?.exists()!!) {
@@ -82,7 +85,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     var category = it.result!!.getString("category")
                     var like = it.result!!.get("like")
                    var description = it.result!!.getString("description")
-//                    var category = it.result!!.getString("articleImage")
                     holder.articleTitle.text = articleTitle.toString()
                     holder.articleCategory.text = category.toString()
                     holder.dateArticle.text = date.toString()
@@ -130,6 +132,18 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         val image_article: ImageView = itemView.findViewById(R.id.imageItem_xml)
         val linearLayOutFavorite: LinearLayout = itemView.findViewById(R.id.linearLayOutFavorite)
 
+
+
+        //-------------------------------------------------------------------------
+        fun imageArticle(articleImage:String){
+            val storageRef = FirebaseStorage.getInstance().reference
+                .child("/imagesArticle/${articleImage}")
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                image_article.load(localFile)
+            }.addOnFailureListener {}
+        }
         init {
             itemView.setOnClickListener(this)
         }
