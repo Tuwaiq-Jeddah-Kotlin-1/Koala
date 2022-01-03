@@ -25,6 +25,7 @@ import java.util.*
 
 val firestore = FirebaseFirestore.getInstance()
 
+
 class ArticleAdapter(private val articleList: MutableList<Article>) :
     RecyclerView.Adapter<ArticleAdapter.MyViewHolder>() {
     val myID = FirebaseAuth.getInstance().currentUser?.uid
@@ -58,8 +59,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         }
 
 
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document(myID.toString()).collection("Favorite")
+        firestore.collection("Users").document(myID.toString()).collection("Favorite")
             .document(article.articleID).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
@@ -69,25 +69,25 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
             }
 
+
         holder.ivFavorite.setOnClickListener {
             holder.upDateFavorite("${article.articleID}", article)
         }
 
         holder.imageArticle(article.articleImage)
-
         holder.imageArticle.load(article.articleImage)
 
 
         //******************************************************************************************
         //count number likes
-        db.collection("Articles").document(article.articleID).collection("Favorite").get()
+       firestore.collection("Articles").document(article.articleID).collection("Favorite").get()
             .addOnSuccessListener {
                 var numberOfFavorite = it.size()
                 holder.numberLikes.text =numberOfFavorite.toString()
             }
 
         //---------------userName----------------------------------------------------------------
-        holder.userName.setOnClickListener {
+       holder.userName.setOnClickListener {
             if (myID.toString() == holder.userId.toString()) {
                 findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
 
@@ -98,8 +98,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             }
         }
 
-        //----------------check UserName ----------------------------------------------
-        db.collection("Users").document(article.userId).get()
+        //----------------check User Name ----------------------------------------------
+        firestore.collection("Users").document(article.userId).get()
             .addOnCompleteListener {it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")
@@ -191,7 +191,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                         }
                     }
                 }
-            numberOfFavorite(articleID)
+         //   numberOfFavorite(articleID)
         }
 
         //---------------addFavorite-------------------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     addToArticle.document(articleID.toString()).collection("Favorite")
                         .document("${userId.toString()}").set(addFavorite)
                     //---------------------------------------------------------------------------------
-                    numberOfFavorite(articleID)
+                  // numberOfFavorite(articleID)
 
                 }
         }

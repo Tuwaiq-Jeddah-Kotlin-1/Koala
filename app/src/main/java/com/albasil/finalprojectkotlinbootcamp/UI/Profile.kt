@@ -273,11 +273,6 @@ class Profile : Fragment() {
 
             binding.userImageProfileXml.setImageURI(imageUrl)
 
-            Log.e("URL",imageUrl.toString())
-            Log.e("URL",imageUrl.toString())
-            Log.e("URL",imageUrl.toString())
-
-            //*******************************************************
             upLoadImage()
         }
 
@@ -286,52 +281,29 @@ class Profile : Fragment() {
     //repo or fire storage
     fun upLoadImage() {
 
-        //-----------UID------------------------
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
-//
-//        val progressDialog = ProgressDialog(context)
-//        progressDialog.setMessage("Uploading File ...")
-//        progressDialog.setCancelable(false)
-//        progressDialog.show()
 
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${uId}")
+        val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${myID.toString()}")
 
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
-               // Toast.makeText(context, "uploading image", Toast.LENGTH_SHORT).show()
-
-//                if (progressDialog.isShowing) progressDialog.dismiss()
 
              //   getUserPhoto()
-
-
             }.addOnFailureListener {
-//                if (progressDialog.isShowing) progressDialog.dismiss()
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
     }
 
     fun getUserPhoto() {
-
         val imageName = "${FirebaseAuth.getInstance().currentUser?.uid}"
-
         val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesUsers/$imageName")
 
         val localFile = File.createTempFile("tempImage", "jpg")
         storageRef.getFile(localFile).addOnSuccessListener {
-
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
-            //binding.userImageProfileXml.load(bitmap)
-
-            Log.e("bitmap",bitmap.toString())
-
             binding.userImageProfileXml.load(localFile)
-            Log.e("localFile",localFile.toString())
 
         }.addOnFailureListener {
-           // Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
         }
     }
     //--------------------------------------------------------------------------------------

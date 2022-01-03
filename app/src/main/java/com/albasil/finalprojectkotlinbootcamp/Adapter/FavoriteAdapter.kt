@@ -40,6 +40,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         val favoriteArticle = favoritesList[position]
         holder.articleID = favoriteArticle.articleID
         holder.userID = favoriteArticle.userId
+        holder.image = favoriteArticle.articleImage
 
         holder.linearLayOutFavorite.visibility = View.GONE
 
@@ -58,19 +59,14 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
         //--------------------------------------------------------------------------
 
+            val storageRef = FirebaseStorage.getInstance().reference
+                .child("/imagesArticle/${favoriteArticle.articleID}")
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                holder.image_article.load(localFile)
+            }.addOnFailureListener {}
 
-
-        holder.imageArticle(favoriteArticle.articleID)
-
-      /*  val storageRef = FirebaseStorage.getInstance().reference
-            .child("/imagesArticle/${favoriteArticle.articleImage.toString()}")
-
-        val localFile = File.createTempFile("tempImage", "jpg")
-        storageRef.getFile(localFile).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-            holder.image_article.load(bitmap)
-        }.addOnFailureListener {}
-*/
 
         //--------------------------------------------------------------------------
 
@@ -134,7 +130,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
 
 
-        //-------------------------------------------------------------------------
+   //-----------------------------------------------------------------
         fun imageArticle(articleImage:String){
             val storageRef = FirebaseStorage.getInstance().reference
                 .child("/imagesArticle/${articleImage}")

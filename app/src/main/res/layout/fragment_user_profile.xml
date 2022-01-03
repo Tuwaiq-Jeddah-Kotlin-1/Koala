@@ -71,7 +71,7 @@
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
-                                <LinearLayout
+                                <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -80,95 +80,89 @@
                                     android:padding="10dp">
 
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="5dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:id="@+id/textViewArticles"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="@string/article"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
-
-                                        <TextView
-                                            android:id="@+id/userArticles_xml"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-
+                                    <TextView
+                                        android:id="@+id/textViewArticles"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_margin="5dp"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginTop="15dp"
                                         android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
+                                        android:text="@string/article"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
-                                        <TextView
-                                            android:id="@+id/textView10"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="@string/following"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
-
-                                        <TextView
-                                            android:id="@+id/userFollowing_xml"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
+                                    <TextView
+                                        android:id="@+id/textView8"
                                         android:layout_width="wrap_content"
-
                                         android:layout_height="wrap_content"
-
-
-                                        android:layout_margin="5dp"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginTop="16dp"
+                                        android:layout_marginEnd="16dp"
                                         android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
+                                        android:text="@string/followers"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@+id/textView10"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
-                                        <TextView
-                                            android:id="@+id/textView8"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="@string/followers"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
+                                    <TextView
+                                        android:id="@+id/textView10"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="15dp"
+                                        android:layout_weight="1"
+                                        android:text="@string/following"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintStart_toEndOf="@+id/textViewArticles"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
-                                        <TextView
-                                            android:id="@+id/userFollowers_xml"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="0"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
+                                    <TextView
+                                        android:id="@+id/userArticles_xml"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toEndOf="@+id/textViewArticles"
+                                        app:layout_constraintStart_toStartOf="@+id/textViewArticles"
+                                        app:layout_constraintTop_toBottomOf="@+id/textViewArticles" />
+
+                                    <TextView
+                                        android:id="@+id/userFollowers_xml"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toEndOf="@+id/textView8"
+                                        app:layout_constraintHorizontal_bias="0.509"
+                                        app:layout_constraintStart_toStartOf="@+id/textView8"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                                    <TextView
+                                        android:id="@+id/userFollowing_xml"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_weight="1"
+                                        android:text="0"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toEndOf="@+id/textView10"
+                                        app:layout_constraintStart_toStartOf="@+id/textView10"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 
-                                </LinearLayout>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </LinearLayout>
 

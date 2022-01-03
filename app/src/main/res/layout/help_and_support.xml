@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="60sp"
+
     android:layout_margin="10dp"
     tools:context=".MainActivity">
 
@@ -53,7 +54,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:pointerIcon="cell"
-            android:text="966569861476"
+            android:text="+966569861476"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -65,7 +66,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="60dp"
             android:drawableStart="@color/cardview_shadow_end_color"
-            android:text="basil_alluqmni_hotmail_com"
+            android:text="basil_alluqmni@hotmail_com"
             android:textSize="15sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
