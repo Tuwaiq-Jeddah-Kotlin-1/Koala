@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <SearchView
+                android:background="#807F7F"
 
                 android:queryHint="Search ..."
 

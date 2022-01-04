@@ -25,7 +25,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-
                     android:id="@+id/tvSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
@@ -82,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/black"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,12 +90,13 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:hint="@string/user_name"
                     app:counterMaxLength="20"
                     app:endIconMode="clear_text"
                     app:helperText="*"
                     app:helperTextTextColor="#FF0000"
+                    android:layout_margin="10dp"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etSignUpEmailLayout"
@@ -119,12 +118,12 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:hint="@string/phone_number"
                     app:counterEnabled="true"
                     app:counterMaxLength="10"
                     app:endIconMode="clear_text"
                     app:helperText="*"
+                    android:layout_margin="10dp"
 
                     app:helperTextTextColor="#FF0000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +174,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:textColor="@color/black"
                     android:textSize="14sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 

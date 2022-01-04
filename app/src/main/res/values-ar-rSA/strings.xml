@@ -72,4 +72,8 @@
     <string name="help_and_support">الدعم </string>
     <string name="about_app"> حول التطبيق</string>
     <string name="edit">Edit</string>
+    <string name="your_articles">Your Articles ...</string>
+    <string name="select_one_category">Select One Category</string>
+    <string name="save_changed">Save Changed</string>
+    <string name="english">English</string>
 </resources>

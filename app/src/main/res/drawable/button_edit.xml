@@ -7,7 +7,7 @@
         android:width="2dp"
 
 
-        android:color="#FFFFFF" />
+        android:color="#FF0000" />
     <solid android:color="#00FFFFFF" />
     <gradient android:endColor="@color/white" />
     <gradient android:startColor="@color/white" />

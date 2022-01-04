@@ -36,7 +36,6 @@
 
                     android:layout_weight="1"
                     android:text="@string/user_name"
-                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -50,7 +49,6 @@
 
                     android:gravity="right"
                     android:text="Date"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -61,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/koala_logos" />
+                android:src="@drawable/feather_logos_transparent2" />
 
             <TextView
                 android:id="@+id/titleArticleInfo_xml"
@@ -73,7 +71,6 @@
                 android:text="@string/title"
 
 
-                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -84,7 +81,6 @@
                 android:layout_margin="10dp"
 
                 android:text="@string/category"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -95,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/articleDescription"
-                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

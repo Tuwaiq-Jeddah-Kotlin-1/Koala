@@ -6,7 +6,7 @@
 
         android:width="2dp"/>
     <solid android:color="#FF0000"/>
-    <gradient android:endColor="@color/white"/>
+    <gradient android:endColor="#FF0000"/>
     <gradient android:centerColor="@color/white"/>
 
     <corners android:radius="100dp"/>
