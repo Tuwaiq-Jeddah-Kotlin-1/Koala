@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/article_edit"
     tools:context=".SecondFragment.ArticleInformation">
 
 
@@ -84,10 +83,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
 
+                android:text="@string/category"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/category" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/articleDescraptionInfo_xml"
@@ -101,9 +100,9 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <ImageView

@@ -28,7 +28,7 @@ import com.google.firebase.firestore.*
 
 class HomePage : Fragment() {
 
-    lateinit var binding: FragmentHomePageBinding
+    lateinit var binding:FragmentHomePageBinding
 
     var categorySelected: String? = null
 

@@ -13,11 +13,10 @@
             android:id="@+id/action_sign_in_to_signUP"
             app:destination="@id/signUP" />
         <action
-            android:id="@+id/action_sign_in_to_apiFragment"
-            app:destination="@id/apiFragment" />
-        <action
             android:id="@+id/action_sign_in_to_tabBarFragment"
-            app:destination="@id/tabBarFragment" />
+            app:destination="@id/tabBarFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/signUP"
@@ -26,7 +25,8 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUP_to_tabBarFragment"
-            app:destination="@id/tabBarFragment" />
+            app:destination="@id/tabBarFragment"
+            app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -36,8 +36,8 @@
         <action
             android:id="@+id/action_setting_to_sign_in"
             app:destination="@id/sign_in"
-            app:popUpTo="@id/setting"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -63,9 +63,6 @@
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" >
         <action
-            android:id="@+id/action_homePage_to_articleInformation"
-            app:destination="@id/articleInformation" />
-        <action
             android:id="@+id/action_homePage_to_userProfile"
             app:destination="@id/userProfile" />
         <action
@@ -76,11 +73,6 @@
         android:id="@+id/addArticle"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.AddArticle"
         android:label="AddArticle" />
-    <fragment
-        android:id="@+id/apiFragment"
-        android:name="com.albasil.finalprojectkotlinbootcamp.UI.ApiFragment"
-        android:label="fragment_api"
-        tools:layout="@layout/fragment_api" />
     <fragment
         android:id="@+id/articleInformation"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation"
@@ -147,22 +139,10 @@
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
-            android:id="@+id/action_favoriteFragment_to_articleInformation"
-            app:destination="@id/articleInformation" />
-        <action
             android:id="@+id/action_favoriteFragment_to_profile"
             app:destination="@id/profile" />
         <action
             android:id="@+id/action_favoriteFragment_to_userProfile"
-            app:destination="@id/userProfile" />
-    </fragment>
-    <fragment
-        android:id="@+id/followersArticlesFragment"
-        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.AllUsersFragment"
-        android:label="fragment_followers_articles"
-        tools:layout="@layout/all_users_fragment" >
-        <action
-            android:id="@+id/action_followersArticlesFragment_to_userProfile"
             app:destination="@id/userProfile" />
     </fragment>
     <fragment

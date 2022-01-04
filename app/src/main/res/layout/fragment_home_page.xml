@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:drawableEnd="@drawable/ic_arrow_down"
-            android:text="sort"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"

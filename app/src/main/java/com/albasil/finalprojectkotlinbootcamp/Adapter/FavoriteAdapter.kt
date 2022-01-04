@@ -42,6 +42,8 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         holder.userID = favoriteArticle.userId
         holder.image = favoriteArticle.articleImage
 
+
+
         holder.linearLayOutFavorite.visibility = View.GONE
 
         holder.userName.setOnClickListener {
@@ -100,7 +102,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
 
         //----------------get User Name--------------------------------------------------
-        firestore.collection("Users").document(favoriteArticle.userId).get()
+      firestore.collection("Users").document(favoriteArticle.userId).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")

@@ -52,7 +52,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
         //------------------------------------------------------------------------------------------
 
-
         if (article.articleImage.isNullOrBlank()){
 
             holder.imageArticle.visibility= View.GONE
