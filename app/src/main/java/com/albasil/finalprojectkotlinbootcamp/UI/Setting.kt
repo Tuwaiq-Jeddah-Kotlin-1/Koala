@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.UiModeManager.MODE_NIGHT_YES
 import android.content.Context
 import android.content.Intent
@@ -18,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.core.app.ActivityCompat.recreate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.MainActivity
@@ -44,9 +46,11 @@ class Setting : Fragment() {
     private lateinit var settingsViewModel: SettingsViewModel
 
 
+    private val preferencesFeather by lazy {
+         this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
+    }
 
-    private lateinit var preferencesFeather: SharedPreferences
-    private lateinit var settings :SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,23 +60,29 @@ class Setting : Fragment() {
 
         return binding.root
     }
-
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
        settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
+        binding.switchDarkMode.isChecked =preferencesFeather.getBoolean("MODE",false)
+
+
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-
             } else {
 
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
             }
+            preferencesFeather.edit().putBoolean("MODE",isChecked).apply()
         }
-            //tvProfileShow
+
+
+
+
             binding.buttonLogOutXml.setOnClickListener {
                 signOut()
             }
@@ -81,6 +91,15 @@ class Setting : Fragment() {
                 dialogChangePassword(view)
 
             }
+
+        binding.engLang.setOnClickListener {//save in preference and start app with it
+            //sharedPreferences.edit().putString(LANG, "en").apply()
+            setLocale( "en")
+        }
+        binding.arLang.setOnClickListener {
+           // sharedPreferences.edit().putString(LANG, "ar").apply()
+            setLocale( "ar")
+        }
 
             binding.aboutUsId.setOnClickListener {
                 aboutUs()
@@ -95,7 +114,6 @@ class Setting : Fragment() {
         }
 
     private fun signOut() {
-        preferencesFeather = this.requireActivity().getSharedPreferences("preference", Context.MODE_PRIVATE)
         preferencesFeather.getString("EMAIL", "")
         preferencesFeather.getString("PASSWORD", "")
         val editor: SharedPreferences.Editor = preferencesFeather.edit()
@@ -110,40 +128,43 @@ class Setting : Fragment() {
    private fun dialogChangeLanguage() {
         val view: View = layoutInflater.inflate(R.layout.change_langauge, null)
         val builder = BottomSheetDialog(requireView().context!!)
-        builder.setTitle("Change Language")
+        builder.setTitle(getString(R.string.change_language))
         val btnChangeLanguage = view.btnChangeLanguage
        var radioGroup = view.radioGroup
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             var selectedLanguage:RadioButton=view.findViewById(checkedId)
             if (selectedLanguage != null) btnChangeLanguage.setOnClickListener {
-                if (selectedLanguage.text.toString()=="Arabic"){
-                    setLocaleFeather("ar")
+
+
+                if (selectedLanguage.text.toString()=="عربي"){
+                    //setLocaleFeather("ar")
+
+                    setLocale("ar")
                 }else if (selectedLanguage.text.toString()=="English"){
-                    setLocaleFeather("en")
+                   // setLocaleFeather("en")
+                    setLocale("en")
+
                 }
             }
         }
         builder.setContentView(view)
-        btnChangeLanguage.setOnClickListener {
-
-            if (view is RadioButton) {
-                val checked = view.isChecked
-
-                when (view.getId()) {
-                    R.id.englishLanguageXml ->
-                        if (checked) {
-                            Log.e("Language","English")
-                        }
-                    R.id.arabicLanguageXml ->
-                        if (checked) {
-                            Log.e("Language","عربي")
-                        }
-                }
-            }
-
-
-        }
         builder.show()
+    }
+
+    private fun setLocale(localeName: String) {
+        val locale = Locale(localeName)
+        Locale.setDefault(locale)
+        val resources = activity?.resources
+        val config: Configuration = resources!!.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // startActivity(Intent(requireContext(), MainActivity::class.java))
+
+        //activity?.finish();
+
+       recreate(context as Activity)
+
     }
 
 
@@ -153,14 +174,22 @@ class Setting : Fragment() {
         val config = Configuration()
         config.locale = locale
         context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
-        preferencesFeather = this.requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = preferencesFeather.edit()
-        editor.putString("Settings", "${locale.toString()}")
+        editor.putString("preference", "${locale.toString()}")
         editor.apply()
-        val refresh = Intent(context, MainActivity::class.java)
-        startActivity(refresh)
+
+//        val refresh = Intent(context, MainActivity::class.java)
+        //startActivity(refresh)
+
+        recreate(context as Activity)
+
+
+
+
 
     }
+
+
         //--------------------------------------------------------------------------
         fun dialogChangePassword(view: View) {
 
@@ -189,40 +218,29 @@ class Setting : Fragment() {
 
         //--------------------------------------------------------------------------
         private fun aboutUs() {
-
             val view: View = layoutInflater.inflate(R.layout.about_us, null)
-
             val builder = BottomSheetDialog(requireView().context!!)
-            builder.setTitle("About Us")
-
+            builder.setTitle(getString(R.string.about_app))
             builder.setContentView(view)
-
             builder.show()
 
         }
-
-
-
 
         private fun support() {
 
             val view: View = layoutInflater.inflate(R.layout.help_and_support, null)
             val builder = BottomSheetDialog(requireView().context!!)
-            builder.setTitle("support")
+            builder.setTitle(getString(R.string.help_and_support))
             val tvPhoneNumber = view.callNumber_ID
             val tvEmailAddress = view.sendEmail
 
             tvPhoneNumber.setOnClickListener(View.OnClickListener() {
-
-
                 val phone = "+966569861476"
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:$phone")
                 startActivity(intent)
 
-
             });
-
 
             tvEmailAddress.setOnClickListener {
                 val email = "Basil_alluqmni@hotmail.com"
@@ -234,7 +252,6 @@ class Setting : Fragment() {
                     startActivity(intent)
                 }
             }
-
             builder.setContentView(view)
             builder.show()
 

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -28,14 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         // NotificationRepo().myNotification(this)
 
-
         val viewModelProviderFactory = FeatherViewModelProvider(application)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(FeatherViewModel::class.java)
 
-
         //------------------------------------------------------------------------------------
-        val sharedPreferencesSettings = this.getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferencesSettings.getString("Settings", "")
+        val sharedPreferencesSettings = this.getSharedPreferences("preference", Activity.MODE_PRIVATE)
+        val language = sharedPreferencesSettings.getString("preference", "")
 
         if (language.toString() == "ar") {
             setLocate()
@@ -54,21 +53,21 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.splashScreen -> {
-                  //  getSupportActionBar()?.hide()
+                  //  getSupportActionBar()?.hide()context as Activity
 
-                    bottomNavView.visibility = View.GONE
+                    //bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
                 }
                 R.id.signUP -> {
-                    bottomNavView.visibility = View.GONE
+                   // bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
                 }
                 R.id.sign_in -> {
-                    bottomNavView.visibility = View.GONE
+                 //   bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
                 }
                 else -> {
-                    bottomNavView.visibility = View.VISIBLE
+                    //bottomNavView.visibility = View.VISIBLE
                     bottomBar.visibility = View.VISIBLE
                 }
             }

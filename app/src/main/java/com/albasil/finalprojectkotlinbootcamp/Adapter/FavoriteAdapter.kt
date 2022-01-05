@@ -43,7 +43,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         holder.image = favoriteArticle.articleImage
 
 
-
         holder.linearLayOutFavorite.visibility = View.GONE
 
         holder.userName.setOnClickListener {
@@ -58,20 +57,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     .navigate(userInformation)
             }
         }
-
-        //--------------------------------------------------------------------------
-
-            val storageRef = FirebaseStorage.getInstance().reference
-                .child("/imagesArticle/${favoriteArticle.articleID}")
-            val localFile = File.createTempFile("tempImage", "jpg")
-            storageRef.getFile(localFile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                holder.image_article.load(localFile)
-            }.addOnFailureListener {}
-
-
-        //--------------------------------------------------------------------------
-
         val firestore = FirebaseFirestore.getInstance()
         firestore.collection("Articles").document(favoriteArticle.articleID).get()
             .addOnCompleteListener {it
@@ -91,7 +76,34 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     holder.articleDescription =description.toString()
                     holder.image =articleImage.toString()
                     holder.numberLikes = like.toString()
-                    Log.e("articleImage", "${articleImage.toString()}")
+
+                    //--------------------------------------------------------------------------
+
+                    val storageRef = FirebaseStorage.getInstance().reference
+                        .child("/imagesArticle/${holder.image}")
+                    val localFile = File.createTempFile("tempImage", "jpg")
+                    storageRef.getFile(localFile).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                        holder.image_article.load(localFile)
+                    }.addOnFailureListener {}
+
+                    holder.image_article.setOnClickListener {
+                        Toast.makeText(holder.itemView.context, "image ${favoriteArticle.articleImage}", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                    //--------------------------------------------------------------------------
+
+
+
+                    //------------------------------------------------------------------------
+
+
+                    if ( holder.image.isNullOrBlank()){
+
+                        holder.image_article.visibility= View.GONE
+                    }
+
 
                 } else {
 
@@ -99,7 +111,6 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                         .collection("Favorite").document(favoriteArticle.articleID).delete()
                 }
             }
-
 
         //----------------get User Name--------------------------------------------------
       firestore.collection("Users").document(favoriteArticle.userId).get()

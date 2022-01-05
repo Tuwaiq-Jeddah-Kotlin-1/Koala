@@ -41,9 +41,9 @@ import com.google.android.material.tabs.TabLayout
 
         private fun setUpViewPager(viewPager: ViewPager?) {
             val adapter = TapLayOut(childFragmentManager)
-            adapter.addFragment(HomePage(), "المقالات")
-            adapter.addFragment(FavoriteFragment(), "المفضلة")
-            adapter.addFragment(AllUsersFragment(), "المستخدمين")
+            adapter.addFragment(HomePage(), "Articles")
+            adapter.addFragment(FavoriteFragment(), "My Favorite")
+            adapter.addFragment(AllUsersFragment(), "Users")
 
             viewPager!!.adapter = adapter
         }

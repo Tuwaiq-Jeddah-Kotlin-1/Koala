@@ -32,9 +32,6 @@ class UserArticle : Fragment() {
 
         binding = FragmentUserArticleBinding.inflate(inflater,container,false)
 
-
-
-
         return binding.root
 
     }
@@ -64,8 +61,6 @@ class UserArticle : Fragment() {
         val localFile = File.createTempFile("tempImage", "jpg")
 
         storageRef.getFile(localFile).addOnSuccessListener {
-
-
             val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
 
             //  binding.userImageProfileXml.load(bitmap)
@@ -76,7 +71,6 @@ class UserArticle : Fragment() {
 
             binding.imageArticleUserXml.setImageResource(R.drawable.ic_category)
 
-            // Toast.makeText(context, "Failed image ", Toast.LENGTH_SHORT).show()
 
         }
     }
