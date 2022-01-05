@@ -131,69 +131,6 @@
                         android:textSize="16sp"
                         tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
 
-                    <RelativeLayout
-                        android:id="@+id/langRelative"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:ignore="MissingConstraints">
-
-                        <TextView
-                            android:id="@+id/tvLang"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="language" />
-
-                        <com.google.android.material.button.MaterialButtonToggleGroup
-                            android:id="@+id/switchLang"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:padding="5dp"
-                            app:singleSelection="true">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/engLang"
-                                style="?attr/materialButtonOutlinedStyle"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/english" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/arLang"
-                                style="?attr/materialButtonOutlinedStyle"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="arabic" />
-
-                        </com.google.android.material.button.MaterialButtonToggleGroup>
-                        <!--  <TextView
-                              android:id="@+id/engLang"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_alignParentEnd="true"
-                              android:layout_centerVertical="true"
-                              android:layout_marginEnd="20dp"
-                              android:text="@string/english"
-                              android:textSize="18sp" />-->
-
-                        <!--<TextView
-                            android:id="@+id/arLang"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignEnd="@id/engLang"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="80dp"
-                            android:text="@string/arabic"
-                            android:textSize="18sp" />-->
-                    </RelativeLayout>
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

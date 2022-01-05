@@ -2,6 +2,7 @@
 
 
     <string-array name="categories">
+        <item>All</item>
         <item>Designers</item>
         <item>Teachers</item>
         <item>Fixers</item>

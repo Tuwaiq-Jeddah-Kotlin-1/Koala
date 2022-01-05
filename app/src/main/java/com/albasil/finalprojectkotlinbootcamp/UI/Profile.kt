@@ -287,7 +287,7 @@ class Profile : Fragment() {
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
 
-             //   getUserPhoto()
+                getUserPhoto()
             }.addOnFailureListener {
             }
     }

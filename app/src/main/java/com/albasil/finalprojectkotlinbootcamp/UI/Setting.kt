@@ -92,14 +92,6 @@ class Setting : Fragment() {
 
             }
 
-        binding.engLang.setOnClickListener {//save in preference and start app with it
-            //sharedPreferences.edit().putString(LANG, "en").apply()
-            setLocale( "en")
-        }
-        binding.arLang.setOnClickListener {
-           // sharedPreferences.edit().putString(LANG, "ar").apply()
-            setLocale( "ar")
-        }
 
             binding.aboutUsId.setOnClickListener {
                 aboutUs()
@@ -158,10 +150,6 @@ class Setting : Fragment() {
         val config: Configuration = resources!!.configuration
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
-
-        // startActivity(Intent(requireContext(), MainActivity::class.java))
-
-        //activity?.finish();
 
        recreate(context as Activity)
 

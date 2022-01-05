@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         if (language.toString() == "ar") {
             setLocate()
-
         }
 
 
@@ -113,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("About Feather")
                     .setIcon(R.drawable.ic_photo_camera)
-                    .setMessage("تم تطوير تطبيق ToDoList من قبل المطور باسل بأشراف من أ/ شادي سليم  و أ/ سمية الطويرقي .... ")
+                    .setMessage("تم تطوير تطبيق ريشة من قبل المطور باسل تحت أكادمية طويق 100 بأشراف أ/شادي سليم و أ//سمية الطويرقي  ")
                     .setPositiveButton("OK"){
                             dialog,_ ->
 

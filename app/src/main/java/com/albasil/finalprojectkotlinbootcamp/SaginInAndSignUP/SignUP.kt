@@ -218,8 +218,7 @@ class SignUP : Fragment() {
                     it.isSuccessful -> {
                         upLoadImage("${user.userId}")
 
-                        Toast.makeText(context, "Welcome", Toast.LENGTH_LONG)
-                            .show()
+                  //      Toast.makeText(context, "Welcome", Toast.LENGTH_LONG).show()
                     }
                     else -> {
                         Toast.makeText(context, "is not Successful", Toast.LENGTH_LONG)

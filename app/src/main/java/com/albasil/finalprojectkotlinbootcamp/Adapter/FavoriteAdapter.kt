@@ -87,16 +87,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                         holder.image_article.load(localFile)
                     }.addOnFailureListener {}
 
-                    holder.image_article.setOnClickListener {
-                        Toast.makeText(holder.itemView.context, "image ${favoriteArticle.articleImage}", Toast.LENGTH_SHORT).show()
-                    }
-
-
                     //--------------------------------------------------------------------------
-
-
-
-                    //------------------------------------------------------------------------
 
 
                     if ( holder.image.isNullOrBlank()){

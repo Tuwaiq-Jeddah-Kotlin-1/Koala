@@ -44,6 +44,7 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         val article= articleList[position]
+
         holder.titleArticle.text = article.title
         holder.articleDate = article.date
         holder.articleCategory.text = article.category
