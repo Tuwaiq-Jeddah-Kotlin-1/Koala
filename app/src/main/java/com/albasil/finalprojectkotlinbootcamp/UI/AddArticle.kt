@@ -14,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
@@ -149,9 +151,16 @@ class AddArticle : Fragment() {
 
 
          //view Model
-        addArticleViewModel.addArticle(article)
+         view?.let { addArticleViewModel.addArticle(article,it) }
 
         upLoadImage(articlePhotoID.toString())
+         findNavController().navigate(R.id.action_addArticle_to_homePage)
+
+
+         binding.etTitleArticleXml.text = null
+         binding.etDescraptaionArticleXml.text = null
+         binding.spinnerCategoryXml.text = null
+         binding.articlerPhotoXml.setImageURI(null)
 
     }
 

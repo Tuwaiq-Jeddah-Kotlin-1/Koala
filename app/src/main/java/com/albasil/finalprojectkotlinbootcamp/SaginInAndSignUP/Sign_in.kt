@@ -74,7 +74,8 @@ class Sign_in : Fragment() {
 
         if (isRemembered) {
             findNavController().navigate(R.id.action_sign_in_to_tabBarFragment)
-        }    }
+        }
+    }
 
     private fun checkOfText() {
 

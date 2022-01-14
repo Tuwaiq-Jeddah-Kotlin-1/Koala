@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -65,9 +66,12 @@ class Profile : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
@@ -149,7 +153,9 @@ class Profile : Fragment() {
                     view?.let {
                         Snackbar.make(it, "Article Deleted Successfully", Snackbar.LENGTH_LONG).apply {
                             setAction("Undo") {
-                                profileViewModel.addArticle(article)
+
+                                view.let { profileViewModel.addArticle(article,it) }
+
                             }
                             show()
 

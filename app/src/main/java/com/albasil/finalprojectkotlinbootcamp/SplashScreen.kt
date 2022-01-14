@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
 import androidx.navigation.fragment.findNavController
 
@@ -24,7 +25,10 @@ class SplashScreen : Fragment() {
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
 
         Handler().postDelayed({
             if(viewModel.hasInternetConnection()){

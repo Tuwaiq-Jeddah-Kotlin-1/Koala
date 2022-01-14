@@ -56,18 +56,29 @@ class MainActivity : AppCompatActivity() {
 
                     //bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
+                    supportActionBar!!.hide()
+
                 }
                 R.id.signUP -> {
                    // bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
+                    //        requireActivity().supportActionBar?.hide()
+                   // (this as AppCompatActivity?)!!.supportActionBar!!.customView
+                    supportActionBar!!.hide()
+
                 }
                 R.id.sign_in -> {
                  //   bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
+              //      (this as AppCompatActivity?)!!.supportActionBar!!.hide()
+                    supportActionBar!!.hide()
+
+
                 }
                 else -> {
                     //bottomNavView.visibility = View.VISIBLE
                     bottomBar.visibility = View.VISIBLE
+                    supportActionBar!!.show()
                 }
             }
         }
@@ -86,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         config.locale = locale
 
         //---------------------------------------------------------------
-        this?.resources?.updateConfiguration(config, this.resources.displayMetrics)
+        this.resources?.updateConfiguration(config, this.resources.displayMetrics)
 
     }
 
@@ -95,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.app_bar,menu)
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
@@ -111,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             R.id.about_Feather -> {
                 AlertDialog.Builder(this)
                     .setTitle("About Feather")
-                    .setIcon(R.drawable.ic_photo_camera)
+                    .setIcon(R.drawable.ic_baseline_remember_me_24)
                     .setMessage("تم تطوير تطبيق ريشة من قبل المطور باسل تحت أكادمية طويق 100 بأشراف أ/شادي سليم و أ//سمية الطويرقي  ")
                     .setPositiveButton("OK"){
                             dialog,_ ->

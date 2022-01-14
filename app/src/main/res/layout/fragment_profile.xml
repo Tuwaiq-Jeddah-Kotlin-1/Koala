@@ -5,7 +5,6 @@
 
 
     <FrameLayout
-        android:background="@color/ic_launcher_background"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -166,15 +166,7 @@ class Setting : Fragment() {
         editor.putString("preference", "${locale.toString()}")
         editor.apply()
 
-//        val refresh = Intent(context, MainActivity::class.java)
-        //startActivity(refresh)
-
         recreate(context as Activity)
-
-
-
-
-
     }
 
 

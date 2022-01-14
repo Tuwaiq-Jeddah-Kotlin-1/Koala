@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.*
 import java.util.*
 
+@SuppressLint("StaticFieldLeak")
 val firestore = FirebaseFirestore.getInstance()
 
 
@@ -67,8 +69,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border)
                 }
             }
-
-
         holder.ivFavorite.setOnClickListener {
             holder.upDateFavorite("${article.articleID}", article)
         }
@@ -81,7 +81,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         //count number likes
        firestore.collection("Articles").document(article.articleID).collection("Favorite").get()
             .addOnSuccessListener {
-                var numberOfFavorite = it.size()
+                val numberOfFavorite = it.size()
                 holder.numberLikes.text =numberOfFavorite.toString()
             }
 
@@ -106,12 +106,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 } else {
                 }
             }
-
-
     }
-
-
-
     override fun getItemCount(): Int = articleList.size
 
 
@@ -149,8 +144,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         //---------upDateFavorite------------------------------------------------------------------------------------------
         fun upDateFavorite(articleID: String, article: Article) {
             Toast.makeText(itemView.context, "article.articleID ${article.articleID.toString()}", Toast.LENGTH_SHORT).show()
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Users").document(myID.toString()).collection("Favorite")
+            firestore.collection("Users").document(myID.toString()).collection("Favorite")
                 .document(articleID).get()
                 .addOnCompleteListener {
                     if (it.result?.exists()!!) {
@@ -204,10 +198,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             val articleRef = Firebase.firestore.collection("Users")
             articleRef.document(userId.toString()).collection("Favorite")
                 .document("${articleID.toString()}")
-                .set(addFavorite).addOnCompleteListener {
-                    it
-                    when {
-                        it.isSuccessful -> {
+                .set(addFavorite).addOnCompleteListener {it
+                    when {it.isSuccessful -> {
                             Log.d("Add Article", "Done to add User Favorite")
                         }
                         else -> {
@@ -239,13 +231,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         //----------------------------------------------------------------------------------------------------------------
         init {
             itemView.setOnClickListener(this)
-
         }
-
-
         override fun onClick(v: View?) {
-
-
 
             val article_data = Article()
             article_data.userId =userId

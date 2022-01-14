@@ -72,7 +72,11 @@
     <fragment
         android:id="@+id/addArticle"
         android:name="com.albasil.finalprojectkotlinbootcamp.UI.AddArticle"
-        android:label="AddArticle" />
+        android:label="AddArticle" >
+        <action
+            android:id="@+id/action_addArticle_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
     <fragment
         android:id="@+id/articleInformation"
         android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformation"

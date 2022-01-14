@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.ViewModels
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
@@ -11,22 +12,15 @@ import kotlinx.coroutines.launch
 
 
 
-class AddArticleViewModel(context: Application) : AndroidViewModel(context) {
+class AddArticleViewModel(context: Application,) : AndroidViewModel(context) {
     val repo : AppRepo = AppRepo(context)
     // add to firebase
-     fun addArticle(article: Article){
+     fun addArticle(article: Article, view: View){
         viewModelScope.launch (Dispatchers.IO){
-            repo.addArticleToFirestore(article)
+            repo.addArticleToFirestore(article,view)
 
         }
     }
 
-/*
-    fun articleImage(articleImage: String){
-        viewModelScope.launch (Dispatchers.IO){
 
-            repo.upLoadImage(articleImage)
-        }
-    }
-*/
 }

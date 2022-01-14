@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
 import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
@@ -43,14 +44,15 @@ class AppRepo(val context: Context) {
     }
 
 
-    suspend fun addArticleToFirestore(article: Article) = CoroutineScope(Dispatchers.IO).launch {
+    suspend fun addArticleToFirestore(article: Article, view: View) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val articleRef = Firebase.firestore.collection("Articles")
-            articleRef.document(article.articleID).set(article).addOnCompleteListener {
-                it
+            articleRef.document(article.articleID).set(article).addOnCompleteListener {it
                 when {
                     it.isSuccessful -> {
 //                        upLoadImage("${article.articleImage.toString()}")
+
+
                         Log.e("Add Article", "Done ${article.title}")
                     }
                     else -> {
@@ -87,8 +89,6 @@ class AppRepo(val context: Context) {
 
     fun getUserArticles(userID: String, articleList: MutableList<Article>): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
-
-        fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("userId", userID)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -103,10 +103,14 @@ class AppRepo(val context: Context) {
                     }
                     article.value = articleList
                 }
-
             })
         return article
     }
+
+
+
+
+
     fun addUserInformation(myID: String, userInformation: String) =
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -131,6 +135,8 @@ class AppRepo(val context: Context) {
         )
 
     }
+
+
 
 
     fun getUserInfo(userID: String,userInfo :Users): LiveData<Users>{
@@ -273,34 +279,9 @@ class AppRepo(val context: Context) {
 
                     }
                     else -> {
-                        Toast.makeText(view.context,"Error to Update ",Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-    }
-
-    fun editImageArticles(imageArticleID:String,view: View){
-        /* val progressDialog = ProgressDialog(context)
-          progressDialog.setMessage("Uploading File ...")
-          progressDialog.setCancelable(false)
-          progressDialog.show()*/
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageArticleID}")
-        imageUrl?.let {
-            storageReference.putFile(it)
-                .addOnSuccessListener {
-                    //   userImage.setImageURI(null)
-                    //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
-
-                    //    if (progressDialog.isShowing)progressDialog.dismiss()
-
-                    Toast.makeText(view.context,"Its upload image to firestorage",Toast.LENGTH_SHORT).show()
-
-
-                }.addOnFailureListener{
-                    //   if (progressDialog.isShowing)progressDialog.dismiss()
-                    Toast.makeText(view.context,"Failed",Toast.LENGTH_SHORT).show()
-                }
-        }
     }
 
     //--------------------Article Favorite--------------------------------------------------------------------

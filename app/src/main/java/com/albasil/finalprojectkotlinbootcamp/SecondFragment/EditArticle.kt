@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
@@ -135,7 +136,10 @@ class EditArticle : Fragment() {
                                "",
                                 view
                             )
-                            Toast.makeText(context, "Is nullllll", Toast.LENGTH_SHORT).show()
+
+                            //add articles
+                            findNavController().navigate(R.id.profile)
+
                         }
 
                     }

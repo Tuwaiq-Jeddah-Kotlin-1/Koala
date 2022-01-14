@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 
 class AllUsers(internal val usersList: MutableList<Users>) :
-    RecyclerView.Adapter<AllUsers.FollowersArticlesViewHolder>(),Filterable {
+    RecyclerView.Adapter<AllUsers.FollowersArticlesViewHolder>(), Filterable {
     //--------------------------------------------------------------------------------------------------
     var filterUsersList = mutableListOf<Users>()
 
@@ -29,14 +29,16 @@ class AllUsers(internal val usersList: MutableList<Users>) :
             filterUsersList.add(it)
         }
     }
-    override fun getFilter(): Filter = object : Filter(){
+
+    override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults? {
             val filteredList: MutableList<Users> = ArrayList()
 
             if (constraint == null || constraint.isEmpty()) {
                 filteredList.addAll(filterUsersList)
             } else {
-                val filterPattern = constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
+                val filterPattern =
+                    constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
                 for (item in filterUsersList) {
                     if (item.userName.lowercase(Locale.getDefault()).contains(filterPattern)) {
                         filteredList.add(item)
@@ -56,16 +58,14 @@ class AllUsers(internal val usersList: MutableList<Users>) :
     }
 
 
-
-
-//---------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowersArticlesViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
         return FollowersArticlesViewHolder(itemView)
 
     }
-
 
 
     override fun onBindViewHolder(holder: FollowersArticlesViewHolder, position: Int) {
@@ -91,7 +91,7 @@ class AllUsers(internal val usersList: MutableList<Users>) :
         //--------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------
-        firestore.collection("Users").document(followersArticle.userId).get()
+        firestore.collection("Users").document(holder.userID).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")
@@ -104,7 +104,6 @@ class AllUsers(internal val usersList: MutableList<Users>) :
 
     override fun getItemCount(): Int {
         return usersList.size
-
     }
 
     class FollowersArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),

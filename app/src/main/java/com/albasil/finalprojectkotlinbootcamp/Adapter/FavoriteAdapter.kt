@@ -59,7 +59,8 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         }
         val firestore = FirebaseFirestore.getInstance()
         firestore.collection("Articles").document(favoriteArticle.articleID).get()
-            .addOnCompleteListener {it
+            .addOnCompleteListener {
+                it
                 if (it.result?.exists()!!) {
                     var articleTitle = it.result!!.getString("title")
                     var date = it.result!!.getString("date")
@@ -67,14 +68,14 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     var articleUserId = it.result!!.getString("userId")
                     var category = it.result!!.getString("category")
                     var like = it.result!!.get("like")
-                   var description = it.result!!.getString("description")
+                    var description = it.result!!.getString("description")
                     holder.articleTitle.text = articleTitle.toString()
                     holder.articleCategory.text = category.toString()
                     holder.dateArticle.text = date.toString()
                     holder.userID = articleUserId.toString()
 
-                    holder.articleDescription =description.toString()
-                    holder.image =articleImage.toString()
+                    holder.articleDescription = description.toString()
+                    holder.image = articleImage.toString()
                     holder.numberLikes = like.toString()
 
                     //--------------------------------------------------------------------------
@@ -90,40 +91,46 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                     //--------------------------------------------------------------------------
 
 
-                    if ( holder.image.isNullOrBlank()){
+                    if (holder.image.isNullOrBlank()) {
 
-                        holder.image_article.visibility= View.GONE
+                        holder.image_article.visibility = View.GONE
                     }
 
 
                 } else {
 
-                   fireStore.collection("Users").document(currentUserUid.toString())
+                    fireStore.collection("Users").document(currentUserUid.toString())
                         .collection("Favorite").document(favoriteArticle.articleID).delete()
                 }
             }
 
         //----------------get User Name--------------------------------------------------
-      firestore.collection("Users").document(favoriteArticle.userId).get()
-            .addOnCompleteListener { it
+        firestore.collection("Users").document(favoriteArticle.userId).get()
+            .addOnCompleteListener {
+                it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
-                } else {}
+                } else {
+                }
             }
+
+
     }
+
     override fun getItemCount(): Int {
         return favoritesList.size
     }
 
-    class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val myID = FirebaseAuth.getInstance().currentUser?.uid
         lateinit var articleID: String
         lateinit var userID: String
 
-         var numberLikes: String?=null
-         var image: String?=null
-         var articleDescription: String?=null
+        var numberLikes: String? = null
+        var image: String? = null
+        var articleDescription: String? = null
 
         val articleTitle: TextView = itemView.findViewById(R.id.tvTitle_xml)
         val articleCategory: TextView = itemView.findViewById(R.id.tvCategoryItem_xml)
@@ -133,9 +140,8 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         val linearLayOutFavorite: LinearLayout = itemView.findViewById(R.id.linearLayOutFavorite)
 
 
-
-   //-----------------------------------------------------------------
-        fun imageArticle(articleImage:String){
+        //-----------------------------------------------------------------
+        fun imageArticle(articleImage: String) {
             val storageRef = FirebaseStorage.getInstance().reference
                 .child("/imagesArticle/${articleImage}")
             val localFile = File.createTempFile("tempImage", "jpg")
@@ -144,6 +150,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
                 image_article.load(localFile)
             }.addOnFailureListener {}
         }
+
         init {
             itemView.setOnClickListener(this)
         }
@@ -159,7 +166,8 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
             article_data.articleImage = image.toString()
             article_data.articleID = articleID
 
-           val itemData = TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
+            val itemData =
+                TabBarFragmentDirections.actionTabBarFragmentToArticleInformation(article_data)
             NavHostFragment.findNavController(itemView.findFragment()).navigate(itemData)
 
         }

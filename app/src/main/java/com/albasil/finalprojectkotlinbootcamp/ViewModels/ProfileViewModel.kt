@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.ViewModels
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.albasil.finalprojectkotlinbootcamp.Repo.AppRepo
 import com.albasil.finalprojectkotlinbootcamp.data.Article
@@ -51,9 +52,9 @@ class ProfileViewModel(context: Application) : AndroidViewModel(context) {
 
 
     //add article after deleted
-    fun addArticle(article: Article) {
+    fun addArticle(article: Article, view: View) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.addArticleToFirestore(article)
+            repo.addArticleToFirestore(article,view)
 
         }
     }
