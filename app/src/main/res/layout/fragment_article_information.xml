@@ -95,25 +95,30 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:padding="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:layout_marginEnd="30dp"
                     android:id="@+id/favoriteArticle_xml"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:src="@drawable/ic_favorite_border"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:contentDescription="TODO" />
 
                 <ImageView
+                    android:layout_marginStart="50dp"
+
                     android:id="@+id/shearArticle_xml"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_share" />
+                    android:src="@drawable/ic_share"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
         </LinearLayout>

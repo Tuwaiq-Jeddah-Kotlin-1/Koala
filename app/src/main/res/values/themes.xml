@@ -13,7 +13,7 @@
         <!-- Customize your theme here. -->
 
 
-        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+<!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
     </style>
     <style name="AppBottomSheetDialogTheme"
         parent="Theme.Design.BottomSheetDialog">
@@ -21,7 +21,7 @@
     </style>
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet</item>
+<!--        <item name="android:background">@drawable/bottom_sheet</item>-->
     </style>
 
 

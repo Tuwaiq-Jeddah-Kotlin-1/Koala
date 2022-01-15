@@ -105,6 +105,9 @@
         <argument
             android:name="editArticle"
             app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
+        <action
+            android:id="@+id/action_editArticle_to_profile"
+            app:destination="@id/profile" />
     </fragment>
     <fragment
         android:id="@+id/splashScreen"

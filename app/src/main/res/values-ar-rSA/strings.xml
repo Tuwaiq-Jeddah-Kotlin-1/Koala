@@ -3,14 +3,20 @@
 
     <string-array name="categories">
         <item>All</item>
-        <item>Designers</item>
-        <item>Teachers</item>
-        <item>Fixers</item>
-        <item>Technicians</item>
-        <item>Cookers</item>
+        <item>Sports</item>
+        <item>Technique</item>
+        <item>Nature</item>
         <item>Others</item>
     </string-array>
 
+    <string-array name="addCategories">
+        <item>Sports</item>
+        <item>Health</item>
+        <item>Business</item>
+        <item>Technology</item>
+        <item>Nature</item>
+        <item>Others</item>
+    </string-array>
     <string-array name="sortArticle">
         <item>date</item>
         <item>title</item>
@@ -72,9 +78,19 @@
     <string name="aboutus"> عننا</string>
     <string name="help_and_support">الدعم </string>
     <string name="about_app"> حول التطبيق</string>
-    <string name="edit">Edit</string>
-    <string name="your_articles">Your Articles ...</string>
-    <string name="select_one_category">Select One Category</string>
-    <string name="save_changed">Save Changed</string>
+    <string name="edit">تعديل</string>
+    <string name="your_articles">اكتب مقالتك ...</string>
+    <string name="select_one_category">اختار فئة </string>
+    <string name="save_changed">حفظ التغيرات</string>
     <string name="english">English</string>
+    <string name="aboutfeather">عن تطبيق ريشة </string>Cancel
+    <string name="cancel">إلغاء</string>
+    <string name="upDateInformation">Up Date Information</string>
+
+
+
+    <string name="myFavorite">المفضلة</string>
+    <string name="articles">المقالات</string>
+    <string name="users">المستخدمين</string>
+
 </resources>

@@ -32,11 +32,10 @@ import java.time.format.DateTimeFormatter
 class EditArticle : Fragment() {
     private val args by navArgs<EditArticleArgs>()
     lateinit var binding: FragmentEditArticleBinding
-    private  var imageUrl : Uri?=null
-    lateinit var categorySelected:String
+    private var imageUrl: Uri? = null
+    lateinit var categorySelected: String
 
-    private lateinit var editArticleViewModel:EditArticleViewModel
-
+    private lateinit var editArticleViewModel: EditArticleViewModel
 
 
     override fun onCreateView(
@@ -44,16 +43,9 @@ class EditArticle : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-
-
-        binding = FragmentEditArticleBinding.inflate(inflater,container,false)
-
-
+        binding = FragmentEditArticleBinding.inflate(inflater, container, false)
         return binding.root
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,39 +56,43 @@ class EditArticle : Fragment() {
         binding.etTitleArticleXml.setText("${args.editArticle.title.toString()}")
         binding.etDescraptaionArticleXml.setText("${args.editArticle.description.toString()}")
         binding.editSpinnerCategoryXml.setText("${args.editArticle.category.toString()}")
-        categorySelected=args.editArticle.category.toString()
+        categorySelected = args.editArticle.category.toString()
 
         getUserPhoto("${args.editArticle.articleImage}")
 
-        Toast.makeText(context, "Imag ID ${args.editArticle.articleImage}", Toast.LENGTH_SHORT).show()
         //-------------------------------------------------------------------
 
         binding.editImageViewArticleXml.setOnClickListener {
-
-
             selectImage()
-
         }
         //---------------------------------------------------------------------
 
-        val category = resources.getStringArray(R.array.categories)
+        val category = resources.getStringArray(R.array.addCategories)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 
         binding.editSpinnerCategoryXml.setAdapter(arrayAdapter)
-        binding.editSpinnerCategoryXml.onItemClickListener = object : AdapterView.OnItemSelectedListener,
-            AdapterView.OnItemClickListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        binding.editSpinnerCategoryXml.onItemClickListener =
+            object : AdapterView.OnItemSelectedListener,
+                AdapterView.OnItemClickListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
 
-                categorySelected = "${category[position]}"
+                    categorySelected = "${category[position]}"
 
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemClick(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    categorySelected = "${category[position]}"
+                }
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long
-            ) {
-                categorySelected = "${category[position]}"
-            }
-        }
 
         //----------------------------------------------------------------------
 
@@ -104,36 +100,33 @@ class EditArticle : Fragment() {
         binding.btnUpDateArticleXml.setOnClickListener {
             when {
                 TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
-                    binding.tvEditTitleArticleXml.helperText="Title Article is null"
+                    binding.tvEditTitleArticleXml.helperText = "Title Article is null"
                 }
-                TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
-                    binding.tvEditDescraptaionArticleXml.helperText="Descraptaion Article is null"
+                TextUtils.isEmpty(
+                    binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
+                    binding.tvEditDescraptaionArticleXml.helperText = "Descraptaion Article is null"
                 }
                 else -> {
-                    if (categorySelected.isNullOrEmpty()){
-                        Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
-                    }else{
-
-                        if (imageUrl!=null) {
+                    if (categorySelected.isNullOrEmpty()) {
+                    } else {
+                        if (imageUrl != null) {
                             editArticleViewModel.editArticle(
                                 "${args.editArticle.articleID.toString()}",
                                 "${binding.etTitleArticleXml.text.toString()}",
                                 "${binding.etDescraptaionArticleXml.text.toString()}",
-                                categorySelected.toString(),
-                                args.editArticle.articleID.toString(),
-                                view
+                                categorySelected.toString(), args.editArticle.articleID.toString(), view
                             )
-                            Toast.makeText(context, "upate image", Toast.LENGTH_SHORT).show()
-
                             upLoadImage(args.editArticle.articleID.toString())
-                        }else{
+                            findNavController().navigate(R.id.profile)
+
+                        } else {
 
                             editArticleViewModel.editArticle(
                                 "${args.editArticle.articleID.toString()}",
                                 "${binding.etTitleArticleXml.text.toString()}",
                                 "${binding.etDescraptaionArticleXml.text.toString()}",
                                 categorySelected.toString(),
-                               "",
+                                "",
                                 view
                             )
 
@@ -149,74 +142,65 @@ class EditArticle : Fragment() {
     }
 
 
-
     //------------------------------------------
 
-    private fun selectImage(){
+    private fun selectImage() {
 
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivityForResult(intent,100)
+        startActivityForResult(intent, 100)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
 
             imageUrl = data?.data!!
 
             binding.editImageViewArticleXml.setImageURI(imageUrl)
-
-            //*******************************************************
-
         }
 
     }
 
-    fun upLoadImage(imageArticleID:String){
+    fun upLoadImage(imageArticleID: String) {
 
-      /* val progressDialog = ProgressDialog(context)
-        progressDialog.setMessage("Uploading File ...")
-        progressDialog.setCancelable(false)
+        /* val progressDialog = ProgressDialog(context)
+          progressDialog.setMessage("Uploading File ...")
+          progressDialog.setCancelable(false)
 
-        progressDialog.show()*/
+          progressDialog.show()*/
 
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageArticleID}")
+        val storageReference =
+            FirebaseStorage.getInstance().getReference("imagesArticle/${imageArticleID}")
 
         imageUrl?.let {
             storageReference.putFile(it)
                 .addOnSuccessListener {
                     //   userImage.setImageURI(null)
-                  //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
+                    //  Toast.makeText(context,"uploading image",Toast.LENGTH_SHORT).show()
 
-                //    if (progressDialog.isShowing)progressDialog.dismiss()
-                    
-                }.addOnFailureListener{
-                 //   if (progressDialog.isShowing)progressDialog.dismiss()
-                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                    //    if (progressDialog.isShowing)progressDialog.dismiss()
+
+                }.addOnFailureListener {
+                    //   if (progressDialog.isShowing)progressDialog.dismiss()
+                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
                 }
         }
     }
 
 
-
-
-
-
-
-    fun getUserPhoto(articleImagePath:String){
+    fun getUserPhoto(articleImagePath: String) {
 
 
         val imageName = "${articleImagePath.toString()}"
 
-        val storageRef= FirebaseStorage.getInstance().reference
+        val storageRef = FirebaseStorage.getInstance().reference
             .child("/imagesArticle/$imageName")
 
-
-        val localFile = File.createTempFile("tempImage","*")//jpg
+        val localFile = File.createTempFile("tempImage", "*")//jpg
 
         storageRef.getFile(localFile).addOnSuccessListener {
 
@@ -226,9 +210,8 @@ class EditArticle : Fragment() {
             view?.editImageViewArticle_xml?.load(bitmap)
 
 
-        }.addOnFailureListener{
+        }.addOnFailureListener {
 
-            Toast.makeText(context,"Failed image ",Toast.LENGTH_SHORT).show()
 
         }
     }

@@ -118,7 +118,6 @@ class Profile : Fragment() {
         }
 
         binding.addInformationXml.setOnClickListener {
-            Toast.makeText(context, "userEmail ${userInfo.userEmail.toString()}", Toast.LENGTH_SHORT).show()
             showDialogUserInfo()
         }
 
@@ -221,18 +220,18 @@ class Profile : Fragment() {
 
     fun showDialogUserInfo() {
         val builder = android.app.AlertDialog.Builder(context)
-        builder.setTitle("User Information")
+        builder.setTitle(getString(R.string.user_information))
         val view: View = layoutInflater.inflate(R.layout.add_user_information_dialog, null)
         val editTextExperience: EditText = view.findViewById(R.id.editTextAddExperience)
         builder.setView(view)
         editTextExperience.setText(binding.userInfoXml.text.toString())
-        builder.setPositiveButton("Save") { _, _ ->
+        builder.setPositiveButton(getString(R.string.save_changed)) { _, _ ->
 
             profileViewModel.addUserInfo(myID.toString(), editTextExperience.text.toString())
             binding.userInfoXml.setText(editTextExperience.text.toString())
 
         }
-        builder.setNegativeButton("Cancel", { _, _ -> })
+        builder.setNegativeButton(getString(R.string.cancel), { _, _ -> })
 
         builder.show()
     }
@@ -240,7 +239,7 @@ class Profile : Fragment() {
     private fun upDateUserInfoBottomSheet(userPhoneNumber:String) {
         val view: View = layoutInflater.inflate(R.layout.up_date_user_information, null)
         val builder = BottomSheetDialog(requireView().context as Context)
-        builder.setTitle("Up Date Information")
+        builder.setTitle(getString(R.string.upDateInformation))
 
         val upDateInfoButton = view.upDateInfoButton_xml
 

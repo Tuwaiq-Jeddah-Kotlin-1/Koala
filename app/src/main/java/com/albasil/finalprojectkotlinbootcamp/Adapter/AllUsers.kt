@@ -94,7 +94,7 @@ class AllUsers(internal val usersList: MutableList<Users>) :
         firestore.collection("Users").document(holder.userID).get()
             .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
-                    var userName = it.result!!.getString("userName")
+                    val userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {
 
@@ -127,7 +127,7 @@ class AllUsers(internal val usersList: MutableList<Users>) :
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View?) {
+        override fun onClick(v:View?) {
             if (uId.toString() == userID.toString()) {
                 NavHostFragment.findNavController(itemView.findFragment()).navigate(R.id.profile)
 

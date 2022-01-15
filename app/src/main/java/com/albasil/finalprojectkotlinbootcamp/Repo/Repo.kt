@@ -108,9 +108,6 @@ class AppRepo(val context: Context) {
     }
 
 
-
-
-
     fun addUserInformation(myID: String, userInformation: String) =
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -196,8 +193,8 @@ class AppRepo(val context: Context) {
                                             Toast.makeText(view.context, "isSuccessful , Update password", Toast.LENGTH_SHORT).show()
 
                                             view.etOldPassword_xml?.setText("")
-                                            view?.etConfirmNewPassword_xml?.setText("")
-                                            view?.etNewPassword_xml?.setText("")
+                                            view.etConfirmNewPassword_xml?.setText("")
+                                            view.etNewPassword_xml?.setText("")
 
                                         }
                                     }
@@ -219,11 +216,7 @@ class AppRepo(val context: Context) {
                 }
 
             } else {
-               Toast.makeText(
-                    context,
-                    "New Password is not equals Confirm New Password.",
-                    Toast.LENGTH_SHORT
-                ).show()
+
             }
 
         } else {
@@ -275,6 +268,7 @@ class AppRepo(val context: Context) {
                 when {
                     it.isSuccessful -> {
 
+                       // Navigation.findNavController(view).navigate(R.id.profile)
                            Toast.makeText(view.context,"UpDate ",Toast.LENGTH_SHORT).show()
 
                     }

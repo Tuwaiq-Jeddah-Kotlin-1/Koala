@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModel
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.FeatherViewModelProvider
+import com.albasil.finalprojectkotlinbootcamp.workManager.NotificationRepo
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
@@ -27,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        // NotificationRepo().myNotification(this)
+         NotificationRepo().myNotification(this)
 
         val viewModelProviderFactory = FeatherViewModelProvider(application)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(FeatherViewModel::class.java)
 
-        //------------------------------------------------------------------------------------
+        //--------------------Shared Preferences Settings---------------------------------------
         val sharedPreferencesSettings = this.getSharedPreferences("preference", Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString("preference", "")
 
@@ -52,31 +53,21 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.splashScreen -> {
-                  //  getSupportActionBar()?.hide()context as Activity
-
-                    //bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
                     supportActionBar!!.hide()
 
                 }
                 R.id.signUP -> {
-                   // bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
-                    //        requireActivity().supportActionBar?.hide()
-                   // (this as AppCompatActivity?)!!.supportActionBar!!.customView
                     supportActionBar!!.hide()
-
                 }
                 R.id.sign_in -> {
-                 //   bottomNavView.visibility = View.GONE
                     bottomBar.visibility = View.GONE
-              //      (this as AppCompatActivity?)!!.supportActionBar!!.hide()
                     supportActionBar!!.hide()
 
 
                 }
                 else -> {
-                    //bottomNavView.visibility = View.VISIBLE
                     bottomBar.visibility = View.VISIBLE
                     supportActionBar!!.show()
                 }
@@ -124,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("About Feather")
                     .setIcon(R.drawable.ic_baseline_remember_me_24)
-                    .setMessage("تم تطوير تطبيق ريشة من قبل المطور باسل تحت أكادمية طويق 100 بأشراف أ/شادي سليم و أ//سمية الطويرقي  ")
+                    .setMessage("تم تطوير تطبيق ريشة من قبل المطور باسل تحت أكادمية طويق 100 بأشراف أ/شادي سليم و أ/سمية الطويرقي  ")
                     .setPositiveButton("OK"){
                             dialog,_ ->
 

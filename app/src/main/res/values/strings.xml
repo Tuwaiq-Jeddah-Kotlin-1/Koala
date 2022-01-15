@@ -1,15 +1,20 @@
 <resources>
 
 
-
+    <string-array name="addCategories">
+        <item>Sports</item>
+        <item>Health</item>
+        <item>Business</item>
+        <item>Technology</item>
+        <item>Nature</item>
+        <item>Others</item>
+    </string-array>
 
     <string-array name="categories">
         <item>All</item>
-        <item>Designers</item>
-        <item>Teachers</item>
-        <item>Fixers</item>
-        <item>Technicians</item>
-        <item>Cookers</item>
+        <item>Sports</item>
+        <item>Technique</item>
+        <item>Nature</item>
         <item>Others</item>
     </string-array>
 
@@ -64,9 +69,9 @@
     <string name="article_user">Article User</string>
     <string name="image_article_user">Image Article User</string>
     <string name="article_title">Article Title</string>
-    <string name="enter_old_password">Enter old password</string>
-    <string name="enter_new_password">Enter new password</string>
-    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="enter_old_password">Enter Your Old Password</string>
+    <string name="enter_new_password">Enter Your New Password</string>
+    <string name="confirm_new_password">Enter Your Confirm New Password</string>
     <string name="home">Home</string>
     <string name="add_article">Add Article</string>
     <string name="profile">profile</string>
@@ -80,4 +85,36 @@
     <string name="select_one_category">Select One Category</string>
     <string name="save_changed">Save Changed</string>
     <string name="english">English</string>
+
+
+    <string name="myFavorite">My Favorite</string>
+    <string name="articles">Articles</string>
+    <string name="users">Users</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="upDateInformation">Up Date Information</string>
+
+
+
+
+    My Favorite
+    <string name="aboutfeather">
+        fhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijn  fhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
+        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijn
+    </string>
 </resources>

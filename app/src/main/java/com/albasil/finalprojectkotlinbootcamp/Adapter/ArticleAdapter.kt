@@ -127,7 +127,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         lateinit var userId: String
         lateinit var articleID:String
 
-
         //-------------------------------------------------------------------------
         fun imageArticle(articleImage:String){
             val storageRef = FirebaseStorage.getInstance().reference
@@ -143,7 +142,6 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
 
         //---------upDateFavorite------------------------------------------------------------------------------------------
         fun upDateFavorite(articleID: String, article: Article) {
-            Toast.makeText(itemView.context, "article.articleID ${article.articleID.toString()}", Toast.LENGTH_SHORT).show()
             firestore.collection("Users").document(myID.toString()).collection("Favorite")
                 .document(articleID).get()
                 .addOnCompleteListener {

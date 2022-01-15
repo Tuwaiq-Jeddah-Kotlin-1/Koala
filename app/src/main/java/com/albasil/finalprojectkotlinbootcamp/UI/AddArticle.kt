@@ -61,7 +61,7 @@ class AddArticle : Fragment() {
 
         addArticleViewModel = ViewModelProvider(this).get(AddArticleViewModel::class.java)
  //----------------------------------------------------------------------------------------
-        val category = resources.getStringArray(R.array.categories)
+        val category = resources.getStringArray(R.array.addCategories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 

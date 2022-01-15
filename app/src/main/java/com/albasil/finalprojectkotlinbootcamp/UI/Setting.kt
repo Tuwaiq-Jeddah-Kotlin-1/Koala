@@ -9,6 +9,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -122,11 +123,10 @@ class Setting : Fragment() {
         val builder = BottomSheetDialog(requireView().context!!)
         builder.setTitle(getString(R.string.change_language))
         val btnChangeLanguage = view.btnChangeLanguage
-       var radioGroup = view.radioGroup
+       val radioGroup = view.radioGroup
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            var selectedLanguage:RadioButton=view.findViewById(checkedId)
-            if (selectedLanguage != null) btnChangeLanguage.setOnClickListener {
-
+            val selectedLanguage:RadioButton=view.findViewById(checkedId)
+            btnChangeLanguage.setOnClickListener {
 
                 if (selectedLanguage.text.toString()=="عربي"){
                     //setLocaleFeather("ar")
@@ -186,11 +186,40 @@ class Setting : Fragment() {
             builder.setContentView(view)
 
             btnChangePasswor.setOnClickListener {
-                settingsViewModel.changePassword(
-                    "${oldPassword.text.toString()}",
-                    "${etNewPassword.text.toString()}",
-                    "${confirmNewPassword.text.toString()}",view
-                )
+
+                when {
+                    TextUtils.isEmpty(oldPassword.text.toString().trim { it <= ' ' }) -> {
+                        //  val toastMessageEmail: String = this.getResources().getString(R.string.please_enter_email)
+                        val enter_old_password: String = this.getResources().getString(R.string.enter_old_password)
+
+                        view.tvOldPassword_xml.helperText=enter_old_password
+                    }
+                    TextUtils.isEmpty(etNewPassword.text.toString().trim { it <= ' ' }) -> {
+                          val enter_new_password: String = this.getResources().getString(R.string.enter_new_password)
+                        view.tvNewPassword_xml.helperText=enter_new_password
+                    }
+                    TextUtils.isEmpty(confirmNewPassword.text.toString().trim { it <= ' ' }) -> {
+
+                        val tvConfirmNewPassword_xml: String = this.getResources().getString(R.string.enter_new_password)
+
+                        view.tvConfirmNewPassword_xml.helperText=tvConfirmNewPassword_xml
+
+                    }
+                    else -> {
+
+                        if (etNewPassword.text.toString().equals(confirmNewPassword.text.toString())){
+                            settingsViewModel.changePassword(
+                                "${oldPassword.text.toString()}",
+                                "${etNewPassword.text.toString()}",
+                                "${confirmNewPassword.text.toString()}",view
+                            )
+                        }else{
+                            Toast.makeText(context, "New Password is not equals Confirm New Password.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+
             }
             builder.show()
 

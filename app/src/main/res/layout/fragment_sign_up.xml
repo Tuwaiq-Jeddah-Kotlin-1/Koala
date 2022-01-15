@@ -27,10 +27,10 @@
                 <ImageView
                     android:id="@+id/tvSignUp"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="180dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/koala_logos" />
+                    android:src="@drawable/feather_logos_transparent2" />
             </FrameLayout>
 
 

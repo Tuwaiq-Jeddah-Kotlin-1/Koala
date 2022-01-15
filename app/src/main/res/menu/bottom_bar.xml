@@ -7,18 +7,6 @@
         android:icon="@drawable/ic_home"/>
 
 
-
-<!--    <item android:title="API"-->
-<!--        android:id="@+id/apiFragment"-->
-<!--        android:icon="@drawable/ic_api"/>-->
-<!--    -->
-
-
-
-
-
-
-
 <!--    <item android:title="@string/add_article"-->
 <!--        android:id="@+id/addArticle"-->
 <!--        android:icon="@drawable/ic_add_24"/>-->
