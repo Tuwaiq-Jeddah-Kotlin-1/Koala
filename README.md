@@ -34,7 +34,8 @@ You have five days to complete this assignment.
 
 
 ## **Used Technologies**
-- Room Database
+- Firebase
+- Coal
 - RecyclerView
 - Fragments
 - Localization
