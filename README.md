@@ -3,8 +3,7 @@
 
 ![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png)
 
-# Android Capstone-01
-Create an Android To Do List application.
+# Final Project(Kotlin Bootcamp)
 
 ## **Requirements**
 
