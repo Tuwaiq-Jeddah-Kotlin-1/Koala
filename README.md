@@ -1,8 +1,6 @@
 # Feather
 
 
-<img src="https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png" width="400">
-
 ![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png)
 
 # Android Capstone-01
@@ -29,14 +27,13 @@ Create an Android To Do List application.
 
 
 
-## **Project completion**
-You have five days to complete this assignment.
-
-
 ## **Used Technologies**
 - Firebase
-- Coal
+- Coil
+- Lottie
+- Coroutines
 - RecyclerView
+- WorkManager
 - Fragments
 - Localization
 
