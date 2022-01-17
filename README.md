@@ -40,10 +40,21 @@ You have five days to complete this assignment.
 - Fragments
 - Localization
 
-
 ## **Final App 🎉**
-![Tuwaiq Academy Logo](++https://user-images.githubusercontent.com/91476827/149672946-2f98fbd4-1a02-4c67-b9db-db795e6efd20.jpg)
 
+![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834101-a0a34bc3-4e4d-4f71-9313-32036d691adb.jpg)
+
+
+![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834104-63b37ab0-73f1-46f5-8494-1e3dfec1b5aa.jpg)
+
+
+![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834108-f3cbf180-a956-49df-8226-425859c65b6a.jpg)
+
+
+![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834094-aa4c9db6-913d-437d-afab-c151af8816b8.jpg)
+
+
+![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834115-5a864de4-fd6d-4b9f-a354-597521c0ad83.jpg)
 
 
 
