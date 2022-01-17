@@ -28,6 +28,7 @@
 
 
 ## **Used Technologies**
+- MVVM Pattern
 - Firebase
 - Coil
 - Lottie
