@@ -40,6 +40,9 @@
 
 ## **Final App 🎉**
 
+###Feather  Application allows  to publish and share your articles with users, and you can like articles  users and follow them through the application and share articles with other applications.
+
+
 
 ![Feather App Logo](https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png)
 
@@ -59,6 +62,9 @@
 ![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834115-5a864de4-fd6d-4b9f-a354-597521c0ad83.jpg)
 
 
+
+
+#### Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
 
 
