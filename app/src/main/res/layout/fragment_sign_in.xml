@@ -26,19 +26,20 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:scaleType="fitCenter"
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/feather_logos_transparent2" />
+                    app:srcCompat="@drawable/feather_logos_transparent2"
+                    android:contentDescription="Logo" />
             </FrameLayout>
 
 
-            <androidx.cardview.widget.CardView
+            123456<androidx.cardview.widget.CardView
                 android:id="@+id/cardView_xml"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

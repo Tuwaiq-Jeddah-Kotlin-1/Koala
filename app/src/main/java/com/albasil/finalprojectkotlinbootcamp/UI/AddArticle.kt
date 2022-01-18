@@ -114,20 +114,19 @@ class AddArticle : Fragment() {
 
                 }else{
 
+                    val UUID=UUID.randomUUID().toString()
                    if (imageUrl != null) {
-                       var UUID=UUID.randomUUID().toString()
+
 
                        articleData("${categorySelected.toString()}"
                            ,"${binding.etTitleArticleXml.text.toString()}"
                            ,"${binding.etDescraptaionArticleXml.text.toString()}"
                            ,"${UUID.toString()}","${UUID}")
                         }else{
-
                        articleData("${categorySelected.toString()}"
                            ,"${binding.etTitleArticleXml.text.toString()}"
                            ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                           ,"${UUID.randomUUID().toString()}")
-                       Toast.makeText(context, "Image URL is Null", Toast.LENGTH_SHORT).show()
+                           ,"${UUID}")
                    }
 
 

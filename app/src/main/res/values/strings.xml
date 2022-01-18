@@ -13,7 +13,9 @@
     <string-array name="categories">
         <item>All</item>
         <item>Sports</item>
-        <item>Technique</item>
+        <item>Health</item>
+        <item>Business</item>
+        <item>Technology</item>
         <item>Nature</item>
         <item>Others</item>
     </string-array>
@@ -49,7 +51,7 @@
     <string name="remember_me">Remember Me</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="new_account">New Account?</string>
-    <string name="sing_in">Sing In</string>
+    <string name="sing_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="article">Article</string>
     <string name="following">Following</string>

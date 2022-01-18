@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
+import android.annotation.SuppressLint
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -80,18 +81,13 @@ class HomePage : Fragment() {
                 ) {
                     categorySelected = "${category[position]}"
 
-                    Toast.makeText(context, " selected :  ${category[position]}", Toast.LENGTH_SHORT).show()
-
                     binding.recyclerViewArticleXml.swapAdapter(articleAdapter, false)
 
                     //**********************************
-
                     viewModel = (activity as MainActivity).viewModel
                     if (viewModel.hasInternetConnection()){
 
-
                        loadArticle(categorySelected)
-
 
                         binding.imageView6.visibility = View.GONE
                     }else{
@@ -131,6 +127,7 @@ class HomePage : Fragment() {
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun loadArticle(typeCategory: String? = null) {
 
         if (typeCategory.isNullOrEmpty() || typeCategory=="All") {
@@ -172,6 +169,7 @@ class HomePage : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
                         Log.e("Firestore", error.message.toString())

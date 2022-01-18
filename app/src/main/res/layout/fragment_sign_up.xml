@@ -29,7 +29,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
                     android:src="@drawable/feather_logos_transparent2" />
             </FrameLayout>
 
@@ -39,9 +38,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/FrameLayout">
 
                 <TextView
@@ -49,11 +48,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:text="@string/sign_up"
-                    android:textStyle="bold"
                     android:textColor="#1597E5"
                     android:textSize="30sp"
-                    android:gravity="center"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
@@ -90,12 +89,12 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:hint="@string/user_name"
                     app:counterMaxLength="20"
                     app:endIconMode="clear_text"
                     app:helperText="*"
                     app:helperTextTextColor="#FF0000"
-                    android:layout_margin="10dp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -118,12 +117,12 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:hint="@string/phone_number"
                     app:counterEnabled="true"
                     app:counterMaxLength="10"
                     app:endIconMode="clear_text"
                     app:helperText="*"
-                    android:layout_margin="10dp"
 
                     app:helperTextTextColor="#FF0000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -161,11 +160,11 @@
                     app:endIconMode="password_toggle"
                     app:helperText="*"
                     app:helperTextTextColor="#FF0000"
-                    app:startIconDrawable="@drawable/ic_security_24"
+                    app:layout_constraintEnd_toEndOf="parent"
 
-                app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPhone">
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhone"
+                    app:startIconDrawable="@drawable/ic_security_24">
 
                     <com.google.android.material.textfield.TextInputEditText
 
@@ -174,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                    android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 

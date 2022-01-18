@@ -1,14 +1,12 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,6 @@ import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.Repo.fireStore
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
-import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
@@ -26,7 +23,7 @@ import java.io.File
 
 class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
-    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+    val myID = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
 
@@ -43,10 +40,21 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         holder.image = favoriteArticle.articleImage
 
 
-        holder.linearLayOutFavorite.visibility = View.GONE
+                holder.numberLike.visibility = View.GONE
+
+        firestore.collection("Users").document(myID.toString()).collection("Favorite")
+            .document(favoriteArticle.articleID).get()
+            .addOnCompleteListener {
+                if (it.result?.exists()!!) {
+                    holder.ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                } else {
+                    holder.ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+                }
+            }
+
 
         holder.userName.setOnClickListener {
-            if (currentUserUid.toString() == holder.userID.toString()) {
+            if (myID.toString() == holder.userID.toString()) {
                 NavHostFragment.findNavController(holder.itemView.findFragment())
                     .navigate(R.id.profile)
 
@@ -99,7 +107,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
                 } else {
 
-                    fireStore.collection("Users").document(currentUserUid.toString())
+                    fireStore.collection("Users").document(myID.toString())
                         .collection("Favorite").document(favoriteArticle.articleID).delete()
                 }
             }
@@ -132,24 +140,14 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         var image: String? = null
         var articleDescription: String? = null
 
+
+        val ivFavorite:ImageView= itemView.findViewById(R.id.ivFavorite)
         val articleTitle: TextView = itemView.findViewById(R.id.tvTitle_xml)
         val articleCategory: TextView = itemView.findViewById(R.id.tvCategoryItem_xml)
         val userName: TextView = itemView.findViewById(R.id.tvUserName_xml)
         val dateArticle: TextView = itemView.findViewById(R.id.articleDate)
         val image_article: ImageView = itemView.findViewById(R.id.imageItem_xml)
-        val linearLayOutFavorite: LinearLayout = itemView.findViewById(R.id.linearLayOutFavorite)
-
-
-        //-----------------------------------------------------------------
-        fun imageArticle(articleImage: String) {
-            val storageRef = FirebaseStorage.getInstance().reference
-                .child("/imagesArticle/${articleImage}")
-            val localFile = File.createTempFile("tempImage", "jpg")
-            storageRef.getFile(localFile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                image_article.load(localFile)
-            }.addOnFailureListener {}
-        }
+        val numberLike: TextView = itemView.findViewById(R.id.numberLike_xml)
 
         init {
             itemView.setOnClickListener(this)
