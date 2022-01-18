@@ -43,7 +43,7 @@
 ### Feather  Application allows  to publish and share your articles with users, and you can like articles  users and follow them through the application and share articles with other applications.
 
 
-## GHJK
+## Interfaces App
 ![Feather App Logo](https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png)
 
 
@@ -63,7 +63,7 @@
 
 
 
-
+## Conclusion
 #### Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
 
