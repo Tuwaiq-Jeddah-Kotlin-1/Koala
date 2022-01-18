@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -113,10 +115,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.about_Feather -> {
                 AlertDialog.Builder(this)
-                    .setTitle("About Feather")
-                    .setIcon(R.drawable.ic_baseline_remember_me_24)
-                    .setMessage("تم تطوير تطبيق ريشة من قبل المطور باسل تحت أكادمية طويق 100 بأشراف أ/شادي سليم و أ/سمية الطويرقي  ")
-                    .setPositiveButton("OK"){
+                    .setTitle(getString(R.string.about_feather))
+                    .setIcon(R.drawable.ic_baseline_app_shortcut_24)
+                    .setMessage(getString(R.string.aboutfeather))
+                    .setPositiveButton(getString(R.string.ok)){
                             dialog,_ ->
 
                         dialog.dismiss()

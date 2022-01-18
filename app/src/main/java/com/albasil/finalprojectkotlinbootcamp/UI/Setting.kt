@@ -129,12 +129,10 @@ class Setting : Fragment() {
             btnChangeLanguage.setOnClickListener {
 
                 if (selectedLanguage.text.toString()=="عربي"){
-                    //setLocaleFeather("ar")
+                    setLocaleFeather("ar")
 
-                    setLocale("ar")
                 }else if (selectedLanguage.text.toString()=="English"){
-                   // setLocaleFeather("en")
-                    setLocale("en")
+                    setLocaleFeather("en")
 
                 }
             }
@@ -142,19 +140,6 @@ class Setting : Fragment() {
         builder.setContentView(view)
         builder.show()
     }
-
-    private fun setLocale(localeName: String) {
-        val locale = Locale(localeName)
-        Locale.setDefault(locale)
-        val resources = activity?.resources
-        val config: Configuration = resources!!.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-
-       recreate(context as Activity)
-
-    }
-
 
     private fun setLocaleFeather(localeName: String) {
         val locale =Locale(localeName)

@@ -85,14 +85,25 @@
     <string name="select_one_category">اختار فئة </string>
     <string name="save_changed">حفظ التغيرات</string>
     <string name="english">English</string>
-    <string name="aboutfeather">عن تطبيق ريشة </string>Cancel
     <string name="cancel">إلغاء</string>
     <string name="upDateInformation">Up Date Information</string>
+    <string name="about_feather">عن تطبيق ريشة</string>
 
 
 
     <string name="myFavorite">المفضلة</string>
     <string name="articles">المقالات</string>
     <string name="users">المستخدمين</string>
+
+
+    <string name="ok">حسنا</string>
+
+
+
+    <string name="aboutfeather">
+تطبيق ريشة هو تطبيق يتيح لك نشر و مشاركة مقالاتك مع المستخدمين و الاعجاب بمقالات المستخدمين و متابعتهم من خلال التطبيق
+
+        تم تطوير تطبيق ريشة من قبل المطور باسل اللقماني بأشراف المدرب شادي سليم و المدربة سمية الطويرقي في أكاديمية طويق الف .
+    </string>
 
 </resources>

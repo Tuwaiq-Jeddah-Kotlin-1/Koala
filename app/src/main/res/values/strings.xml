@@ -82,6 +82,7 @@
     <string name="aboutus">AboutUs</string>
     <string name="help_and_support">help and support</string>
     <string name="about_app">About App</string>
+    <string name="about_feather">About Feather App</string>
     <string name="edit">Edit</string>
     <string name="your_articles">Your Articles ...</string>
     <string name="select_one_category">Select One Category</string>
@@ -97,26 +98,13 @@
     <string name="upDateInformation">Up Date Information</string>
 
 
+    <string name="ok">Ok</string>
 
 
-    My Favorite
     <string name="aboutfeather">
-        fhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijn  fhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijnfhsdfjcdsncjidsncjsdncijsdncjidsncjdnjcindjncijd jid dn ijndijnidjn jininjnij nijdn ijn
-        cn jsnd ijndij ndij nijdfnf jifnijvnfivnfijn
+        Feather Application allows to publish and share your articles with users, and you can like articles users and follow them through the application and share articles with other applications.
+
+        Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
+
     </string>
 </resources>
