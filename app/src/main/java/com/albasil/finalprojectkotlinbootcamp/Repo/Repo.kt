@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.Repo
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.change_password_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +32,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-var fireStore :FirebaseFirestore= FirebaseFirestore.getInstance()
+@SuppressLint("StaticFieldLeak")
+val fireStore :FirebaseFirestore= FirebaseFirestore.getInstance()
+ val imageRef = Firebase.storage.reference
+
 class AppRepo(val context: Context) {
 
 
@@ -216,7 +221,6 @@ class AppRepo(val context: Context) {
     fun favoriteArticles(myID: String, articleList: MutableList<Article>
     ): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
-        fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Users").document(myID).collection("Favorite")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -509,6 +513,18 @@ class AppRepo(val context: Context) {
         fireStore.collection("Users").document("${myId}")
             .collection("Following").document("${userId}").delete()
     }
+
+
+
+    ///---------------------------------
+    fun uploadArticleImage(image: Uri, fileName: String) =
+        imageRef.child("imagesArticle/$fileName").putFile(image)
+
+    ///---------------------------------
+    fun uploadUserImage(image: Uri, userID: String) =
+        imageRef.child("imagesUsers/$userID").putFile(image)
+
+
 
 }
 

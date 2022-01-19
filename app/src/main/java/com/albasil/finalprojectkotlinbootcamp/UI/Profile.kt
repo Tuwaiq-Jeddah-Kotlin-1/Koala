@@ -77,8 +77,9 @@ class Profile : Fragment() {
 
 
         //--------------User Photo-------------------------------------
-        getUserPhoto()
+       getUserPhoto()
 
+      //  binding.userImageProfileXml.setImageURI(myID.toString().toUri())//load(myID.toString())
         //----------------------------getUserInformation-----------------------------------------------------------------
         userInfo= Users()
         profileViewModel.getUserInformation(myID.toString(),userInfo,viewLifecycleOwner).observe(viewLifecycleOwner,{
@@ -112,6 +113,9 @@ class Profile : Fragment() {
             NavHostFragment.findNavController(this).navigate(check)
         }
 
+
+
+        //---------
         binding.userImageProfileXml.setOnClickListener {
             selectImage()
 
@@ -155,10 +159,8 @@ class Profile : Fragment() {
                             setAction("Undo") {
 
                                 view.let { profileViewModel.addArticle(article,it) }
-
                             }
                             show()
-
                         }}
                     }
                 ItemTouchHelper.RIGHT -> {
@@ -279,19 +281,13 @@ class Profile : Fragment() {
 
             binding.userImageProfileXml.setImageURI(imageUrl)
 
-            upLoadImage()
+
+            imageUrl?.let {
+                //progressDialog.show()
+                profileViewModel.uploadUserImage(imageUrl!!,myID.toString())
+            }
         }
 
-    }
-    //repo or fire storage
-    fun upLoadImage() {
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${myID.toString()}")
-        storageReference.putFile(imageUrl)
-            .addOnSuccessListener {
-
-                getUserPhoto()
-            }.addOnFailureListener {
-            }
     }
 
     fun getUserPhoto() {

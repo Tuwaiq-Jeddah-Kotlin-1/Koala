@@ -1,6 +1,7 @@
 package com.albasil.finalprojectkotlinbootcamp.UI
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -33,11 +34,16 @@ import java.util.*
 
 class AddArticle : Fragment() {
 
-    private lateinit var addArticleViewModel:AddArticleViewModel
-    private  var imageUrl : Uri?=null
+    private lateinit var addArticleViewModel: AddArticleViewModel
+
+    // private  var imageUrl : Uri?=null
     lateinit var binding: FragmentAddArticleBinding
     val currentUser = FirebaseAuth.getInstance().currentUser?.uid
-    var categorySelected:String?=null
+    var categorySelected: String? = null
+
+
+    private var imageUrl: Uri? = null
+
 
     // Date  object
     val current = LocalDateTime.now()
@@ -48,7 +54,7 @@ class AddArticle : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View? {
 
         binding = FragmentAddArticleBinding.inflate(inflater, container, false)
         //getUserName()
@@ -60,26 +66,34 @@ class AddArticle : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addArticleViewModel = ViewModelProvider(this).get(AddArticleViewModel::class.java)
- //----------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------
         val category = resources.getStringArray(R.array.addCategories)
 
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
 
         binding.spinnerCategoryXml.setAdapter(arrayAdapter)
 
-        binding.spinnerCategoryXml.onItemClickListener = object :AdapterView.OnItemSelectedListener,
-            AdapterView.OnItemClickListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                categorySelected = "${category[position]}"
+        binding.spinnerCategoryXml.onItemClickListener =
+            object : AdapterView.OnItemSelectedListener,
+                AdapterView.OnItemClickListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    categorySelected = "${category[position]}"
 
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
 
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long
-            ) {
-                categorySelected = "${category[position]}"
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemClick(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    categorySelected = "${category[position]}"
+                }
             }
-        }
 //-------------------------------------------------------------------------------------------------------
 
         binding.btnAddArticleXml.setOnClickListener {
@@ -94,40 +108,46 @@ class AddArticle : Fragment() {
         }
     }
 
-     fun checkFields(){
+    fun checkFields() {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
         val formatted2 = current.format(formatter)
 
         when {
             TextUtils.isEmpty(binding.etTitleArticleXml.text.toString().trim { it <= ' ' }) -> {
-                binding.tvTitleArticleXml.helperText="Title Article is null"
+                binding.tvTitleArticleXml.helperText = "Title Article is null"
 
             }
-            TextUtils.isEmpty(binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
-                binding.tvDescraptaionArticleXml.helperText="Descraptaion Article is null"
+            TextUtils.isEmpty(
+                binding.etDescraptaionArticleXml.text.toString().trim { it <= ' ' }) -> {
+                binding.tvDescraptaionArticleXml.helperText = "Descraptaion Article is null"
 
             }
             else -> {
-                if (categorySelected.isNullOrEmpty()){
+                if (categorySelected.isNullOrEmpty()) {
                     Toast.makeText(context, "Please Select Category", Toast.LENGTH_LONG).show()
 
-                }else{
+                } else {
 
-                    val UUID=UUID.randomUUID().toString()
-                   if (imageUrl != null) {
+                    val UUID = UUID.randomUUID().toString()
+                    if (imageUrl != null) {
 
 
-                       articleData("${categorySelected.toString()}"
-                           ,"${binding.etTitleArticleXml.text.toString()}"
-                           ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                           ,"${UUID.toString()}","${UUID}")
-                        }else{
-                       articleData("${categorySelected.toString()}"
-                           ,"${binding.etTitleArticleXml.text.toString()}"
-                           ,"${binding.etDescraptaionArticleXml.text.toString()}"
-                           ,"${UUID}")
-                   }
+                        articleData(
+                            "${categorySelected.toString()}",
+                            "${binding.etTitleArticleXml.text.toString()}",
+                            "${binding.etDescraptaionArticleXml.text.toString()}",
+                            "${UUID.toString()}",
+                            "${UUID}"
+                        )
+                    } else {
+                        articleData(
+                            "${categorySelected.toString()}",
+                            "${binding.etTitleArticleXml.text.toString()}",
+                            "${binding.etDescraptaionArticleXml.text.toString()}",
+                            "${UUID}"
+                        )
+                    }
 
 
                 }
@@ -135,61 +155,75 @@ class AddArticle : Fragment() {
         }
     }
 
-     fun articleData(category:String,title: String,description:String, articleID: String,articlePhotoID:String?=""){
+    fun articleData(
+        category: String,
+        title: String,
+        description: String,
+        articleID: String,
+        articlePhotoID: String? = ""
+    ) {
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val article =Article()
+        val article = Article()
         //article.userName =userNameGlobl.toString()
         article.category = category.toString()
         article.userId = userId.toString()
         article.date = formatted.toString()
         article.description = description.toString()
         article.title = title.toString()
-        article.articleID=articleID.toString()
-         article.articleImage = articlePhotoID.toString()
+        article.articleID = articleID.toString()
+        article.articleImage = articlePhotoID.toString()
 
 
-         //view Model
-         view?.let { addArticleViewModel.addArticle(article,it) }
+        //view Model
+        view?.let { addArticleViewModel.addArticle(article, it) }
 
-        upLoadImage(articlePhotoID.toString())
-         findNavController().navigate(R.id.action_addArticle_to_homePage)
+        val fileName = articlePhotoID.toString()//System.currentTimeMillis().toString()
+        Log.e("TAG", articlePhotoID.toString().toString())
+        imageUrl?.let {
+            //progressDialog.show()
+            addArticleViewModel.uploadArticleImage(imageUrl!!, fileName)
+        }
 
+        findNavController().popBackStack()
 
-         binding.etTitleArticleXml.text = null
-         binding.etDescraptaionArticleXml.text = null
-         binding.spinnerCategoryXml.text = null
-         binding.articlerPhotoXml.setImageURI(null)
+        binding.etTitleArticleXml.text = null
+        binding.etDescraptaionArticleXml.text = null
+        binding.spinnerCategoryXml.text = null
+        binding.articlerPhotoXml.setImageURI(null)
 
     }
 
     //images
-    private fun selectImage(){
+    private fun selectImage() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivityForResult(intent,100)
+        startActivityForResult(intent, 100)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             imageUrl = data?.data!!
             binding.articlerPhotoXml.setImageURI(imageUrl)
         }
     }
-    fun upLoadImage(imageId:String){
+
+    fun upLoadImage(imageId: String) {
         Toast.makeText(context, "upLoadImage ${imageId.toString()}", Toast.LENGTH_SHORT).show()
-        val storageReference = FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
-       if (imageUrl!=null){
-           imageUrl?.let {
-               storageReference.putFile(it)
-                   .addOnSuccessListener {
-                   }.addOnFailureListener{
-                   }
-           }
-       }
+        val storageReference =
+            FirebaseStorage.getInstance().getReference("imagesArticle/${imageId}")
+        if (imageUrl != null) {
+            imageUrl?.let {
+                storageReference.putFile(it)
+                    .addOnSuccessListener {
+                    }.addOnFailureListener {
+                    }
+            }
+        }
 //        imageUrl?.let {
 //            storageReference.putFile(it)
 //                .addOnSuccessListener {

@@ -29,7 +29,7 @@ import com.google.firebase.firestore.*
 
 class HomePage : Fragment() {
 
-    lateinit var binding:FragmentHomePageBinding
+    lateinit var binding: FragmentHomePageBinding
 
     var categorySelected: String? = null
 
@@ -38,13 +38,13 @@ class HomePage : Fragment() {
 
     private lateinit var articleList: MutableList<Article>
     private lateinit var articleAdapter: ArticleAdapter
-    private  var  fireStore = FirebaseFirestore.getInstance()
+    private var fireStore = FirebaseFirestore.getInstance()
     lateinit var viewModel: FeatherViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View{
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
@@ -65,7 +65,6 @@ class HomePage : Fragment() {
         binding.recyclerViewArticleXml.adapter = articleAdapter
 
 
-
         //----------------------select category-----------------------------------
         val category = resources.getStringArray(R.array.categories)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, category)
@@ -74,7 +73,14 @@ class HomePage : Fragment() {
 
         binding.spinnerCategoryXml.onItemClickListener =
             object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                }
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemClick(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
@@ -85,12 +91,12 @@ class HomePage : Fragment() {
 
                     //**********************************
                     viewModel = (activity as MainActivity).viewModel
-                    if (viewModel.hasInternetConnection()){
+                    if (viewModel.hasInternetConnection()) {
 
-                       loadArticle(categorySelected)
+                        loadArticle(categorySelected)
 
                         binding.imageView6.visibility = View.GONE
-                    }else{
+                    } else {
                         binding.imageView6.visibility = View.VISIBLE
                     }
 
@@ -100,17 +106,16 @@ class HomePage : Fragment() {
 //***********************************************************************************************************************
 
         viewModel = (activity as MainActivity).viewModel
-        if (viewModel.hasInternetConnection()){
+        if (viewModel.hasInternetConnection()) {
 
-           homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
+            homePageViewModel.getAllArticles(articleList, viewLifecycleOwner)
                 .observe(viewLifecycleOwner, {
                     binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
                     articleAdapter.notifyDataSetChanged()
                 })
 
-
             binding.imageView6.visibility = View.GONE
-        }else{
+        } else {
             binding.imageView6.visibility = View.VISIBLE
             binding.imageView6.setOnClickListener {
 
@@ -118,7 +123,7 @@ class HomePage : Fragment() {
             }
         }
 
-        binding.addArticleFlotButton.setOnClickListener{
+        binding.addArticleFlotButton.setOnClickListener {
 
             findNavController().navigate(R.id.addArticle)
         }
@@ -126,11 +131,10 @@ class HomePage : Fragment() {
     }
 
 
-
     @SuppressLint("NotifyDataSetChanged")
     fun loadArticle(typeCategory: String? = null) {
 
-        if (typeCategory.isNullOrEmpty() || typeCategory=="All") {
+        if (typeCategory.isNullOrEmpty() || typeCategory == "All") {
 
             binding.recyclerViewArticleXml.adapter = articleAdapter
 
@@ -161,9 +165,12 @@ class HomePage : Fragment() {
                     articleAdapter.notifyDataSetChanged()
                 })
 
-
             //----------------------getAllMyArticles-----------------------------------
-            homePageViewModel.articleCategory(typeCategory.toString(),articleList, viewLifecycleOwner)
+            homePageViewModel.articleCategory(
+                typeCategory.toString(),
+                articleList,
+                viewLifecycleOwner
+            )
                 .observe(viewLifecycleOwner, {
                     binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
                     articleAdapter.notifyDataSetChanged()

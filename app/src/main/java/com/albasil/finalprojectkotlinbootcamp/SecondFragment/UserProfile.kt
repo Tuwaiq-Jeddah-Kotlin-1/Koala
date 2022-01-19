@@ -191,7 +191,9 @@ class UserProfile : Fragment() {
 
         builder.setPositiveButton("Yes") { _, _ ->
             binding.btnFollowXml.setText("Follow")
-            binding.btnFollowXml.setBackgroundColor(Color.CYAN)
+            binding.btnFollowXml.setBackgroundColor(Color.BLUE)
+
+            //    binding.btnFollowXml.setBackgroundColor(Color.CYAN)
 
             userProfileViewModel.deleteFollowersAndFollowing(myId.toString(), userId.toString())
             countNumberOfFollowers(args.userID)

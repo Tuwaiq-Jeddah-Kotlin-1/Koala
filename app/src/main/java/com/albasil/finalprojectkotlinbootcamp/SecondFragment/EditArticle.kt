@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -117,8 +118,18 @@ class EditArticle : Fragment() {
                                 "${binding.etDescraptaionArticleXml.text.toString()}",
                                 categorySelected.toString(), args.editArticle.articleID.toString(), view
                             )
-                            upLoadImage(args.editArticle.articleID.toString())
-                            findNavController().navigate(R.id.profile)
+
+
+                            //------------------View Model Update Image -------------------------
+                            val fileName = args.editArticle.articleID.toString()//System.currentTimeMillis().toString()
+                            imageUrl?.let {
+                                editArticleViewModel.uploadArticleImage(imageUrl!!, fileName)
+                            }
+
+
+
+
+                            findNavController().popBackStack()
 
                         } else {
 
