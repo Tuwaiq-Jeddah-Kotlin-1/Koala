@@ -37,6 +37,8 @@ class AppRepo(val context: Context) {
     private var imageUrl: Uri? = null
 
     val firebase = FirebaseAuthentication()
+    val myID = FirebaseAuth.getInstance().currentUser?.uid
+
 
     suspend fun insertUserToDB(users: Users) {
 
@@ -110,7 +112,6 @@ class AppRepo(val context: Context) {
 
     fun addUserInformation(myID: String, userInformation: String) =
         CoroutineScope(Dispatchers.IO).launch {
-
             val userInfo = hashMapOf("moreInfo" to "${userInformation}",)
             val userRef = Firebase.firestore.collection("Users")
             userRef.document("$myID").set(userInfo, SetOptions.merge()).addOnCompleteListener { it
@@ -138,10 +139,8 @@ class AppRepo(val context: Context) {
 
     fun getUserInfo(userID: String,userInfo :Users): LiveData<Users>{
         val user = MutableLiveData<Users>()
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document("$userID")
+        fireStore.collection("Users").document("$userID")
             .get().addOnCompleteListener { it
-
                 if (it.result?.exists()!!) {
                     userInfo.userName = it.result!!.getString("userName").toString()
                     userInfo.userPhone = it.result!!.getString("userPhone").toString()
@@ -171,15 +170,13 @@ class AppRepo(val context: Context) {
      fun changePassword(oldPassword: String, newPassword: String,confirmNewPassword: String,view:View) {
 
         if (oldPassword.isNotEmpty() && newPassword.isNotEmpty() && confirmNewPassword.toString().isNotEmpty()) { Log.e("new password", "${newPassword.toString()}")
-            Log.e("confirmNewPassword", "${confirmNewPassword.toString()}")
-            if (newPassword.toString().equals(confirmNewPassword.toString())) {
-
+            if (newPassword.equals(confirmNewPassword)) {
                 val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 val userEmail = FirebaseAuth.getInstance().currentUser!!.email
 
                 if (user.toString() != null && userEmail.toString() != null) {
                     val credential: AuthCredential = EmailAuthProvider.getCredential("${user?.email.toString()!!}",
-                        "${oldPassword.toString()}")
+                        "${oldPassword}")
                     user?.reauthenticate(credential)
 
                         ?.addOnCompleteListener {
@@ -204,26 +201,12 @@ class AppRepo(val context: Context) {
                                 Toast.makeText( view.context, " Failed Change Password ", Toast.LENGTH_SHORT).show()
                             }
                         }
-
                 }
-
                 else {
-                  /*  Toast.makeText(
-                        view.context,
-              "كلمة المرور القديمة غير صحيحه ",
-                        Toast.LENGTH_SHORT
-                    ).show()*/
                 }
-
             } else {
-
             }
-
-        } else {
-//            Toast.makeText(view.context, "Please enter all the fields", Toast.LENGTH_LONG).show()
-//
-//            Toast.makeText( view.context, "Please enter all the fields", Toast.LENGTH_SHORT).show()
-        }
+        } else { }
 
     }
 
@@ -238,7 +221,6 @@ class AppRepo(val context: Context) {
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
-                        Log.e("Firestore", error.message.toString())
                         return
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {
@@ -255,22 +237,16 @@ class AppRepo(val context: Context) {
 
     //--------------------editArticleData--------------------------------------------------------
     fun editArticleData(articleID:String,titleArticle:String,descraptaionArticle:String,category:String,imageArticleID: String,view: View){
-//
+
         val current = LocalDateTime.now()
-
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
         val formatted = current.format(formatter)
-        val userRef = Firebase.firestore.collection("Articles")
-        userRef.document("${articleID}")
+        fireStore.collection("Articles").document("${articleID}")
             .update("title",titleArticle,"description",descraptaionArticle,
                 "date",formatted,"category",category,"articleImage",imageArticleID).addOnCompleteListener { it
                 when {
                     it.isSuccessful -> {
-
-                       // Navigation.findNavController(view).navigate(R.id.profile)
-                           Toast.makeText(view.context,"UpDate ",Toast.LENGTH_SHORT).show()
-
+                         Toast.makeText(view.context,"UpDate ",Toast.LENGTH_SHORT).show()
                     }
                     else -> {
                     }
@@ -280,8 +256,7 @@ class AppRepo(val context: Context) {
 
     //--------------------Article Favorite--------------------------------------------------------------------
      fun checkIfFavorite(myID: String,articleID: String,view:View) {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document(myID)
+        firestore.collection("Users").document(myID)
             .collection("Favorite").document(articleID).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
@@ -294,8 +269,7 @@ class AppRepo(val context: Context) {
     //---------------------------------------
      fun upDateFavorite(myID:String,articleID: String,userID: String,view: View) {
         //check in the fireStore
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Users").document(myID)
+        fireStore.collection("Users").document(myID)
             .collection("Favorite").document(articleID).get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!) {
@@ -306,7 +280,7 @@ class AppRepo(val context: Context) {
                 } else {
 
                     addFavorite(articleID,userID)
-                    view?.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    view.favoriteArticle_xml?.setImageResource(R.drawable.ic_baseline_favorite_24)
 
 
                 }
@@ -315,8 +289,7 @@ class AppRepo(val context: Context) {
 
     //---------deleteFavorite------------------------------------------------------------------------------------------
     fun deleteFavorite(myID: String,articleID: String) {
-        val deleteFavoriteArticle = FirebaseFirestore.getInstance()
-        deleteFavoriteArticle.collection("Articles").document(articleID)
+        fireStore.collection("Articles").document(articleID)
             .collection("Favorite").document("${myID.toString()}").delete()
             .addOnCompleteListener {
                 when {
@@ -327,8 +300,7 @@ class AppRepo(val context: Context) {
             }
 
         //-------------deleteFavoriteArticleUser----------------------------------------------------------
-        val deleteFavoriteArticleUser = FirebaseFirestore.getInstance()
-        deleteFavoriteArticleUser.collection("Users").document(myID.toString())
+        fireStore.collection("Users").document(myID.toString())
             .collection("Favorite").document("${articleID.toString()}").delete()
             .addOnCompleteListener {
                 when {
@@ -347,12 +319,9 @@ class AppRepo(val context: Context) {
             "userId" to userID,
         )
         //---------------------------------------------------------------------------------
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val articleRef = Firebase.firestore.collection("Users")
-        articleRef.document(userId.toString()).collection("Favorite")
+      firestore.collection("Users").document(myID.toString()).collection("Favorite")
             .document("${articleID.toString()}")
-            .set(addFavorite).addOnCompleteListener {
-                it
+            .set(addFavorite).addOnCompleteListener {it
                 when {
                     it.isSuccessful -> {
                         Log.d("Add Article", "Done to add User Favorite")
@@ -365,7 +334,7 @@ class AppRepo(val context: Context) {
                 //---------------------------------------------------------------------------------
                 val addToArticle = Firebase.firestore.collection("Articles")
                 addToArticle.document(articleID.toString()).collection("Favorite")
-                    .document("${userId.toString()}").set(addFavorite)
+                    .document("${myID.toString()}").set(addFavorite)
                 //---------------------------------------------------------------------------------
 
                 //delete ...
@@ -378,7 +347,7 @@ class AppRepo(val context: Context) {
         firestore.collection("Articles").document(articleID)
             .collection("Favorite").get()
             .addOnSuccessListener {
-                var numberOfFavorite = it.size()
+                val numberOfFavorite = it.size()
                 val userRef = Firebase.firestore.collection("Articles")
                 userRef.document("$articleID").update("like", numberOfFavorite)
 
@@ -416,8 +385,6 @@ class AppRepo(val context: Context) {
     //----------------------getAllMyArticles-----------------------------------
     fun getAllArticles(articleList: MutableList<Article>): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
-
-        fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").orderBy("date", Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -440,7 +407,6 @@ class AppRepo(val context: Context) {
 
     fun removeAllArticles(articleList: MutableList<Article>): LiveData<MutableList<Article>> {
         val article = MutableLiveData<MutableList<Article>>()
-        fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Articles").orderBy("date", Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -461,17 +427,38 @@ class AppRepo(val context: Context) {
     }
 
 
+    fun articleCategory(typeCategory:String,articleList: MutableList<Article>): LiveData<MutableList<Article>> {
+        val article = MutableLiveData<MutableList<Article>>()
+        fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            articleList.add(dc.document.toObject(Article::class.java))
+                        }
+                    }
+                    article.value = articleList
+                }
+            })
+
+        return article
+    }
 
 
 
 
+
+
+    //-----------------------------------------------------------------------------------------------------------------------
     //-----------------------get Followers And Following------------------------------------------------------------------------
     fun getFollowersAndFollowing(type:String, articleList: MutableList<Users>
     ): LiveData<MutableList<Users>> {
         val article = MutableLiveData<MutableList<Users>>()
-        val myID = FirebaseAuth.getInstance().currentUser?.uid
 
-        fireStore = FirebaseFirestore.getInstance()
         fireStore.collection("Users").document(myID.toString())
             .collection(type.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -497,7 +484,6 @@ class AppRepo(val context: Context) {
         //---------------------------User Profile--------------------------------------------------------------------------
 
     //-------------------Add------------------------
-
     fun addFollowers(myId: String, userId: String) {
         val upDateFollowers = hashMapOf(
             "userId" to "${myId}",
@@ -505,14 +491,12 @@ class AppRepo(val context: Context) {
         fireStore.collection("Users").document("${userId}")
             .collection("Followers").document("${myId}").set(upDateFollowers)
 
-       // countNumberOfFollowers(userId)
     }
     fun addFollowing(myId: String, userId: String) {
         val upDateFollowing = hashMapOf("userId" to "${userId}")
         fireStore.collection("Users").document("${myId}")
             .collection("Following").document("${userId}").set(upDateFollowing)
 
-       // countNumberOfFollowers(userId)
     }
 
 

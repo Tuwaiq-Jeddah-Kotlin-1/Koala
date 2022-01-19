@@ -128,6 +128,7 @@ class Profile : Fragment() {
             })
         }
 
+
         val deleteArticle = ItemTouchHelper(itemTouchHelper)
         deleteArticle.attachToRecyclerView( binding.userProfileRecyclerViewXml)
 
@@ -282,13 +283,9 @@ class Profile : Fragment() {
         }
 
     }
-
     //repo or fire storage
     fun upLoadImage() {
-
-
         val storageReference = FirebaseStorage.getInstance().getReference("imagesUsers/${myID.toString()}")
-
         storageReference.putFile(imageUrl)
             .addOnSuccessListener {
 

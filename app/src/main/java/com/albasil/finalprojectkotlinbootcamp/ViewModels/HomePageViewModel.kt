@@ -18,7 +18,18 @@ class HomePageViewModel(context: Application) : AndroidViewModel(context) {
         })
         return allArticles
     }
+//articleCategory
 
+    //----------------------get All Article Category-----------------------------------
+    fun articleCategory(articleCategory:String,articleList: MutableList<Article>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Article>> {
+
+        val allArticles = MutableLiveData<MutableList<Article>>()
+        repo.articleCategory(articleCategory,articleList).observe(viewLifecycleOwner, {
+            allArticles.postValue(it)
+
+        })
+        return allArticles
+    }
 
     //----------------------getAllMyArticles-----------------------------------
     fun removeAllArticles(articleList: MutableList<Article>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Article>> {

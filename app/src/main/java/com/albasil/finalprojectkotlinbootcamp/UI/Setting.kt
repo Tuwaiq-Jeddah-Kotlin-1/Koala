@@ -159,10 +159,7 @@ class Setting : Fragment() {
         fun dialogChangePassword(view: View) {
 
             val view: View = layoutInflater.inflate(R.layout.change_password_bottom_sheet, null)
-
             val builder = BottomSheetDialog(requireView().context!!)
-            builder.setTitle("Forgot Password")
-
             val oldPassword = view.etOldPassword_xml
             val etNewPassword = view.etNewPassword_xml
             val confirmNewPassword = view.etConfirmNewPassword_xml
@@ -188,7 +185,6 @@ class Setting : Fragment() {
                         val tvConfirmNewPassword_xml: String = this.getResources().getString(R.string.enter_new_password)
 
                         view.tvConfirmNewPassword_xml.helperText=tvConfirmNewPassword_xml
-
                     }
                     else -> {
 

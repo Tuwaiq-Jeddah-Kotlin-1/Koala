@@ -160,28 +160,17 @@ class HomePage : Fragment() {
                     binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
                     articleAdapter.notifyDataSetChanged()
                 })
-            articleCategory(typeCategory.toString())
+
+
+            //----------------------getAllMyArticles-----------------------------------
+            homePageViewModel.articleCategory(typeCategory.toString(),articleList, viewLifecycleOwner)
+                .observe(viewLifecycleOwner, {
+                    binding.recyclerViewArticleXml.adapter = ArticleAdapter(articleList)
+                    articleAdapter.notifyDataSetChanged()
+                })
+
         }
 
     }
 
-    private fun articleCategory(typeCategory:String) {
-        fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("Articles").whereEqualTo("category", typeCategory.toString())
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.e("Firestore", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            articleList.add(dc.document.toObject(Article::class.java))
-                        }
-                    }
-                    articleAdapter.notifyDataSetChanged()
-                }
-            })
-    }
 }

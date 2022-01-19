@@ -41,7 +41,7 @@ class EditArticle : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentEditArticleBinding.inflate(inflater, container, false)
         return binding.root
@@ -109,6 +109,7 @@ class EditArticle : Fragment() {
                 else -> {
                     if (categorySelected.isNullOrEmpty()) {
                     } else {
+                        args.editArticle.articleImage
                         if (imageUrl != null) {
                             editArticleViewModel.editArticle(
                                 "${args.editArticle.articleID.toString()}",
@@ -126,7 +127,7 @@ class EditArticle : Fragment() {
                                 "${binding.etTitleArticleXml.text.toString()}",
                                 "${binding.etDescraptaionArticleXml.text.toString()}",
                                 categorySelected.toString(),
-                                "",
+                                "${args.editArticle.articleImage.toString()}",
                                 view
                             )
 
