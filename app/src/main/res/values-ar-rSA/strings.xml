@@ -98,6 +98,11 @@
 
     <string name="ok">حسنا</string>
 
+    <string name="unfollowUser">الغاء المتابعة</string>
+    <string name="msgUnfollow">هل انت متأكد من الغاء المتابعه</string>
+
+
+
 
 
     <string name="aboutfeather">

@@ -101,6 +101,15 @@
     <string name="ok">Ok</string>
 
 
+    <string name="unfollowUser">Unfollow User</string>
+    <string name="msgUnfollow">Are you sure to unfollow?</string>
+
+
+
+
+
+
+
     <string name="aboutfeather">
         Feather Application allows to publish and share your articles with users, and you can like articles users and follow them through the application and share articles with other applications.
 

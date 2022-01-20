@@ -44,9 +44,9 @@ class UserProfile : Fragment() {
     private lateinit var articleList: ArrayList<Article>
     private lateinit var articleAdapter: ArticleUserProfileAdapter
 
-    private lateinit var userInfo : Users
+    private lateinit var userInfo: Users
 
-    private  var fireStore = FirebaseFirestore.getInstance()
+    private var fireStore = FirebaseFirestore.getInstance()
 
     val myId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -58,7 +58,7 @@ class UserProfile : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View? {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
 
@@ -87,7 +87,11 @@ class UserProfile : Fragment() {
 
         //----------------------getArticlesUser-----------------------------------
 
-        userProfileViewModel.getUserArticles(args.userID.toString(), articleList, viewLifecycleOwner)
+        userProfileViewModel.getUserArticles(
+            args.userID.toString(),
+            articleList,
+            viewLifecycleOwner
+        )
             .observe(viewLifecycleOwner, {
                 binding.userRecyclerViewXml.adapter = ArticleUserProfileAdapter(articleList)
                 articleAdapter.notifyDataSetChanged()
@@ -96,10 +100,14 @@ class UserProfile : Fragment() {
             })
 
         //----------------------------getUserInformation-----------------------------------------------------------------
-        userInfo= Users()
-        userProfileViewModel.getUserInformation(args.userID.toString(),userInfo,viewLifecycleOwner).observe(viewLifecycleOwner,{
+        userInfo = Users()
+        userProfileViewModel.getUserInformation(
+            args.userID.toString(),
+            userInfo,
+            viewLifecycleOwner
+        ).observe(viewLifecycleOwner, {
             binding.userNameXml.text = userInfo.userName
-            binding.userInfoXml.text= userInfo.moreInfo.toString()
+            binding.userInfoXml.text = userInfo.moreInfo.toString()
 
         })
 
@@ -131,7 +139,6 @@ class UserProfile : Fragment() {
         countNumberOfFollowers(args.userID)
 
 
-
         //button following....*********************************
         binding.btnFollowXml.setOnClickListener {
             followersUser(args.userID)
@@ -143,15 +150,16 @@ class UserProfile : Fragment() {
     fun followingOrNot(userId: String) = CoroutineScope(Dispatchers.IO).launch {
         fireStore.collection("Users").document("$userId")
             .collection("Followers").document(myId.toString())
-            .get().addOnCompleteListener {it
+            .get().addOnCompleteListener {
+                it
                 if (it.result?.exists()!!) {
 
-                    binding.btnFollowXml.setText("Following")
+                    binding.btnFollowXml.text=getString(R.string.following)
                     binding.btnFollowXml.setBackgroundColor(Color.GRAY)
 
 
                 } else {
-                    binding.btnFollowXml.setText("Follow")
+                    binding.btnFollowXml.text=getString(R.string.follow)
                     binding.btnFollowXml.setBackgroundColor(Color.BLUE)
 
                 }
@@ -164,17 +172,20 @@ class UserProfile : Fragment() {
     fun followersUser(userId: String) = CoroutineScope(Dispatchers.IO).launch {
         fireStore.collection("Users").document("$userId")
             .collection("Followers").document(myId.toString())
-            .get().addOnCompleteListener { it
+            .get().addOnCompleteListener {it
                 if (it.result?.exists()!!) {
 
                     //To Unfollow user
                     unfollowDialog(myId.toString(), userId.toString())
                 } else {
-                    binding.btnFollowXml.setText("Following")
+                    binding.btnFollowXml.setText(getString(R.string.following))
                     binding.btnFollowXml.setBackgroundColor(Color.GRAY)
 
                     //To Add Followers
-                    userProfileViewModel.addFollowersAndFollowing(myId.toString(), userId.toString())
+                    userProfileViewModel.addFollowersAndFollowing(
+                        myId.toString(),
+                        userId.toString()
+                    )
 
                     countNumberOfFollowers(args.userID)
 
@@ -182,15 +193,16 @@ class UserProfile : Fragment() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     fun unfollowDialog(myId: String, userId: String) {
 
         val builder = android.app.AlertDialog.Builder(context)
-        builder.setTitle("Unfollow User")
-        builder.setMessage("Are you sure to unfollow?")
+        builder.setTitle(getString(R.string.unfollowUser))
+        builder.setMessage(getString(R.string.msgUnfollow))
         builder.setIcon(R.drawable.ic_baseline_cancel_24)
 
-        builder.setPositiveButton("Yes") { _, _ ->
-            binding.btnFollowXml.setText("Follow")
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
+            binding.btnFollowXml.text = getString(R.string.follow)
             binding.btnFollowXml.setBackgroundColor(Color.BLUE)
 
             //    binding.btnFollowXml.setBackgroundColor(Color.CYAN)
@@ -199,11 +211,11 @@ class UserProfile : Fragment() {
             countNumberOfFollowers(args.userID)
         }
 
-        builder.setNegativeButton("Cancel", { _, _ -> })
+        builder.setNegativeButton(getString(R.string.cancel), { _, _ -> })
         builder.show()
     }
 
-     fun countNumberOfFollowers(userId: String){
+    fun countNumberOfFollowers(userId: String) {
 
         //Count Number FOLLOWERS
         fireStore.collection("Users").document(userId)
@@ -219,11 +231,10 @@ class UserProfile : Fragment() {
         fireStore.collection("Users").document("${userId}")
             .collection("Following").get().addOnSuccessListener {
                 var numberOfFollowing = it.size()
-               binding.userFollowingXml.text = numberOfFollowing.toString()
+                binding.userFollowingXml.text = numberOfFollowing.toString()
 
             }
     }
-
 
 
     //------------------------------------------------------------------------------------------------
@@ -254,6 +265,7 @@ class UserProfile : Fragment() {
         intent.data = Uri.parse("tel:${userNumber.toString()}")
         startActivity(intent)
     }
+
     fun userEmail(userEmail: String) {
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // only email apps should handle this
