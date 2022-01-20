@@ -85,6 +85,9 @@
         <argument
             android:name="articleData"
             app:argType="com.albasil.finalprojectkotlinbootcamp.data.Article" />
+        <action
+            android:id="@+id/action_articleInformation_to_comments"
+            app:destination="@id/comments" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"
@@ -165,5 +168,13 @@
         <action
             android:id="@+id/action_tabBarFragment_to_articleInformation"
             app:destination="@id/articleInformation" />
+    </fragment>
+    <fragment
+        android:id="@+id/comments"
+        android:name="com.albasil.finalprojectkotlinbootcamp.SecondFragment.Comments"
+        android:label="Comments" >
+        <argument
+            android:name="artcileID"
+            app:argType="string" />
     </fragment>
 </navigation>

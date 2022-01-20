@@ -113,6 +113,13 @@
                     android:contentDescription="TODO" />
 
                 <ImageView
+                    android:id="@+id/commentButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_baseline_comment_24" />
+
+                <ImageView
                     android:layout_marginStart="50dp"
 
                     android:id="@+id/shearArticle_xml"

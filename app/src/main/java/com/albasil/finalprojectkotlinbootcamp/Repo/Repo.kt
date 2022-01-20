@@ -9,12 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.Navigation
 import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.data.Users
 import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Comment
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
@@ -53,8 +53,8 @@ class AppRepo(val context: Context) {
 
     suspend fun addArticleToFirestore(article: Article, view: View) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val articleRef = Firebase.firestore.collection("Articles")
-            articleRef.document(article.articleID).set(article).addOnCompleteListener {it
+            firestore.collection("Articles").document(article.articleID).set(article)
+                .addOnCompleteListener {it
                 when {
                     it.isSuccessful -> {
 //                        upLoadImage("${article.articleImage.toString()}")
@@ -76,22 +76,6 @@ class AppRepo(val context: Context) {
     }
 
 
-    fun upLoadImage(uIdCategory: String) {
-        val storageReference =
-            FirebaseStorage.getInstance().getReference("imagesArticle/${uIdCategory}")
-
-        imageUrl?.let {
-            storageReference.putFile(it)
-                .addOnSuccessListener {
-
-                    Log.e("addOnSuccessListener", "addOnSuccessListener")
-
-                }.addOnFailureListener {
-                    Log.e("Failed", "Failed")
-
-                }
-        }
-    }
 
 
     fun getUserArticles(userID: String, articleList: MutableList<Article>): LiveData<MutableList<Article>> {
@@ -520,9 +504,56 @@ class AppRepo(val context: Context) {
     fun uploadArticleImage(image: Uri, fileName: String) =
         imageRef.child("imagesArticle/$fileName").putFile(image)
 
+
+
+
+
     ///---------------------------------
     fun uploadUserImage(image: Uri, userID: String) =
         imageRef.child("imagesUsers/$userID").putFile(image)
+
+    suspend fun addComments(comment:Comment, view: View)= CoroutineScope(Dispatchers.IO).launch {
+        try {
+            firestore.collection("Articles").document(comment.articleID.toString()).
+            collection("Comments").add(comment)
+                .addOnCompleteListener {it
+                    when {
+                        it.isSuccessful -> {
+                            Log.e("Add Article", "Done ${comment.dateFormat}")
+                        }
+                        else -> {
+                            Log.e("Field Article", "Error ${comment.userID}")
+                        }}}
+        }catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Log.e("FUNCTION createUserFirestore", "${e.message}")
+            }
+
+    }
+    }
+
+    //----------------------getAllMyArticles-----------------------------------
+    fun getAllComments(articleID: String,commentList: MutableList<Comment>): LiveData<MutableList<Comment>> {
+        val comment = MutableLiveData<MutableList<Comment>>()
+        fireStore.collection("Articles").document(articleID).collection("Comments")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            commentList.add(dc.document.toObject(Comment::class.java))
+                        }
+                    }
+                    comment.value = commentList
+                }
+            })
+
+        return comment
+    }
+
 
 
 

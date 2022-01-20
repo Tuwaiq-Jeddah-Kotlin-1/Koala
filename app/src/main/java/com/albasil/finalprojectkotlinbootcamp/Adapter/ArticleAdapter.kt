@@ -215,7 +215,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                 }
         }
 
-        fun numberOfFavorite(articleID: String) {
+/*        fun numberOfFavorite(articleID: String) {
             firestore.collection("Articles").document(articleID)
                 .collection("Favorite").get()
                 .addOnSuccessListener {
@@ -224,7 +224,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     userRef.document("$articleID").update("like", numberOfFavorite)
                     numberLikes.setText(numberOfFavorite.toString())
                 }
-        }
+        }*/
 
         //----------------------------------------------------------------------------------------------------------------
         init {

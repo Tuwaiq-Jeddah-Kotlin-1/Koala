@@ -39,9 +39,6 @@ class UserArticle : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         binding.tvArticleCategory.setText(args.articleData.category.toString())
         binding.articleDescraptionXml.setText(args.articleData.description.toString())
         binding.tvArticleUserXml.setText(args.articleData.userName.toString())

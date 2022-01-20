@@ -1,5 +1,6 @@
 package com.albasil.finalprojectkotlinbootcamp.SecondFragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,11 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.ArticleInformationViewModel
 import com.albasil.finalprojectkotlinbootcamp.data.Article
@@ -33,6 +39,7 @@ class ArticleInformation : Fragment() {
 
     private var likesCounter: Int = 0
     private val args by navArgs<ArticleInformationArgs>()
+    @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,7 +65,7 @@ class ArticleInformation : Fragment() {
         }
 
         //يتاكد اذا في المفضلة او لا
-      articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleID.toString(),view)
+      articleInformationViewModel.checkIfFavorite(myID.toString(),args.articleData.articleID,view)
 
         //----------------------
         view.favoriteArticle_xml.setOnClickListener {
@@ -69,6 +76,16 @@ class ArticleInformation : Fragment() {
 
         view.shearArticle_xml.setOnClickListener {
             shareArticle("${view.titleArticleInfo_xml.text}", "${view.articleDescraptionInfo_xml.text}")
+        }
+
+
+        view.commentButton.setOnClickListener {
+
+            val articleID = ArticleInformationDirections.actionArticleInformationToComments(args.articleData.articleID.toString())
+           findNavController().navigate(articleID)
+
+          //  NavHostFragment.findNavController(itemData.)
+          //  findNavController().navigate(R.id.comments)
         }
 
         return view
@@ -84,11 +101,8 @@ class ArticleInformation : Fragment() {
         shareArticle.putExtra(Intent.EXTRA_SUBJECT, subjectArticle)
 
         startActivity(shareArticle)
+
     }
-
-
-
-
 
     fun getArtciclePhoto(imagePath: String) {
 

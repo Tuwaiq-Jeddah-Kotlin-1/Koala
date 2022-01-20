@@ -132,7 +132,6 @@ class AddArticle : Fragment() {
                     val UUID = UUID.randomUUID().toString()
                     if (imageUrl != null) {
 
-
                         articleData(
                             "${categorySelected.toString()}",
                             "${binding.etTitleArticleXml.text.toString()}",
@@ -170,8 +169,8 @@ class AddArticle : Fragment() {
         article.userId = userId.toString()
         article.date = formatted.toString()
         article.description = description.toString()
-        article.title = title.toString()
-        article.articleID = articleID.toString()
+        article.title = title
+        article.articleID = articleID
         article.articleImage = articlePhotoID.toString()
 
 
@@ -180,6 +179,8 @@ class AddArticle : Fragment() {
 
         val fileName = articlePhotoID.toString()//System.currentTimeMillis().toString()
         Log.e("TAG", articlePhotoID.toString().toString())
+
+
         imageUrl?.let {
             //progressDialog.show()
             addArticleViewModel.uploadArticleImage(imageUrl!!, fileName)

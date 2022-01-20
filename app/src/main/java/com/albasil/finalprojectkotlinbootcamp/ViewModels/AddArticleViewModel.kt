@@ -37,7 +37,6 @@ class AddArticleViewModel(context: Application,) : AndroidViewModel(context) {
      fun addArticle(article: Article, view: View){
         viewModelScope.launch (Dispatchers.IO){
             repo.addArticleToFirestore(article,view)
-
         }
     }
 
