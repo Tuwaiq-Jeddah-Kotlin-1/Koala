@@ -111,4 +111,6 @@
         Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
     </string>
+    <string name="your_comment">Your comment</string>
+    <string name="send">Send</string>
 </resources>

@@ -1,15 +1,19 @@
 package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.SecondFragment.CommentsDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Comment
@@ -23,6 +27,8 @@ import kotlin.collections.ArrayList
 
 class CommentsAdapter( val commentList: MutableList<Comment>):
     RecyclerView.Adapter<CommentsAdapter.CommentHolder>() {
+
+    val myID=FirebaseAuth.getInstance().currentUser?.uid
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsAdapter.CommentHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
         return CommentsAdapter.CommentHolder(itemView)
@@ -36,6 +42,12 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
         holder.userName.text = comments.userName
         holder.dateComment.text = comments.dateFormat
 
+        if (comments.userID.equals(myID.toString())){
+            holder.cardComment.setBackgroundColor(Color.GRAY)
+            holder.cardComment.contentPaddingRight
+            holder.cardComment.radius.compareTo(20)
+
+        }
 
         //----------------check User Name ----------------------------------------------
         firestore.collection("Users").document(comments.userID).get()
@@ -46,6 +58,21 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
                 } else {
                 }
             }
+
+
+         holder.userName.setOnClickListener {
+         if (comments.userID.equals(myID.toString())){
+             findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
+         }else{
+             val userInformation =
+                 CommentsDirections.actionCommentsToUserProfile(comments.userID.toString())
+             NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(userInformation)
+
+         }
+
+
+   }
+
 
     }
 
@@ -58,6 +85,9 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
         val contentText:TextView=itemView.findViewById(R.id.contentText)
         val userName:TextView=itemView.findViewById(R.id.userName)
         val dateComment:TextView=itemView.findViewById(R.id.dateComment)
+
+        val cardComment:CardView=itemView.findViewById(R.id.cardComment)
+
     }
 
 }

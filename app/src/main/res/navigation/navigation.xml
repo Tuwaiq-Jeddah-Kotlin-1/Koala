@@ -176,5 +176,8 @@
         <argument
             android:name="artcileID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_comments_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
 </navigation>

@@ -535,7 +535,8 @@ class AppRepo(val context: Context) {
     //----------------------getAllMyArticles-----------------------------------
     fun getAllComments(articleID: String,commentList: MutableList<Comment>): LiveData<MutableList<Comment>> {
         val comment = MutableLiveData<MutableList<Comment>>()
-        fireStore.collection("Articles").document(articleID).collection("Comments")
+        fireStore.collection("Articles").document(articleID)
+            .collection("Comments").orderBy("dateFormat", Query.Direction.ASCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {

@@ -6,21 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
 import com.albasil.finalprojectkotlinbootcamp.Adapter.CommentsAdapter
-import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.CommentsViewModel
-import com.albasil.finalprojectkotlinbootcamp.data.Article
 import com.albasil.finalprojectkotlinbootcamp.data.Comment
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentCommentsBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -28,10 +21,10 @@ import java.time.format.DateTimeFormatter
 class Comments : Fragment() {
 
 
-    private lateinit var articleList: MutableList<Comment>
-    private lateinit var articleAdapter: CommentsAdapter
+    private lateinit var commentsList: MutableList<Comment>
+    private lateinit var commentsAdapter: CommentsAdapter
 
-    private val commentViewModel  by activityViewModels<CommentsViewModel>()
+    private val commentViewModel by activityViewModels<CommentsViewModel>()
 
     private val args by navArgs<CommentsArgs>()
 
@@ -40,10 +33,8 @@ class Comments : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         // Inflate the layout for this fragment
-
-
         binding = FragmentCommentsBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -57,20 +48,18 @@ class Comments : Fragment() {
         //----------------user RecyclerView-----------------------------------------
         binding.recyclerViewComment.layoutManager = GridLayoutManager(context, 1)
         binding.recyclerViewComment.setHasFixedSize(true)
-        articleList = mutableListOf()
-        articleAdapter = CommentsAdapter(articleList)
-        binding.recyclerViewComment.adapter = articleAdapter
+        commentsList = mutableListOf()
+        commentsAdapter = CommentsAdapter(commentsList)
+        binding.recyclerViewComment.adapter = commentsAdapter
 
 
 
 
-        commentViewModel.getAllComment(args.artcileID,articleList, viewLifecycleOwner)
+        commentViewModel.getAllComment(args.artcileID, commentsList, viewLifecycleOwner)
             .observe(viewLifecycleOwner, {
-                binding.recyclerViewComment.adapter = CommentsAdapter(articleList)
-                articleAdapter.notifyDataSetChanged()
+                binding.recyclerViewComment.adapter = CommentsAdapter(commentsList)
+                commentsAdapter.notifyDataSetChanged()
             })
-
-
 
         binding.buttonSendComment.setOnClickListener {
 
@@ -80,17 +69,17 @@ class Comments : Fragment() {
             val formatted = current.format(formatter)
 
 
-            val comm=Comment()
-                comm.userID= FirebaseAuth.getInstance().currentUser!!.uid
-            comm.textContent= binding.editTextComment.text.toString()
-            comm.articleID=args.artcileID
-            comm.dateFormat=formatted
+            val comment = Comment()
+            comment.userID = FirebaseAuth.getInstance().currentUser!!.uid
+            comment.textContent = binding.editTextComment.text.toString()
+            comment.articleID = args.artcileID
+            comment.dateFormat = formatted
 
 
 
-            view.let { commentViewModel.addComments(comm, it) }
+            view.let { commentViewModel.addComments(comment, it) }
 
-           // binding.editTextComment.text = null
+            binding.editTextComment.text = null
 
         }
 
