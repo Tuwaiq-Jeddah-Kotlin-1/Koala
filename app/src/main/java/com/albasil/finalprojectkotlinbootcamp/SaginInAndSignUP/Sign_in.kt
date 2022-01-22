@@ -21,6 +21,8 @@ import com.albasil.finalprojectkotlinbootcamp.Firebase.FirebaseAuthentication
 import com.albasil.finalprojectkotlinbootcamp.R
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.SignIn_ViewModel
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignInBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 class Sign_in : Fragment() {
@@ -122,74 +124,49 @@ class Sign_in : Fragment() {
     private fun forgotPasswordDialog(){
 
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Forgot Password")
+        builder.setTitle(getString(R.string.forgotPassword))
         val view: View = layoutInflater.inflate(R.layout.dialog_forgot_password, null)
         val userEmail: EditText = view.findViewById(R.id.etForgotPassword)
         builder.setView(view)
-        builder.setPositiveButton("Rest") { _, _ ->
-            forgotPassword(userEmail)
+        builder.setPositiveButton(getString(R.string.rest)) { _, _ ->
+            if (!userEmail.text.isNullOrEmpty()) {
+                forgotPassword(userEmail)
+            }else{
+                Toast.makeText(context, "The field is Empty", Toast.LENGTH_SHORT).show()
+
+            }
         }
-        builder.setNegativeButton("Close", { _, _ -> })
+        builder.setNegativeButton(getString(R.string.cancel), { _, _ -> })
         builder.show()
     }
 
 
     private fun forgotPassword(userEmail: EditText) {
 
-        val firebseAuth =FirebaseAuth.getInstance()
-        if (userEmail.text.toString().isEmpty()){return}
+        val firebaseAuth =FirebaseAuth.getInstance()
+        if (userEmail.text.isNullOrEmpty()){
+            return
+        }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {return}
-        firebseAuth.sendPasswordResetEmail(userEmail.text.toString())
+        firebaseAuth.sendPasswordResetEmail(userEmail.text.toString())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Send password Reset Email", Toast.LENGTH_SHORT).show()
-                }
-            }
+//                    view?.let {
+//                        Snackbar.make(it, "Send password Reset Email", Snackbar.LENGTH_LONG).apply {
+//                               Toast.makeText(context, "Send password Reset Email", Toast.LENGTH_SHORT).show()
+//}
+//                        }.show()
 
-
-    }
-
-
-/*
-    private fun logInAuthentication() {
-
-                val email: String = binding.etSignInEmailXml.text.toString().trim { it <= ' ' }
-                val password: String = binding.etSignInPasswordXml.text.toString().trim { it <= ' ' }
-
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            findNavController().navigate(R.id.action_sign_in_to_profile)
-                            // val toastMessageWelcome: String = this@Login.getResources().getString(R.string.welcome)
-                           // Toast.makeText(context, "$"toastMessageWelcome" ${email.toString()}", Toast.LENGTH_SHORT).show()
-
-                            val emailPreference: String = email
-                            val passwordPreference: String = password
-                               val checked: Boolean = rememberMe.isChecked
-
-                            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                            editor.putString("EMAIL", emailPreference)
-                            editor.putString("PASSWORD", passwordPreference)
-                            editor.putBoolean("CHECKBOX", checked)
-                            editor.apply()
-
-                            Toast.makeText(context, "toastMessageInfoSaved", Toast.LENGTH_LONG).show()
-
-                           Toast.makeText(context, "${email.toString()}  ${password.toString()} ", Toast.LENGTH_LONG).show()
-
-                        } else {
-                            Toast.makeText(context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
-
-                        }
+                           Toast.makeText(context, "Send password Reset Email", Toast.LENGTH_SHORT).show()
                     }
-            }
+                }
+
+
+            }}
 
 
 
-    */
-
-}
 
 
 

@@ -96,6 +96,9 @@
 
     <string name="cancel">Cancel</string>
     <string name="upDateInformation">Up Date Information</string>
+    <string name="forgotPassword">Forgot Password</string>
+    <string name="rest">Rest</string>
+
 
 
     <string name="ok">Ok</string>
@@ -113,4 +116,6 @@
     </string>
     <string name="your_comment">Your comment</string>
     <string name="send">Send</string>
+    <string name="edit_my_profile">Edit My Profile</string>
+    <string name="update_your_information">Update Your Information</string>
 </resources>

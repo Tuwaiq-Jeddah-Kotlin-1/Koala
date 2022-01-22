@@ -31,7 +31,7 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
     val myID=FirebaseAuth.getInstance().currentUser?.uid
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsAdapter.CommentHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
-        return CommentsAdapter.CommentHolder(itemView)
+        return CommentHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CommentsAdapter.CommentHolder, position: Int) {
@@ -44,10 +44,8 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
 
         if (comments.userID.equals(myID.toString())){
             holder.cardComment.setBackgroundColor(Color.GRAY)
-            holder.cardComment.contentPaddingRight
-            holder.cardComment.radius.compareTo(20)
-
         }
+
 
         //----------------check User Name ----------------------------------------------
         firestore.collection("Users").document(comments.userID).get()
@@ -66,7 +64,7 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
          }else{
              val userInformation =
                  CommentsDirections.actionCommentsToUserProfile(comments.userID.toString())
-             NavHostFragment.findNavController(holder.itemView.findFragment()).navigate(userInformation)
+             findNavController(holder.itemView.findFragment()).navigate(userInformation)
 
          }
 

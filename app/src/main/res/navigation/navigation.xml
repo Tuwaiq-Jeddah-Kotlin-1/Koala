@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_articleInformation_to_comments"
             app:destination="@id/comments" />
+        <action
+            android:id="@+id/action_articleInformation_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"

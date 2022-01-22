@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.albasil.finalprojectkotlinbootcamp.Adapter.firestore
 import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.UI.AddArticleDirections
 import com.albasil.finalprojectkotlinbootcamp.UI.TabBarFragmentDirections
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.AddArticleViewModel
 import com.albasil.finalprojectkotlinbootcamp.ViewModels.ArticleInformationViewModel
@@ -55,13 +56,16 @@ class ArticleInformation : Fragment() {
         view.articleDescraptionInfo_xml.text = " ${args.articleData.description.toString()}"
         //------------------------------------------------------------------------
 
+
+
+
         likesCounter = args.articleData.like.toInt()
 
         if (args.articleData.articleImage.toString().isNotEmpty()) {
             getArtciclePhoto(args.articleData.articleImage.toString())
 
         }else{
-            Toast.makeText(context, "image is null ", Toast.LENGTH_SHORT).show()
+            view.articlePhotoInfo_xml.visibility=View.GONE
         }
 
         //يتاكد اذا في المفضلة او لا
@@ -84,8 +88,19 @@ class ArticleInformation : Fragment() {
             val articleID = ArticleInformationDirections.actionArticleInformationToComments(args.articleData.articleID.toString())
            findNavController().navigate(articleID)
 
-          //  NavHostFragment.findNavController(itemData.)
-          //  findNavController().navigate(R.id.comments)
+
+        }
+
+        view.userNameInfo_xml.setOnClickListener {
+
+                if (args.articleData.userId.equals(myID.toString())){
+                    findNavController().navigate(R.id.profile)
+                }else{
+                    val userInformation =
+                        ArticleInformationDirections.actionArticleInformationToUserProfile(args.articleData.userId)
+                   findNavController().navigate(userInformation)
+
+                }
         }
 
         return view

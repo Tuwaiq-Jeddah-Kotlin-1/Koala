@@ -18,7 +18,16 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/articlePhotoInfo_xml"
+                android:layout_width="match_parent"
+
+                android:layout_height="300dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/feather_logos_transparent2" />
 
             <LinearLayout
 
@@ -52,15 +61,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/articlePhotoInfo_xml"
-                android:scaleType="centerInside"
-
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/feather_logos_transparent2" />
 
             <TextView
                 android:id="@+id/titleArticleInfo_xml"
@@ -106,16 +106,16 @@
                 <ImageView
                     android:layout_marginEnd="30dp"
                     android:id="@+id/favoriteArticle_xml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_favorite_border"
                     android:visibility="visible"
                     android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/commentButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_weight="0"
                     android:src="@drawable/ic_baseline_comment_24" />
 
@@ -123,8 +123,8 @@
                     android:layout_marginStart="50dp"
 
                     android:id="@+id/shearArticle_xml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_share"
                     android:contentDescription="TODO" />
             </LinearLayout>

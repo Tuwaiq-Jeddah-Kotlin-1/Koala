@@ -224,7 +224,7 @@
                     android:layout_marginTop="72dp"
                     android:background="@drawable/logout_style"
                     android:src="@drawable/ic_edit_24"
-                    android:text="Edit My Information"
+                    android:text="@string/edit_my_profile"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

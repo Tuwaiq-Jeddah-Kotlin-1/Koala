@@ -67,6 +67,7 @@ class UserProfile : Fragment() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -150,8 +151,7 @@ class UserProfile : Fragment() {
     fun followingOrNot(userId: String) = CoroutineScope(Dispatchers.IO).launch {
         fireStore.collection("Users").document("$userId")
             .collection("Followers").document(myId.toString())
-            .get().addOnCompleteListener {
-                it
+            .get().addOnCompleteListener { it
                 if (it.result?.exists()!!) {
 
                     binding.btnFollowXml.text=getString(R.string.following)

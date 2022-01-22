@@ -9,13 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.albasil.finalprojectkotlinbootcamp.SecondFragment.ArticleInformationArgs
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentHomePageBinding
 import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserArticleBinding
-import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentUserProfileBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_article_information.view.*
 import java.io.File
 
 
@@ -45,12 +40,21 @@ class UserArticle : Fragment() {
         binding.articleTitleXml.setText(args.articleData.title.toString())
         binding.articleDateXml.setText(args.articleData.date)
 
+        Toast.makeText(context, "tvArticleUserXml ${args.articleData.userName}", Toast.LENGTH_SHORT).show()
+        binding.tvArticleUserXml.text=args.articleData.userName
 
-        getUserPhoto(args.articleData.articleImage)
+
+        if(args.articleData.articleImage.isNullOrEmpty()){
+            binding.imageArticleUserXml.visibility=View.GONE
+        }else{
+            getArticleImage(args.articleData.articleImage)
+
+        }
+
     }
 
 
-    fun getUserPhoto(imagePath:String) {
+    fun getArticleImage(imagePath:String) {
 
         val storageRef = FirebaseStorage.getInstance().reference
             .child("imagesArticle/$imagePath")

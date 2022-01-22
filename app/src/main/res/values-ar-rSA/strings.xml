@@ -89,6 +89,9 @@
     <string name="upDateInformation">Up Date Information</string>
     <string name="about_feather">عن تطبيق ريشة</string>
 
+    <string name="forgotPassword">نسيت كلمة المرور</string>
+    <string name="rest">إعادة</string>
+
 
 
     <string name="myFavorite">المفضلة</string>
@@ -112,5 +115,7 @@
     </string>
     <string name="your_comment">تعليقك...</string>
     <string name="send">ارسال</string>
+    <string name="edit_my_profile">تعديل الملفي الشخصي</string>
+    <string name="update_your_information">تحديث الملف الشخصي</string>
 
 </resources>
