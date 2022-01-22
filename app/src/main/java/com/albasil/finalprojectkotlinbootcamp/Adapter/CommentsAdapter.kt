@@ -2,6 +2,7 @@ package com.albasil.finalprojectkotlinbootcamp.Adapter
 
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.renderscript.Float4
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +43,12 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
         holder.userName.text = comments.userName
         holder.dateComment.text = comments.dateFormat
 
-        if (comments.userID.equals(myID.toString())){
+        if (comments.userID == myID.toString()){
             holder.cardComment.setBackgroundColor(Color.GRAY)
+            holder.cardComment.radius
+        }else{
+            holder.cardComment.setBackgroundColor(Color.WHITE)
+
         }
 
 
@@ -51,7 +56,7 @@ class CommentsAdapter( val commentList: MutableList<Comment>):
         firestore.collection("Users").document(comments.userID).get()
             .addOnCompleteListener {it
                 if (it.result?.exists()!!) {
-                    var userName = it.result!!.getString("userName")
+                    val userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
                 } else {
                 }

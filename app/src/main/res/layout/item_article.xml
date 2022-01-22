@@ -5,12 +5,11 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="10dp"
-        app:cardElevation="20dp"
-        app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_category" />
+                app:srcCompat="@drawable/feather_logos_transparent2" />
 
             <TextView
                 android:id="@+id/tvTitle_xml"
@@ -38,10 +37,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0"
-
                 android:gravity="center"
+
                 android:text="Title"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageItem_xml" />
@@ -54,8 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-
-
                 android:layout_weight="1"
                 android:gravity="center"
 
@@ -82,21 +80,21 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_person"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    app:srcCompat="@drawable/ic_person" />
 
                 <TextView
 
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/tvUserName_xml"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:layout_marginLeft="10dp"
 
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="User name "
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RtlHardcoded" />
             </LinearLayout>
@@ -159,7 +157,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 
 </layout>

@@ -76,7 +76,11 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.imageArticle(article.articleImage)
         holder.imageArticle.load(article.articleImage)
 
-        holder.imageUser(article.userId)
+            holder.imageUser(article.userId)
+            holder.userImageView.load(article.userId)
+
+
+
 
 
         //******************************************************************************************

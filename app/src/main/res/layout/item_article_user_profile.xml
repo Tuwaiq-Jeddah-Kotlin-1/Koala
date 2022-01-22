@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/koala_logos" />
+                app:srcCompat="@drawable/feather_logos_transparent2" />
 
             <LinearLayout
                 android:layout_width="match_parent"

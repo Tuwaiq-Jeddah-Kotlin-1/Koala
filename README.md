@@ -64,7 +64,7 @@
 
 
 ## Conclusion
-#### Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
+#### Feather application was developed by developer Basil AL-Luqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
 
 
