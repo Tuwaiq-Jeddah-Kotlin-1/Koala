@@ -39,8 +39,11 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         holder.userID = favoriteArticle.userId
         holder.image = favoriteArticle.articleImage
 
+        holder.imageUser(favoriteArticle.userId)
 
-                holder.numberLike.visibility = View.GONE
+
+
+        holder.numberLike.visibility = View.GONE
 
         firestore.collection("Users").document(myID.toString()).collection("Favorite")
             .document(favoriteArticle.articleID).get()
@@ -53,7 +56,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
             }
 
 
-        holder.userName.setOnClickListener {
+        holder.userLinearLayout.setOnClickListener {
             if (myID.toString() == holder.userID.toString()) {
                 NavHostFragment.findNavController(holder.itemView.findFragment())
                     .navigate(R.id.profile)
@@ -98,15 +101,12 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
                     //--------------------------------------------------------------------------
 
-
                     if (holder.image.isNullOrBlank()) {
 
                         holder.image_article.visibility = View.GONE
                     }
 
-
                 } else {
-
                     fireStore.collection("Users").document(myID.toString())
                         .collection("Favorite").document(favoriteArticle.articleID).delete()
                 }
@@ -114,8 +114,7 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
 
         //----------------get User Name--------------------------------------------------
         firestore.collection("Users").document(favoriteArticle.userId).get()
-            .addOnCompleteListener {
-                it
+            .addOnCompleteListener { it
                 if (it.result?.exists()!!) {
                     var userName = it.result!!.getString("userName")
                     holder.userName.text = userName.toString()
@@ -148,6 +147,20 @@ class FavoriteAdapter(internal val favoritesList: ArrayList<Article>) :
         val dateArticle: TextView = itemView.findViewById(R.id.articleDate)
         val image_article: ImageView = itemView.findViewById(R.id.imageItem_xml)
         val numberLike: TextView = itemView.findViewById(R.id.numberLike_xml)
+
+        val userImageView: ImageView = itemView.findViewById(R.id.userImage)
+        val userLinearLayout: LinearLayout = itemView.findViewById(R.id.userLinearLayout)
+
+        fun imageUser(userID:String){
+            val storageRef = FirebaseStorage.getInstance().reference
+                .child("//imagesUsers/${userID}")
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                userImageView.load(localFile)
+            }.addOnFailureListener {}
+        }
+
 
         init {
             itemView.setOnClickListener(this)

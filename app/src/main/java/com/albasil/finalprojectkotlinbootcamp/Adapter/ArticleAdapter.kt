@@ -76,6 +76,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         holder.imageArticle(article.articleImage)
         holder.imageArticle.load(article.articleImage)
 
+        holder.imageUser(article.userId)
+
 
         //******************************************************************************************
         //count number likes
@@ -86,7 +88,7 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
             }
 
         //---------------userName----------------------------------------------------------------
-       holder.userName.setOnClickListener {
+       holder.userLinearLayout.setOnClickListener {
             if (myID.toString() == holder.userId.toString()) {
                 findNavController(holder.itemView.findFragment()).navigate(R.id.profile)
 
@@ -117,6 +119,9 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         val userName: TextView = itemView.findViewById(R.id.tvUserName_xml)
         val category: TextView = itemView.findViewById(R.id.tvCategoryItem_xml)
         val imageArticle: ImageView = itemView.findViewById(R.id.imageItem_xml)
+        val userImageView: ImageView = itemView.findViewById(R.id.userImage)
+        val userLinearLayout: LinearLayout = itemView.findViewById(R.id.userLinearLayout)
+
         val numberLikes: TextView = itemView.findViewById(R.id.numberLike_xml)
         val ivFavorite: ImageView = itemView.findViewById(R.id.ivFavorite)
         val tvDateArticle: TextView = itemView.findViewById(R.id.articleDate)
@@ -126,6 +131,17 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
         var image: String?=null
         lateinit var userId: String
         lateinit var articleID:String
+
+        fun imageUser(userID:String){
+            val storageRef = FirebaseStorage.getInstance().reference
+                .child("//imagesUsers/${userID}")
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                userImageView.load(localFile)
+            }.addOnFailureListener {}
+        }
+
 
         //-------------------------------------------------------------------------
         fun imageArticle(articleImage:String){
@@ -210,21 +226,8 @@ class ArticleAdapter(private val articleList: MutableList<Article>) :
                     addToArticle.document(articleID.toString()).collection("Favorite")
                         .document("${userId.toString()}").set(addFavorite)
                     //---------------------------------------------------------------------------------
-                  // numberOfFavorite(articleID)
-
                 }
         }
-
-/*        fun numberOfFavorite(articleID: String) {
-            firestore.collection("Articles").document(articleID)
-                .collection("Favorite").get()
-                .addOnSuccessListener {
-                    var numberOfFavorite = it.size()
-                    val userRef = Firebase.firestore.collection("Articles")
-                    userRef.document("$articleID").update("like", numberOfFavorite)
-                    numberLikes.setText(numberOfFavorite.toString())
-                }
-        }*/
 
         //----------------------------------------------------------------------------------------------------------------
         init {

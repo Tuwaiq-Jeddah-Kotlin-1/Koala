@@ -79,6 +79,7 @@ class AllUsers(internal val usersList: MutableList<Users>) :
         holder.articleCategory.visibility = View.GONE
         holder.dateArticle.visibility = View.GONE
         holder.linearLayOutFavorite.visibility = View.GONE
+        holder.userImageView.visibility = View.GONE
 
         val storageRef = FirebaseStorage.getInstance().reference
             .child("//imagesUsers/${followersArticle.userId.toString()}")
@@ -115,6 +116,7 @@ class AllUsers(internal val usersList: MutableList<Users>) :
         lateinit var articleDescription: String
 
 
+        val userImageView: ImageView = itemView.findViewById(R.id.userImage)
         val userName: TextView = itemView.findViewById(R.id.tvTitle_xml)
         val articleCategory: TextView = itemView.findViewById(R.id.tvCategoryItem_xml)
 

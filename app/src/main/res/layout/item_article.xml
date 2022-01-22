@@ -63,41 +63,52 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvUserName_xml"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle_xml"
                 tools:ignore="RtlHardcoded" />
 
-            <TextView
-
-                android:id="@+id/tvUserName_xml"
+            <LinearLayout
+                android:id="@+id/userLinearLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-
-                android:layout_marginStart="10dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="User name "
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvCategoryItem_xml"
-                app:layout_constraintEnd_toEndOf="@+id/tvTitle_xml"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvTitle_xml"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle_xml"
-                tools:ignore="RtlHardcoded" />
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/tvCategoryItem_xml"
+                app:layout_constraintHorizontal_bias="0.163"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle_xml">
+
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_person"
+                    android:contentDescription="TODO" />
+
+                <TextView
+
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tvUserName_xml"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="User name "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/articleDate"
                 android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_margin="10dp"
                 android:text="2020/12/12"
 
                 android:textSize="14sp"
@@ -106,7 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.026"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserName_xml" />
+                app:layout_constraintTop_toBottomOf="@+id/userLinearLayout" />
 
             <LinearLayout
                 android:id="@+id/linearLayOutFavorite"

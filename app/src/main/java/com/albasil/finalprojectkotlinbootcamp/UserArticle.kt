@@ -39,8 +39,6 @@ class UserArticle : Fragment() {
         binding.tvArticleUserXml.setText(args.articleData.userName.toString())
         binding.articleTitleXml.setText(args.articleData.title.toString())
         binding.articleDateXml.setText(args.articleData.date)
-
-        Toast.makeText(context, "tvArticleUserXml ${args.articleData.userName}", Toast.LENGTH_SHORT).show()
         binding.tvArticleUserXml.text=args.articleData.userName
 
 

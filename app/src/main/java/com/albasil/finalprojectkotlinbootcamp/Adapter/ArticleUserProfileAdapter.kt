@@ -106,7 +106,6 @@ class ArticleUserProfileAdapter(private val articleList:MutableList<Article>): R
 
             val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
-            Toast.makeText(itemView.context, "Dd ${ userName.toString()}", Toast.LENGTH_SHORT).show()
             if(userID.toString()==currentUserUid){
                 val articleData = ProfileDirections.actionProfileToUserArticle(article_data)
 
