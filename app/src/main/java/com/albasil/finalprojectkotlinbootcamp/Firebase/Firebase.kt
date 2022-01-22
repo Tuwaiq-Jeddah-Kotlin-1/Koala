@@ -1,49 +1,55 @@
 package com.albasil.finalprojectkotlinbootcamp.Firebase
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.albasil.finalprojectkotlinbootcamp.Adapter.ArticleAdapter
+import com.albasil.finalprojectkotlinbootcamp.R
+import com.albasil.finalprojectkotlinbootcamp.data.Article
+import com.albasil.finalprojectkotlinbootcamp.data.Users
+import com.albasil.finalprojectkotlinbootcamp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class FirebaseAuthentication {
+class FirebaseAuthentication (){
+    lateinit var binding: FirebaseAuthentication
 
-    fun registerUser(email:String , password:String) {
+    fun logInAuthentication(emailSignIn: String,passwordSignIn: String,view: View) {
 
-        val email2: String = email.toString().trim { it <= ' ' }
-        val password2: String = password.toString().trim { it <= ' ' }
+        val email: String = emailSignIn.toString().trim { it <= ' ' }
+        val password: String = passwordSignIn.toString().trim { it <= ' ' }
 
-        //Phone number must be 10
-
-        // create an instance and create a register with email and password
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email2, password2)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-
-                // if the registration is sucessfully done
                 if (task.isSuccessful) {
-                    //firebase register user
-                    val firebaseUser: FirebaseUser = task.result!!.user!!
+                    findNavController(view).navigate(R.id.action_sign_in_to_tabBarFragment)
 
-
-                    Log.e("OK","registration is sucessfully done")
-                    Log.e("OK","registration is sucessfully doe")
-
-                    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    ///   findNavController().navigate(R.id.categoryFragment)
-
+                 //  Toast.makeText(view.context, "${email.toString()}  ${password.toString()}  ${rememberMe.toString()} ", Toast.LENGTH_LONG).show()
 
                 } else {
-                    Log.e("OK","registration is not  sucessfully done")
-
+                   Toast.makeText(view.context, task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
 
                 }
             }
-
-
     }
 
-
 }
-
 
 

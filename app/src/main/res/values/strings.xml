@@ -1,9 +1,36 @@
 <resources>
-    <string name="app_name">Final Project (Kotlin Bootcamp)</string>
+
+
+    <string-array name="addCategories">
+        <item>Sports</item>
+        <item>Health</item>
+        <item>Business</item>
+        <item>Technology</item>
+        <item>Nature</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>All</item>
+        <item>Sports</item>
+        <item>Health</item>
+        <item>Business</item>
+        <item>Technology</item>
+        <item>Nature</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="sortArticle">
+        <item>date</item>
+        <item>title</item>
+        <item>userName</item>
+
+    </string-array>
+
+    <string name="app_name">Feather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login">login</string>
-    <string name="setting">setting</string>
+    <string name="setting">Settings</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -11,6 +38,84 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="login">Log In</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="change_language">Change language</string>
+    <string name="email">Email</string>
+    <string name="user_name">User Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="new_account">New Account?</string>
+    <string name="sing_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="article">Article</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="follow">Follow</string>
+    <string name="user_information">User Information</string>
+    <string name="call">Call</string>
+    <string name="categories">Categories</string>
+    <string name="date">Date:</string>
+    <string name="more_information">More Information</string>
+    <string name="update_article">UpDate Article</string>
+    <string name="articleDescription">ArticleDescription</string>
+    <string name="title">Title</string>
+    <string name="category">Category</string>
+    <string name="title_article">Title Article</string>
+    <string name="article_category">Article Category</string>
+    <string name="article_user">Article User</string>
+    <string name="image_article_user">Image Article User</string>
+    <string name="article_title">Article Title</string>
+    <string name="enter_old_password">Enter Your Old Password</string>
+    <string name="enter_new_password">Enter Your New Password</string>
+    <string name="confirm_new_password">Enter Your Confirm New Password</string>
+    <string name="home">Home</string>
+    <string name="add_article">Add Article</string>
+    <string name="profile">profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="aboutus">AboutUs</string>
+    <string name="help_and_support">help and support</string>
+    <string name="about_app">About App</string>
+    <string name="about_feather">About Feather App</string>
+    <string name="edit">Edit</string>
+    <string name="your_articles">Your Articles ...</string>
+    <string name="select_one_category">Select One Category</string>
+    <string name="save_changed">Save Changed</string>
+    <string name="english">English</string>
+
+
+    <string name="myFavorite">My Favorite</string>
+    <string name="articles">Articles</string>
+    <string name="users">Users</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="upDateInformation">Up Date Information</string>
+    <string name="forgotPassword">Forgot Password</string>
+    <string name="rest">Rest</string>
+
+
+
+    <string name="ok">Ok</string>
+
+
+    <string name="unfollowUser">Unfollow User</string>
+    <string name="msgUnfollow">Are you sure to unfollow?</string>
+
+
+    <string name="aboutfeather">
+        Feather Application allows to publish and share your articles with users, and you can like articles users and follow them through the application and share articles with other applications.
+
+        Feather application was developed by developer Basil Al-Laqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
+
+    </string>
+    <string name="your_comment">Your comment</string>
+    <string name="send">Send</string>
+    <string name="edit_my_profile">Edit My Profile</string>
+    <string name="update_your_information">Update Your Information</string>
 </resources>

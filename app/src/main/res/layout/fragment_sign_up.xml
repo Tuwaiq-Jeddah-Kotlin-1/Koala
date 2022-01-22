@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,257 +14,207 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <!--
-              </com.google.android.material.textfield.TextInputLayout>
-
-              <com.google.android.material.textfield.TextInputLayout
-                  android:id="@+id/etSignInPasswordLayout"
-                  style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-
-                  android:layout_margin="20dp"
-                  android:hint="@string/editPassword"
-                  app:endIconMode="password_toggle"
-                  app:helperText="Required"
-                  app:helperTextTextColor="#FF0000"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toBottomOf="@+id/etSignInEmailLayout"
-                  app:startIconDrawable="@drawable/ic_baseline_lock_24">
-
-                  <com.google.android.material.textfield.TextInputEditText
-                      android:layout_width="match_parent"
-                      android:textSize="20sp"
-                      android:inputType="textPassword"
-                      android:background="@color/white"
-                      android:id="@+id/etSignInPassword"
-                      android:layout_height="wrap_content" />
-              </com.google.android.material.textfield.TextInputLayout>
-
-              -->
-
-            <!--
-                  <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:background="@drawable/sign_up"
+                android:id="@+id/FrameLayout"
+                app:cardCornerRadius="30dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/email"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.094"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
-
-            <EditText
-                android:paddingLeft="10dp"
-                android:drawableStart="@drawable/ic_email"
-
-                android:id="@+id/etEmail"
-                android:layout_width="345dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/round_border"
-                android:gravity="center_vertical"
-                android:hint="@string/enter_your_email"
-                android:inputType="textEmailAddress"
-                android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
-            -->
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/tvSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/feather_logos_transparent2" />
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:id="@+id/linearLayoutSignUp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="sign_up"
-                android:textSize="60sp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/FrameLayout">
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:id="@+id/etSignUpEmailLayout"
-
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="email"
-                app:endIconMode="clear_text"
-                app:helperText="*"
-                app:helperTextTextColor="#FF0000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
-                app:startIconDrawable="@drawable/ic_email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail_xml"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvFullName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="User Name"
-                app:endIconMode="clear_text"
-                app:helperText="*"
-                app:helperTextTextColor="#FF0000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etSignUpEmailLayout"
-                app:startIconDrawable="@drawable/ic_person">
-
-                <com.google.android.material.textfield.TextInputEditText
-
-                    android:id="@+id/etUserName_xml"
+                <TextView
+                    android:id="@+id/textSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/sign_up"
+                    android:textColor="#1597E5"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
+                <ImageView
 
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/userImage_xml"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="0dp"
+                    android:src="@drawable/ic_person" />
 
-                android:id="@+id/tvPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="phone_number"
-                app:counterEnabled="true"
-                app:counterMaxLength="10"
-                app:endIconMode="clear_text"
-                app:helperText="*"
-                app:helperTextTextColor="#FF0000"
+                <com.google.android.material.textfield.TextInputLayout
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:startIconDrawable="@drawable/ic_phone"
+                    android:id="@+id/etSignUpEmailLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/email"
+                    app:endIconMode="clear_text"
+                    app:helperText="*"
+                    app:helperTextTextColor="#FF0000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FrameLayout"
+                    app:startIconDrawable="@drawable/ic_email">
 
-                app:layout_constraintTop_toBottomOf="@+id/tvFullName">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail_xml"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:inputType="textEmailAddress"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/etPhone_xml"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvFullName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/user_name"
+                    app:counterMaxLength="20"
+                    app:endIconMode="clear_text"
+                    app:helperText="*"
+                    app:helperTextTextColor="#FF0000"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etSignUpEmailLayout"
+                    app:startIconDrawable="@drawable/ic_person">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/etUserName_xml"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/tvPhone"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/phone_number"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10"
+                    app:endIconMode="clear_text"
+                    app:helperText="*"
+
+                    app:helperTextTextColor="#FF0000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFullName"
+
+                    app:startIconDrawable="@drawable/ic_phone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/etPhone_xml"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+
+
+                        android:maxLength="10"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/tvPassword"
+
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:maxLength="10"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_margin="10dp"
+
+                    android:hint="@string/password"
+                    app:endIconMode="password_toggle"
+                    app:helperText="*"
+                    app:helperTextTextColor="#FF0000"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhone"
+                    app:startIconDrawable="@drawable/ic_security_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
 
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:id="@+id/tvPassword"
-
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_margin="20dp"
-                android:hint="Password"
-                app:endIconMode="password_toggle"
-                app:helperText="*"
-                app:helperTextTextColor="#FF0000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPhone">
-
-                <com.google.android.material.textfield.TextInputEditText
-
-                    android:id="@+id/etPassword_xml"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        android:id="@+id/etPassword_xml"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!--
-            <TextView
-                android:id="@+id/tvPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/password"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.113"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewBirthDay" />
+            </LinearLayout>
 
-            <EditText
-
-                android:id="@+id/etPassword"
-                android:layout_width="349dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_border"
-                android:drawableStart="@drawable/ic_baseline_lock_24"
-                android:gravity="center_vertical"
-                android:hint="Enter your Password"
-                android:inputType="textPassword"
-                android:paddingLeft="10dp"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.467"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
-
-
-            -->
-
-
-            <ImageView
-
-                android:id="@+id/userImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_margin="15dp"
-                android:src="@drawable/ic_person"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 
             <Button
                 android:id="@+id/btnSignUp_xml"
-                android:layout_width="112dp"
-                android:layout_height="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="40dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="26dp"
-                android:text="sign_up"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
 
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/logout_style"
+                android:text="@string/sign_up"
+
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.545"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userImage"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutSignUp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
+
+
+
 </layout>

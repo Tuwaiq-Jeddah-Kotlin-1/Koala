@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    android:background="@color/teal_200"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
-        tools:context=".UI.Setting">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
+    tools:context=".UI.Setting">
 
 
     <ScrollView
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,21 +26,20 @@
 
 
             <TextView
-                android:textColor="@color/black"
-
                 android:id="@+id/setting_id"
+
+                style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="16dp"
 
                 android:text="@string/setting"
 
 
-                android:textSize="50sp"
+                android:textSize="35sp"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.193"
+                app:layout_constraintHorizontal_bias="0.156"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginTop="84dp"
-                android:backgroundTint="#9BB8E4"
+                android:backgroundTint="#1597E5"
                 android:orientation="vertical"
                 app:cardCornerRadius="35sp"
                 app:cardElevation="35sp"
@@ -76,113 +76,98 @@
                     tools:ignore="MissingConstraints">
 
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvChangePassword_xml"
+
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            android:textColor="@color/black"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
 
-                            android:id="@+id/tvChangePassword"
-                            android:layout_width="wrap_content"
+                        android:text="@string/change_password"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_security_24" />
 
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="change_password"
-                            android:textSize="25sp" />
-
-
-                        <ImageView
-
-                            android:id="@+id/imageView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_email"
-                            android:layout_weight="1" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <View
+                        android:id="@+id/divider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <TextView
                         android:id="@+id/changeLanguag_id"
-
-                        android:layout_width="wrap_content"
-
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:layout_margin="10dp"
-                        android:text="change_language"
 
-                        android:textColor="@color/black"
-                        android:textSize="25sp" />
-                    <ImageView
+                        android:text="@string/change_language"
 
-                        android:id="@+id/imageView5"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_language_24" />
+
+                    <View
+                        android:id="@+id/divider2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_email"
-                        android:layout_weight="1" />
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
-
-                </LinearLayout>
                     <Switch
-                        android:id="@+id/switch1"
+                        android:id="@+id/switchDarkMode"
 
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+
+                        android:layout_height="0dp"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:text="Dark Mode"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:drawableStart="@drawable/ic_dark_mode_24"
+                        android:text="@string/dark_mode"
+
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
                         tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
-
-
-
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:textColor="@color/black"
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="15dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@+id/cardSettings" />
 
+            <TextView
                 android:id="@+id/aboutApp"
+                style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="48dp"
-
-                android:text="About App"
-
-
-                android:textSize="50sp"
-
+                android:layout_marginTop="20dp"
+                android:text="@string/about_app"
+                android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.193"
+                app:layout_constraintHorizontal_bias="0.192"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardSettings"
+                app:layout_constraintTop_toBottomOf="@+id/divider6"
                 tools:ignore="MissingConstraints" />
-
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardAboutApp"
-
-
 
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginTop="84dp"
-                android:backgroundTint="#9BB844"
+                android:backgroundTint="#1597E5"
                 android:orientation="vertical"
                 app:cardCornerRadius="35sp"
                 app:cardElevation="35sp"
@@ -207,83 +192,36 @@
                     tools:ignore="MissingConstraints">
 
 
-
-
-
-
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/aboutUs_id"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:padding="10dp"
-                        android:layout_height="wrap_content">
+                        android:text="@string/aboutus"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_unknown_24" />
 
-
-                        <TextView
-                            android:id="@+id/aboutUs_id"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="AboutUs"
-                            android:textColor="#000000"
-                            android:textSize="25sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-
-                            android:id="@+id/imageView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:src="@drawable/ic_email"
-                            app:layout_constraintBottom_toBottomOf="@+id/aboutUs_id"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.906"
-                            app:layout_constraintStart_toEndOf="@+id/aboutUs_id"
-                            app:layout_constraintTop_toTopOf="@+id/aboutUs_id"
-                            app:layout_constraintVertical_bias="0.4" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <View
+                        android:id="@+id/divider3"
                         android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/helpAndSupport_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
                         android:layout_margin="10dp"
-                        android:padding="10dp"
-                        android:layout_height="wrap_content">
+                        android:text="@string/help_and_support"
+                        android:textColor="#FFFFFF"
 
-
-                        <TextView
-                            android:id="@+id/helpAndSupport_id"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="wrap_content"
-                            android:textSize="25sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:textColor="@color/black"
-                            android:layout_margin="10dp"
-                            android:text="help and support"
-                            tools:ignore="DuplicateIds" />
-
-                        <ImageView
-
-                            android:id="@+id/imageView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:src="@drawable/ic_email"
-                            app:layout_constraintBottom_toBottomOf="@+id/helpAndSupport_id"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.797"
-                            app:layout_constraintStart_toEndOf="@+id/helpAndSupport_id"
-                            app:layout_constraintTop_toTopOf="@+id/helpAndSupport_id"
-                            app:layout_constraintVertical_bias="1.0" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        android:textSize="16sp"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_help_outline_24"
+                        tools:ignore="DuplicateIds" />
 
 
                 </LinearLayout>
@@ -293,37 +231,41 @@
 
             <LinearLayout
                 android:id="@+id/linearLogout"
-
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+
+
+                android:layout_height="match_parent"
+                android:layout_margin="30sp"
+                android:gravity="center"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardAboutApp"
                 tools:ignore="MissingConstraints">
 
                 <Button
-                    android:id="@+id/buttonLogOut"
+                    android:id="@+id/buttonLogOut_xml"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:text="signout"
+                    android:layout_marginLeft="30dp"
 
+
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/button_edit"
+                    android:text="@string/sign_out"
                     android:textColor="#FF0000"
-                    android:textSize="35sp" />
+
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                   />
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

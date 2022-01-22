@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/home"
+        android:id="@+id/tabBarFragment"
+        android:icon="@drawable/ic_home"/>
+
+
+<!--    <item android:title="@string/add_article"-->
+<!--        android:id="@+id/addArticle"-->
+<!--        android:icon="@drawable/ic_add_24"/>-->
+
+
+    <item android:title="@string/profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person"/>
+
+    <item android:title="@string/setting"
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_table_rows"/>
+</menu>
