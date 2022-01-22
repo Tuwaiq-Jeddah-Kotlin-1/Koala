@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
 
-<!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
+      <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
     <style name="AppBottomSheetDialogTheme"
         parent="Theme.Design.BottomSheetDialog">
@@ -22,12 +22,8 @@
     </style>
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-<!--        <item name="android:background">@drawable/bottom_sheet</item>-->
+        <item name="android:background">@drawable/bottom_sheet</item>
     </style>
-
-
-
-
 
 
     <!--<style name="Theme.FinalProjectKotlinBootcamp.NoActionBar">
@@ -43,8 +39,6 @@
 
 
     <style name="TapLayOut">
-
-
 
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>

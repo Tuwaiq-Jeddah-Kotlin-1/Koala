@@ -7,10 +7,10 @@
         android:topRightRadius="30dp"
         android:topLeftRadius="30dp"/>
     <solid
-        android:color="#FF1597E5"/>
+        android:color="#FFFFFF"/>
 
 
-    <gradient android:startColor="#1597E5"/>
+    <gradient android:startColor="#FFFFFF"/>
     <gradient android:endColor="#FFFFFF"/>
 
 </shape>
