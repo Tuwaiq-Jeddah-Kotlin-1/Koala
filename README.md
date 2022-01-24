@@ -45,39 +45,29 @@
 ### Feather  Application allows  to publish and share your articles with users, and you can like articles  users and follow them through the application and share articles with other applications.
 
 
-![Screenshot 6](https://user-images.githubusercontent.com/91476827/150794274-9703437f-203f-402c-a23c-6dfe67067b27.jpg)
-![Screenshot 6](https://user-images.githubusercontent.com/91476827/150794340-9a609456-9677-416b-b3d3-9f939fb6f665.jpg)
-![Screenshot 5](https://user-images.githubusercontent.com/91476827/150794356-4b000978-59b3-433e-a8ac-b14f2936106a.jpg)
-![Screenshot 1](https://user-images.githubusercontent.com/91476827/150794367-8d05aaf9-d885-44a9-a08f-2e9111da5e12.jpg)
-![Screenshot 2](https://user-images.githubusercontent.com/91476827/150794383-c56db9a3-c07d-467f-a662-c4a696e8be32.jpg)
-![Screenshot 3](https://user-images.githubusercontent.com/91476827/150794403-1092bd7e-e30f-4f71-bf1c-e6e6a7125877.jpg)
-![Screenshot 4](https://user-images.githubusercontent.com/91476827/150794417-8ef5caf5-52a8-42f2-b92f-41d0ca236947.jpg)
+
 
 ## Interfaces App
 
 ![Feather App Logo](https://user-images.githubusercontent.com/91476827/148527193-6db4948f-8337-4888-b193-669311ad3764.png)
 
 
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/150794367-8d05aaf9-d885-44a9-a08f-2e9111da5e12.jpg)
+![Screenshot 1](https://user-images.githubusercontent.com/91476827/150794367-8d05aaf9-d885-44a9-a08f-2e9111da5e12.jpg)
 
 
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/150794383-c56db9a3-c07d-467f-a662-c4a696e8be32.jpg)
+![Screenshot 2](https://user-images.githubusercontent.com/91476827/150794383-c56db9a3-c07d-467f-a662-c4a696e8be32.jpg)
 
 
-
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/150794403-1092bd7e-e30f-4f71-bf1c-e6e6a7125877.jpg)
-
+![Screenshot 3](https://user-images.githubusercontent.com/91476827/150794403-1092bd7e-e30f-4f71-bf1c-e6e6a7125877.jpg)
 
 
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/149834108-f3cbf180-a956-49df-8226-425859c65b6a.jpg)
+![Screenshot 4](https://user-images.githubusercontent.com/91476827/150794417-8ef5caf5-52a8-42f2-b92f-41d0ca236947.jpg)
 
 
+![Screenshot 5](https://user-images.githubusercontent.com/91476827/150794356-4b000978-59b3-433e-a8ac-b14f2936106a.jpg)
 
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/150794356-4b000978-59b3-433e-a8ac-b14f2936106a.jpg)
 
-
-![Tuwaiq Academy Logo](https://user-images.githubusercontent.com/91476827/150794274-9703437f-203f-402c-a23c-6dfe67067b27.jpg)
-
+![Screenshot 6](https://user-images.githubusercontent.com/91476827/150794340-9a609456-9677-416b-b3d3-9f939fb6f665.jpg)
 
 
 ## Conclusion
