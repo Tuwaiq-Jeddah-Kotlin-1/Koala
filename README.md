@@ -23,9 +23,11 @@
 - Having application notification.
 - Animations
 
+:dart:	
+:trophy:	
+:reminder_ribbon:	
 
-
-## **Used Technologies**
+## **Used Technologies** :magic_wand:	
 - MVVM Pattern
 - Firebase
 - Coil
@@ -38,7 +40,7 @@
 - Shared preference
 
 
-## App idea
+## App idea :bulb:	
 
 ### Feather  Application allows  to publish and share your articles with users, and you can like articles  users and follow them through the application and share articles with other applications.
 
@@ -68,7 +70,7 @@
 ![Screenshot 6](https://user-images.githubusercontent.com/91476827/150794340-9a609456-9677-416b-b3d3-9f939fb6f665.jpg)
 
 
-## Conclusion
+## Conclusion :reminder_ribbon:	
 #### Feather application was developed by developer Basil AL-Luqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
 
