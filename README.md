@@ -73,3 +73,9 @@
 
 
 
+[SRS](https://drive.google.com/file/d/1jpAqaH3_IUIU0YSwCOZk-wFDjZA62s3U/view)
+
+[Presentation](https://drive.google.com/file/d/1uqoxDf5lRSu_n2fWLMcE2a9h5HWBPZIf/view)
+
+[Figma](https://www.figma.com/file/iun1dFK68lNcB5EzBOpirk/Feather-App)
+
