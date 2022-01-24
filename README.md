@@ -35,6 +35,8 @@
 - WorkManager
 - Fragments
 - Localization
+- Shared preference
+
 
 # **Final App 🎉**
 
