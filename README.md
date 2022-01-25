@@ -28,7 +28,7 @@
 :reminder_ribbon:	
 
 ## **Used Technologies** :magic_wand:	
-- MVVM Pattern
+- MVVM Architecture
 - Firebase
 - Coil
 - Lottie
