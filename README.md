@@ -69,9 +69,8 @@
 
 
 ## Demo Account
-- shady@gmail.com
-- sumaya@gmail.com
-pass 123456
+- shady@gmail.com , pass 123456
+- sumaya@gmail.com , pass 123456
 
 ## Conclusion :reminder_ribbon:	
 #### Feather application was developed by developer Basil AL-Luqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
