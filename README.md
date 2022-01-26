@@ -4,7 +4,7 @@
 
 # **Final Project(Kotlin Bootcamp)🎉**
 
-## **Requirements**
+## **Requirements** :dart:	
 
 - Brainstorm your idea for the android application
 - Design activities and fragments according to your idea
@@ -23,9 +23,6 @@
 - Having application notification.
 - Animations
 
-:dart:	
-:trophy:	
-:reminder_ribbon:	
 
 ## **Used Technologies** :magic_wand:	
 - MVVM Architecture
