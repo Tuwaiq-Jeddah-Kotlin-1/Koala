@@ -67,6 +67,12 @@
 ![Screenshot 6](https://user-images.githubusercontent.com/91476827/150794340-9a609456-9677-416b-b3d3-9f939fb6f665.jpg)
 
 
+
+## Demo Account
+- shady@gmail.com
+- sumaya@gmail.com
+pass 123456
+
 ## Conclusion :reminder_ribbon:	
 #### Feather application was developed by developer Basil AL-Luqmani under the supervision of instructor Shady Selim and instructor Sumaya Altuwairqi.
 
@@ -77,4 +83,5 @@
 [Presentation](https://drive.google.com/file/d/1uqoxDf5lRSu_n2fWLMcE2a9h5HWBPZIf/view)
 
 [Figma](https://www.figma.com/file/iun1dFK68lNcB5EzBOpirk/Feather-App)
+
 
